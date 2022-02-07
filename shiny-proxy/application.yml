@@ -1,0 +1,23 @@
+proxy:
+  title: EMBL-EBI MGnify Notebook Server
+  logo-url: https://raw.githubusercontent.com/EBI-Metagenomics/ebi-metagenomics-client/new-client/public/images/mgnify_logo.svg
+  landing-page: /
+  heartbeat-rate: 10000
+  heartbeat-timeout: 60000
+  port: 8080
+  authentication: none
+  specs:
+    - id: mgnify-notebook-lab
+      display-name: EMBL-EBI MGnify | Jupyter Notebook Lab
+      description: Examples of accessing MGnify metagenomics data using Python and R notebooks.
+      container-cmd: ["start-notebook.sh", "--NotebookApp.token=''", "--NotebookApp.base_url=#{proxy.getRuntimeValue('SHINYPROXY_PUBLIC_PATH')}"]
+      container-image: ebi-metagenomics/notebooks
+      container-volumes: [ "/tmp/jupyter/#{proxy.userId}/work:/home/jovyan/work"]
+      port: 8888
+      websocket-reconnection-mode: None
+      target-path: "#{proxy.getRuntimeValue('SHINYPROXY_PUBLIC_PATH')}"
+      container-env:
+        JUPYTER_ENABLE_LAB: yes
+logging:
+  file:
+    name: shinyproxy.log
