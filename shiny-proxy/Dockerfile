@@ -1,4 +1,9 @@
-FROM openanalytics/shinyproxy-juypter-datascience
+FROM jupyter/datascience-notebook
+COPY shiny-proxy/custom.js /home/jovyan/.jupyter/custom/custom.js
+USER root
+ENV CHOWN_HOME_OPTS='-R'
+ENV CHOWN_HOME='yes'
+
 COPY dependencies/environment.yml /tmp/environment.yml
 COPY dependencies/dependencies.R /tmp/dependencies.R
 RUN mamba env update -n base --file /tmp/environment.yml
