@@ -25,14 +25,21 @@ Copy one of the URLs from the console into your browser to open it.
 The notebooks can also be built into a Docker container suitable for running as an Application on ShinyProxy.
 The configuration for this is in the `shiny-proxy` dir.
 
-### (re)Creating the Docker
+### Testing with a locally built Docker
 ```bash
-docker build -t ebi-metagenomics/notebooks -f shiny-proxy/Dockerfile .
+docker build -f shiny-proxy/Dockerfile .
 ```
+Put the created image ID into the value of `shiny-proxy/application.yml:container-img`.
 
-### Running ShinyProxy locally
+### Updating the image on Quay.io
+There is an on-push build trigger for this repository that builds images to quay.io/quay.io/microbiome-informatics/emg-notebooks.dev
+
+Just push to the repository (all branches are built and tagged). If you push to the `main` branch, the `:latest` tag will point to that version, once it is built.
+
+### Running ShinyProxy
 - [Download the latest version of ShinyProxy](https://www.shinyproxy.io/downloads/) (>=2.6 is required). It is a JAR, so you need Java installed. i.e., download ShinyProxy into this repo directory.
 - The `application.yml` file must be in the same directory as the location you launch Shiny Proxy from.
+- `docker pull quay.io/microbiome-informatics/emg-notebooks.dev`
 - `cd shiny-proxy`, `java -jar shinyproxy-2.6.0.jar`
 - Browse to the ShinyProxy URL, likely localhost:8080
 
