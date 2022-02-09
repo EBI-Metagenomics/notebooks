@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook
+FROM jupyter/datascience-notebook:r-4.1.2
 COPY shiny-proxy/custom.js /home/jovyan/.jupyter/custom/custom.js
 USER root
 ENV CHOWN_HOME_OPTS='-R'

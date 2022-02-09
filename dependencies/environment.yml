@@ -3,8 +3,8 @@
 channels:
   - conda-forge
 dependencies:
-  - bioconda::bioconductor-phyloseq
+  - bioconda::bioconductor-phyloseq=1.38.0
   - pip
   - pip:
     - jsonapi-client
-  - r-vegan
+  - r-vegan=2.5_7
