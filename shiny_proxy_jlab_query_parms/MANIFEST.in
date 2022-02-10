@@ -1,19 +1,21 @@
 include LICENSE
-include README.md
+include *.md
 include pyproject.toml
-include jupyter-config/jlab_redir_from_url_query_params.json
+recursive-include jupyter-config *.json
 
 include package.json
 include install.json
 include ts*.json
 include yarn.lock
 
-graft jlab_redir_from_url_query_params/labextension
+graft shiny_proxy_jlab_query_parms/labextension
 
 # Javascript files
-graft lib
+graft src
 graft style
 prune **/node_modules
+prune lib
+prune binder
 
 # Patterns to exclude from any directory
 global-exclude *~

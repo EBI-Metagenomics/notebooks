@@ -8,6 +8,6 @@ COPY dependencies/dependencies.R /tmp/dependencies.R
 RUN mamba env update -n base --file /tmp/environment.yml
 RUN Rscript /tmp/dependencies.R
 
-COPY jlab_redir_from_url_query_params /tmp/jlab_redir_from_url_query_params
-RUN jlpm --cwd /tmp/jlab_redir_from_url_query_params run build
-RUN jupyter labextension install /tmp/jlab_redir_from_url_query_params
+COPY shiny_proxy_jlab_query_parms /tmp/shiny_proxy_jlab_query_parms
+RUN pip install /tmp/shiny_proxy_jlab_query_parms
+RUN jlpm cache clean  # cleans yarn cache else chown'ing home is very slow on container start

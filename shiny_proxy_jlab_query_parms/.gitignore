@@ -1,9 +1,10 @@
 *.bundle.*
+lib/
 node_modules/
 *.egg-info/
 .ipynb_checkpoints
 *.tsbuildinfo
-jlab_redir_from_url_query_params/labextension
+shiny_proxy_jlab_query_parms/labextension
 
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python
@@ -25,6 +26,7 @@ dist/
 downloads/
 eggs/
 .eggs/
+lib/
 lib64/
 parts/
 sdist/

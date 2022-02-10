@@ -1,5 +1,0 @@
-{
-  "packageManager": "python",
-  "packageName": "jlab_redir_from_url_query_params",
-  "uninstallInstructions": "Use your Python package manager (pip, conda, etc.) to uninstall the package jlab_redir_from_url_query_params"
-}
