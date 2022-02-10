@@ -6,6 +6,7 @@ proxy:
   heartbeat-timeout: 60000
   port: 8080
   authentication: none
+  container-wait-time: 120000
   specs:
     - id: mgnify-notebook-lab
       display-name: EMBL-EBI MGnify | Jupyter Notebook Lab

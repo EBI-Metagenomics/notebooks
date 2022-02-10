@@ -1,0 +1,7 @@
+{
+  "NotebookApp": {
+    "nbserver_extensions": {
+      "shiny_proxy_jlab_query_parms": true
+    }
+  }
+}

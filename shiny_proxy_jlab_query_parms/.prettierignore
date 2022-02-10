@@ -1,0 +1,5 @@
+node_modules
+**/node_modules
+**/lib
+**/package.json
+shiny_proxy_jlab_query_parms
