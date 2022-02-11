@@ -1,5 +1,7 @@
 # EMBL-EBI MGnify example notebooks
 [![Quay.io docker container build](https://quay.io/repository/microbiome-informatics/emg-notebooks.dev/status)](https://quay.io/repository/microbiome-informatics/emg-notebooks.dev)
+![Tests](https://github.com/ebi-metagenomics/notebooks/actions/workflows/test.yaml/badge.svg)
+
 
 This repository contains example notebooks, written in Python and R, for using the [MGnify API](https://www.ebi.ac.uk/metagenomics/api/).
 
