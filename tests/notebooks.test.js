@@ -1,7 +1,7 @@
 
 describe('Shiny Proxy launcher', () => {
   beforeAll(async () => {
-    await page.goto('http://localhost:8080')
+    await page.goto('http://127.0.0.1:8080')
   })
 
   it('should display mgnify app', async () => {
@@ -15,7 +15,7 @@ describe('Jupyter Lab launcher', () => {
   let frame
 
   beforeAll(async () => {
-    await page.goto('http://localhost:8080/app/mgnify-notebook-lab')
+    await page.goto('http://127.0.0.1:8080/app/mgnify-notebook-lab')
     await page.screenshot({ path: 'launching_jl.png' })
     const frameHandle = await page.waitForSelector('iframe')
     frame = await frameHandle.contentFrame();
@@ -33,7 +33,7 @@ describe('Deep-linking to a notebook', () => {
   let frame
 
   beforeAll(async () => {
-    await page.goto('http://localhost:8080/app/mgnify-notebook-lab?jlpath=mgnify-examples/home.ipynb', {waitUntil: 'networkidle2'})
+    await page.goto('http://127.0.0.1:8080/app/mgnify-notebook-lab?jlpath=mgnify-examples/home.ipynb', {waitUntil: 'networkidle2'})
     const frameHandle = await page.waitForSelector('iframe')
     frame = await frameHandle.contentFrame();
     await frame.waitForSelector('#main')
@@ -50,7 +50,7 @@ describe('Environment variable insertion', () => {
   let frame
 
   beforeAll(async () => {
-    await page.goto('http://localhost:8080/app/mgnify-notebook-lab?jlvar_TEST=TESTYMCTESTERSON', {waitUntil: 'networkidle2'})
+    await page.goto('http://127.0.0.1:8080/app/mgnify-notebook-lab?jlvar_TEST=TESTYMCTESTERSON', {waitUntil: 'networkidle2'})
     const frameHandle = await page.waitForSelector('iframe')
     frame = await frameHandle.contentFrame();
     await frame.waitForSelector('.jp-Launcher')
