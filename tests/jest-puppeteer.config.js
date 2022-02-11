@@ -1,6 +1,6 @@
 module.exports = {
   launch: {
-    headless: false
+    headless: true
   },
   server: {
     command: "cd ../shiny-proxy; java -jar shinyproxy-2.6.0.jar",
