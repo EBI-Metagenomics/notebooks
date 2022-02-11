@@ -36,9 +36,5 @@ jobs:
         tags: quay.io/microbiome-informatics/emg-notebooks.dev
 
     - name: Run tests
-      run: |
-        cd tests
-        npm ci
-        npm test
-      env:
-        CI: true
+      working-directory: ./tests
+      run: npm test
