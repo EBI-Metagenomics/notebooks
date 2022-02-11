@@ -3,3 +3,4 @@ shinyproxy.log*
 *.ipynb_checkpoints
 *.csv
 .DS_Store
+node_modules
