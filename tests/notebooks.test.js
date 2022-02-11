@@ -14,7 +14,8 @@ describe('Jupyter Lab launcher', () => {
   let frame
 
   beforeAll(async () => {
-    await page.goto('http://localhost:8080/app/mgnify-notebook-lab', {waitUntil: 'networkidle2'})
+    await page.goto('http://localhost:8080/app/mgnify-notebook-lab')
+    await page.screenshot({ path: 'launching_jl.png' })
     const frameHandle = await page.waitForSelector('iframe')
     frame = await frameHandle.contentFrame();
     await frame.waitForSelector('.jp-Launcher')
