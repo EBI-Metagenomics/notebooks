@@ -6,6 +6,7 @@ describe('Shiny Proxy launcher', () => {
 
   it('should display mgnify app', async () => {
     await expect(page).toMatch('EMBL-EBI MGnify | Jupyter Notebook Lab')
+    await page.screenshot({ path: 'shiny_proxy_launched.png' })
   })
 })
 

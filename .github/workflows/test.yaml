@@ -47,4 +47,6 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: launching-jupyter-lab-screenshot
-        path: tests/launching_jl.png
+        path: |
+          tests/launching_jl.png
+          tests/shiny_proxy_launched.png
