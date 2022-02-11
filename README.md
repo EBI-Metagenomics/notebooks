@@ -56,3 +56,15 @@ The extension does two things:
 2. **Sets ENV VARs based on query params.** On Jupyter Lab launch, it sends the querystring parameters to a Jupyter Lab "server-side" extension handler. The handler takes any querystring params beginning `?jlvar_` and sets corresponding ENV VARs. E.g., `?jlvar_MGYS=MGYS007` results in an ENV VAR of `MGYS=MGYS007` being available to any kernels launched after this. These ENV VARs can then, of course, be read in Notebooks (e.g. `os.getenv('MGYS')` in Python or `Sys.getenv('MGYS')` in R). There are helper utilities for both R and Python, that try to read such an ENV VAR otherwise ask for user input. These are in `notebooks-src/notebooks/{Python Examples | R Examples}/lib/variable_utils.{R|Python}`.
 
 Together, this means a URL like: `localhost:8080/app/mgnify-notebook-lab?jlpath=notebooks/home.ipynb&jlvar_MGYS=MGYS00005116` will trigger Shiny Proxy to start the container, then open the `home` notebook, and have an MGYS environment variable ready to use in code.
+
+
+## Testing
+A small integration test suite is written using Jest-Puppetteer.
+You need to have built or pulled the shiny-proxy/Dockerfile (`quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
+The test suite runs Shiny Proxy, and makes sure Jupyter Lab opens, the deep-linking works, and variable insertion works in R and Python.
+
+```bash
+cd tests
+npm install
+npm test
+```
