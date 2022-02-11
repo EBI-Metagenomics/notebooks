@@ -37,8 +37,8 @@ jobs:
       with:
         context: .
         file: ./shiny-proxy/Dockerfile
-        push: false
-        tags: quay.io/microbiome-informatics/emg-notebooks.dev:latest
+        load: true
+        tags: quay.io/microbiome-informatics/emg-notebooks.dev
 
     - name: Run tests
       working-directory: ./tests
