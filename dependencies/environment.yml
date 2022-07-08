@@ -4,7 +4,7 @@ channels:
   - conda-forge
 dependencies:
   - bioconda::bioconductor-phyloseq=1.38.0
-  - bioconda::bioconductor-siamcat=1.5.1
+  - bioconda::bioconductor-siamcat
   - pip
   - pip:
     - jsonapi-client
