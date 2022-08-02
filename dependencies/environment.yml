@@ -5,6 +5,8 @@ channels:
 dependencies:
   - bioconda::bioconductor-phyloseq=1.38.0
   - bioconda::bioconductor-siamcat
+  - bioconda::bioconductor-metagenomeseq
+  - bioconda::bioconductor-microbiomeMarker
   - pip
   - pip:
     - jsonapi-client
