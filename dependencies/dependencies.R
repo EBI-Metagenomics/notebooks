@@ -2,4 +2,5 @@
 
 # Extra pacakges not installed in Docker image, or installable via Conda:
 
+require("devtools")
 devtools::install_github("beadyallen/MGnifyR")
