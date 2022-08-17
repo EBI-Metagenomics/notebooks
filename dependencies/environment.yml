@@ -6,7 +6,7 @@ dependencies:
   - bioconda::bioconductor-phyloseq=1.38.0
   - bioconda::bioconductor-metagenomeSeq=1.36.0
   - bioconda::bioconductor-microbiomeMarker=1.0.0
-  - bioconda::bioconductor-siamcat-1.14.0
+  - bioconda::bioconductor-siamcat=1.14.0
   - pip
   - pip:
     - jsonapi-client

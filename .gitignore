@@ -4,3 +4,4 @@ shinyproxy.log*
 *.csv
 .DS_Store
 node_modules
+tests/*.png

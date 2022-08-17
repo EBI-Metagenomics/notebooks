@@ -8,7 +8,7 @@ COPY dependencies/dependencies.R /tmp/dependencies.R
 COPY dependencies/populate-mgnifyr-cache.R /tmp/populate-mgnifyr-cache.R
 RUN mamba env update -n base --file /tmp/environment.yml
 RUN Rscript /tmp/dependencies.R
-RUN Rscript /tmp/populate-mgnifyr-cache.R
+#RUN Rscript /tmp/populate-mgnifyr-cache.R
 
 COPY shiny-proxy/custom.js /home/jovyan/.jupyter/custom/custom.js
 COPY notebooks-src/notebooks /home/jovyan/mgnify-examples

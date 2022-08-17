@@ -59,7 +59,7 @@ describe('Environment variable insertion', () => {
   })
 
   it ('should have env var available in new python kernel', async () => {
-    const launcherOpener = await frame.waitForSelector('button[title="New Launcher"]')
+    const launcherOpener = await frame.waitForSelector('button[title^="New Launcher"]')
     await launcherOpener.click()
     await frame.waitForSelector('.jp-Launcher')
     const consoleOpener = await frame.waitForSelector('div[title= "Python 3 (ipykernel)"][data-category="Console"]')
@@ -82,7 +82,7 @@ describe('Environment variable insertion', () => {
   })
 
   it ('should have env var available in new R kernel', async () => {
-    const launcherOpener = await frame.waitForSelector('button[title="New Launcher"]')
+    const launcherOpener = await frame.waitForSelector('button[title^="New Launcher"]')
     await launcherOpener.click()
     const consoleOpener = await frame.waitForSelector('div[title= "R"][data-category="Console"]')
     await consoleOpener.evaluate(b => b.click());
