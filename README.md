@@ -32,7 +32,7 @@ The configuration for this is in the `shiny-proxy` dir.
 ```bash
 docker build -f shiny-proxy/Dockerfile .
 ```
-Put the created image ID into the value of `shiny-proxy/application.yml:container-img`.
+Put the created image ID into the value of `shiny-proxy/application.yml:container-img` (or use `-t quay.io/microbiome-informatics/emg-notebooks.dev` in the docker build).
 
 ### Updating the image on Quay.io
 There is an on-push build trigger for this repository that builds images to quay.io/quay.io/microbiome-informatics/emg-notebooks.dev
