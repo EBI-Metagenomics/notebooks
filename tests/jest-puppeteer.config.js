@@ -1,10 +1,9 @@
 module.exports = {
   launch: {
     headless: true,
-    dumpio: true
-
+    dumpio: true,
+    product: 'chrome',
   },
-  browser: 'chromium',
   browserContext: 'default',
   server: {
     command: "cd ../shiny-proxy; java -jar shinyproxy-2.6.0.jar",
