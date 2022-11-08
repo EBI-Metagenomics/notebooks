@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 43363)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="water" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="439.477px" height="439.472px" viewBox="0 0 439.477 439.472" enable-background="new 0 0 439.477 439.472"
+	 xml:space="preserve">
+<g id="bgd">
+	<g>
+		<circle fill-rule="evenodd" clip-rule="evenodd" fill="#B3DCDF" cx="219.738" cy="219.736" r="219.736"/>
+	</g>
+</g>
+<g id="drop">
+	<g>
+		<path fill-rule="evenodd" clip-rule="evenodd" fill="#02A4BD" d="M306.362,237.694c-34.809-70.919-62.473-96.897-82.6-170.203
+			c-20.126,73.305-47.79,99.284-82.599,170.203c-33.792,68.849,16.276,138.023,82.599,138.023
+			C290.087,375.717,340.154,306.542,306.362,237.694z"/>
+	</g>
+</g>
+<g id="reflection">
+	<g>
+		<path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" d="M267.614,252.932c-13.382-27.264-24.018-37.25-31.755-65.433
+			c-7.737,28.182-18.372,38.169-31.754,65.433c-12.991,26.469,6.257,53.062,31.754,53.062
+			C261.357,305.994,280.605,279.401,267.614,252.932z"/>
+	</g>
+</g>
+</svg>

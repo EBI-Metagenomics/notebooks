@@ -7,7 +7,12 @@ dependencies:
   - bioconda::bioconductor-metagenomeSeq=1.36.0
   - bioconda::bioconductor-microbiomeMarker=1.0.0
   - bioconda::bioconductor-siamcat=1.14.0
+  - bioconda::muscle=5.1
   - pip
   - pip:
     - jsonapi-client
+    - py3Dmol==1.8.1
+    - biopython==1.79
+    - mg-toolkit==0.10.1
+    - rich-msa==0.1.0
   - r-vegan=2.5_7

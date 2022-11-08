@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 43363)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="wastewater" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="546.876px" height="546.876px" viewBox="0 0 546.876 546.876" enable-background="new 0 0 546.876 546.876"
+	 xml:space="preserve">
+<circle id="bgd_1_" fill="#B3DCDF" cx="273.438" cy="273.438" r="273.438"/>
+<g id="pipe">
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#3B6B5F" d="M235.05,99.722H62.266
+		c-35.23,42.777-57.698,96.447-61.628,155.194H235.05v14.793h88.685V81.247H235.05V99.722z"/>
+	<path display="none" fill-rule="evenodd" clip-rule="evenodd" fill="#665038" d="M282.56-2.5
+		c155.436,0,262.106,126.004,262.106,281.439c0,155.433-126.006,281.438-281.441,281.438
+		c-155.435,0-266.228-126.005-266.228-281.438C-3.002,123.504,127.124-2.5,282.56-2.5z"/>
+</g>
+<g id="drop_1_">
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#3B6B5F" d="M354.835,280.723c13.012,47.392,30.896,64.186,53.398,110.033
+		c21.846,44.51-10.521,89.229-53.398,89.229c-42.878,0-75.244-44.72-53.399-89.229C323.939,344.909,341.823,328.115,354.835,280.723
+		z"/>
+	<path id="reflect" fill="#FFFFFF" d="M380.072,376.083c-8.525-17.368-15.3-23.73-20.229-41.683
+		c-4.929,17.952-11.703,24.314-20.228,41.683c-8.276,16.861,3.985,33.802,20.228,33.802
+		C376.085,409.884,388.347,392.944,380.072,376.083z"/>
+</g>
+</svg>
