@@ -7,6 +7,19 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "SandyRogers",
+      "name": "Sandy Rogers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/414767?v=4",
+      "profile": "https://sa.ndyroge.rs",
+      "contributions": [
+        "code",
+        "example",
+        "ideas",
+        "infra",
+        "review"
+      ]
+    },
+    {
       "login": "Ales-ibt",
       "name": "Ales-ibt",
       "avatar_url": "https://avatars.githubusercontent.com/u/26798122?v=4",
