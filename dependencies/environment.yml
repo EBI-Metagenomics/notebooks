@@ -1,4 +1,3 @@
-# Extra dependencies, installed by Conda, in addition to those from the docker image
 # https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-datascience-notebook
 channels:
   - conda-forge
