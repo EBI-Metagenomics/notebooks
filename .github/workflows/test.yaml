@@ -36,7 +36,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./shiny-proxy/Dockerfile
+        file: ./shiny-proxy/test.Dockerfile
         load: true
         tags: quay.io/microbiome-informatics/emg-notebooks.dev
 
