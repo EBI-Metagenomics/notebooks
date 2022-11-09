@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    - uses: actions/setup-java@v2
+    - uses: actions/setup-java@v3
       with:
         distribution: 'zulu'
         java-version: '17'
@@ -21,22 +21,22 @@ jobs:
     - name: Download Shiny Proxy
       run: wget -O shiny-proxy/shinyproxy-2.6.0.jar https://www.shinyproxy.io/downloads/shinyproxy-2.6.0.jar
 
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v3
       with:
-        node-version: '14'
+        node-version: '16'
     
     - name: Install test suite dependencies
       working-directory: ./tests
       run: npm install
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      uses: docker/setup-buildx-action@v2
 
     - name: Build Dockerfile
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         context: .
-        file: ./shiny-proxy/Dockerfile
+        file: ./shiny-proxy/test.Dockerfile
         load: true
         tags: quay.io/microbiome-informatics/emg-notebooks.dev
 
@@ -44,7 +44,7 @@ jobs:
       working-directory: ./tests
       run: npm test
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       if: always()
       with:
         name: launching-jupyter-lab-screenshot
