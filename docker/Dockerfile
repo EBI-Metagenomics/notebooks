@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:r-4.1.3
+FROM jupyter/datascience-notebook:r-4.2.2
 USER root
 ENV CHOWN_HOME_OPTS='-R'
 ENV CHOWN_HOME='yes'
