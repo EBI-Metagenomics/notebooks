@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:r-4.2.2
+FROM jupyter/datascience-notebook:r-4.2.1
 USER root
 ENV CHOWN_HOME_OPTS='-R'
 ENV CHOWN_HOME='yes'
@@ -14,4 +14,8 @@ COPY notebooks-src/notebooks /home/jovyan/mgnify-examples
 
 COPY shiny_proxy_jlab_query_parms /tmp/shiny_proxy_jlab_query_parms
 RUN pip install /tmp/shiny_proxy_jlab_query_parms
+
+COPY mgnify_jupyter_lab_ui /tmp/mgnify_jupyter_lab_ui
+RUN pip install /tmp/mgnify_jupyter_lab_ui
+
 RUN jlpm cache clean  # cleans yarn cache else chown'ing home is very slow on container start
