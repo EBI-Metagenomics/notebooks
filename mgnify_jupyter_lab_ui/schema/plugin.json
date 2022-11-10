@@ -1,0 +1,37 @@
+{
+  "title": "MGnify Settings",
+  "description": "Main Menu items for MGnify resources",
+  "jupyter.lab.menus": {
+    "main": [
+      {
+        "id": "jp-mainmenu-example-menu",
+        "label": "MGnify Resources",
+        "rank": 80,
+        "items": [
+          {
+            "command": "mgnify:open-resource-docs",
+            "args": {}
+          },
+          {
+            "command": "mgnify:open-resource-website",
+            "args": {}
+          },
+          {
+            "command": "mgnify:open-resource-api",
+            "args": {}
+          },
+          {
+            "command": "mgnify:open-resource-galaxy",
+            "args": {}
+          },
+          {
+            "command": "mgnify:open-resource-status",
+            "args": {}
+          }
+        ]
+      }
+    ]
+  },
+  "additionalProperties": false,
+  "type": "object"
+}
