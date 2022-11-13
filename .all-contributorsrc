@@ -31,6 +31,15 @@
       ]
     },
     {
+      "login": "bgruening",
+      "name": "Björn Grüning",
+      "avatar_url": "https://avatars.githubusercontent.com/u/469983?v=4",
+      "profile": "http://orcid.org/0000-0002-3079-6586",
+      "contributions": [
+        "infra"
+      ]
+    },
+    {
       "login": "bebatut",
       "name": "Bérénice Batut",
       "avatar_url": "https://avatars.githubusercontent.com/u/1842467?v=4",
