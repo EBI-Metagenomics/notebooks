@@ -18,8 +18,8 @@ Between the [base image](https://jupyter-docker-stacks.readthedocs.io/en/latest/
 and the extra requirements (`dependecies/*`), the Docker contains all the libraries we need.
 
 ```bash
-docker build -f docker/Dockerfile .
-docker run -it -v $PWD/notebooks-src/notebooks:/home/jovyan/notebooks -p 8888:8888 <whatever the hash of the docker container built was>
+docker build -f docker/Dockerfile -t mgnify-nb-dev .
+docker run -it -v $PWD/notebooks-src/notebooks:/home/jovyan/notebooks -p 8888:8888 mgnify-nb-dev
 ```
 This binds the `notebooks-src/notebook` directory of this repo to `/home/jovyan/notebooks` inside the Docker,
 so you can edit the notebooks. ("jovyan" is always the user for these Jupyter Docker images.)
@@ -27,18 +27,39 @@ so you can edit the notebooks. ("jovyan" is always the user for these Jupyter Do
 Your (host) browser will not automatically open Jupyter Lab. 
 Copy one of the URLs from the console into your browser to open it.
 
+### Guidance for authoring notebooks
+- Notebooks should be complete examples, that can be run with zero code changes needed.
+- Notebooks should showcase good practice and use of popular libraries
+- Datasets should run reasonably quickly (i.e. no step should take more than a few minutes)
+  - If large (slow) data fetches are needed, these should be cached in the Docker image.
+
+#### Caching data in the image
+MGnifyR uses a cache of pulled MGnify data.
+This is populated during the Docker build, into `/home/jovyan/.mgnify_cache`, by the script in `dependencies/populate-mgnify-cache.R`.
+Add commands to this to include other datasets in the cache.
+The cache is zipped and checked into the repo for faster population during builds (`dependencies/mgnify-cache.tgz`), since it rarely changes.
+To check in an updated version of the cache...
+```bash
+docker run -it -v $PWD/dependencies:/opt/dependencies mgnify-nb-dev /bin/bash
+cd /opt/dependencies
+rm mgnify-cache.tgz
+Rscript populate-mgnifyr-cache.R
+tar -czf mgnify-cache.tgz /home/jovyan/.mgnify_cache
+exit
+git add depdencies/mgnify-cache.tgz
+```
+
 ## Shiny-Proxy application
 The notebooks can also be built into a Docker container suitable for running as an Application on ShinyProxy.
 The configuration for this is in the `shiny-proxy` dir.
 
 ### Testing with a locally built Docker
 ```bash
-docker build -f shiny-proxy/Dockerfile .
+docker build -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev .
 ```
-Put the created image ID into the value of `shiny-proxy/application.yml:container-img` (or use `-t quay.io/microbiome-informatics/emg-notebooks.dev` in the docker build).
 
 ### Updating the image on Quay.io
-There is an on-push build trigger for this repository that builds images to quay.io/quay.io/microbiome-informatics/emg-notebooks.dev
+There is an on-push build trigger for this repository that builds images to `quay.io/quay.io/microbiome-informatics/emg-notebooks.dev`
 
 Just push to the repository (all branches are built and tagged). If you push to the `main` branch, the `:latest` tag will point to that version, once it is built.
 
@@ -65,7 +86,7 @@ Together, this means a URL like: `localhost:8080/app/mgnify-notebook-lab?jlpath=
 
 ## Testing
 A small integration test suite is written using Jest-Puppetteer.
-You need to have built or pulled the shiny-proxy/Dockerfile (`quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
+You need to have built or pulled the docker/Dockerfile (tagegd as `quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
 The test suite runs Shiny Proxy, and makes sure Jupyter Lab opens, the deep-linking works, and variable insertion works in R and Python.
 
 ```bash
