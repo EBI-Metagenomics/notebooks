@@ -67,7 +67,7 @@ Just push to the repository (all branches are built and tagged). If you push to 
 - [Download the latest version of ShinyProxy](https://www.shinyproxy.io/downloads/) (>=2.6 is required). It is a JAR, so you need Java installed. i.e., download ShinyProxy into this repo directory.
 - The `application.yml` file must be in the same directory as the location you launch Shiny Proxy from.
 - `docker pull quay.io/microbiome-informatics/emg-notebooks.dev`
-- `cd shiny-proxy`, `java -jar shinyproxy-2.6.0.jar`
+- `cd shiny-proxy`, `java -jar shinyproxy-2.6.1.jar`
 - Browse to the ShinyProxy URL, likely localhost:8080
 
 ## Jupyter Lab Extension, for deep-linking
