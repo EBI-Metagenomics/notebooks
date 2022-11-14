@@ -19,17 +19,19 @@ and the extra requirements (`dependecies/*`), the Docker contains all the librar
 
 ```bash
 docker build -f docker/Dockerfile -t mgnify-nb-dev .
-docker run -it -v $PWD/notebooks-src/notebooks:/home/jovyan/notebooks -p 8888:8888 mgnify-nb-dev
+docker run -it -v $PWD/notebooks-src/notebooks:/home/jovyan/mgnify-examples -p 8888:8888 mgnify-nb-dev
 ```
-This binds the `notebooks-src/notebook` directory of this repo to `/home/jovyan/notebooks` inside the Docker,
-so you can edit the notebooks. ("jovyan" is always the user for these Jupyter Docker images.)
+This binds the `notebooks-src/notebook` directory of this repo to `/home/jovyan/mgnify-examples` inside the Docker (overwriting the notebooks built into the image),
+so you can edit the notebooks and have changes relected in the repository.
+("jovyan" is always the user for these Jupyter Docker images.)
 
 Your (host) browser will not automatically open Jupyter Lab. 
 Copy one of the URLs from the console into your browser to open it.
 
 ### Guidance for authoring notebooks
-- Notebooks should be complete examples, that can be run with zero code changes needed.
+- Notebooks should be complete examples, that can be run with zero code changes needed
 - Notebooks should showcase good practice and use of popular libraries
+- Use the Jupyter menu option to "Clear All Outputs" before checking changes into git
 - Datasets should run reasonably quickly (i.e. no step should take more than a few minutes)
   - If large (slow) data fetches are needed, these should be cached in the Docker image.
 
@@ -49,6 +51,7 @@ exit
 git add depdencies/mgnify-cache.tgz
 ```
 
+
 ## Shiny-Proxy application
 The notebooks can also be built into a Docker container suitable for running as an Application on ShinyProxy.
 The configuration for this is in the `shiny-proxy` dir.
@@ -57,18 +60,15 @@ The configuration for this is in the `shiny-proxy` dir.
 ```bash
 docker build -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev .
 ```
-
-### Updating the image on Quay.io
-There is an on-push build trigger for this repository that builds images to `quay.io/quay.io/microbiome-informatics/emg-notebooks.dev`
-
-Just push to the repository (all branches are built and tagged). If you push to the `main` branch, the `:latest` tag will point to that version, once it is built.
+(or just retag with `docker tag mgnify-nb-dev quay.io/microbiome-informatics/emg-notebooks.dev` if you already built it as above).
 
 ### Running ShinyProxy
 - [Download the latest version of ShinyProxy](https://www.shinyproxy.io/downloads/) (>=2.6 is required). It is a JAR, so you need Java installed. i.e., download ShinyProxy into this repo directory.
 - The `application.yml` file must be in the same directory as the location you launch Shiny Proxy from.
-- `docker pull quay.io/microbiome-informatics/emg-notebooks.dev`
+- If you want the currently deployed image instead of your local one... `docker pull quay.io/microbiome-informatics/emg-notebooks.dev`
 - `cd shiny-proxy`, `java -jar shinyproxy-2.6.1.jar`
 - Browse to the ShinyProxy URL, likely localhost:8080
+
 
 ## Jupyter Lab Extension, for deep-linking
 `shiny_proxy_jlab_query_parms` contains a [JupyterLab Extension](https://jupyterlab.readthedocs.io/en/stable/user/extensions.html) to support deep-linking into JupyterLab, especially when running inside Shiny Proxy.
@@ -94,6 +94,15 @@ cd tests
 npm install
 npm test
 ```
+
+
+## Deployment
+There is an on-push build trigger for this repository that builds images to `quay.io/quay.io/microbiome-informatics/emg-notebooks.dev`
+
+Just push to the repository (all branches are built and tagged). If you push to the `main` branch, the `:latest` tag will point to that version, once it is built.
+
+This built image can be (and is) deployed to multiple servers, e.g. a ShinyProxy instance or the Galaxy project.
+
 
 ## Contributors ✨
 

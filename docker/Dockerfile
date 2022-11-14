@@ -26,3 +26,6 @@ RUN pip install /tmp/mgnify_jupyter_lab_ui
 
 # Clean yarn cache else chown'ing home is very slow on container start
 RUN jlpm cache clean 
+
+COPY shiny-proxy/custom.js /home/jovyan/.jupyter/custom/custom.js
+COPY notebooks-src/notebooks /home/jovyan/mgnify-examples
