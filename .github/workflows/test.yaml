@@ -19,7 +19,7 @@ jobs:
         java-version: '17'
 
     - name: Download Shiny Proxy
-      run: wget -O shiny-proxy/shinyproxy-2.6.0.jar https://www.shinyproxy.io/downloads/shinyproxy-2.6.0.jar
+      run: wget -O shiny-proxy/shinyproxy-2.6.1.jar https://www.shinyproxy.io/downloads/shinyproxy-2.6.1.jar
 
     - uses: actions/setup-node@v3
       with:
