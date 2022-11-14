@@ -6,7 +6,7 @@ module.exports = {
   },
   browserContext: 'default',
   server: {
-    command: "cd ../shiny-proxy; java -jar shinyproxy-2.6.0.jar",
+    command: "cd ../shiny-proxy; java -jar shinyproxy-2.6.1.jar",
     port: 8080,
     launchTimeout: 180000,
     debug: true
