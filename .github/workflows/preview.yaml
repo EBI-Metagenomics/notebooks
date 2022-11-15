@@ -39,7 +39,7 @@ jobs:
 
       - name: Quarto render
         run: |
-          docker run -it -v $PWD:/opt/repo -w /opt/repo notebooks-static render --execute
+          docker run -v $PWD:/opt/repo -w /opt/repo notebooks-static render --execute
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
