@@ -2,6 +2,11 @@ name: Preview
 
 on:
   workflow_dispatch:
+  
+  push:
+    branches:
+      - main
+      - 'feature/static-preview'
 
 permissions:
   contents: read
