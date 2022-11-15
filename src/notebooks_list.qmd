@@ -1,0 +1,43 @@
+---
+title: "MGnify Notebooks (previews)"
+listing:
+  - id: notebooks
+    contents: 
+    - notebooks/Python Examples
+    - notebooks/R Examples
+    type: table
+    fields: [title, author, categories]
+---
+
+## MGnify Notebooks
+The quantity and richness of [metagenomics-derived data](https://www.ebi.ac.uk/metagenomics/search>) in MGnify grows every day. 
+The [MGnify website](https://www.ebi.ac.uk/metagenomics/) is the best place to start exploring and searching the MGnify database, and allows users to download modest query results as CSV tables.
+
+For larger queries, or more complex requirements like fetching metadata from samples across multiple studies, a programmatic access approach is far better.
+
+Programmatic access - fetching data from MGnify using a terminal command or code script - uses the [MGnify API](https://docs.mgnify.org/en/latest/api.html) ([Application Programming Interface](https://en.wikipedia.org/wiki/API)).
+The API provides access to every data type in MGnify: 
+[Studies](https://www.ebi.ac.uk/metagenomics/api/v1/studies), 
+[Samples](https://www.ebi.ac.uk/metagenomics/api/v1/samples), 
+[Analyses](https://www.ebi.ac.uk/metagenomics/api/v1/analyses), 
+[Annotations](https://www.ebi.ac.uk/metagenomics/api/v1/annotations/interpro-identifiers), 
+[MAGs](https://www.ebi.ac.uk/metagenomics/api/v1/genome-catalogues) etc: 
+it is what lies behind the MGnify website. 
+Using the API means you can fetch more data than is possible via the website, and can help you write reproducible analysis scripts.
+
+The API can be explored interactively online, using the [API Browser](https://www.ebi.ac.uk/metagenomics/api/v1/).
+But actually using the API first requires knowledge and/or installation of tools on your computer. 
+This might range from a command line tool like [cURL](<https://curl.se/), to learning R and setting up the [R Studio](https://www.rstudio.com/) application, to setting up a [Python](https://www.python.org/) environment and installing a suite of [packages used for data analysis](https://pandas.pydata.org/).
+Second, the API returns most data in [JSON format](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON): this is standard on the web, but less familiar for bioinformaticians used to TSVs and dataframes.
+
+The MGnify Notebook Servers at [EMBL](http://notebooks.mgnify.org/) and [Galaxy](https://usegalaxy.eu/root?tool_id=interactive_tool_mgnify_notebook), and [MGnifyR package](https://github.com/beadyallen/MGnifyR) are designed to bridge these gaps. 
+Users can launch an online R and Python coding environment in their browser, without installing anything.
+It already includes the main libraries needed for communicating with the MGnify API, analysing data, and making plots.
+It uses the popular [Jupyter Lab](https://jupyter.org/) software, which means you can code inside [Notebooks](https://jupyter-notebook.readthedocs.io/en/latest/): interactive code documents.
+
+There are example Notebooks written in both R and Python, so users can pick whichever they're more familiar with.
+
+## Preview the notebooks
+:::{#notebooks}
+:::
+

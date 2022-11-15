@@ -1,0 +1,46 @@
+name: Preview
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Dockerfile
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./docker/docs.Dockerfile
+          load: true
+          tags: notebooks-static
+
+      - name: Quarto render
+        run: |
+          docker run -it -v $PWD:/opt/repo -w /opt/repo notebooks-static render --execute
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: '_site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
