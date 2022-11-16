@@ -12,6 +12,8 @@ describe('Shiny Proxy launcher', () => {
 
 describe('Jupyter Lab launcher', () => {
   jest.setTimeout(20000)
+  jest.retryTimes(3, {logErrorsBeforeRetry: true})
+
   let frame
 
   beforeAll(async () => {
@@ -30,6 +32,8 @@ describe('Jupyter Lab launcher', () => {
 
 describe('Deep-linking to a notebook', () => {
   jest.setTimeout(20000)
+  jest.retryTimes(3, {logErrorsBeforeRetry: true})
+
   let frame
 
   beforeAll(async () => {
@@ -47,6 +51,8 @@ describe('Deep-linking to a notebook', () => {
 
 describe('Environment variable insertion', () => {
   jest.setTimeout(20000)
+  jest.retryTimes(3, {logErrorsBeforeRetry: true})
+  
   let frame
 
   beforeAll(async () => {

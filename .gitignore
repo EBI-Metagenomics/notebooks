@@ -6,3 +6,7 @@ shinyproxy.log*
 node_modules
 tests/*.png
 .idea
+_site
+_freeze
+/.quarto/
+*.pyc
