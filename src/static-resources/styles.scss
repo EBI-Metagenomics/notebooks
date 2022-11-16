@@ -1,0 +1,19 @@
+/*-- scss:defaults --*/
+$brand-primary:         #18974c !default;
+$brand-success:         #6cc24a !default;
+$brand-info:            #8bb8e8 !default;
+$brand-warning:         #f49e17 !default;
+$brand-danger:          #d32f2f !default;
+
+$navbar-bg:             $brand-primary !default;
+
+@import 'https://fonts.googleapis.com/css?family=IBM+Plex+Sans';
+@import 'https://fonts.googleapis.com/css?family=IBM+Plex+Mono';
+
+$font-family-sans-serif:  "IBM Plex Sans", Helvetica, Arial, sans-serif !default;
+$font-family-monospace:   "IBM Plex Mono", Menlo, Monaco, Consolas, "Courier New", monospace !default;
+
+$link-color:            #3b6fb6 !default;
+$link-hover-color:      #193f90 !default;
+$link-decoration:       none !default;
+$link-hover-decoration: underline !default;
