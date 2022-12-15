@@ -158,6 +158,7 @@ There is an on-push build trigger for this repository that builds images to `qua
 Just push to the repository (all branches are built and tagged). If you push to the `main` branch, the `:latest` tag will point to that version, once it is built.
 
 This built image can be (and is) deployed to multiple servers, e.g. a ShinyProxy instance or the Galaxy project.
+EMBL's ShinyProxy updates to the latest semver tag at 0300 daily. For Galaxy, open a PR to edit [the tool schema](https://github.com/galaxyproject/galaxy/tree/dev/tools/interactive/interactivetool_mgnify_notebook.xml).
 
 ### Releases
 Tag releases with semver tags, like `v1.0.0`.
