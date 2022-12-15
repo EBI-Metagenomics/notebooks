@@ -1,0 +1,81 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "SandyRogers",
+      "name": "Sandy Rogers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/414767?v=4",
+      "profile": "https://sa.ndyroge.rs",
+      "contributions": [
+        "code",
+        "example",
+        "ideas",
+        "infra",
+        "review"
+      ]
+    },
+    {
+      "login": "Ales-ibt",
+      "name": "Ales-ibt",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26798122?v=4",
+      "profile": "https://github.com/Ales-ibt",
+      "contributions": [
+        "code",
+        "example",
+        "ideas"
+      ]
+    },
+    {
+      "login": "vestalisvirginis",
+      "name": "Virginie Grosboillot",
+      "avatar_url": "https://avatars.githubusercontent.com/u/54766741?v=4",
+      "profile": "https://github.com/vestalisvirginis",
+      "contributions": [
+        "ideas",
+        "code",
+        "content"
+      ]
+    },
+    {
+      "login": "bgruening",
+      "name": "Björn Grüning",
+      "avatar_url": "https://avatars.githubusercontent.com/u/469983?v=4",
+      "profile": "http://orcid.org/0000-0002-3079-6586",
+      "contributions": [
+        "infra"
+      ]
+    },
+    {
+      "login": "bebatut",
+      "name": "Bérénice Batut",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1842467?v=4",
+      "profile": "http://research.bebatut.fr/",
+      "contributions": [
+        "infra"
+      ]
+    },
+    {
+      "login": "mberacochea",
+      "name": "Martín Beracochea",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1123897?v=4",
+      "profile": "https://github.com/mberacochea",
+      "contributions": [
+        "ideas",
+        "code",
+        "content",
+        "mentoring"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "notebooks",
+  "projectOwner": "EBI-Metagenomics"
+}

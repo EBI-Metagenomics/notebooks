@@ -5,3 +5,8 @@ shinyproxy.log*
 .DS_Store
 node_modules
 tests/*.png
+.idea
+_site
+_freeze
+/.quarto/
+*.pyc
