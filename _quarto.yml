@@ -1,6 +1,8 @@
 project:
     type: website
     render:
+        - src/docs.qmd
+        - src/docs/*.md
         - src/notebooks_list.qmd
         - src/notebooks/Python Examples/*.ipynb
         # - src/notebooks/R Examples/*.ipynb
@@ -8,16 +10,13 @@ project:
 execute:
     freeze: auto
 
+ipynb-filters:
+    - src/templates/notebook-static-preview.py
+
 website:
-    title: MGnify Notebooks
+    title: MGnify Resources
     favicon: src/static-resources/mgnify_logo.png
     page-navigation: true
-
-    body-header: |
-        :::{.callout-note}
-        ## This is a static preview
-        You can run and edit these examples interactively on [Galaxy](https://usegalaxy.eu/root?tool_id=interactive_tool_mgnify_notebook)
-        :::
 
     repo-url: https://github.com/ebi-metagenomics/notebooks
     repo-subdir: src
@@ -25,14 +24,21 @@ website:
 
     navbar:
         right:
+            - href: https://www.ebi.ac.uk/metagenomics
+              text: Open MGnify
             - href: https://usegalaxy.eu/root?tool_id=interactive_tool_mgnify_notebook
-              text: Run on Galaxy
+              text: Run notebooks on Galaxy
+            - href: https://status.mgnify.org
+              text: Service status
 
     sidebar:
         style: docked
         search: true
 
         contents:
+            - section: "Documentation"
+              href: src/docs.qmd
+              contents: src/docs/*
             - href: src/notebooks_list.qmd
 
         tools:

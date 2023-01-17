@@ -1,0 +1,22 @@
+---
+title: "MGnify Documentation"
+listing:
+  - id: docs
+    contents: 
+    - docs
+    type: default
+    fields: [date, title, author, description]
+---
+
+## MGnify Documentation
+MGnify is a freely available hub for the analysis and exploration of [metagenomic](glossary.md#term-Metagenomic), [metatranscriptomic](glossary.md#term-Metatranscriptomic), [amplicon](glossary.md#term-Amplicon) and [assembly](glossary.md#term-Assembly) data. 
+
+The resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive ([ENA](https://www.ebi.ac.uk/ena)).
+
+This is MGnify's documentation resource, providing guides to use the MGnify website, API, and submission services.
+
+
+## Contents
+:::{#docs}
+:::
+
