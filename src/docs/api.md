@@ -446,7 +446,7 @@ The API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any
 ## Examples
 
 
-* Examples of using the API are provided in our [MGnify Notebooks Server](notebooks.md), which is available at [notebooks.mgnify.org](shiny-portal.embl.de/shinyapps/app/06_mgnify-notebook-lab?jlpath=mgnify-examples/home.ipynb). See the [dedicated documentation](notebooks.md) for that resource for more information.
+* Examples of using the API are provided in our [MGnify Notebooks Server](notebooks.md), which is available at [notebooks.mgnify.org](http://notebooks.mgnify.org). See the [dedicated documentation](notebooks.md) for that resource for more information.
 
 
 * You can also find our [example notebooks and scripts on GitHub](https://github.com/EBI-Metagenomics/notebooks/tree/main/notebooks-src/notebooks).

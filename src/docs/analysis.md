@@ -1,3 +1,10 @@
+---
+title: Analysis pipeline  v5.0
+author: MGnify team
+date: last-modified
+description: Description of the latest MGnify analysis pipeline and the tools it uses.
+---
+
 # Analysis pipeline v5.0
 
 ## Overview
@@ -9,321 +16,37 @@ The software and databases used for the various processing steps and analyses ar
 
 ## Software, Databases and Versions used by MGnify:
 
-| **Tool/Database**
+| **Tool/Database**                                 | **Version**   | **Purpose**                                                   | **Amplicon**  | **Raw reads**     | **Assemblies**    |
+|-----------------------------------------------    |-------------- |-----------------------------------------------------------    |-------------- |---------------    |----------------   |
+| SeqPrep                                           | *1.2*         | Merging paired end reads                                      | Yes           | Yes               |                   |
+| Trimmomatic                                       | *0.36*        | Quality controlled                                            | Yes           | Yes               |                   |
+| Biopython                                         | *1.74*        | Quality controlled                                            | Yes           | Yes               | Yes               |
+| bedtools                                          | *2.28.0*      | SSU/LSU rRNA masking for ITS                                  | Yes           |                   |                   |
+| pre-assembled                                     | *0.45h*       | Sequence extraction                                           | Yes           | Yes               | Yes               |
+| Infernal                                          | *1.1.2*       | RNA predictions                                               | Yes           | Yes               | Yes               |
+| Rfam                                              | *13.0*        | Identification of SSU/LSU rRNA and other ncRNAs               | Yes           | Yes               | Yes               |
+| MAPseq                                            | *1.2.3*       | Taxonomic assignment of SSU/LSU rRNA and ITS                  | Yes           | Yes               | Yes               |
+| Kronatools                                        | *2.7.1*       | Visualisation of taxonomic analyses                           | Yes           | Yes               | Yes               |
+| biom-format                                       | *2.1.6*       | Formatting of taxonomic analyses                              | Yes           | Yes               | Yes               |
+| mOTUs2                                            | *2.5.1*       | Phylogenetic marker gene based taxonomic profiling            |               | Yes               |                   |
+| FragGeneScan                                      | *1.20*        | Protein coding sequence prediction                            |               | Yes               | Yes               |
+| Prodigal                                          | *2.6.3*       | Protein coding sequence prediction                            |               |                   | Yes               |
+| InterProScan                                      | *75.0*        | Protein function annotation with separate Pfam results        |               | Yes               | Yes               |
+| GO terms in-house scripts                         | *N/A*         | Assign gene ontology terms                                    |               | Yes               | Yes               |
+| eggNOG-mapper                                     | *4.5.1*       | Protein function annotation                                   |               |                   | Yes               |
+| eggNOG-mapper                                     | *1.0.3*       | Protein function annotation                                   |               |                   | Yes               |
+| HMMER                                             | *3.2.1*       | KEGG Ortholog prediction                                      |               | Yes               | Yes               |
+| KOfam - a modified version based on KEGG 90.0     | *2019-04-06*  | KEGG Ortholog prediction                                      |               | Yes               | Yes               |
+| KEGG and in-house descriptions                    | *90.0*        | KEGG pathway predictions                                      |               |                   | Yes               |
+| Genome Properties                                 | *2.0.1*       | Systems and pathways annotation                               |               |                   | Yes               |
+| antiSMASH                                         | *4.2.0*       | Secondary metabolite biosynthetic gene cluster annotation     |               |                   | Yes               |
+| DIAMOND                                           | *0.9.25.126*  | Protein sequence-based taxonomic analysis                     |               |                   | Yes               |
+| SILVA release                                     | *132*         | SSU/LSU rRNA taxonomic database                               | Yes           | Yes               | Yes               |
+| ITSoneDB                                          | *1.138*       | ITS1 taxonomic database                                       | Yes           |                   |                   |
+| UNITE                                             | *8.0*         | ITS taxonomic database                                        | Yes           |                   |                   |
+| UniRef90                                          | *2019_11*     | Protein sequence-based taxonomic analysis                     |               |                   | Yes               |
+| metaSPAdes                                        | *3.13*        | Assembly of raw reads (available on request)                  | N/A           | N/A               | N/A               |
 
- | **Version**
-
- | **Purpose**
-
- | **Amplicon**
-
- | **Raw reads**
-
- | **Assemblies**
-
- |
-| SeqPrep
-
-       | *1.2*
-
-     | Merging paired end reads
-
- | Yes
-
-      | Yes
-
-       |            |
-| Trimmomatic
-
-   | *0.36*
-
-    | Quality control
-
-          | Yes
-
-      | Yes
-
-       |            |
-| Biopython
-
-     | *1.74*
-
-    | Quality control
-
-          | Yes
-
-      | Yes
-
-       | Yes
-
-        |
-| bedtools
-
-      | *2.28.0*
-
-  | SSU/LSU rRNA masking for ITS
-
- | Yes
-
-      |           |            |
-| Easel
-
-         | *0.45h*
-
-   | Sequence extraction
-
-          | Yes
-
-      | Yes
-
-       | Yes
-
-        |
-| Infernal
-
-      | *1.1.2*
-
-   | RNA prediction
-
-               | Yes
-
-      | Yes
-
-       | Yes
-
-        |
-| Rfam
-
-          | *13.0*
-
-    | Identification of SSU/LSU rRNA and other ncRNA
-
- | Yes
-
-      | Yes
-
-       | Yes
-
-        |
-| MAPseq
-
-        | *1.2.3*
-
-   | Taxonomic assignment of SSU/LSU rRNA and ITS
-
-   | Yes
-
-      | Yes
-
-       | Yes
-
-        |
-| Kronatools
-
-    | *2.7.1*
-
-   | Visualisation of taxonomic analyses
-
-            | Yes
-
-      | Yes
-
-       | Yes
-
-        |
-| biom-format
-
-   | *2.1.6*
-
-   | Formatting of taxonomic analyses
-
-               | Yes
-
-      | Yes
-
-       | Yes
-
-        |
-| mOTUs2
-
-        | *2.5.1*
-
-   | Phylogenetic marker gene based taxonomic profiling
-
- |          | Yes
-
-       |            |
-| FragGeneScan
-
-  | *1.20*
-
-    | Protein coding sequence prediction
-
-                 |          | Yes
-
-       | Yes
-
-        |
-| Prodigal
-
-      | *2.6.3*
-
-   | Protein coding sequence prediction
-
-                 |          |           | Yes
-
-        |
-| InterProScan
-
-  | *75.0*
-
-    | Protein function annotation with separate Pfam results
-
- |          | Yes
-
-       | Yes
-
-        |
-| GO terms in-house scripts
-
- | *N/A*
-
-     | Assign gene ontology terms
-
-                             |          | Yes
-
-       | Yes
-
-        |
-| eggNOG
-
-                    | *4.5.1*
-
-   | Protein function annotation
-
-                            |          |           | Yes
-
-        |
-| eggNOG-mapper
-
-             | *1.0.3*
-
-   | Protein function annotation
-
-                            |          |           | Yes
-
-        |
-| HMMER
-
-                     | *3.2.1*
-
-   | KEGG Ortholog prediction
-
-                               |          | Yes
-
-       | Yes
-
-        |
-| KOfam - a modified version based on KEGG 90.0
-
- | *2019-04-06*
-
- | KEGG Ortholog prediction
-
-                               |          | Yes
-
-       | Yes
-
-        |
-| KEGG and in-house scripts
-
-                     | *90.0*
-
-       | KEGG pathway predictions
-
-                               |          |           | Yes
-
-        |
-| Genome Properties
-
-                             | *2.0.1*
-
-      | Systems and pathways annotation
-
-                        |          |           | Yes
-
-        |
-| antiSMASH
-
-                                     | *4.2.0*
-
-      | Secondary metabolite biosynthetic gene cluster annotation
-
- |          |           | Yes
-
-        |
-| DIAMOND
-
-                                       | *0.9.25.126*
-
- | Protein sequence-based taxonomic analysis
-
-                 |          |           | Yes
-
-        |
-| SILVA release
-
-                                 | *132*
-
-        | SSU/LSU rRNA taxonomic database
-
-                           | Yes
-
-      | Yes
-
-       | Yes
-
-        |
-| ITSoneDB
-
-                                      | *1.138*
-
-      | ITS1 taxonomic database
-
-                                   | Yes
-
-      |           |            |
-| UNITE
-
-                                         | *8.0*
-
-        | ITS taxonomic database
-
-                                    | Yes
-
-      |           |            |
-| UniRef90
-
-                                      | *2019_11*
-
-    | Protein sequence-based taxonomic analysis
-
-                 |          |           | Yes
-
-        |
-| metaSPAdes
-
-                                    | *3.13*
-
-       | Assembly of raw reads (available on request)
-
-              | N/A
-
-      | N/A
-
-       | N/A
-
-        |
 ## Amplicon analysis pipeline
 
 Amplicon reads are merged with SeqPrep (where appropriate) and filtered with Trimmomatic to trim sequence regions with an average Phred 33 quality score of less than 15 in a sliding window of 4 base pairs. This is followed by removal of reads less than 100bp in length. An additional Biopython filtering step removes reads with more than 10% ambiguous bases.
@@ -331,7 +54,7 @@ Amplicon reads are merged with SeqPrep (where appropriate) and filtered with Tri
 
 MGnify can also provide analysis of ITS ([internal transcribed spacer](glossary.md#term-ITS)) amplicons. ITS1 and ITS2 reside between the LSU and SSU genes and can be targeted for accurate classification of eukaryotic organisms. ITS taxonomy is assigned by MAPseq using two reference databases: [ITSoneDB](https://academic.oup.com/nar/article/46/D1/D127/4210943)  containing ITS1 sequences and [UNITE](https://academic.oup.com/nar/article/47/D1/D259/5146189) containing ITS1 and ITS2 sequences. The SSU and LSU regions are masked using Rfam, as described above, prior to ITS classification, minimising cross reactivity.
 
-**Figure 1**. Overview of the main steps in the amplicon workflow.
+![Overview of the main steps in the amplicon workflow.](images/analysis/pipeline_v5.0_amplicon.png){#fig-amplicon-pipeline-v5}
 
 ## Raw reads analysis pipeline
 
@@ -341,7 +64,7 @@ Supplementary phylogenetic classification based on marker gene profiling, is per
 
 For functional analysis, the sequence regions encoding rRNAs are masked, and [FragGeneScan](https://academic.oup.com/nar/article/38/20/e191/1317565) is used to predict coding sequences (pCDS). Coding sequences are assigned protein annotations with InterProScan, using 5 member databases that are able to process large numbers of potentially fragmented sequences (Gene3D, TIGRFAMs, Pfam, PRINTS and PROSITE patterns). Pfam annotations are provided as separate visualisations and downloads. GO terms are extracted from the InterProScan results and grouped according to category (Biological Process, Molecular Function and Cellular Component). GO terms are also summarized using a specialized [GO Slim](http://www.geneontology.org/ontology/subsets/goslim_metagenomics.obo) developed for metagenomic data. Finally, protein coding sequences undergo KEGG ortholog annotations using HMMER v3.2.1 and a modified version of KOfam 2019-04-06 (based on KEGG 90.0).
 
-**Figure 2**. Overview of the main steps in the raw reads workflow.
+![Overview of the main steps in the raw reads workflow.](images/analysis/pipeline_v5.0_raw.png){#fig-raw-pipeline-v5}
 
 ## Assembly analysis pipeline
 
@@ -354,4 +77,4 @@ Additionally, clusters of orthologous groups ([COGs](glossary.md#term-COG)) anno
 
 KEGG ortholog annotations are further processed to produce KEGG pathway information, including module presence and completeness. Similarly, InterPro annotations for individual protein sequences are amalgamated to generate [Genome Properties](https://academic.oup.com/nar/article/47/D1/D564/5144958) (GP), providing inference of higher level pathways and systems that may be present in the dataset. Finally, [antiSMASH](https://academic.oup.com/nar/article/45/W1/W36/3778252) is used to identify and annotate biosynthetic gene clusters that code for the production of secondary metabolites.
 
-**Figure 3**. Overview of the main steps in the assembly workflow.
+![Overview of the main steps in the assembly workflow.](images/analysis/pipeline_v5.0_assembly.png){#fig-assembly-pipeline-v5}
