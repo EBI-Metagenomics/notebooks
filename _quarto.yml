@@ -15,6 +15,7 @@ ipynb-filters:
 
 website:
     title: MGnify Resources
+    site-url: https://docs.mgnify.org
     favicon: src/static-resources/mgnify_logo.png
     page-navigation: true
 
@@ -57,3 +58,4 @@ format:
             - cosmo
             - src/static-resources/styles.scss
         toc: true
+        code-overflow: wrap

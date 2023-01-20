@@ -1,4 +1,14 @@
-# FAQs
+---
+title: FAQs
+author: 
+  - name: MGnify
+    url: https://www.ebi.ac.uk/metagenomics
+    affiliation: EMBL-EBI
+    affiliation-url: https://www.ebi.ac.uk
+date: last-modified
+citation: true
+description: Frequently asked questions about MGnify
+---
 
 ## What kind of sequence data does the service accept?
 

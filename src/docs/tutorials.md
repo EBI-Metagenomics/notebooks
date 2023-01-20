@@ -1,4 +1,14 @@
-# Guides and Tutorials
+---
+title: Guides and tutorials
+author: 
+  - name: MGnify
+    url: https://www.ebi.ac.uk/metagenomics
+    affiliation: EMBL-EBI
+    affiliation-url: https://www.ebi.ac.uk
+date: last-modified
+citation: true
+description: List of online tutorials relevant to MGnify and ENA
+---
 
 ## MGnify and EMBL-EBI online tutorials
 

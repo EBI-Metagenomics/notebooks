@@ -1,4 +1,14 @@
-# MGnify Genomes
+---
+title: MGnify genomes
+author: 
+  - name: MGnify
+    url: https://www.ebi.ac.uk/metagenomics
+    affiliation: EMBL-EBI
+    affiliation-url: https://www.ebi.ac.uk
+date: last-modified
+citation: true
+description: Description of the MGnify genomes pipelines and web resource
+---
 
 ## Genome Catalogues
 
@@ -10,7 +20,7 @@ MGnify displays genomes in biome-specific Catalogues.
 The latest version of each Catalogue is shown on the website,
 whilst older versions can be downloaded from our [FTP server](http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/).
 
-**Figure 1**. MGnify genomes are collected into biome-specific catalogues.
+![MGnify genomes are collected into biome-specific catalogues.](images/genomes/genomes-genome-catalogues-list.png){#fig-genome-catalogues-list}
 
 ## Generating genome catalogues
 
@@ -23,10 +33,10 @@ The process to produce updated versions of the catalogues is described below.
 
 ### Updating an existing catalogue
 
-New genomes (MAGs or isolates) are added to an existing catalogue following the steps outlined in Figure 2. To be added
+New genomes (MAGs or isolates) are added to an existing catalogue following the steps outlined in @fig-genome-update-pipeline. To be added
 to a catalogue, a genome must be available in [INSDC](https://www.insdc.org/).
 
-**Figure 2**. The algorithm to update an existing genome catalog.
+![The algorithm to update an existing genome catalog.](images/genomes/update_pipeline.png){#fig-genome-update-pipeline}
 
 Briefly, the new genomes undergo QC filtration: quality score (QS) is calculated for each genome as
 `% completeness - 5 \* % contamination`; genomes with QS < 50 or contamination > 5% are removed. The genomes are then
@@ -64,7 +74,7 @@ There are three ways to search for species across all of the catalogues.
 
 ### By accession or taxonomy
 
-**Figure 3**. Searching for “Prevotella” genomes from all catalogues.
+![Searching for “Prevotella” genomes from all catalogues.](images/genomes/genomes-all-genomes.png){#fig-genome-all-genomes}
 
 The Browse > Genomes > All Genomes tab lists genomes from all catalogues. The genome accessions and taxonomic lineages are indexed for full-text search.
 This is helpful to find a specific genome where the biome is irrelevant, or to find the set of biomes (catalogues) which a certain taxonomic classification is present in.
@@ -82,7 +92,7 @@ A score of 100% means that all of the [31-length kmers](https://en.wikipedia.org
 
 The minimum kmer proportion is set at a default of 0.4 and can be increased or decreased within a range of 0.1-1 with the available toggle.
 
-**Figure 4** COBS search example with table of results.
+![COBS search example with table of results.](images/genomes/genome-search-cobs.png){#fig-genome-search-cobs}
 
 ### By whole genome /  MAG
 
@@ -102,26 +112,26 @@ Successful searches create a CSV result file for each signature submitted.
 These are compiled into a TGZ allowing you to fetch all your results in one click.
 These result files are only stored in our servers for 30 days, so please be sure to download them before they expire.
 
-**Figure 5** Sourmash search example with file selected
+![Sourmash search example with file selected](images/genomes/genomes-sourmash.png){#fig-genome-search-sourmash}
 
 ## Browsing a catalogue
 
 Clicking on a Catalogue ID in the list on the [MGnify website](https://www.ebi.ac.uk/metagenomics/browse#genomes) allows you to browse the
 catalogue’s contents.
 
-The “Genome list” tab contains a catalogue of non-redundant isolate and metagenome assembled genomes ([MAGs](glossary.md#term-MAGs)).
+The “Genome list” tab contains a catalogue of non-redundant isolate and metagenome assembled genomes ([MAGs](glossary.md#MAGs)).
 Each accession is a species representative of a cluster of genomes.
 To constitute a cluster: genomes with completeness greater than 50%, contamination less than 5% and average quality score (completeness - 5\*contamination) greater than 50 - calculated with [CheckM, v.1.0.11](https://genome.cshlp.org/content/25/7/1043?ijkey=a446ec2b6e540d598d39c9253e0fdfbdab52b2f4&keytype2=tf_ipsecsha) are clustered with [dRep v2.2.4](https://www.nature.com/articles/ismej2017126) using an average nucleotide identity (ANI) cutoff of  ≥95% and an aligned fraction (AF) of ≥30% .
 The species representative for each cluster is the best quality genome judged by completeness, contamination and the assembly N50 values.
 Isolate genomes are prioritised over MAGs for a species representative.
 
-**Figure 6**. Each catalogue contains MAGs and isolate genomes.
+![Each catalogue contains MAGs and isolate genomes.](images/genomes/genomes-catalogue-genomes-list.png){#fig-genomes-list}
 
 The ‘Taxonomy tree’ is a subset of the GTDB taxonomy which can be viewed interactively.
 Genomes from the catalogue can be found in the tree by taxonomic lineage.
 Each orange coloured genome accession links to further statistics and functional annotation data.
 
-**Figure 7**. GTDB interactive taxonomy tree for a catalogue
+![GTDB interactive taxonomy tree for a catalogue](images/genomes/genomes-taxonomy-tree.png){#fig-genome-tax-tree}
 
 The ‘Protein catalogue’ is clusters of all the predicted coding sequences in the genome catalogue.
 Separate catalogues are generated at different amino acid identity levels (100%, 95%, 90% and 50%).
@@ -141,7 +151,7 @@ The page header details the genome type and a full GTDB lineage assigned with [G
 [Infernal](http://europepmc.org/abstract/MED/24008419) is used to screen for the presence of ribosomal RNAs against [Rfam](http://europepmc.org/articles/PMC4383904) covariance models for 5S, 16S and 23S rRNA. Transfer RNAs are identified with [tRNAScan-SE](https://academic.oup.com/nar/article/25/5/955/5133591). These figures are presented in the Genome RNA
 coverage section, as the percentage coverage for each rRNA type and a count of total tRNA and ncRNAs.
 
-[pCDS](glossary.md#term-Predicted-coding-sequence-pCDS) are inferred with [Prokka](https://academic.oup.com/bioinformatics/article/30/14/2068/2390517) which uses [Prodigal](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-119) . [eggNOG-mapper tool](https://www.biorxiv.org/content/10.1101/076331v1.full) assigns [KEGG](glossary.md#term-KEGG) and [COG](glossary.md#term-COG) annotations against the pCDS. InterProScan performs protein annotations with 5 member databases. The proportion of predicted proteins with an [InterPro](glossary.md#term-InterPro) or eggNOG annotation are given as a coverage percentage. COG and KEGG annotations are visualised in their respective tabs with the top 10 hits in an interactive bar graph.
+[pCDS](glossary.md#Predicted%20coding%20sequence%20(pCDS)) are inferred with [Prokka](https://academic.oup.com/bioinformatics/article/30/14/2068/2390517) which uses [Prodigal](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-119) . [eggNOG-mapper tool](https://www.biorxiv.org/content/10.1101/076331v1.full) assigns [KEGG](glossary.md#KEGG) and [COG](glossary.md#COG) annotations against the pCDS. InterProScan performs protein annotations with 5 member databases. The proportion of predicted proteins with an [InterPro](glossary.md#InterPro) or eggNOG annotation are given as a coverage percentage. COG and KEGG annotations are visualised in their respective tabs with the top 10 hits in an interactive bar graph.
 
 Additionally, the geographic origin of each genome, and links to ENA accessions can be found towards the bottom of this page.
 
@@ -152,7 +162,7 @@ All genome annotations can be viewed interactively in the ‘Browse genome’ ta
 The “Functional annotation track colour” dropdown menu can be used to pick an annotation type of interest.
 Once selected, the annotation region will be coloured (and labelled, depending on the annotation type).
 
-**Figure 8**. An annotated genome in the Genome Browser.
+![An annotated genome in the Genome Browser.](images/genomes/genome-browser.png){#fig-genome-browser}
 
 ## Pan-genome
 
@@ -160,6 +170,6 @@ Genome accessions with more than 1 genome in a species cluster have additional p
 
 The ‘Downloads’ tab comprises summary files for all described analyses.
 
-**Figure 9**. An overview for a species representative MAG, with a pan-genome analysis.
+![An overview for a species representative MAG, with a pan-genome analysis.](images/genomes/genomes-overview.png){#fig-genome-overview}
 
-A set of assemblies, annotations, [pan-genome](glossary.md#term-Pan-genome) results and protein catalogues are available in our [FTP server](http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/).
+A set of assemblies, annotations, [pan-genome](glossary.md#Pan-genome) results and protein catalogues are available in our [FTP server](http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/).

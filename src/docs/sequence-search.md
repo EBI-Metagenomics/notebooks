@@ -1,11 +1,21 @@
-# Sequence search
+---
+title: Sequence search
+author: 
+  - name: MGnify
+    url: https://www.ebi.ac.uk/metagenomics
+    affiliation: EMBL-EBI
+    affiliation-url: https://www.ebi.ac.uk
+date: last-modified
+citation: true
+description: Guide to using MGnify's peptide sequence search service
+---
 
 ## Landing page
 
 The sequence search (accessed by following the ‘Sequence search’ link from menu bar)
 provides a search against a catalogue of predicted peptides.
 
-**Figure 1**. The landing page of the sequence search tool
+![The landing page of the sequence search tool](images/sequence_search/sequence_search_landing-v5.png){#fig-sequence-search-landing}
 
 These sequences comprise a non-redundant set of proteins predicted from contigs that
 have been assembled from sequencing runs. The HMMER search
@@ -21,7 +31,7 @@ obtained from our [FTP server](ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/pe
 
 The search takes a FASTA-formatted amino acid sequence.
 
-**Figure 2**. Example of a well-formatted input sequence
+![Example of a well-formatted input sequence](images/sequence_search/sequence_search_input_seq-v5.png){#fig-sequence-search-input}
 
 You can search against all of the sequences in the database (‘All’),
 or restrict your search to full length sequences, or partial
@@ -30,7 +40,7 @@ Alternatively, you may choose to search from a subset of environments or
 biomes. Sequences observed in multiple runs may be found in more than one biome. ‘Other’
 sequences are those found in none of the other environment or biome categories.
 
-**Figure 3**. How to select the peptide database to search against
+![How to select the peptide database to search against](images/sequence_search/sequence_search_db_select-v5.png){#fig-sequence-search-db-select}
 
 ## Result page
 
@@ -39,7 +49,7 @@ All sequences in the database have a stable MGYP accession. Additional columns, 
 as the mapping to UniProtKB identifiers, can be enabled by clicking ‘Customise’
 on the results page and checking the appropriate boxes.
 
-**Figure 4**. Different features on the result page after triggering a sequence search
+![Different features on the result page after triggering a sequence search](images/sequence_search/sequence_search_result_custom2.png){#fig-sequence-search-result-custom}
 
 ## Build process
 
@@ -105,7 +115,7 @@ the partial status of the sequences
 and counts of the number of times each sequence
 was observed in the database as a whole.
 
-**Figure 5**. List of available files on the FTP server
+![List of available files on the FTP server](images/sequence_search/sequence_search_ftp.png){#fig-sequence-ftp}
 
 ## Further information
 

@@ -1,4 +1,14 @@
-# RESTful API
+---
+title: RESTful API
+author: 
+  - name: MGnify
+    url: https://www.ebi.ac.uk/metagenomics
+    affiliation: EMBL-EBI
+    affiliation-url: https://www.ebi.ac.uk
+date: last-modified
+citation: true
+description: Programatically accessing MGnify data via the API (Application Programming Interface)
+---
 
 With the rapid expansion in the number of datasets deposited in MGnify, it has become increasingly important to provide programmatic
 access to the data for cross-database complex queries.
@@ -20,8 +30,8 @@ curl -X GET "https://www.ebi.ac.uk/metagenomics/api/latest/"
 ```
 
 There are several easy-to-use top-levels resources, such as
-[studies](glossary.md#term-Study), [samples](glossary.md#term-Sample), [runs](glossary.md#term-Run),
-experiment-types, [biomes](glossary.md#term-Biome), and annotations. For example
+[studies](glossary.md#Study), [samples](glossary.md#Sample), [runs](glossary.md#Run),
+experiment-types, [biomes](glossary.md#Biome), and annotations. For example
 [https://www.ebi.ac.uk/metagenomics/api/latest/studies](https://www.ebi.ac.uk/metagenomics/api/latest/studies) retrieves a list
 of all studies, while [https://www.ebi.ac.uk/metagenomics/api/latest/studies/ERP009004](https://www.ebi.ac.uk/metagenomics/api/latest/studies/ERP009004)
 retrieves a single study, with the accession ERP009004. The samples contained
@@ -47,7 +57,7 @@ method can be used with exception of authentication endpoint.
 ### Response
 
 Links to a resource return a JSON object formatted data structure that
-contains the resource type (in this example [biomes](glossary.md#term-Biome)), associated
+contains the resource type (in this example [studies](glossary.md#Study)), associated
 object identifier (*id*) and *attributes*. Where appropriate, *relationships*
 and links are provided to other resources, allowing complex queries to be
 constructed.
@@ -55,9 +65,9 @@ constructed.
 ```json
 {
   "data": {
-      "type": "studies",
-      "id": "MGYS00002008",
-      "attributes": {
+      "type": "studies",  // <1> 
+      "id": "MGYS00002008",  // <2> 
+      "attributes": {  // <3> 
           "bioproject": "PRJEB22493",
           "samples-count": 136,
           "accession": "MGYS00002008",
@@ -70,7 +80,7 @@ constructed.
           "data-origination": "SUBMITTED",
           "last-update": "2022-01-16T11:17:46"
       },
-      "relationships": {
+      "relationships": {  // <4> 
           "downloads": {
               "links": {
                   "related": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008/downloads"
@@ -145,6 +155,10 @@ constructed.
   }
 }
 ```
+1. The `type` of this data object
+2. The `id` of this specific object
+3. The `attributes` (i.e. properties) of this data object
+4. The `relationships` this object has with others
 
 ### Hypermedia
 
@@ -152,8 +166,9 @@ All resources may have one or more **links** properties referencing to other
 resources, to provide explicit URLs so that proper API clients don’t need to
 construct URLs on their own.
 
-**NOTE**: It is highly recommended for API clients to use links for future upgrades
-of the API.
+::: {.callout-note}
+It is highly recommended for API clients to use links for future upgrades of the API.
+:::
 
 ### Pagination
 
@@ -187,10 +202,12 @@ Navigation through pages:
 }
 ```
 
-**NOTE**: Some API endpoint use *cursor-based pagination*, because they come from a document database.
+::: {.callout-note}
+Some API endpoint use *cursor-based pagination*, because they come from a document database.
 The `links` object in responses provided the necesary cursors to fetch
+:::
 
-For example, fetching Contigs for an [analysis](glossary.md#term-Analysis-result).
+For example, fetching Contigs for an [analysis](glossary.md#Analysis%20result).
 
 ```bash
 curl -X GET "https://www.ebi.ac.uk/metagenomics/api/v1/analyses/MGYA00585528/contigs"
@@ -239,9 +256,9 @@ Gives:
 
 Lists of resources can be filtered and sorted by selected parameters, allowing
 the construction of more complex queries. For instance, in order to retrieve
-oceanographic [samples](glossary.md#term-Sample) from [metagenomic](glossary.md#term-Metagenomic)
-[studies](glossary.md#term-Study) taken at temperature less than 10C, the following query
-could be constructed [https://www.ebi.ac.uk/metagenomics/api/latest/biomes/root:Environmental:Aquatic:Marine/samples?experiment_type=metagenomic&metadata_key=temperature&metadata_value_lte=10&ordering=accession](https://www.ebi.ac.uk/metagenomics/api/latest/biomes/root:Environmental:Aquatic:Marine/samples?experiment_type=metagenomic&metadata_key=temperature&metadata_value_lte=10&ordering=accession):
+oceanographic [samples](glossary.md#Sample) from [metagenomic](glossary.md#Metagenomic)
+[studies](glossary.md#Study) taken at temperature less than 10C, the following query
+could be constructed [`https://www.ebi.ac.uk/metagenomics/api/latest/biomes/root:Environmental:Aquatic:Marine/samples?experiment_type=metagenomic&metadata_key=temperature&metadata_value_lte=10&ordering=accession`](https://www.ebi.ac.uk/metagenomics/api/latest/biomes/root:Environmental:Aquatic:Marine/samples?experiment_type=metagenomic&metadata_key=temperature&metadata_value_lte=10&ordering=accession)
 
 ```bash
 curl -X GET "https://www.ebi.ac.uk/metagenomics/api/latest/biomes/root:Environmental:Aquatic:Marine/samples?experiment_type=metagenomic&metadata_key=temperature&metadata_value_lte=10&ordering=accession"
@@ -270,11 +287,13 @@ with the corresponding IDs and fully rendered data for the related objects.
 This format is known as a
 [“Compound Document”](https://jsonapi.org/format/#document-compound-documents).
 
-**NOTE**: Note that the list of related objects is *not* paginated,
+::: {.callout-warning}
+The list of related objects is *not* paginated,
 and can be very expensive to query.
 Only a subset of relationships are available for inclusion in compound documents:
 these are based on common use cases and on queries that can be optimised
 so are less likely to run slowly or time out.
+:::
 
 The supported `?include=` relationships are discoverable using the
 [“Browsable API” in your web browser](https://www.ebi.ac.uk/metagenomics/api/latest/).
@@ -326,7 +345,7 @@ curl -X GET "https://www.ebi.ac.uk/metagenomics/api/latest/studies/MGYS00002008?
           "self": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008"
       }
   },
-  "included": [
+  "included": [ // <1>
       {
           "type": "biomes",
           "id": "root:Environmental:Aquatic:Marine",
@@ -420,6 +439,8 @@ curl -X GET "https://www.ebi.ac.uk/metagenomics/api/latest/studies/MGYS00002008?
   ]
 }
 ```
+
+1. The `included` data objects of this Compound Document
 
 Datasets that cannot be made using a single Compound Document
 should be built up by making several requests to the API,

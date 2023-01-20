@@ -1,102 +1,103 @@
-# Glossary
+---
+title: Glossary
+author: 
+  - name: MGnify
+    url: https://www.ebi.ac.uk/metagenomics
+    affiliation: EMBL-EBI
+    affiliation-url: https://www.ebi.ac.uk
+date: last-modified
+citation: true
+description: Dictionary of terms used in MGnify and throughout this documentaiton
+---
 
-    Study
-        Represents a collection of :term:`samples<sample>` and experiments applied to these :term:`samples<sample>`.
+## 16S rRNA genes
+Main prokaryotic ribosomal RNA genes used for taxonomic assignments. 
 
+## 18S rRNA genes
+Main eukaryotic ribosomal RNA genes used for taxonomic assignments.
 
-    Sample
-        A representation of the physical amount of material collected. It represents a specimen of a :term:`biome`.
+## Amplicon
+Refers to environmental sample where a marker gene has been amplified and sequenced. On the EMG website, we use the term amplicon when the amplified marker gene is ribosomal RNA gene. Analysis will yield taxonomic information.
 
+## Analysis result
+The end result of the [pipeline](#pipeline) analysis of a [run](#run).
 
-    Run
-        The sequence file obtained from performing an experiment (an experiment generally includes several steps such as filtration, metatranscriptomic extraction and Illumina MiSeq sequencing, for example) on all or part of a :term:`sample`. Several runs can therefore be generated from a single :term:`sample`.
+## Assembly
+Refers to environmental sample where Whole Genome Shotgun sequencing reads have been assembled to form larger fragments called contigs. Analysis will yield taxonomic and functional information.
 
+## Biome
+An ecological community type. In MGnify, [biomes](#biome) are organised hierarchically going from large types (such as soil, host-associated or aquatic) to more precise types (such as forest soil, skin or coastal) based on the [GOLD classification](https://gold.jgi.doe.gov/distribution#Classification)
 
-    Analysis result
-        The end result of the :term:`pipeline` analysis of a :term:`run`.
+## COG
+Cluster of Orthologous Groups of proteins - a database of groups of proteins inferred by orthology.
 
+## GO term
+A defined vocabulary term to represent the functional attributes of a protein. Defined by the the [Gene Ontology](http://geneontology.org/) initiative, GO terms are organised hierarchically to unambiguously define the biological process, precise molecular function or cellular location of a protein.
 
-    Biome
-        An ecological community type. In MGnify, :term:`biomes<biome>` are organised hierarchically going from large types (such as soil, host-associated or aquatic) to more precise types (such as forest soil, skin or coastal) based on the `GOLD classification <https://gold.jgi.doe.gov/distribution#Classification>`_.
+## GO slim
+A GO slim is a cut-down version of the GO hierarchy to give an overview of the functional results. It is used on MGnify website. The GO slim hierarchy lacks the fine granularity of the full GO hierarchy.
 
+## InterPro
+Combines protein signatures from a number of member databases into a single searchable resource, capitalising on their individual strengths to produce a powerful integrated database and diagnostic tool.
 
-    Pipeline
-        A prescribed set of successive steps needed to transform an input (raw reads and contigs for MGnify) into an output with added information (annotated files with taxonomy and functional assignments for MGnify) 
-        
-        
-    Pipeline tool	
-        A software or script used during the individual step of an analysis pipeline.
+## ITS
+The internal transcribed spacers are regions situated between the [LSU and SSU](#"lsu,%20ssu") genes.
 
+## KEGG
+Kyoto Encyclopedia of Genes and Genomes - a database used to assign high level functional and pathway annotations.
 
-    GO term
-        A defined vocabulary term to represent the functional attributes of a protein. Defined by the the `Gene Ontology <http://geneontology.org/>`_ initiative, GO terms are organised hierarchically to unambiguously define the biological process, precise molecular function or cellular location of a protein.
+## LSU, SSU
+Clusters of Large and Small Subunit ribosomal RNA genes. LSU comprises 23S (for prokaryotes) and 28S (for eukaryotes) sequences while the SSU represents 16S (for prokaryotes) and 18S (for eukaryotes) sequences.
 
+## MAGs
+Metagenome assembled genomes are binned or de-replicated metagenome assemblies belonging to one taxon.
 
-    GO slim
-        A GO slim is a cut-down version of the GO hierarchy to give an overview of the functional results. It is used on MGnify website. The GO slim hierarchy lacks the fine granularity of the full GO hierarchy.
+## Metabarcoding
+Refers to environmental sample where a marker gene, different from ribosomal RNA gene, has been amplified and sequenced. Analysis will yield taxonomic information.
 
+## Metagenomic
+Refers to environmental sample where Whole Genome Shotgun sequencing method has been applied. Analysis will yield taxonomic and functional information.
 
-    InterPro
-        Combines protein signatures from a number of member databases into a single searchable resource, capitalising on their individual strengths to produce a powerful integrated database and diagnostic tool.
+## Metatranscriptomic
+Refera to environmental sample where whole transcriptome sequencing method has been applied. Analysis will yield taxonomic and functional information.
 
+## OTU
+Operational Taxonomic Unit representing a group of sequences sharing high similarity with each other.
 
-    Metagenomic
-        Refers to environmental sample where Whole Genome Shotgun sequencing method has been applied. Analysis will yield taxonomic and functional information.
+## Pan-genome
+The entire set of genes (core and accessory) within a species.
 
+## Pipeline
+A prescribed set of successive steps needed to transform an input (raw reads and contigs for MGnify) into an output with added information (annotated files with taxonomy and functional assignments for MGnify) 
 
-    Metatranscriptomic
-        Refera to environmental sample where whole transcriptome sequencing method has been applied. Analysis will yield taxonomic and functional information.
+## Pipeline tool	
+A software or script used during the individual step of an analysis pipeline.
 
+## Predicted coding sequence (pCDS)
+Partial or complete gene sequence as predicted by the gene caller (FragGenScan for read submissions, Prodigal and FragGenScan for assembly submissions).
 
-    Amplicon
-        Refers to environmental sample where a marker gene has been amplified and sequenced. On the EMG website, we use the term amplicon when the amplified marker gene is ribosomal RNA gene. Analysis will yield taxonomic information.
+## Run
+The sequence file obtained from performing an experiment (an experiment generally includes several steps such as filtration, metatranscriptomic extraction and Illumina MiSeq sequencing, for example) on all or part of a [sample](#sample). Several runs can therefore be generated from a single [sample](#sample).
 
+## Sample
+A representation of the physical amount of material collected. It represents a specimen of a [biome](#biome)
 
-    Assembly
-        Refers to environmental sample where Whole Genome Shotgun sequencing reads have been assembled to form larger fragments called contigs. Analysis will yield taxonomic and functional information.
-
-
-    Metabarcoding
-        Refers to environmental sample where a marker gene, different from ribosomal RNA gene, has been amplified and sequenced. Analysis will yield taxonomic information.
-
-
-    Predicted coding sequence (pCDS)
-        Partial or complete gene sequence as predicted by the gene caller (FragGenScan for read submissions, Prodigal and FragGenScan for assembly submissions).
-
-
-    16S rRNA genes
-        Main prokaryotic ribosomal RNA genes used for taxonomic assignments. 
-
-
-    18S rRNA genes
-        Main eukaryotic ribosomal RNA genes used for taxonomic assignments.
-
-
-    OTU
-        Operational Taxonomic Unit representing a group of sequences sharing high similarity with each other.
-
-
-    LSU, SSU
-        Clusters of Large and Small Subunit ribosomal RNA genes. LSU comprises 23S (for prokaryotes) and 28S (for eukaryotes) sequences while the SSU represents 16S (for prokaryotes) and 18S (for eukaryotes) sequences.
-
-
-    MAGs
-        Metagenome assembled genomes are binned or de-replicated metagenome assemblies belonging to one taxon.
-
-
-    Pan-genome
-        The entire set of genes (core and accessory) within a species.
+## Study
+Represents a collection of [samples](#sample) and experiments applied to these [samples](#sample)
 
 
-    KEGG
-        Kyoto Encyclopedia of Genes and Genomes - a database used to assign high level functional and pathway annotations.
 
 
-    COG
-        Cluster of Orthologous Groups of proteins - a database of groups of proteins inferred by orthology.
 
 
-    ITS
-        The internal transcribed spacers are regions situated between the :term:`LSU and SSU<LSU, SSU>` genes.
+
+
+
+
+
+
+
+
+
 
 
