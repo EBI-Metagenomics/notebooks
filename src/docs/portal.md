@@ -1,4 +1,14 @@
-# Website and portal
+---
+title: Website and portal
+author: 
+  - name: MGnify
+    url: https://www.ebi.ac.uk/metagenomics
+    affiliation: EMBL-EBI
+    affiliation-url: https://www.ebi.ac.uk
+date: last-modified
+citation: true
+description: User guide to the MGnify website
+---
 
 ## Sections of the MGnify website
 
