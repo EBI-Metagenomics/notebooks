@@ -9,7 +9,7 @@ date: last-modified
 citation: true
 description: How MGnify data moves from submission to analysis
 ---
-![MGnify data flow from submission to [analysis results](glossary.md#Analysis%20result).](images/dataflow/submit_graph_08_web032.png){#fig-dataflow-process}
+![MGnify data flow from submission to [analysis results](glossary.md#Analysis%20result).](images/dataflow/submit_graph_08_web032.png){#fig-dataflow-process .tall-figure fig-align="left"}
 
 1. Register
 : Submissions are handled by the** [European Nucleotide Archive (ENA)](https://www.ebi.ac.uk/ena/) **and therefore users must have an ENA** [Webin account](https://www.ebi.ac.uk/ena/submit/sra/). In addition, users submitting private data must provide an expressed agreement that MGnify can access their data for analysis, as described under [Submit data](https://www.ebi.ac.uk/metagenomics/submit). Otherwise, we will not be able to access their data. MGnify will, of course, handle this data confidentially.

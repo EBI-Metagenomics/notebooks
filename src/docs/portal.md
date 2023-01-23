@@ -139,7 +139,7 @@ but that was mentioned in the publications describing them.
 
 These can be explored within MGnify on a Publication page, or in the list of Publications on a Study page.
 
-![Annotations for publications are made available within MGnify, in a drill-down format.](images/portal/europe-pmc-annotations.png)
+![Annotations for publications are made available within MGnify, in a drill-down format.](images/portal/europe-pmc-annotations.png){#fig-epmc-annotations .tall-figure fig-align="left"}
 
 It is impossible to automatically and confidently determine which sample(s) a particular publication annotation may
 refer to. However, on the [Sample](glossary.md#Sample) pages within MGnify the existence of any potential additional metadata from
@@ -181,7 +181,7 @@ Functional analysis of runs within projects on the [MGnify website](https://www.
 Below this first bar chart, there are 4 tabs with different types of functional annotation:
 
 ::: {layout="[[1], [1], [1, 1]]" layout-valign="bottom"}
-![InterPro match information for the predicted coding sequences in the run is shown. The number of InterPro matches are displayed graphically, and as a downloadable table with links to corresponding InterPro entries.](images/portal/func1-v5.png)
+![InterPro match information for the predicted coding sequences in the run is shown. The number of InterPro matches are displayed graphically, and as a downloadable table with links to corresponding InterPro entries.](images/portal/func1-v5.png){.tall-figure fig-align="left"}
 
 ![Predicted GO slim terms are displayed. Different graphical representations are available, and can be selected by clicking on the ‘Switch view’ icons. ](images/portal/func2-v5.png)
 
@@ -213,7 +213,7 @@ Annotation of potential pathways and high order system classification, as shown 
 This feature is available for assembly analysis only and can be found in the tab ‘Contig Viewer’.
 
 ::: {layout-nrow=2 layout-ncol=1}
-![The main page contains a table of contigs with annotations, length and coverage. Text search and tickboxes allow users to search for functional annotations by method.](images/portal/contig1-v5.png)
+![The main page contains a table of contigs with annotations, length and coverage. Text search and tickboxes allow users to search for functional annotations by method.](images/portal/contig1-v5.png){.tall-figure fig-align="left"}
 
 ![Hover over each coding sequence to see functional annotation with external links, and protein length for that region.](images/portal/contig2-v5.png)
 
