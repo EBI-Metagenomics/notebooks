@@ -17,3 +17,9 @@ $link-color:            #3b6fb6 !default;
 $link-hover-color:      #193f90 !default;
 $link-decoration:       none !default;
 $link-hover-decoration: underline !default;
+
+.img-fluid.tall-figure {
+	@media (min-width: 1250px) {
+		max-height: calc(70vh);
+	}
+}
