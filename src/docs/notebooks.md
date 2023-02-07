@@ -89,7 +89,7 @@ Unless you’re using the notebooks on Galaxy, when you leave your computer for 
 Some resource views on the MGnify website show a “Programmatic access” banner.
 This lists the [API](api.md) URL for the resource, as well as links to any Notebooks that help you consume that API endpoint.
 
-For example, opening a [Study](glossary.md#Study) in R or Python means opening a Notebook on our server with example code to read in that study.
+For example, opening a [Study](glossary.md#study) in R or Python means opening a Notebook on our server with example code to read in that study.
 
 These are [deep links](https://en.wikipedia.org/wiki/Deep_linking), in that following them means the Notebook will already know the Study Accession (ID) you are interested in.
 
