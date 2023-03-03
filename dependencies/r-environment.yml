@@ -1,4 +1,5 @@
 # https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-datascience-notebook
+name: mgnify-r-env
 channels:
   - conda-forge
 dependencies:
@@ -8,6 +9,7 @@ dependencies:
   - bioconda::bioconductor-siamcat=2.2.0
   - conda-forge::r-reshape2=1.4.4
   - conda-forge::r-vegan=2.6_4
-  - pip
-  - pip:
-    - jsonapi-client==0.9.9
+  - conda-forge::r-devtools=2.4.5
+  # - pip
+  # - pip:
+  #   - jsonapi-client==0.9.9

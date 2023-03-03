@@ -4,10 +4,16 @@ ENV CHOWN_HOME_OPTS='-R'
 ENV CHOWN_HOME='yes'
 
 # Install Python/R dependencies
-COPY dependencies/environment.yml /tmp/environment.yml
+COPY dependencies/r-environment.yml /tmp/r-environment.yml
+COPY dependencies/py-environment.yml /tmp/py-environment.yml
 COPY dependencies/dependencies.R /tmp/dependencies.R
-RUN mamba env update -n base --file /tmp/environment.yml
+RUN mamba install -y nb_conda_kernels
+RUN mamba env create -f /tmp/r-environment.yml
+RUN mamba env create -f /tmp/py-environment.yml
+
+SHELL ["conda", "run", "-n", "mgnify-r-env", "/bin/bash", "-c"]
 RUN Rscript /tmp/dependencies.R
+SHELL ["/bin/bash", "-c"]
 
 # Place / check / populate MGnifyR cache for example used in studies
 # Zipped cache should be up to date in repo, but run populate to be sure nothing is missing

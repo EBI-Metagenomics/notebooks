@@ -1,0 +1,11 @@
+# https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-datascience-notebook
+name: mgnify-py-env
+channels:
+  - conda-forge
+dependencies:
+  - python==3.11
+  - pip
+  - pip:
+    - jsonapi-client==0.9.9
+    - pandas==1.5.3
+    - numpy==1.24.2
