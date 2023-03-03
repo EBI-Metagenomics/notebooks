@@ -13,14 +13,13 @@ RUN mamba env create -f /tmp/py-environment.yml
 
 SHELL ["conda", "run", "-n", "mgnify-r-env", "/bin/bash", "-c"]
 RUN Rscript /tmp/dependencies.R
-SHELL ["/bin/bash", "-c"]
-
 # Place / check / populate MGnifyR cache for example used in studies
 # Zipped cache should be up to date in repo, but run populate to be sure nothing is missing
 COPY dependencies/mgnify-cache.tgz /tmp/mgnify-cache.tgz
 RUN tar -xzf /tmp/mgnify-cache.tgz -C /
 COPY dependencies/populate-mgnifyr-cache.R /tmp/populate-mgnifyr-cache.R
 RUN Rscript /tmp/populate-mgnifyr-cache.R
+SHELL ["/bin/bash", "-c"]
 
 # Install JupyterLab extension to handle query parameter > env vars in ShinyProxy
 COPY shiny_proxy_jlab_query_parms /tmp/shiny_proxy_jlab_query_parms
