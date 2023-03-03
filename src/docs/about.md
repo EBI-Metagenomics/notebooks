@@ -11,7 +11,7 @@ description: Background to the MGnify service, our funding and citation info, an
 ---
 ## The MGnify service
 
-MGnify is a freely available hub for the analysis and exploration of [metagenomic](glossary.md#Metagenomic), [metatranscriptomic](glossary.md#Metatranscriptomic), [amplicon](glossary.md#Amplicon) and [assembly](glossary.md#Assembly) data. The resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive ([ENA](https://www.ebi.ac.uk/ena)). The MGnify resource was previously known as EBI Metagenomics, but was re-branded in 2018 to reflect its growing remit.
+MGnify is a freely available hub for the analysis and exploration of [metagenomic](glossary.md#metagenomic), [metatranscriptomic](glossary.md#metatranscriptomic), [amplicon](glossary.md#amplicon) and [assembly](glossary.md#assembly) data. The resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive ([ENA](https://www.ebi.ac.uk/ena)). The MGnify resource was previously known as EBI Metagenomics, but was re-branded in 2018 to reflect its growing remit.
 
 ## What does MGnify offer
 

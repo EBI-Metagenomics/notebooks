@@ -30,8 +30,8 @@ curl -X GET "https://www.ebi.ac.uk/metagenomics/api/latest/"
 ```
 
 There are several easy-to-use top-levels resources, such as
-[studies](glossary.md#Study), [samples](glossary.md#Sample), [runs](glossary.md#Run),
-experiment-types, [biomes](glossary.md#Biome), and annotations. For example
+[studies](glossary.md#study), [samples](glossary.md#sample), [runs](glossary.md#run),
+experiment-types, [biomes](glossary.md#biome), and annotations. For example
 [https://www.ebi.ac.uk/metagenomics/api/latest/studies](https://www.ebi.ac.uk/metagenomics/api/latest/studies) retrieves a list
 of all studies, while [https://www.ebi.ac.uk/metagenomics/api/latest/studies/ERP009004](https://www.ebi.ac.uk/metagenomics/api/latest/studies/ERP009004)
 retrieves a single study, with the accession ERP009004. The samples contained
@@ -57,7 +57,7 @@ method can be used with exception of authentication endpoint.
 ### Response
 
 Links to a resource return a JSON object formatted data structure that
-contains the resource type (in this example [studies](glossary.md#Study)), associated
+contains the resource type (in this example [studies](glossary.md#study)), associated
 object identifier (*id*) and *attributes*. Where appropriate, *relationships*
 and links are provided to other resources, allowing complex queries to be
 constructed.
@@ -207,7 +207,7 @@ Some API endpoint use *cursor-based pagination*, because they come from a docume
 The `links` object in responses provided the necesary cursors to fetch
 :::
 
-For example, fetching Contigs for an [analysis](glossary.md#Analysis%20result).
+For example, fetching Contigs for an [analysis](glossary.md#analysis-result).
 
 ```bash
 curl -X GET "https://www.ebi.ac.uk/metagenomics/api/v1/analyses/MGYA00585528/contigs"
@@ -256,8 +256,8 @@ Gives:
 
 Lists of resources can be filtered and sorted by selected parameters, allowing
 the construction of more complex queries. For instance, in order to retrieve
-oceanographic [samples](glossary.md#Sample) from [metagenomic](glossary.md#Metagenomic)
-[studies](glossary.md#Study) taken at temperature less than 10C, the following query
+oceanographic [samples](glossary.md#sample) from [metagenomic](glossary.md#metagenomic)
+[studies](glossary.md#study) taken at temperature less than 10C, the following query
 could be constructed [`https://www.ebi.ac.uk/metagenomics/api/latest/biomes/root:Environmental:Aquatic:Marine/samples?experiment_type=metagenomic&metadata_key=temperature&metadata_value_lte=10&ordering=accession`](https://www.ebi.ac.uk/metagenomics/api/latest/biomes/root:Environmental:Aquatic:Marine/samples?experiment_type=metagenomic&metadata_key=temperature&metadata_value_lte=10&ordering=accession)
 
 ```bash
