@@ -10,3 +10,9 @@ _site
 _freeze
 /.quarto/
 *.pyc
+.task
+site_libs
+src/docs/*.html
+src/*.html
+src/notebooks/**/*.html
+src/*-listing.json
