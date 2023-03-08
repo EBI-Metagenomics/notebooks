@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:r-4.2.2
+FROM jupyter/datascience-notebook:r-4.2.2@sha256:c8c75096f0efe1d7cad07ec97ecdf5c6328a119bf6295269c45065c90b0dde2a
 USER root
 ENV CHOWN_HOME_OPTS='-R'
 ENV CHOWN_HOME='yes'
@@ -35,5 +35,8 @@ RUN jlpm cache clean
 # Clean tmp
 RUN rm -rf /tmp/*
 
-COPY shiny-proxy/custom.js /home/jovyan/.jupyter/custom/custom.js
+RUN jupyter kernelspec remove -y julia-1.8
+COPY jupyter_config/custom.js /home/jovyan/.jupyter/custom/custom.js
+COPY jupyter_config/jupyter_config.json /home/jovyan/.jupyter/jupyter_config.json
 COPY src/notebooks /home/jovyan/mgnify-examples
+RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"

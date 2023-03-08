@@ -10,6 +10,4 @@ dependencies:
   - conda-forge::r-reshape2=1.4.4
   - conda-forge::r-vegan=2.6_4
   - conda-forge::r-devtools=2.4.5
-  # - pip
-  # - pip:
-  #   - jsonapi-client==0.9.9
+  - conda-forge::r-irkernel
