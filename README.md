@@ -55,7 +55,7 @@ It should be localhost port 8888, with a random token.
 
 When you're finished editing, use normal `git add` and `git commit` to contribute your changes.
 
-For info, ("jovyan" is always the user for these Jupyter Docker images.)
+For info, "jovyan" is always the user for these Jupyter Docker images. Jovyan as in jovian (a being from the planet Jupiter), but from Jupyter!
 
 #### Guidance for authoring notebooks
 - Notebooks should be complete examples, that can be run with zero code changes needed
@@ -181,7 +181,7 @@ This is in the `mgnify_jupyter_lab_ui` folder.
 
 ## Testing
 A small integration test suite is written using Jest-Puppetteer.
-You need to have built or pulled the docker/Dockerfile (tagegd as `quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
+You need to have built or pulled the docker/Dockerfile (tagged as `quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
 The test suite runs Shiny Proxy, and makes sure Jupyter Lab opens, the deep-linking works, and variable insertion works in R and Python.
 
 ```bash
