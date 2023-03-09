@@ -5,7 +5,7 @@ project:
         - src/docs/*.md
         - src/notebooks_list.qmd
         - src/notebooks/Python Examples/*.ipynb
-        # - src/notebooks/R Examples/*.ipynb
+        - src/notebooks/R Examples/*.ipynb
 
 execute:
     freeze: auto

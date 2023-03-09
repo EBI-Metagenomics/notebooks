@@ -25,7 +25,7 @@ describe('Jupyter Lab launcher', () => {
   })
 
   it ('should show python and R in launcher', async () => {
-    await expect(frame).toMatch('Python 3 (ipykernel)')
+    await expect(frame).toMatch('Python (mgnify-py-env)')
     await expect(frame).toMatch('R file')
   })
 })
@@ -55,7 +55,7 @@ describe('Environment variable insertion', () => {
   
   let frame
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await page.goto('http://127.0.0.1:8080/app/mgnify-notebook-lab?jlvar_TEST=TESTYMCTESTERSON', {waitUntil: 'networkidle2'})
     const frameHandle = await page.waitForSelector('iframe')
     frame = await frameHandle.contentFrame();
@@ -68,7 +68,7 @@ describe('Environment variable insertion', () => {
     const launcherOpener = await frame.waitForSelector('button[title^="New Launcher"]')
     await launcherOpener.click()
     await frame.waitForSelector('.jp-Launcher')
-    const consoleOpener = await frame.waitForSelector('div[title= "Python 3 (ipykernel)"][data-category="Console"]')
+    const consoleOpener = await frame.waitForSelector('div[title= "Python (mgnify-py-env)"][data-category="Console"]')
     await consoleOpener.evaluate(b => b.click());
 
     await frame.waitForNavigation({
@@ -90,7 +90,7 @@ describe('Environment variable insertion', () => {
   it ('should have env var available in new R kernel', async () => {
     const launcherOpener = await frame.waitForSelector('button[title^="New Launcher"]')
     await launcherOpener.click()
-    const consoleOpener = await frame.waitForSelector('div[title= "R"][data-category="Console"]')
+    const consoleOpener = await frame.waitForSelector('div[title= "R (mgnify-r-env)"][data-category="Console"]')
     await consoleOpener.evaluate(b => b.click());
 
     await frame.waitForNavigation({
