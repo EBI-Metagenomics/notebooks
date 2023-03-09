@@ -55,7 +55,7 @@ describe('Environment variable insertion', () => {
   
   let frame
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await page.goto('http://127.0.0.1:8080/app/mgnify-notebook-lab?jlvar_TEST=TESTYMCTESTERSON', {waitUntil: 'networkidle2'})
     const frameHandle = await page.waitForSelector('iframe')
     frame = await frameHandle.contentFrame();
