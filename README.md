@@ -28,12 +28,17 @@ Between the [base image](https://jupyter-docker-stacks.readthedocs.io/en/latest/
 and the extra requirements (`dependecies/*`), the Docker contains all the libraries we need.
 
 ### To add a new notebook
+#### Python
 ```bash
 TITLE='My New Notebook' AUTHOR='My Name' task add-py-notebook
 ```
 This copies and fills in a template notebook stub file with a standard header, into `src/notebooks/Python Examples`.
 
-(TODO: `R` version).
+#### R
+```bash
+TITLE='My New Notebook' AUTHOR='My Name' task add-r-notebook
+```
+This copies and fills in a template notebook stub file with a standard header, into `src/notebooks/R Examples`.
 
 ### To open the notebooks server in edit mode
 ```bash
@@ -50,7 +55,7 @@ It should be localhost port 8888, with a random token.
 
 When you're finished editing, use normal `git add` and `git commit` to contribute your changes.
 
-For info, ("jovyan" is always the user for these Jupyter Docker images.)
+For info, "jovyan" is always the user for these Jupyter Docker images. Jovyan as in jovian (a being from the planet Jupiter), but from Jupyter!
 
 #### Guidance for authoring notebooks
 - Notebooks should be complete examples, that can be run with zero code changes needed
@@ -66,12 +71,7 @@ Add commands to this to include other datasets in the cache.
 The cache is zipped and checked into the repo for faster population during builds (`dependencies/mgnify-cache.tgz`), since it rarely changes.
 To check in an updated version of the cache...
 ```bash
-docker run -it -v $PWD/dependencies:/opt/dependencies mgnify-nb-dev /bin/bash
-cd /opt/dependencies
-rm mgnify-cache.tgz
-Rscript populate-mgnifyr-cache.R
-tar -czf mgnify-cache.tgz /home/jovyan/.mgnify_cache
-exit
+task update-mgnifyr-cache
 git add depdencies/mgnify-cache.tgz
 ```
 
@@ -99,7 +99,11 @@ task render-static
 This builds a docker image tagged as `notebooks-static`, runs Quarto inside it, executes all cells of the notebooks, 
 and renders the completed notebooks to the `_site` folder (which is mounted from your host machine into Docker).
 
-You can then open the generated HTML, or use
+You can [browse](http://localhost:4444) the generated HTML with
+```bash
+task serve-static
+```
+Or use
 ```bash
 task preview-static
 ```
@@ -177,7 +181,7 @@ This is in the `mgnify_jupyter_lab_ui` folder.
 
 ## Testing
 A small integration test suite is written using Jest-Puppetteer.
-You need to have built or pulled the docker/Dockerfile (tagegd as `quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
+You need to have built or pulled the docker/Dockerfile (tagged as `quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
 The test suite runs Shiny Proxy, and makes sure Jupyter Lab opens, the deep-linking works, and variable insertion works in R and Python.
 
 ```bash
