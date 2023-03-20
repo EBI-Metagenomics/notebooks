@@ -16,3 +16,6 @@ src/docs/*.html
 src/*.html
 src/notebooks/**/*.html
 src/*-listing.json
+
+*.parquet
+!**/example-data/**/*.parquet
