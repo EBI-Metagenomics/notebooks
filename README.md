@@ -1,20 +1,24 @@
-# EMBL-EBI MGnify example notebooks
+# EMBL-EBI MGnify user guides and resources
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Quay.io docker container build](https://quay.io/repository/microbiome-informatics/emg-notebooks.dev/status)](https://quay.io/repository/microbiome-informatics/emg-notebooks.dev)
 ![Tests](https://github.com/ebi-metagenomics/notebooks/actions/workflows/test.yaml/badge.svg)
 
-
-This repository contains example notebooks, written in Python and R, for using the [MGnify API](https://www.ebi.ac.uk/metagenomics/api/).
+This repository contains the user documentation for MGnify, written in Markdown.
+It also contains example notebooks, written in Python and R, for using the [MGnify API](https://www.ebi.ac.uk/metagenomics/api/).
 
 There are various ways to use these Notebooks, including opening them locally in an existing Jupyter environment or via cloud services.
 
-The Notebooks themselves are in the `src/notebooks` dir.
+The Docs are in the `src/docs` dir. The Notebooks are in the `src/notebooks` dir.
 
+## Quick edits to the docs
+If you're making small edits to the documentation only (Markdown files), you can just use the GitHub interface to make a code branch, edit Markdown directly, and open a Pull Request.
+
+Please check the [authoring guidance below](#docs-authoring-guidance) for info about features beyond standard Markdown (e.g. figures etc).
 
 ## Development prerequisites
-You need [Docker](https://www.docker.com/products/docker-desktop/) installed.
+For major documentation edits or any edits to the notebooks, you need [Docker](https://www.docker.com/products/docker-desktop/) installed.
 (Podman will also work for basics like editing the notebooks.)
 
 You need [Task](https://taskfile.dev/) installed for handy shortcut commands. If you don't want to install that, check `Taskfile.yml` for the long commands.
@@ -24,12 +28,17 @@ Between the [base image](https://jupyter-docker-stacks.readthedocs.io/en/latest/
 and the extra requirements (`dependecies/*`), the Docker contains all the libraries we need.
 
 ### To add a new notebook
+#### Python
 ```bash
 TITLE='My New Notebook' AUTHOR='My Name' task add-py-notebook
 ```
 This copies and fills in a template notebook stub file with a standard header, into `src/notebooks/Python Examples`.
 
-(TODO: `R` version).
+#### R
+```bash
+TITLE='My New Notebook' AUTHOR='My Name' task add-r-notebook
+```
+This copies and fills in a template notebook stub file with a standard header, into `src/notebooks/R Examples`.
 
 ### To open the notebooks server in edit mode
 ```bash
@@ -46,7 +55,7 @@ It should be localhost port 8888, with a random token.
 
 When you're finished editing, use normal `git add` and `git commit` to contribute your changes.
 
-For info, ("jovyan" is always the user for these Jupyter Docker images.)
+For info, "jovyan" is always the user for these Jupyter Docker images. Jovyan as in jovian (a being from the planet Jupiter), but from Jupyter!
 
 #### Guidance for authoring notebooks
 - Notebooks should be complete examples, that can be run with zero code changes needed
@@ -62,12 +71,7 @@ Add commands to this to include other datasets in the cache.
 The cache is zipped and checked into the repo for faster population during builds (`dependencies/mgnify-cache.tgz`), since it rarely changes.
 To check in an updated version of the cache...
 ```bash
-docker run -it -v $PWD/dependencies:/opt/dependencies mgnify-nb-dev /bin/bash
-cd /opt/dependencies
-rm mgnify-cache.tgz
-Rscript populate-mgnifyr-cache.R
-tar -czf mgnify-cache.tgz /home/jovyan/.mgnify_cache
-exit
+task update-mgnifyr-cache
 git add depdencies/mgnify-cache.tgz
 ```
 
@@ -82,10 +86,9 @@ Then check the environment builds by (re)building the Docker:
 docker build -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev:latest .
 ```
 
-## Generating static previews
-There is a setup to use [Quarto](https://quarto.org/) to render the notebooks – including inputs and outputs – as a static website (amongst other mediums).
-
-This is useful as a kind of documentation resource.
+## Generating the documentation site
+There is a setup to use [Quarto](https://quarto.org/) to render the notebooks – including inputs and outputs – as well as the static documentation, to a documentation website. 
+This allows us to use both the docs and notebooks interchangebly to provide user guidance.
 
 There is a Dockerfile to add Quarto on top of the regular Docker stack: `docker/docs.Dockerfile`.
 
@@ -96,12 +99,48 @@ task render-static
 This builds a docker image tagged as `notebooks-static`, runs Quarto inside it, executes all cells of the notebooks, 
 and renders the completed notebooks to the `_site` folder (which is mounted from your host machine into Docker).
 
-You can then open the generated HTML, or use
+You can [browse](http://localhost:4444) the generated HTML with
+```bash
+task serve-static
+```
+Or use
 ```bash
 task preview-static
 ```
 to render the notebook in watch-mode and serve them to [serve a preview of them](http://localhost:4444).
 
+### Docs authoring guidance
+Mostly, you can just use normal Markdown – but there are some handy extra features.
+We frequently use: YAML Front Matter (metadata for each docs page); Callout Blocks; Figures. E.g.:
+
+```markdown
+---
+title: My new docs page
+author: 
+  - name: MGnify
+    url: https://www.ebi.ac.uk/metagenomics
+    affiliation: EMBL-EBI
+    affiliation-url: https://www.ebi.ac.uk
+date: last-modified
+citation: true
+description: This page explains everything
+---
+
+## Steps to do everything
+
+::: {.callout-warning}
+### By the way
+This sentence will be rendered as an attention-grabbing box
+:::
+
+![This figure shows everything](images/mypage/everything.png){#fig-my-everything .tall-figure fig-align="left"}
+
+As you can see in @fig-my-everything, ...
+```
+
+Note the use of `.tall-figure fig-align="left"`: that is a styling hack for figures that are a tall aspect ratio (e.g. a vertical flow diagram, or a scrolled-page screenshot). It makes those images appear less overwhelming. Don't use it for figures that are square or wide.
+
+There are also examples within the existing docs or on the [Quarto website](https://quarto.org/) for how to do subfigures (panels), annotated code blocks, citations etc.
 
 ## Shiny-Proxy application
 The notebooks can also be built into a Docker container suitable for running as an Application on ShinyProxy.
@@ -142,7 +181,7 @@ This is in the `mgnify_jupyter_lab_ui` folder.
 
 ## Testing
 A small integration test suite is written using Jest-Puppetteer.
-You need to have built or pulled the docker/Dockerfile (tagegd as `quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
+You need to have built or pulled the docker/Dockerfile (tagged as `quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
 The test suite runs Shiny Proxy, and makes sure Jupyter Lab opens, the deep-linking works, and variable insertion works in R and Python.
 
 ```bash
