@@ -19,3 +19,4 @@ src/*-listing.json
 
 *.parquet
 !**/example-data/**/*.parquet
+*.sig
