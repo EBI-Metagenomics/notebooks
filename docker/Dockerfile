@@ -40,3 +40,6 @@ COPY jupyter_config/custom.js /home/jovyan/.jupyter/custom/custom.js
 COPY jupyter_config/jupyter_config.json /home/jovyan/.jupyter/jupyter_config.json
 COPY src/notebooks /home/jovyan/mgnify-examples
 RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
+
+# Copying supplementary files to be visible for pathways visualization notebook
+COPY src/docs/supp_tables /home/jovyan/supp_tables
