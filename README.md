@@ -72,7 +72,7 @@ The cache is zipped and checked into the repo for faster population during build
 To check in an updated version of the cache...
 ```bash
 task update-mgnifyr-cache
-git add depdencies/mgnify-cache.tgz
+git add dependencies/mgnify-cache.tgz
 ```
 
 ### Changing dependencies and Docker build
