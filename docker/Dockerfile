@@ -42,4 +42,4 @@ COPY src/notebooks /home/jovyan/mgnify-examples
 RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
 
 # Copying supplementary files to be visible for pathways visualization notebook
-COPY src/docs/supp_tables /home/jovyan/supp_tables
+COPY src/notebooks/example_data /home/jovyan/supp_tables
