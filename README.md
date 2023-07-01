@@ -29,7 +29,7 @@ For major documentation edits or any edits to the notebooks, you need [Docker](h
 
 You need [Task](https://taskfile.dev/) installed for handy shortcut commands. If you don't want to install that, check `Taskfile.yml` for the long commands.
 
-**Note : **
+**Note :**
 To run the Docker containers on **ARM**-based systems, such as [Apple Silicon](https://support.apple.com/en-in/HT211814), follow these steps:
 
 1. Install **_Rosetta_** on your system using the command (for macOS) : `softwareupdate --install-rosetta`
