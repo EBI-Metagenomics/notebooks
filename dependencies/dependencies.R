@@ -3,4 +3,7 @@
 # Extra pacakges not installed in Docker image, or installable via Conda:
 
 require("devtools")
+require("remotes")
 devtools::install_github("beadyallen/MGnifyR")
+devtools::install_github(“ropensci/plotly”)
+remotes::install_github(“jbkunst/highcharter”)
