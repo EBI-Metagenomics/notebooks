@@ -5,5 +5,5 @@
 require("devtools")
 require("remotes")
 devtools::install_github("beadyallen/MGnifyR")
-devtools::install_github(“ropensci/plotly”)
-remotes::install_github(“jbkunst/highcharter”)
+devtools::install_github("ropensci/plotly")
+remotes::install_github("jbkunst/highcharter")
