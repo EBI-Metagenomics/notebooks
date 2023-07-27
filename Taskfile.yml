@@ -45,6 +45,16 @@ tasks:
     cmds:
       - docker run -it -v $PWD/src/notebooks:/home/jovyan/mgnify-examples -p 8888:8888 quay.io/microbiome-informatics/emg-notebooks.dev:latest
 
+  build-notebook-docker:
+    summary: |
+      Builds a docker image with the Notebooks Server, locally.
+
+      Useful if you're developing the Jupyter extensions, installing new R/Python packages to the conda envs etc.
+
+      NOT needed if you're just editing/adding notebooks with no additional dependencies.
+    cmds:
+      - docker build -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev:latest .
+
   build-static-docker:
     summary: |
       Builds a docker image with Quarto included, for statically rendering the notebook outputs.

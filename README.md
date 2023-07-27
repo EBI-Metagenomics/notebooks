@@ -76,14 +76,14 @@ git add depdencies/mgnify-cache.tgz
 ```
 
 ### Changing dependencies and Docker build
-The add dependencies, edit the `dependencies/environment.yml` file.
+The add dependencies, edit the `dependencies/{py|r}-environment.yml` files.
 
 You can temporarily try things by opening a Terminal inside Jupyter Lab and `mambda install`ing the package(s).
 But make sure you reflect everything in the conda environment file.
 
 Then check the environment builds by (re)building the Docker:
 ```bash
-docker build -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev:latest .
+task build-notebook-docker
 ```
 
 ## Generating the documentation site
