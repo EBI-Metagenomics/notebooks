@@ -1,15 +1,17 @@
-FROM jupyter/datascience-notebook:r-4.2.2@sha256:c8c75096f0efe1d7cad07ec97ecdf5c6328a119bf6295269c45065c90b0dde2a
+FROM jupyter/minimal-notebook:lab-3.6.3@sha256:1443243e00caa7db61de7faaad626a173c4a51d8f15e48e07c6b111de73d0f38
+LABEL maintainer="EMBL-EBI Microbiome Informatics (MGnify) Team <metagenomics-help@ebi.ac.uk>"
 USER root
 ENV CHOWN_HOME_OPTS='-R'
 ENV CHOWN_HOME='yes'
 
 # Install Python/R dependencies
-COPY dependencies/r-environment.yml /tmp/r-environment.yml
-COPY dependencies/py-environment.yml /tmp/py-environment.yml
-COPY dependencies/dependencies.R /tmp/dependencies.R
 RUN mamba install -y nb_conda_kernels
+RUN conda config --system --prepend channels bioconda
+COPY dependencies/r-environment.yml /tmp/r-environment.yml
 RUN mamba env create -f /tmp/r-environment.yml
+COPY dependencies/py-environment.yml /tmp/py-environment.yml
 RUN mamba env create -f /tmp/py-environment.yml
+COPY dependencies/dependencies.R /tmp/dependencies.R
 
 SHELL ["conda", "run", "-n", "mgnify-r-env", "/bin/bash", "-c"]
 RUN Rscript /tmp/dependencies.R
@@ -30,12 +32,13 @@ COPY mgnify_jupyter_lab_ui /tmp/mgnify_jupyter_lab_ui
 RUN pip install /tmp/mgnify_jupyter_lab_ui
 
 # Clean yarn cache else chown'ing home is very slow on container start
-RUN jlpm cache clean 
+RUN rm -rf /home/jovyan/.yarn
+RUN rm -rf /home/jovyan/.cache
+RUN rm -rf /home/jovyan/.npm
 
 # Clean tmp
 RUN rm -rf /tmp/*
 
-RUN jupyter kernelspec remove -y julia-1.8
 COPY jupyter_config/custom.js /home/jovyan/.jupyter/custom/custom.js
 COPY jupyter_config/jupyter_config.json /home/jovyan/.jupyter/jupyter_config.json
 COPY src/notebooks /home/jovyan/mgnify-examples

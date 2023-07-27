@@ -148,14 +148,13 @@ The configuration for this is in the `shiny-proxy` dir.
 
 ### Testing with a locally built Docker
 ```bash
-docker build -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev .
+task build-notebook-docker
 ```
-(or just retag with `docker tag mgnify-nb-dev quay.io/microbiome-informatics/emg-notebooks.dev` if you already built it as above).
 
 ### Running ShinyProxy
 - [Download the latest version of ShinyProxy](https://www.shinyproxy.io/downloads/) (>=2.6 is required). It is a JAR, so you need Java installed. i.e., download ShinyProxy into this repo directory.
 - The `application.yml` file must be in the same directory as the location you launch Shiny Proxy from.
-- If you want the currently deployed image instead of your local one... `docker pull quay.io/microbiome-informatics/emg-notebooks.dev`
+- If you want the currently deployed image instead of your local one... `docker pull quay.io/microbiome-informatics/emg-notebooks.dev:latest`
 - `cd shiny-proxy`, `java -jar shinyproxy-2.6.1.jar`
 - Browse to the ShinyProxy URL, likely localhost:8080
 
@@ -181,7 +180,7 @@ This is in the `mgnify_jupyter_lab_ui` folder.
 
 ## Testing
 A small integration test suite is written using Jest-Puppetteer.
-You need to have built or pulled the docker/Dockerfile (tagged as `quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
+You need to have built or pulled the docker/Dockerfile (tagged as `quay.io/microbiome-informatics/emg-notebooks.dev:latest`), and have Shiny Proxy downloaded first.
 The test suite runs Shiny Proxy, and makes sure Jupyter Lab opens, the deep-linking works, and variable insertion works in R and Python.
 
 ```bash

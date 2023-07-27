@@ -1,15 +1,16 @@
-# https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-datascience-notebook
 name: mgnify-r-env
 channels:
   - conda-forge
+  - bioconda
+  - nodefaults
 dependencies:
-  - bioconda::bioconductor-phyloseq=1.42.0
-  - bioconda::bioconductor-metagenomeSeq=1.40.0
-  - bioconda::bioconductor-microbiomeMarker=1.4.0
-  - bioconda::bioconductor-siamcat=2.2.0
-  - conda-forge::r-reshape2=1.4.4
-  - conda-forge::r-vegan=2.6_4
-  - conda-forge::r-devtools=2.4.5
-  - conda-forge::r-irkernel=1.3.2
-  - conda-forge::r-tidyverse=2.0.0
-  - conda-forge::r-ggplot2=3.4.1
+  - bioconductor-phyloseq=1.42.0
+  - bioconductor-metagenomeSeq=1.40.0
+  - bioconductor-microbiomeMarker=1.4.0
+  - bioconductor-siamcat=2.2.0
+  - r-reshape2=1.4.4
+  - r-vegan=2.6_4
+  - r-devtools=2.4.5
+  - r-irkernel=1.3.2
+  - r-tidyverse=2.0.0
+  - r-ggplot2=3.4.1
