@@ -6,13 +6,14 @@ import {
 import { requestAPI } from './handler';
 
 /**
- * Initialization data for the shiny-proxy-jlab-query-parms extension.
+ * Initialization data for the jlab_query_params extension.
  */
 const plugin: JupyterFrontEndPlugin<void> = {
-  id: 'shiny-proxy-jlab-query-parms:plugin',
+  id: 'jlab_query_params:plugin',
+  description: 'JupyterLab extension to set environment variables and support deep-links via query parameters.',
   autoStart: true,
   activate: (app: JupyterFrontEnd) => {
-    console.log('JupyterLab extension shiny-proxy-jlab-query-parms is activated!');
+    console.log('JupyterLab extension jlab_query_parms is activated!');
 
     const queryParams = new URLSearchParams(window.location.search);
 
@@ -20,13 +21,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
       window.location.assign(window.location.origin + window.location.pathname + '/tree/' + queryParams.get('jlpath'));
     }
 
-    requestAPI<any>('set_env_vars', { method: 'POST', body: queryParams })
+    requestAPI<any>('set-env-vars', { method: 'POST', body: queryParams })
       .then(data => {
         console.log(data);
       })
       .catch(reason => {
         console.error(
-          `The shiny_proxy_jlab_query_parms server extension appears to be missing.\n${reason}`
+          `The jlab_query_parms server extension appears to be missing.\n${reason}`
         );
       });
   }

@@ -160,9 +160,9 @@ task build-notebook-docker
 
 
 ## Jupyter Lab Extension, for deep-linking
-`shiny_proxy_jlab_query_parms` contains a [JupyterLab Extension](https://jupyterlab.readthedocs.io/en/stable/user/extensions.html) to support deep-linking into JupyterLab, especially when running inside Shiny Proxy.
+`jlab_query_params` contains a [JupyterLab Extension](https://jupyterlab.readthedocs.io/en/stable/user/extensions.html) to support deep-linking into JupyterLab, especially when running inside Shiny Proxy.
 
-This extension was created using the [JupyterLab Extension Cookiecutter TS project](https://github.com/jupyterlab/extension-cookiecutter-ts), which is [BSD3 Licensed](https://github.com/jupyterlab/extension-cookiecutter-ts/blob/3.0/LICENSE).
+This extension was created using the [JupyterLab Extension Template copier project](https://github.com/jupyterlab/extension-template), which is [CC0 licensed](https://github.com/jupyterlab/extension-template/blob/main/LICENSE).
 
 This extenion is needed because Shiny Proxy does not pass the URL path beyond an app's identifier down to the iframe running the app (JupyterLab).
 

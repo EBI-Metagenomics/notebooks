@@ -1,0 +1,20 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.0.10
+_src_path: https://github.com/jupyterlab/extension-template
+author_email: sandyr@ebi.ac.uk
+author_name: Sandy Rogers
+data_format: string
+file_extension: ''
+has_binder: false
+has_settings: false
+kind: server
+labextension_name: jlab_query_params
+mimetype: ''
+mimetype_name: ''
+project_short_description: JupyterLab extension to set environment variables and support
+    deep-links via query parameters.
+python_name: jlab_query_params
+repository: ''
+test: false
+viewer_name: ''
+

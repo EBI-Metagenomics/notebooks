@@ -1,25 +1,22 @@
-# shiny_proxy_jlab_query_parms
+# jlab_query_params
 
-[![Github Actions Status](https://github.com/ebi-metagenomics/notebooks/workflows/Build/badge.svg)](https://github.com/ebi-metagenomics/notebooks/actions/workflows/build.yml)
+[![Github Actions Status](/workflows/Build/badge.svg)](/actions/workflows/build.yml)
+JupyterLab extension to set environment variables and support deep-links via query parameters.
 
-JupyterLab extension to improve URL routing when running inside Shiny Proxy. Redirect to a specific JL path (e.g. a notebook) using ? query params; set env vars based on other query params.
-
-
-This extension is composed of a Python package named `shiny_proxy_jlab_query_parms`
-for the server extension and a NPM package named `shiny-proxy-jlab-query-parms`
+This extension is composed of a Python package named `jlab_query_params`
+for the server extension and a NPM package named `jlab_query_params`
 for the frontend extension.
-
 
 ## Requirements
 
-* JupyterLab >= 3.0
+- JupyterLab >= 4.0.0
 
 ## Install
 
 To install the extension, execute:
 
 ```bash
-pip install shiny_proxy_jlab_query_parms
+pip install jlab_query_params
 ```
 
 ## Uninstall
@@ -27,9 +24,8 @@ pip install shiny_proxy_jlab_query_parms
 To remove the extension, execute:
 
 ```bash
-pip uninstall shiny_proxy_jlab_query_parms
+pip uninstall jlab_query_params
 ```
-
 
 ## Troubleshoot
 
@@ -47,7 +43,6 @@ the frontend extension, check the frontend extension is installed:
 jupyter labextension list
 ```
 
-
 ## Contributing
 
 ### Development install
@@ -60,29 +55,29 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the shiny_proxy_jlab_query_parms directory
+# Change directory to the jlab_query_params directory
 # Install package in development mode
-pip install -e .
+pip install -e "."
 # Link your development version of the extension with JupyterLab
 jupyter labextension develop . --overwrite
 # Server extension must be manually installed in develop mode
-jupyter server extension enable shiny_proxy_jlab_query_parms
+jupyter server extension enable jlab_query_params
 # Rebuild extension Typescript source after making changes
-jlpm run build
+jlpm build
 ```
 
 You can watch the source directory and run JupyterLab at the same time in different terminals to watch for changes in the extension's source and automatically rebuild the extension.
 
 ```bash
 # Watch the source directory in one terminal, automatically rebuilding when needed
-jlpm run watch
+jlpm watch
 # Run JupyterLab in another terminal
 jupyter lab
 ```
 
 With the watch command running, every saved change will immediately be built locally and available in your running JupyterLab. Refresh JupyterLab to load the change in your browser (you may need to wait several seconds for the extension to be rebuilt).
 
-By default, the `jlpm run build` command generates the source maps for this extension to make it easier to debug using the browser dev tools. To also generate source maps for the JupyterLab core extensions, you can run the following command:
+By default, the `jlpm build` command generates the source maps for this extension to make it easier to debug using the browser dev tools. To also generate source maps for the JupyterLab core extensions, you can run the following command:
 
 ```bash
 jupyter lab build --minimize=False
@@ -92,13 +87,13 @@ jupyter lab build --minimize=False
 
 ```bash
 # Server extension must be manually disabled in develop mode
-jupyter server extension disable shiny_proxy_jlab_query_parms
-pip uninstall shiny_proxy_jlab_query_parms
+jupyter server extension disable jlab_query_params
+pip uninstall jlab_query_params
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
 command. To find its location, you can run `jupyter labextension list` to figure out where the `labextensions`
-folder is located. Then you can remove the symlink named `shiny-proxy-jlab-query-parms` within that folder.
+folder is located. Then you can remove the symlink named `jlab_query_params` within that folder.
 
 ### Packaging the extension
 

@@ -24,8 +24,8 @@ RUN Rscript /tmp/populate-mgnifyr-cache.R
 SHELL ["/bin/bash", "-c"]
 
 # Install JupyterLab extension to handle query parameter > env vars in ShinyProxy
-COPY shiny_proxy_jlab_query_parms /tmp/shiny_proxy_jlab_query_parms
-RUN pip install /tmp/shiny_proxy_jlab_query_parms
+COPY jlab_query_params /tmp/jlab_query_params
+RUN pip install /tmp/jlab_query_params
 
 # Install Jupyter Lab extension providing MGnify-specific help 
 COPY mgnify_jupyter_lab_ui /tmp/mgnify_jupyter_lab_ui
