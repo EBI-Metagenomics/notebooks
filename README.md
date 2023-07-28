@@ -76,14 +76,14 @@ git add depdencies/mgnify-cache.tgz
 ```
 
 ### Changing dependencies and Docker build
-The add dependencies, edit the `dependencies/environment.yml` file.
+The add dependencies, edit the `dependencies/{py|r}-environment.yml` files.
 
 You can temporarily try things by opening a Terminal inside Jupyter Lab and `mambda install`ing the package(s).
 But make sure you reflect everything in the conda environment file.
 
 Then check the environment builds by (re)building the Docker:
 ```bash
-docker build -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev:latest .
+task build-notebook-docker
 ```
 
 ## Generating the documentation site
@@ -148,22 +148,21 @@ The configuration for this is in the `shiny-proxy` dir.
 
 ### Testing with a locally built Docker
 ```bash
-docker build -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev .
+task build-notebook-docker
 ```
-(or just retag with `docker tag mgnify-nb-dev quay.io/microbiome-informatics/emg-notebooks.dev` if you already built it as above).
 
 ### Running ShinyProxy
 - [Download the latest version of ShinyProxy](https://www.shinyproxy.io/downloads/) (>=2.6 is required). It is a JAR, so you need Java installed. i.e., download ShinyProxy into this repo directory.
 - The `application.yml` file must be in the same directory as the location you launch Shiny Proxy from.
-- If you want the currently deployed image instead of your local one... `docker pull quay.io/microbiome-informatics/emg-notebooks.dev`
+- If you want the currently deployed image instead of your local one... `docker pull quay.io/microbiome-informatics/emg-notebooks.dev:latest`
 - `cd shiny-proxy`, `java -jar shinyproxy-2.6.1.jar`
 - Browse to the ShinyProxy URL, likely localhost:8080
 
 
 ## Jupyter Lab Extension, for deep-linking
-`shiny_proxy_jlab_query_parms` contains a [JupyterLab Extension](https://jupyterlab.readthedocs.io/en/stable/user/extensions.html) to support deep-linking into JupyterLab, especially when running inside Shiny Proxy.
+`jlab_query_params` contains a [JupyterLab Extension](https://jupyterlab.readthedocs.io/en/stable/user/extensions.html) to support deep-linking into JupyterLab, especially when running inside Shiny Proxy.
 
-This extension was created using the [JupyterLab Extension Cookiecutter TS project](https://github.com/jupyterlab/extension-cookiecutter-ts), which is [BSD3 Licensed](https://github.com/jupyterlab/extension-cookiecutter-ts/blob/3.0/LICENSE).
+This extension was created using the [JupyterLab Extension Template copier project](https://github.com/jupyterlab/extension-template), which is [CC0 licensed](https://github.com/jupyterlab/extension-template/blob/main/LICENSE).
 
 This extenion is needed because Shiny Proxy does not pass the URL path beyond an app's identifier down to the iframe running the app (JupyterLab).
 
@@ -181,7 +180,7 @@ This is in the `mgnify_jupyter_lab_ui` folder.
 
 ## Testing
 A small integration test suite is written using Jest-Puppetteer.
-You need to have built or pulled the docker/Dockerfile (tagged as `quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
+You need to have built or pulled the docker/Dockerfile (tagged as `quay.io/microbiome-informatics/emg-notebooks.dev:latest`), and have Shiny Proxy downloaded first.
 The test suite runs Shiny Proxy, and makes sure Jupyter Lab opens, the deep-linking works, and variable insertion works in R and Python.
 
 ```bash
