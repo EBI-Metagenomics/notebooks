@@ -3,7 +3,7 @@ from IPython.display import Markdown
 
 def get_variable_from_link_or_input(variable, name = 'accession', default = None):
     """
-    Get a variable value, either from an ENV VAR that would have been set by the shiny_proxy_jlab_query_parms extension, or through direct user input.
+    Get a variable value, either from an ENV VAR that would have been set by the jlab_query_paramms extension, or through direct user input.
     """
     var = os.getenv(variable)
     if var:

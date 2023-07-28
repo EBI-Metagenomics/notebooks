@@ -38,7 +38,7 @@ jobs:
         context: .
         file: ./docker/Dockerfile
         load: true
-        tags: quay.io/microbiome-informatics/emg-notebooks.dev
+        tags: quay.io/microbiome-informatics/emg-notebooks.dev:latest
 
     - name: Run tests
       working-directory: ./tests
@@ -51,3 +51,4 @@ jobs:
         path: |
           tests/launching_jl.png
           tests/shiny_proxy_launched.png
+          tests/jl_launched.png
