@@ -1,0 +1,21 @@
+name: mgnify-py-env
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python==3.11
+  - pyspark==3.3.2
+  - openjdk
+  - pip
+  - pip:
+    - jsonapi-client==0.9.9
+    - pandas==1.5.3
+    - numpy==1.24.2
+    - ipykernel==6.21.3
+    - matplotlib==3.7.1
+    - seaborn==0.12.2
+    - plotly==5.13.1
+    - sourmash==4.1.2
+    - biopython==1.81
+    - pyarrow==11.0.0
+

@@ -6,7 +6,7 @@ on:
   push:
     branches:
       - main
-      - 'feature/static-preview'
+      - 'static-docs'
 
 permissions:
   contents: read
