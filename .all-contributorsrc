@@ -81,6 +81,17 @@
         "code",
         "content"
       ]
+    },
+    {
+      "login": "amartyanambiar",
+      "name": "Amartya Nambiar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51471924?v=4",
+      "profile": "https://amartya.vercel.app/",
+      "contributions": [
+        "code",
+        "example",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
