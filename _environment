@@ -1,2 +1,6 @@
 API_ENDPOINT="super-studies"
 MGYS="MGYS00005292"
+
+# For the Pathways Visualization notebook
+PATHWAY_STUDY_IDS="MGYS00006180,MGYS00006178"
+CUSTOM_PATHWAY_IDS="G" 

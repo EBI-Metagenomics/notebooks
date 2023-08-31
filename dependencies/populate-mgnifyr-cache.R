@@ -1,5 +1,16 @@
 # Pre-populate MGnifyR Cache with default examples, to save expensive API calls
 library(MGnifyR)
+library(tidyjson)
+library(data.table)
+library(dplyr)
+library(ALDEx2)
+library(IRdisplay)
+library(KEGGREST)
+library(pathview)
+library(MASS)
+library(truncnorm)
+library(dplyr)
+
 
 mg <- mgnify_client(usecache = T, cache_dir = '/home/jovyan/.mgnify_cache')
 
@@ -15,3 +26,23 @@ ps = mgnify_get_analyses_phyloseq(mg, clean_acc)
 analyses_accessions <- mgnify_analyses_from_studies(mg, 'MGYS00005292')
 analyses_metadata_df <- mgnify_get_analyses_metadata(mg, head(analyses_accessions, 10))
 analyses_ps <- mgnify_get_analyses_phyloseq(mg, analyses_metadata_df$analysis_accession, tax_SU = "SSU")
+
+# For the "Pathways Visualization" notebook
+PATHWAY_STUDY_IDS = c('MGYS00006180', 'MGYS00006178')
+all_accessions = mgnify_analyses_from_studies(mg,PATHWAY_STUDY_IDS)
+all_metadata = mgnify_get_analyses_metadata(mg, all_accessions)
+
+samples_list = c('MGYA00642773','MGYA00642774','MGYA00642775','MGYA00642777','MGYA00642779','MGYA00642781','MGYA00642782','MGYA00642783','MGYA00642785','MGYA00642787','MGYA00642792','MGYA00642795','MGYA00642798','MGYA00642801','MGYA00642804','MGYA00642807','MGYA00642811','MGYA00642815','MGYA00642819','MGYA00642822','MGYA00642825','MGYA00642828','MGYA00642832','MGYA00642836','MGYA00642840','MGYA00642846','MGYA00642850','MGYA00642853','MGYA00642857','MGYA00642861','MGYA00642865','MGYA00642870','MGYA00642872','MGYA00642875','MGYA00642879','MGYA00642884','MGYA00642887','MGYA00642890','MGYA00642892','MGYA00643488','MGYA00642677','MGYA00642680','MGYA00642681','MGYA00642684','MGYA00642685','MGYA00642687','MGYA00642688','MGYA00642690','MGYA00642692','MGYA00642693','MGYA00642695','MGYA00642697','MGYA00642698','MGYA00642700','MGYA00642702','MGYA00642703','MGYA00642705','MGYA00642706','MGYA00642707','MGYA00642709','MGYA00642710','MGYA00642711','MGYA00642713','MGYA00642714','MGYA00642716','MGYA00642717','MGYA00642719','MGYA00642721','MGYA00642722','MGYA00642724','MGYA00642726','MGYA00642728','MGYA00642730','MGYA00642732','MGYA00642733','MGYA00642735','MGYA00642737','MGYA00642739','MGYA00642741','MGYA00642743','MGYA00642744','MGYA00642746','MGYA00642747','MGYA00642748','MGYA00642750','MGYA00642751','MGYA00642753','MGYA00642754','MGYA00642755','MGYA00642757','MGYA00642758','MGYA00642759','MGYA00642761','MGYA00642763')
+
+list_of_dfs = list()
+for (accession in samples_list) {
+    ko_loc = paste0('analyses/',accession,'/kegg-orthologs')
+    ko_json = mgnify_retrieve_json(mg, path = ko_loc)
+    ko_data = as.data.frame(ko_json %>% spread_all)[ , c("attributes.accession", "attributes.count")]
+    colnames(ko_data) = c('ko_id', accession)
+    list_of_dfs = append(list_of_dfs, list(ko_data)) 
+}
+
+
+
+
