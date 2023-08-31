@@ -21,3 +21,5 @@ src/*-listing.json
 !**/example-data/**/*.parquet
 *.sig
 ko*.pathview.png
+src/notebooks/R Examples/*.tsv
+src/notebooks/R Examples/*.txt
