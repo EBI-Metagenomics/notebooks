@@ -20,3 +20,4 @@ src/*-listing.json
 *.parquet
 !**/example-data/**/*.parquet
 *.sig
+ko*.pathview.png

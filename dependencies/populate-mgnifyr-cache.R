@@ -28,6 +28,7 @@ analyses_metadata_df <- mgnify_get_analyses_metadata(mg, head(analyses_accession
 analyses_ps <- mgnify_get_analyses_phyloseq(mg, analyses_metadata_df$analysis_accession, tax_SU = "SSU")
 
 # For the "Pathways Visualization" notebook
+PATHWAY_STUDY_IDS = c('MGYS00006180', 'MGYS00006178')
 all_accessions = mgnify_analyses_from_studies(mg,PATHWAY_STUDY_IDS)
 all_metadata = mgnify_get_analyses_metadata(mg, all_accessions)
 
