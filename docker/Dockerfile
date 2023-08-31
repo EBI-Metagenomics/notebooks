@@ -28,8 +28,8 @@ COPY jlab_query_params /tmp/jlab_query_params
 RUN pip install /tmp/jlab_query_params
 
 # Install Jupyter Lab extension providing MGnify-specific help 
-COPY mgnify_jupyter_lab_ui /tmp/mgnify_jupyter_lab_ui
-RUN pip install /tmp/mgnify_jupyter_lab_ui
+#COPY mgnify_jupyter_lab_ui /tmp/mgnify_jupyter_lab_ui
+#RUN pip install /tmp/mgnify_jupyter_lab_ui
 
 # Clean yarn cache else chown'ing home is very slow on container start
 RUN rm -rf /home/jovyan/.yarn
