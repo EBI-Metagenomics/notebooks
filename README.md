@@ -1,9 +1,7 @@
 # EMBL-EBI MGnify user guides and resources
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Quay.io docker container build](https://quay.io/repository/microbiome-informatics/emg-notebooks.dev/status)](https://quay.io/repository/microbiome-informatics/emg-notebooks.dev)
@@ -99,7 +97,6 @@ git add dependencies/mgnify-cache.tgz
 
 ### Changing dependencies and Docker build
 
-The add dependencies, edit the `dependencies/environment.yml` file.
 
 You can temporarily try things by opening a Terminal inside Jupyter Lab and `mambda install`ing the package(s).
 But make sure you reflect everything in the conda environment file.
@@ -107,7 +104,7 @@ But make sure you reflect everything in the conda environment file.
 Then check the environment builds by (re)building the Docker:
 
 ```bash
-docker build -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev:latest .
+task build-notebook-docker
 ```
 
 ## Generating the documentation site
@@ -184,24 +181,22 @@ The configuration for this is in the `shiny-proxy` dir.
 ### Testing with a locally built Docker
 
 ```bash
-docker build -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev .
+task build-notebook-docker
 ```
 
-(or just retag with `docker tag mgnify-nb-dev quay.io/microbiome-informatics/emg-notebooks.dev` if you already built it as above).
 
 ### Running ShinyProxy
 
 - [Download the latest version of ShinyProxy](https://www.shinyproxy.io/downloads/) (>=2.6 is required). It is a JAR, so you need Java installed. i.e., download ShinyProxy into this repo directory.
 - The `application.yml` file must be in the same directory as the location you launch Shiny Proxy from.
-- If you want the currently deployed image instead of your local one... `docker pull quay.io/microbiome-informatics/emg-notebooks.dev`
+- If you want the currently deployed image instead of your local one... `docker pull quay.io/microbiome-informatics/emg-notebooks.dev:latest`
 - `cd shiny-proxy`, `java -jar shinyproxy-2.6.1.jar`
 - Browse to the ShinyProxy URL, likely localhost:8080
 
 ## Jupyter Lab Extension, for deep-linking
 
-`shiny_proxy_jlab_query_parms` contains a [JupyterLab Extension](https://jupyterlab.readthedocs.io/en/stable/user/extensions.html) to support deep-linking into JupyterLab, especially when running inside Shiny Proxy.
 
-This extension was created using the [JupyterLab Extension Cookiecutter TS project](https://github.com/jupyterlab/extension-cookiecutter-ts), which is [BSD3 Licensed](https://github.com/jupyterlab/extension-cookiecutter-ts/blob/3.0/LICENSE).
+This extension was created using the [JupyterLab Extension Template copier project](https://github.com/jupyterlab/extension-template), which is [CC0 licensed](https://github.com/jupyterlab/extension-template/blob/main/LICENSE).
 
 This extenion is needed because Shiny Proxy does not pass the URL path beyond an app's identifier down to the iframe running the app (JupyterLab).
 
@@ -220,7 +215,7 @@ This is in the `mgnify_jupyter_lab_ui` folder.
 ## Testing
 
 A small integration test suite is written using Jest-Puppetteer.
-You need to have built or pulled the docker/Dockerfile (tagged as `quay.io/microbiome-informatics/emg-notebooks.dev`), and have Shiny Proxy downloaded first.
+You need to have built or pulled the docker/Dockerfile (tagged as `quay.io/microbiome-informatics/emg-notebooks.dev:latest`), and have Shiny Proxy downloaded first.
 The test suite runs Shiny Proxy, and makes sure Jupyter Lab opens, the deep-linking works, and variable insertion works in R and Python.
 
 ```bash
@@ -256,12 +251,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://sa.ndyroge.rs"><img src="https://avatars.githubusercontent.com/u/414767?v=4?s=100" width="100px;" alt="Sandy Rogers"/><br /><sub><b>Sandy Rogers</b></sub></a><br /><a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=SandyRogers" title="Code">💻</a> <a href="#example-SandyRogers" title="Examples">💡</a> <a href="#ideas-SandyRogers" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-SandyRogers" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/EBI-Metagenomics/notebooks/pulls?q=is%3Apr+reviewed-by%3ASandyRogers" title="Reviewed Pull Requests">👀</a></td>
-      <td align="center"><a href="https://github.com/Ales-ibt"><img src="https://avatars.githubusercontent.com/u/26798122?v=4?s=100" width="100px;" alt="Ales-ibt"/><br /><sub><b>Ales-ibt</b></sub></a><br /><a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=Ales-ibt" title="Code">💻</a> <a href="#example-Ales-ibt" title="Examples">💡</a> <a href="#ideas-Ales-ibt" title="Ideas, Planning, & Feedback">🤔</a></td>
-      <td align="center"><a href="https://github.com/vestalisvirginis"><img src="https://avatars.githubusercontent.com/u/54766741?v=4?s=100" width="100px;" alt="Virginie Grosboillot"/><br /><sub><b>Virginie Grosboillot</b></sub></a><br /><a href="#ideas-vestalisvirginis" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=vestalisvirginis" title="Code">💻</a> <a href="#content-vestalisvirginis" title="Content">🖋</a></td>
-      <td align="center"><a href="http://orcid.org/0000-0002-3079-6586"><img src="https://avatars.githubusercontent.com/u/469983?v=4?s=100" width="100px;" alt="Björn Grüning"/><br /><sub><b>Björn Grüning</b></sub></a><br /><a href="#infra-bgruening" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-      <td align="center"><a href="http://research.bebatut.fr/"><img src="https://avatars.githubusercontent.com/u/1842467?v=4?s=100" width="100px;" alt="Bérénice Batut"/><br /><sub><b>Bérénice Batut</b></sub></a><br /><a href="#infra-bebatut" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-      <td align="center"><a href="https://github.com/mberacochea"><img src="https://avatars.githubusercontent.com/u/1123897?v=4?s=100" width="100px;" alt="Martín Beracochea"/><br /><sub><b>Martín Beracochea</b></sub></a><br /><a href="#ideas-mberacochea" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=mberacochea" title="Code">💻</a> <a href="#content-mberacochea" title="Content">🖋</a> <a href="#mentoring-mberacochea" title="Mentoring">🧑‍🏫</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://sa.ndyroge.rs"><img src="https://avatars.githubusercontent.com/u/414767?v=4?s=100" width="100px;" alt="Sandy Rogers"/><br /><sub><b>Sandy Rogers</b></sub></a><br /><a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=SandyRogers" title="Code">💻</a> <a href="#example-SandyRogers" title="Examples">💡</a> <a href="#ideas-SandyRogers" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-SandyRogers" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/EBI-Metagenomics/notebooks/pulls?q=is%3Apr+reviewed-by%3ASandyRogers" title="Reviewed Pull Requests">👀</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Ales-ibt"><img src="https://avatars.githubusercontent.com/u/26798122?v=4?s=100" width="100px;" alt="Ales-ibt"/><br /><sub><b>Ales-ibt</b></sub></a><br /><a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=Ales-ibt" title="Code">💻</a> <a href="#example-Ales-ibt" title="Examples">💡</a> <a href="#ideas-Ales-ibt" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/vestalisvirginis"><img src="https://avatars.githubusercontent.com/u/54766741?v=4?s=100" width="100px;" alt="Virginie Grosboillot"/><br /><sub><b>Virginie Grosboillot</b></sub></a><br /><a href="#ideas-vestalisvirginis" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=vestalisvirginis" title="Code">💻</a> <a href="#content-vestalisvirginis" title="Content">🖋</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://orcid.org/0000-0002-3079-6586"><img src="https://avatars.githubusercontent.com/u/469983?v=4?s=100" width="100px;" alt="Björn Grüning"/><br /><sub><b>Björn Grüning</b></sub></a><br /><a href="#infra-bgruening" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://research.bebatut.fr/"><img src="https://avatars.githubusercontent.com/u/1842467?v=4?s=100" width="100px;" alt="Bérénice Batut"/><br /><sub><b>Bérénice Batut</b></sub></a><br /><a href="#infra-bebatut" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mberacochea"><img src="https://avatars.githubusercontent.com/u/1123897?v=4?s=100" width="100px;" alt="Martín Beracochea"/><br /><sub><b>Martín Beracochea</b></sub></a><br /><a href="#ideas-mberacochea" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=mberacochea" title="Code">💻</a> <a href="#content-mberacochea" title="Content">🖋</a> <a href="#mentoring-mberacochea" title="Mentoring">🧑‍🏫</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/tgurbich"><img src="https://avatars.githubusercontent.com/u/63121037?v=4?s=100" width="100px;" alt="tgurbich"/><br /><sub><b>tgurbich</b></sub></a><br /><a href="#ideas-tgurbich" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=tgurbich" title="Code">💻</a> <a href="#content-tgurbich" title="Content">🖋</a></td>
     </tr>
   </tbody>
 </table>

@@ -1,5 +1,0 @@
-{
-  "packageManager": "python",
-  "packageName": "shiny_proxy_jlab_query_parms",
-  "uninstallInstructions": "Use your Python package manager (pip, conda, etc.) to uninstall the package shiny_proxy_jlab_query_parms"
-}
