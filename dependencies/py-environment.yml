@@ -20,3 +20,4 @@ dependencies:
       - biopython==1.81
       - pyarrow==11.0.0
       - altair==5.0.1
+      - graphviz==8.1.0
