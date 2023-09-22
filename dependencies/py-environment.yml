@@ -14,9 +14,8 @@ dependencies:
   - plotly==5.16.1
   - biopython==1.81
   - pyarrow==13.0.0
-  - leafmap==0.12.1
-  - geopandas==0.12.1
-  - dash==2.7.0
+  - leafmap==0.26.0
+  - geopandas==0.14.0
   - pip
   - pip:
     - sourmash==4.1.2
