@@ -80,4 +80,4 @@ jobs:
         push: true
         tags: |
           quay.io/microbiome-informatics/emg-notebooks.dev:latest
-          quay.io/microbiome-informatics/emg-notebooks.dev:${{ vars.GITHUB_REF_NAME }}
+          quay.io/microbiome-informatics/emg-notebooks.dev:${{ github.ref_name }}
