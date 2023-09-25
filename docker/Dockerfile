@@ -50,8 +50,8 @@ WORKDIR /work
 
 COPY --chown=root:100 --from=build /opt/conda/envs /opt/conda/envs
 
-# Install Python/R dependencies
-RUN mamba install -y conda-forge::nb_conda_kernels --freeze-installed && mamba clean --all -f -y
+# Install Jupyter (non kernel) dependencies
+RUN mamba install -y conda-forge::nb_conda_kernels conda-forge::leafmap=0.26.0 --freeze-installed && mamba clean --all -f -y
 
 # Place / check / populate MGnifyR cache for example used in studies
 # Zipped cache should be up to date in repo, but run populate to be sure nothing is missing
