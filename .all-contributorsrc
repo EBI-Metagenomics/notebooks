@@ -92,6 +92,17 @@
         "example",
         "ideas"
       ]
+    },
+    {
+      "login": "KateSakharova",
+      "name": "Ekaterina Sakharova",
+      "avatar_url": "https://avatars.githubusercontent.com/u/49755902?v=4",
+      "profile": "https://www.ebi.ac.uk/metagenomics/",
+      "contributions": [
+        "ideas",
+        "code",
+        "content"
+      ]
     }
   ],
   "contributorsPerLine": 7,
