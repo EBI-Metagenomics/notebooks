@@ -41,15 +41,16 @@ jobs:
       run: npm install
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
 
     - name: Build Dockerfile
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v6
       with:
         context: .
         file: ./docker/Dockerfile
         load: true
         tags: quay.io/microbiome-informatics/emg-notebooks.dev:latest
+        pushImage: false
 
     - name: Run tests
       working-directory: ./tests
@@ -63,3 +64,16 @@ jobs:
           tests/launching_jl.png
           tests/shiny_proxy_launched.png
           tests/jl_launched.png
+
+    - name: Push To quay.io
+      id: push-to-quay
+      uses: redhat-actions/push-to-registry@v2
+      with:
+        image: quay.io/microbiome-informatics/emg-notebooks.dev:latest
+        tags: latest, ${{ GITHUB_REF_NAME }}
+        registry: quay.io/microbiome-informatics
+        username: ${{ secrets.QUAY_USERNAME }}
+        password: ${{ secrets.QUAY_PASSWORD }}
+
+    - name: Print image url
+      run: echo "Image pushed to ${{ steps.push-to-quay.outputs.registry-paths }}"
