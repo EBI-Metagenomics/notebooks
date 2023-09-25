@@ -70,7 +70,7 @@ jobs:
       uses: redhat-actions/push-to-registry@v2
       with:
         image: quay.io/microbiome-informatics/emg-notebooks.dev:latest
-        tags: latest, ${{ GITHUB_REF_NAME }}
+        tags: latest, ${{ vars.GITHUB_REF_NAME }}
         registry: quay.io/microbiome-informatics
         username: ${{ secrets.QUAY_USERNAME }}
         password: ${{ secrets.QUAY_PASSWORD }}
