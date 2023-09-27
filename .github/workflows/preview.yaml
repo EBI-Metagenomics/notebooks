@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - 'static-docs'
 
 permissions:
   contents: read
@@ -22,6 +21,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Free up disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: false
+          docker-images: true
+          swap-storage: false
 
       - name: Setup Pages
         uses: actions/configure-pages@v2
