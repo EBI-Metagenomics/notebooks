@@ -114,6 +114,16 @@ These result files are only stored in our servers for 30 days, so please be sure
 
 ![Sourmash search example with file selected](images/genomes/genomes-sourmash.png){#fig-genome-search-sourmash}
 
+#### Sourmash details
+Specifically, the MAG search runs the [sourmash `gather` command](https://sourmash.readthedocs.io/en/latest/classifying-signatures.html#analyzing-metagenomic-samples-with-gather). 
+In this mode, sourmash finds the minimum set of MAGs in the database that collectively contain as much of the query (meta)genome as possible. 
+The "Best Match" MAG from each catalogue is the MAG that contains the largest content from the query (if any).
+To use this search programmatically (by submitting sourmash sketches of your own query MAGs to the MGnify API), the sourmash parameters must match those used by MGnify.
+MGnify use the default parameters for kmer size (`-k 31`) and sketch scaling (`--scaled 1000`).
+
+See the "Search MGnify Genomes" notebook in [MGnify's notebooks repository](../notebooks_list.qmd) for an example of how to query this API programmatically.
+
+
 ## Browsing a catalogue
 
 Clicking on a Catalogue ID in the list on the [MGnify website](https://www.ebi.ac.uk/metagenomics/browse#genomes) allows you to browse the
