@@ -72,12 +72,10 @@ jobs:
         username: ${{ secrets.QUAY_USERNAME }}
         password: ${{ secrets.QUAY_PASSWORD }}
 
+    - id: docker-tag
+      uses: yuya-takeyama/docker-tag-from-github-ref-action@v1
+
     - name: Push
       run: |
-        docker tag quay.io/microbiome-informatics/emg-notebooks.dev:latest quay.io/microbiome-informatics/emg-notebooks.dev:${{ github.ref_name }}
-        docker push quay.io/microbiome-informatics/emg-notebooks.dev:${{ github.ref_name }}
-
-    - name: Push latest
-      if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
-      run: |
-        docker push quay.io/microbiome-informatics/emg-notebooks.dev:latest
+        docker tag quay.io/microbiome-informatics/emg-notebooks.dev:latest quay.io/microbiome-informatics/emg-notebooks.dev:${{ steps.docker-tag.outputs.tag }}
+        docker push quay.io/microbiome-informatics/emg-notebooks.dev:${{ steps.docker-tag.outputs.tag }}
