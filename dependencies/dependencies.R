@@ -3,4 +3,4 @@
 # Extra pacakges not installed in Docker image, or installable via Conda:
 
 require("devtools")
-devtools::install_github("beadyallen/MGnifyR")
+devtools::install_github("EBI-Metagenomics/MGnifyR", ref="d1baca93465f8c97101049bd66b63a8bb5a0d6ab")
