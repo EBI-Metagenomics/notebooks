@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: How MGnify data moves from submission to analysis
+order: 2
 ---
 ![MGnify data flow from submission to [analysis results](glossary.md#analysis-result).](images/dataflow/submit_graph_08_web032.png){#fig-dataflow-process .tall-figure fig-align="left"}
 

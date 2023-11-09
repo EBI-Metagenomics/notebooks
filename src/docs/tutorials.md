@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: List of online tutorials relevant to MGnify and ENA
+order: 12
 ---
 
 ## MGnify and EMBL-EBI online tutorials

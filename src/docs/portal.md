@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: User guide to the MGnify website
+order: 4
 ---
 
 ## Sections of the MGnify website
@@ -219,6 +220,8 @@ This feature is available for assembly analysis only and can be found in the tab
 
 Interactive contig viewer for localised visualisation of functional annotation per contig.
 :::
+
+The Contig Viewer also displays tracks from any [additional analyses](additional-analyses) that may have been run on the same assembly.
 
 ## Finding taxonomic information about runs on the MGnify website
 

@@ -1,0 +1,25 @@
+shinyproxy.log*
+*.jar
+*.ipynb_checkpoints
+*.csv
+.DS_Store
+node_modules
+tests/*.png
+.idea
+_site
+_freeze
+/.quarto/
+*.pyc
+.task
+site_libs
+src/docs/*.html
+src/*.html
+src/notebooks/**/*.html
+src/*-listing.json
+
+*.parquet
+!**/example-data/**/*.parquet
+*.sig
+ko*.pathview.png
+src/notebooks/R Examples/*.tsv
+src/notebooks/R Examples/*.txt

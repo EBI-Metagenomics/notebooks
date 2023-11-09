@@ -53,7 +53,7 @@ tasks:
 
       NOT needed if you're just editing/adding notebooks with no additional dependencies.
     cmds:
-      - docker build -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev:latest .
+      - docker build --load -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev:latest .
 
   build-static-docker:
     summary: |
@@ -61,7 +61,7 @@ tasks:
 
       The built image is tagged as `notebooks-static`.
     cmds:
-      - docker build -f docker/docs.Dockerfile -t notebooks-static .
+      - docker build --load -f docker/docs.Dockerfile -t notebooks-static .
     sources:
       - docker/docs.Dockerfile
       - docker/Dockerfile
