@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: false
 description: Background to the MGnify service, our funding and citation info, and how to contact us.
+order: 1
 ---
 ## The MGnify service
 

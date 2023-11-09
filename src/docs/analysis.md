@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Description of the latest MGnify analysis pipeline and the tools it uses.
+order: 3
 ---
 ## Overview
 

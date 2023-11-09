@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Using MGnify’s Jupyter Notebooks to explore and access data programatically
+order: 8
 ---
 
 ## A Jupyter Lab environment for the MGnify API

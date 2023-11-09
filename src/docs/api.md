@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Programatically accessing MGnify data via the API (Application Programming Interface)
+order: 7
 ---
 
 With the rapid expansion in the number of datasets deposited in MGnify, it has become increasingly important to provide programmatic

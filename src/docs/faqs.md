@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Frequently asked questions about MGnify
+order: 10
 ---
 
 ## What kind of sequence data does the service accept?

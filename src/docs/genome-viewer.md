@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Description of the MGnify genomes pipelines and web resource
+order: 6
 ---
 
 ## Genome Catalogues
