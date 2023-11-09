@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Guide to using MGnify's peptide sequence search service
+order: 9
 ---
 
 ## Landing page

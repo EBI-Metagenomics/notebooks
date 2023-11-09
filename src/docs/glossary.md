@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Dictionary of terms used in MGnify and throughout this documentaiton
+order: 11
 ---
 
 ## 16S rRNA genes
@@ -75,6 +76,9 @@ A software or script used during the individual step of an analysis pipeline.
 
 ## Predicted coding sequence (pCDS)
 Partial or complete gene sequence as predicted by the gene caller (FragGenScan for read submissions, Prodigal and FragGenScan for assembly submissions).
+
+## RO-Crate (Research Object Crate)
+A method and standard for describing the metadata associated with a set of research data. [RO-Crates](https://www.researchobject.org/ro-crate/) are implemented as a JSON-LD schema file, which can be packaged as a ZIP file optionally containing some or all of the data it describes, and optionally an HTML file to provide a human-readable view of the crate.
 
 ## Run
 The sequence file obtained from performing an experiment (an experiment generally includes several steps such as filtration, metatranscriptomic extraction and Illumina MiSeq sequencing, for example) on all or part of a [sample](#sample). Several runs can therefore be generated from a single [sample](#sample).
