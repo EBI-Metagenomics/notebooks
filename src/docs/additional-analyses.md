@@ -25,7 +25,7 @@ In the context of MGnify, these outputs consist of a GFF3 file and the inputs in
 
 ## Finding additional analyses
 RO-Crates containing additional analyses can be found tabulated on the detail pages of the run or assembly they correspond to.
-There are also [API](api.md) endpoints for these: `https://wwwint.ebi.ac.uk/metagenomics/api/v1/runs/<run-accession>/extra-annotations` and `https://www.ebi.ac.uk/metagenomics/api/v1/assemblies/<assembly-accession>/extra-annotations`.
+There are also [API](api.md) endpoints for these: `https://www.ebi.ac.uk/metagenomics/api/v1/runs/<run-accession>/extra-annotations` and `https://www.ebi.ac.uk/metagenomics/api/v1/assemblies/<assembly-accession>/extra-annotations`.
 
 RO-Crates in MGnify are packaged as ZIP files, which can be downloaded.
 These crates can also be browsed directly on the MGnify website: the human-readable representation of the crate is displated.
