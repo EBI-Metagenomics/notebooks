@@ -166,6 +166,8 @@ coverage section, as the percentage coverage for each rRNA type and a count of t
 
 Additionally, the geographic origin of each genome, and links to ENA accessions can be found towards the bottom of this page.
 
+The mobile genetic elements annotation is generated for representative genomes using the [Mobilome Annotation Pipeline](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline). It includes prediction of plasmids, viral sequences (including prophages), integrons, transposons, and insertion sequences. When detected, putative excision sites are reported as well. The final output is generated in GFF format and can be downloaded from the "Downloads" tab of each genome web page, or the FTP site. The location of mobile genetic elements in the contig can be visualized in the Genome annotation browser.
+
 ### Genome annotation browser
 
 All genome annotations can be viewed interactively in the ‘Browse genome’ tab to browse all assigned functional annotations in more detail.
