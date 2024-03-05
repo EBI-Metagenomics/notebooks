@@ -31,7 +31,7 @@ When multiple samples belong to the same project, the BioSamples documentation r
 
 A useful feature of the BioSamples repository is that samples generated from the same specimen can be linked by declaring relationships between BioSamples IDs. This way, the user can link the specimen metadata with the sample(s) derived from it. A simplified example is depicted in [Figure 1](@multiomics_schema). In reality, the relationships across samples are highly dependent on the experimental design of each particular project. It is therefore advisable to build the planning of your sample relationships into the process of designing your project and experiments. Other relationships between samples in [BioSamples are supported](https://www.ebi.ac.uk/biosamples/docs/guides/relationships), such as “same as” or “has member” relationships. You should use the available relationships to best represent your dataset, while trying to keep the overall sample organisation as simple as possible.
 
-[Figure 1. A simplified example of sample relationships established on the BioSamples repository for a multi-omics project. Bold font indicates unique BioSamples ID](images/multiomics/schema.png){#multiomics_schema}
+![A simplified example of sample relationships established on the BioSamples repository for a multi-omics project. Bold font indicates unique BioSamples ID](images/multiomics/schema.png){#multiomics_schema}
 
 ## A case use example: HoloFood project
 
