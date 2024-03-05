@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Best practices for multi-omics dataset submission
+order: 2.5
 ---
 
 ## Introduction
