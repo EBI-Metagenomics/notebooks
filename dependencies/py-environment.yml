@@ -19,3 +19,4 @@ dependencies:
   - pip
   - pip:
     - sourmash==4.1.2
+    - gffutils==0.12
