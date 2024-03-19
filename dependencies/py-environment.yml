@@ -19,5 +19,4 @@ dependencies:
   - pip
   - pip:
     - sourmash==4.1.2
-    - rocrate==0.9.0
     - gffutils==0.12
