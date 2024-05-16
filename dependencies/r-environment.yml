@@ -19,4 +19,4 @@ dependencies:
   - bioconductor-keggrest=1.38.0
   - r-dplyr=1.1.2
   - r-tidyjson=0.3.2
-  - r-data.table=1.14.8
+  - r-data.table=1.15.4
