@@ -1,0 +1,103 @@
+---
+title: "Fetch Analyses metadata for a Study"
+author:
+  - name: Noah de Gunst
+    affiliation:
+      - id: Mia
+        name: Miaverse team
+categories: [R]
+execute: 
+  eval: true
+---
+
+::: {style="max-width:1200px"}
+![](./../_resources/mgnify_logo.png)
+
+# Fetch a Study using MGnifyR; download the metadata for all of its Analyses
+
+The [MGnify API](https://www.ebi.ac.uk/metagenomics/api/v1) returns data and relationships as JSON. [MGnifyR](https://github.com/beadyallen/MGnifyR) is a package to help you read MGnify data into your R analyses.
+
+**This example shows you how fetch the Analyses for a Study into a TreeSummarizedExperiment 
+or MultiAsayExperiment object so you can use Mia**
+
+You can find all of the other "API endpoints" using the [Browsable API interface in your web browser](https://www.ebi.ac.uk/metagenomics/api/v1).
+
+Also, if you would like to learn about Mia, please [visit the website](https://microbiome.github.io/OMA/docs/devel/).
+
+This is an interactive code notebook (a Jupyter Notebook). To run this code, click into each cell and press the ▶ button in the top toolbar, or press `shift+enter`.
+
+------------------------------------------------------------------------
+:::
+
+#### Setting the access code
+
+```{r}
+#| output: false
+
+source("./lib/variable_utils.r")
+
+mgnify_study_accession <- get_variable_from_link_or_input('MGYS', 'Study Accession', 
+                                                          'MGYS00005116')
+
+# You can also just directly set the accession variable in code, like this:
+# mgnify_study_accession <- "MGYS00005292"
+```
+
+#### Constructing a MgnifyClient object to access the database
+
+```{r}
+#| output: false
+# Importing the libraries
+library(vegan)
+library(ggplot2)
+library(mia)
+library(MGnifyR)
+
+mg <- MgnifyClient(usecache = T, cache_dir = '/home/jovyan/.mgnify_cache')
+```
+
+#### Displaying the help file
+```{r}
+#| output: false
+library(IRdisplay)
+display_markdown(file = '../_resources/mgnifyr_help.md')
+```
+
+## Fetch a list of the Analyses for the Study
+
+```{r}
+#| output: false
+analyses_accessions <- mgnify_analyses_from_studies(mg, mgnify_study_accession)
+analyses_accessions
+```
+
+## Download metadata for the first 10 Analyses
+...and put it into a dataframe.
+
+```{r}
+#| output: false
+analyses_metadata_df <- mgnify_get_analyses_metadata(mg, head(analyses_accessions,
+                                                              10))
+```
+
+## Display metadata
+The table could be big, so let's look at a sample of it (`head`)
+
+```{r}
+#| output: false
+t(head(analyses_metadata_df))
+```
+
+## Convert to MultiAssayExperiment (MAE) object containing multiple [TreeSummarizedExperiment objects using Mia](https://microbiome.github.io/)
+
+> [Mia](https://microbiome.github.io/mia/) is a Bioconductor package designed to import, store and analyze microbiome data using an object called a TreeSummarizedExperiment. This is a tailored data container optimized for microbiome data analysis.
+Being built on the SummarizedExperiment class, miaverse seamlessly integrates into the extensive SummarizedExperiment ecosystem.
+
+```{r}
+#| output: false
+mae <- getResult(mg, accession = analyses_accessions)
+```
+
+You can now use any of the `Mia` methods to explore this Study's Analyses (run `?mia` in a code cell to learn more). 
+
+You could also use further `MGnifyR` features, e.g. to download data. Check the Cheat Sheet at the top for more.
