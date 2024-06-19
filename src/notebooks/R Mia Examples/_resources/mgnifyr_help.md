@@ -12,9 +12,9 @@ This can be read either within R with the `vignette("MGnifyR")` command, or [in 
 The following list of key functions should give a starting point for finding relevent documentation.
 
 - `MgnifyClient()` : Create the client object required for all other functions.
-- `doQuery()` : Search the whole MGnify database.
-- `mgnify_analyses_from_xxx()` : Convert xxx accessions to analyses accessions. xxx is either samples or studies.
+- `doQuery()` : Query and search the whole MGnify database.
+- `searchAnalysis()` : 	Look up analysis accession IDs for one or more study or sample accessions
 - `getMetadata()` : Retrieve all study, sample and analysis metadata for given analyses.
-- `getResult` : Convert abundance, taxonomic, and sample metadata into a single phyloseq object or Get functional annotation results for a set of analyses.
+- `getResult` : Get microbial and/or functional profiling data for a list of accessions
 - `getFile` : Download raw results files from MGnify.
-- `mgnify_retrieve_json()` : Low level API access helper function.
+- `getData()` : Low level API access helper function to retrieve raw results.
