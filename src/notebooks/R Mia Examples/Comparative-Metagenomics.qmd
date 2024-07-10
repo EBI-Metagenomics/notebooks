@@ -1,0 +1,246 @@
+---
+title: "Fetch Analyses metadata for a Study"
+author:
+  - name: Sam Hillman
+    affiliation:
+      - id: mia
+        name: miaverse team
+toc: true
+number-sections: true
+categories: [R]
+execute: 
+  eval: true
+---
+
+::: {style="max-width:1200px"}
+![](./../_resources/mgnify_logo.png)
+
+# Comparative metagenomics
+# Normalization methods, alpha & beta diversity, and differentially abundant taxa
+
+In this notebook we aim to demonstrate how the MGnifyR tool can be used to fetch data and metadata of a MGnify metagenomic analyisis. Then we show how to generate diversity metrics for comparative metagenomics using taxonomic profiles. Finally, we use the `mikropml` package to detect differentially abundant taxa and to build a ML classification model. 
+
+It's important to note, we're using methods and protocols that align with the [mia](https://microbiome.github.io/mia/) package, which can be read about further in the [OMA](https://microbiome.github.io/OMA/docs/devel/) guides.
+
+[MGnifyR](http://github.com/beadyallen/mgnifyr) is a library that provides a set of tools for easily accessing and processing MGnify data in R, making queries to MGnify databases through the [MGnify API](https://www.ebi.ac.uk/metagenomics/api/v1/). The benefit of MGnifyR is that data can either be fetched in tsv format or be directly combined in a phyloseq object to run an analysis in a custom workflow.
+
+This is an interactive code notebook (a Jupyter Notebook). To run this code, click into each cell and press the ▶ button in the top toolbar, or press `shift+enter`.
+
+------------------------------------------------------------------------
+
+```{r}
+# Loading libraries
+suppressMessages({
+  library(ggplot2)
+  library(MGnifyR)
+  library(tidyverse)
+  library(vegan)
+  library(mia)
+  library(biomformat)
+  library(scater)
+})
+
+display_markdown(file = '../_resources/mgnifyr_help.md')
+```
+
+```{r}
+# Setting tables and figures size to display (these will be reset later):
+options(repr.matrix.max.cols=150, repr.matrix.max.rows=200)
+options(repr.plot.width=4, repr.plot.height=4)
+```
+
+:::
+# Fetching data and preprocessing
+In this example we are going to fetch MGnify analysis results and metadata for a dataset on EMG produced TPA metagenomics assembly of the Gut microbial dysbiosis in young adults with obesity ([MGYS00005333](https://www.ebi.ac.uk/metagenomics/studies/MGYS00005333#overview)).
+
+## Setting the study accession
+1. First, set the accession number of the study we're using to the `mgnify_study_accession` variable.
+
+```{r}
+#| output: false
+
+source("./lib/variable_utils.r")
+
+mgnify_study_accession <- get_variable_from_link_or_input('MGYS', 'Study Accession', 
+                                                          'MGYS00005333')
+
+# You can also just directly set the accession variable in code, like this:
+# mgnify_study_accession <- "MGYS00005292"
+```
+
+2. Then, construct a MgnifyClient object to access the database.
+
+```{r}
+#| output: false
+mg <- MgnifyClient(usecache = TRUE, cache_dir = '/home/jovyan/.mgnify_cache')
+```
+
+3. Fetch a list of the Analyses for the Study.
+
+```{r}
+#| output: false
+analyses_accessions <- searchAnalysis(mg, "studies", mgnify_study_accession)
+analyses_accessions
+```
+
+## Download metadata
+1. First, download the metadata for the first 20 Analyses and put it into a dataframe.
+
+```{r}
+#| output: false
+analyses_metadata_df <- getMetadata(mg, head(analyses_accessions,
+                                                              20))
+```
+
+2. The table could be big, so let's look at a sample of it (`head`)
+
+```{r}
+#| output: false
+t(head(analyses_metadata_df))
+```
+
+## Convert to MultiAssayExperiment (MAE) object containing multiple [TreeSummarizedExperiment objects using mia](https://microbiome.github.io/)
+
+```{r}
+#| output: false
+mae <- getResult(mg, analyses_metadata_df$analysis_accession)
+```
+
+## ***Extract tse from our mae***
+
+# Normalization, alpha diversity indices and taxonomic profiles visualization
+## Cleaning the OTUs matrix
+1. First, identify the total counts per sample and add them to the colData of our `tse` object.
+
+```{r}
+tse <- addPerCellQC(microbiota_experiment)
+```
+
+2. We then plot a histogram to identify outliers, so we can remove samples with low coverage.
+
+```{r}
+library_sie_histogram <- ggplot(colData(tse)) +
+  geom_histogram(aes(x = sum), color = "black", 
+                 fill = "gray", bins = 50) +
+  labs(x = "Library size", y = "Frequency (n)") + 
+  scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x), 
+                labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+  theme_bw() +
+  # Remove the grid
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank(),
+        # Add y-axis line
+        axis.line = element_line(colour = "black"))
+```
+
+We can see that samples with number of reads ***Insert answer here*** seem to be outliers. Let’s filter out the outliers and plot a new histogram.
+
+```{r}
+filtered_data <- colData(tse)[colData(tse)$sum > 10^4.6, ]
+
+filtered_library_sie_histogram <- ggplot(filtered_data) +
+  geom_histogram(aes(x = sum), color = "black", 
+                 fill = "gray", bins = 50) +
+  labs(x = "Library size", y = "Frequency (n)") + 
+  scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x), 
+                labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+  theme_bw() +
+  # Remove the grid
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank(),
+        # Add y-axis line
+        axis.line = element_line(colour = "black"))
+```
+
+2. Remove singletons. Singletons are OTUs of size one, meaning that only one read was assigned to that OTU. These very low-abundance OTUs could be biologically real (belonging to the rare biosphere ([1](https://docs.mgnify.org/src/notebooks/R%20Examples/Comparative%20Metagenomics.html#reference_1))), or they could be false positives due to sequencing artefacts. Singletons observed in only one sample are more likely to be artefacts, and it is good practice to remove them from the OTUs counts table to avoid artificially over-estimating the OTUs richness. You can find more discussion about this in [Robert Edgar’s blog](https://drive5.com/usearch/manual/singletons.html).
+
+```{r}
+# Calculate the total counts for each taxa across all samples in the filtered data
+taxa_sums_filtered <- rowSums(assay(tse)[, rownames(filtered_data)])
+
+# Filter taxa to retain only those with a sum greater than 1
+filtered_taxa_indices <- which(taxa_sums_filtered > 1)
+
+# Subset the tse object to keep only non-singleton taxa in the filtered data
+filtered_tse <- tse[filtered_taxa_indices, rownames(filtered_data)]
+```
+
+3. Show some stats on sequencing depth across samples
+
+```{r}
+# Plot boxplot - COME BACK TO THIS - change formatting
+boxplot_plot <- ggplot(boxplot_data, aes(x = "", y = SampleSums)) +
+  geom_boxplot(fill = "#a6093d") +   # Create a single boxplot
+  labs(title = "Sequencing depth across samples", x = "", y = "Number of reads") +   # Add titles and labels
+  theme_minimal()   # Use a minimal theme for clean appearance
+
+# Extract boxplot statistics
+boxplot_stats <- boxplot.stats(sample_sums)$stats
+
+# Create a data frame for the statistics
+stats_df <- data.frame(
+  x = 1,  # Single x-position for the boxplot
+  y = boxplot_stats,  # The y-values are the boxplot stats
+  label = boxplot_stats  # The labels to be printed
+)
+
+# Add text labels for the statistics
+boxplot_plot <- boxplot_plot +
+  geom_text(data = stats_df, aes(x = x, y = y, label = label), vjust = -0.5)
+```
+
+An approximately 10-fold difference in the library sizes means that we will need to apply a normalization method before continuing with the analysis. The most common normalization methods used in microbiome count data are proportions and rarefaction. However, other methods originally developed to normalize RNA-seq counts have been adapted to differential-abundance analysis in microbiome data. A discussion about how to choose the right normalization method is out of the scope of this material, but the topic has been covered in multiple forums and scientific publications. Depending on the downstream analysis we intend to perform, different methods might be appropriate. For instance, to compare groups of samples at community-level through beta-diversity, “…proportions and rarefying produced more accurate comparisons among communities and are the only methods that fully normalized read depths across samples. Additionally, upper quartile, cumulative sum scaling (CSS), edgeR-TMM, and DESeq-VS often masked differences among communities when common OTUs differed, and they produced false positives when rare OTUs differed” ([2](https://docs.mgnify.org/src/notebooks/R%20Examples/Comparative%20Metagenomics.html#reference_2)). On the other hand, for detection of differentially abundant species, “both proportions and rarefied counts result in a high rate of false positives in tests for species that are differentially abundant across sample classes” ([3](https://docs.mgnify.org/src/notebooks/R%20Examples/Comparative%20Metagenomics.html#reference_3)).
+
+In the following examples we will show three popular ways of normalization: relative abundance, rarefaction and cummulative sum scaling.
+
+## Normalization by total sum scaling (TSS, relative abundance or proportions)
+The simplest way to normalize the differences in sample size is to transform the OTU counts table into relative abundance by dividing by the number of total reads of each sample. This type of normalization is also referred to as relative abundance or proportions. We use this normalization to compare taxonomic profiles, while alpha diversity indices are computed on the non-normalized matrix. The reason to do so is that we need a matrix of integer numbers as input.
+
+1. Transform taxonomy raw-counts matrix into relative abundance.
+
+```{r}
+filtered_tse <- transformAssay(filtered_tse, assay.type = "counts", name = "relabundance", method = "relabundance")
+
+```
+
+2. Agglomerate by class rank to the `glom_tse`.
+
+```{r}
+glom_tse <- agglomerateByRank(filtered_tse, rank = "Class", assay.type = "relabundance")
+
+```
+
+3. Get the top 15 features and store them in the `tss_tse`. We store the top features in a new tse object as keeping the `glom_tse` and `tss_tse` objects seperate will come in handy later on.
+
+```{r}
+# The below method is correct but mia hasn't updated to it - COME BACK TO THIS
+# top_tse <- getTop(filtered_tse, method = "mean", assay.type = "relabundance")
+
+# Take the top 15 features based on their means
+top15_tss <- getTopFeatures(glom_tse, method = "mean", assay.type = "relabundance", top = 15L)
+
+# Store those top 15 features and all relevant metadata in a new tse
+tss_tse <- TreeSummarizedExperiment(
+              assays = list(tss = assay(glom_tse, "relabundance")[top15_tss, ]),
+              colData = colData(glom_tse),
+              rowData = rowData(glom_tse)[top15_tss, ]
+            )
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
