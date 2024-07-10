@@ -18,6 +18,7 @@ src/notebooks/**/*.html
 src/*-listing.json
 renv/
 renv.lock
+.Rhistory
 
 *.parquet
 !**/example-data/**/*.parquet
