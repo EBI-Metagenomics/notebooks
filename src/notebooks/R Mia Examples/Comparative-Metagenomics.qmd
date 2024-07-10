@@ -36,8 +36,12 @@ suppressMessages({
   library(tidyverse)
   library(vegan)
   library(mia)
+  library(miaViz)
   library(biomformat)
   library(scater)
+  library(metagenomeSeq)
+  library(reshape2)
+  library(viridis)
 })
 
 display_markdown(file = '../_resources/mgnifyr_help.md')
@@ -99,21 +103,19 @@ analyses_metadata_df <- getMetadata(mg, head(analyses_accessions,
 t(head(analyses_metadata_df))
 ```
 
-## Convert to MultiAssayExperiment (MAE) object containing multiple [TreeSummarizedExperiment objects using mia](https://microbiome.github.io/)
+## Convert to [TreeSummarizedExperiment object using mia](https://microbiome.github.io/)
 
 ```{r}
 #| output: false
-mae <- getResult(mg, analyses_metadata_df$analysis_accession)
+tse <- getResult(mg, analyses_metadata_df$analysis_accession)
 ```
-
-## ***Extract tse from our mae***
 
 # Normalization, alpha diversity indices and taxonomic profiles visualization
 ## Cleaning the OTUs matrix
 1. First, identify the total counts per sample and add them to the colData of our `tse` object.
 
 ```{r}
-tse <- addPerCellQC(microbiota_experiment)
+tse <- addPerCellQC(tse)
 ```
 
 2. We then plot a histogram to identify outliers, so we can remove samples with low coverage.
@@ -135,10 +137,10 @@ library_sie_histogram <- ggplot(colData(tse)) +
         axis.line = element_line(colour = "black"))
 ```
 
-We can see that samples with number of reads ***Insert answer here*** seem to be outliers. Let’s filter out the outliers and plot a new histogram.
+We can see that samples with number of reads below 10^1.6 seem to be outliers. Let’s filter out the outliers and plot a new histogram.
 
 ```{r}
-filtered_data <- colData(tse)[colData(tse)$sum > 10^4.6, ]
+filtered_data <- colData(tse)[colData(tse)$sum > 10^1.6, ]
 
 filtered_library_sie_histogram <- ggplot(filtered_data) +
   geom_histogram(aes(x = sum), color = "black", 
@@ -172,11 +174,29 @@ filtered_tse <- tse[filtered_taxa_indices, rownames(filtered_data)]
 3. Show some stats on sequencing depth across samples
 
 ```{r}
-# Plot boxplot - COME BACK TO THIS - change formatting
+# Calculate max difference
+sample_sums <- colSums(assay(filtered_tse))
+max_difference <- max(sample_sums) / min(sample_sums)
+sprintf("The max difference in sequencing depth is %s", max_difference)
+
+# Define boxplot data
+boxplot_data <- data.frame(SampleSums = sample_sums)
+
+# Set options
+theme_custom <- theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),  # Center the title, increase size, and make bold
+    axis.title.y = element_text(size = 14),  # Make y-axis label same size and font as title
+    axis.text.y = element_text(size = 12),  # Adjust y-axis text size
+    axis.text.x = element_blank(),  # Remove x-axis text
+    axis.ticks.x = element_blank()  # Remove x-axis ticks
+  )
+
+# Plot boxplot
 boxplot_plot <- ggplot(boxplot_data, aes(x = "", y = SampleSums)) +
-  geom_boxplot(fill = "#a6093d") +   # Create a single boxplot
+  geom_boxplot(fill = "#FF9999") +   # Use a lighter color
   labs(title = "Sequencing depth across samples", x = "", y = "Number of reads") +   # Add titles and labels
-  theme_minimal()   # Use a minimal theme for clean appearance
+  theme_custom  # Apply custom theme
 
 # Extract boxplot statistics
 boxplot_stats <- boxplot.stats(sample_sums)$stats
@@ -188,12 +208,19 @@ stats_df <- data.frame(
   label = boxplot_stats  # The labels to be printed
 )
 
-# Add text labels for the statistics
+# Format the numbers for better appearance
+stats_df$label <- format(stats_df$label, big.mark = ",", scientific = FALSE)
+
+# Adjust vertical and horizontal justification for each label
+stats_df$vjust <- c(-0.5, -0.5, -0.5, 1.5, 1.5)
+stats_df$hjust <- c(1.2, 0.5, 0.5, 0.5, 1.2)
+
+
+# Add text labels for the statistics with adjusted vjust
 boxplot_plot <- boxplot_plot +
-  geom_text(data = stats_df, aes(x = x, y = y, label = label), vjust = -0.5)
+  geom_text(data = stats_df, aes(x = x, y = y, label = label, vjust = vjust, hjust = hjust), size = 3.5)
 ```
 
-An approximately 10-fold difference in the library sizes means that we will need to apply a normalization method before continuing with the analysis. The most common normalization methods used in microbiome count data are proportions and rarefaction. However, other methods originally developed to normalize RNA-seq counts have been adapted to differential-abundance analysis in microbiome data. A discussion about how to choose the right normalization method is out of the scope of this material, but the topic has been covered in multiple forums and scientific publications. Depending on the downstream analysis we intend to perform, different methods might be appropriate. For instance, to compare groups of samples at community-level through beta-diversity, “…proportions and rarefying produced more accurate comparisons among communities and are the only methods that fully normalized read depths across samples. Additionally, upper quartile, cumulative sum scaling (CSS), edgeR-TMM, and DESeq-VS often masked differences among communities when common OTUs differed, and they produced false positives when rare OTUs differed” ([2](https://docs.mgnify.org/src/notebooks/R%20Examples/Comparative%20Metagenomics.html#reference_2)). On the other hand, for detection of differentially abundant species, “both proportions and rarefied counts result in a high rate of false positives in tests for species that are differentially abundant across sample classes” ([3](https://docs.mgnify.org/src/notebooks/R%20Examples/Comparative%20Metagenomics.html#reference_3)).
 
 In the following examples we will show three popular ways of normalization: relative abundance, rarefaction and cummulative sum scaling.
 
@@ -214,11 +241,11 @@ glom_tse <- agglomerateByRank(filtered_tse, rank = "Class", assay.type = "relabu
 
 ```
 
-3. Get the top 15 features and store them in the `tss_tse`. We store the top features in a new tse object as keeping the `glom_tse` and `tss_tse` objects seperate will come in handy later on.
+3. Get the top 15 features and store them in the `tss_tse`. We store the top features in a new tse object as keeping the `glom_tse` and `tss_tse` objects  will come in handy later on.
 
 ```{r}
 # The below method is correct but mia hasn't updated to it - COME BACK TO THIS
-# top_tse <- getTop(filtered_tse, method = "mean", assay.type = "relabundance")
+# top_tse <- getTop(filtered_tse, method = "mean", assay.type = "relabundance", top = 15L)
 
 # Take the top 15 features based on their means
 top15_tss <- getTopFeatures(glom_tse, method = "mean", assay.type = "relabundance", top = 15L)
@@ -231,6 +258,274 @@ tss_tse <- TreeSummarizedExperiment(
             )
 ```
 
+## Normalization by subsampling (rarefaction)
+Rarefaction is an alternative to relative abundance normalization to obtain an adjusted OTUs count matrix. The method is based on a process of subsampling to the smallest library size in the data set. The algorithm randomly removes reads until the samples reach the same library size. Despite the apparent disadvantage of discarding information from the larger samples, rarefaction is quite popular in microbial ecology. The first step is to find the smallest sample size. We can use the number of observed OTUs in the original matrix to do so.
+
+1. Find the smallest sample size.
+
+```{r}
+min_size <- min(colSums2(assay(filtered_tse, "counts")))
+```
+
+2. Rarefying to the smallest sample.
+
+```{r}
+# Rarefy to the smallest sample - correct method not working - COME BACK TO THIS
+# rarefied_tse <- rarefyAssay(filtered_tse, assay.type = "counts", sample = min_size, name = "rarefy")
+
+filtered_tse <- subsampleCounts(filtered_tse, assay.type = "counts", size = min_size, name = "rarefy")
+```
+
+3. Agglomerate taxonomy at Class rank and save to `glom_tse`.
+
+```{r}
+glom_tse <- agglomerateByRank(filtered_tse, assay.type = "rarefy", rank = "Class", name = "rarefy")
+```
+
+4. Select the top 15 taxa and save them to `rarefy_tse`. We keep `glom_tse` and `rarefy_tse` separate as it will make things easier later. 
+
+```{r}
+# Get the taxa sums by row
+taxa_sums <- rowSums(assay(glom_tse, "rarefy"))
+
+# Select the top 15 taxa
+top15_taxa <- names(sort(taxa_sums, decreasing = TRUE)[1:15])
+
+# Create the new TreeSummarizedExperiment object with assays, colData, and rowData
+rarefy_tse <- TreeSummarizedExperiment(
+              assays = list(rarefy = assay(glom_tse, "rarefy")[top15_taxa, ]),
+              colData = colData(glom_tse),
+              rowData = rowData(glom_tse)[top15_taxa, ]
+            )
+```
+
+## Normalization by cumulative sum scaling (CSS)
+The third normalization method we are going to apply is CSS. To do so, we will use the implementation on the `metagenomeSeq` library. Cumulative sum scaling normalization calculates scaling factors as the cumulative sum of gene (or taxa) abundances up to a data-derived threshold. This method is based on the assumption that the count distributions in each sample are equivalent for low abundance genes up to a certain threshold. Only the segment of each sample’s count distribution that is relatively invariant across samples is scaled by CSS.
+
+1. First create the `MRexperiment` object.
+
+```{r}
+MRexperiment_obj <- newMRexperiment(counts = assay(filtered_tse), phenoData = AnnotatedDataFrame(as.data.frame(colData(filtered_tse))))
+```
+
+2. Then perform the CSS normalization
+
+```{r}
+MRexperiment_obj <- cumNorm(MRexperiment_obj)
+```
+
+3. Extract the normalized counts and create a new assay from these counts
+
+```{r}
+# Extract normalized counts
+normalized_counts <- MRcounts(MRexperiment_obj, norm = TRUE)
+
+# Create new assay from these counts
+assay(filtered_tse, "css") <- normalized_counts
+```
+
+4. Agglomerate by class rank and save to the `glom_tse` object.
+
+```{r}
+glom_tse <- agglomerateByRank(filtered_tse, assay.type = "css", rank = "Class", name = "css")
+```
+
+5. Select the top 15 taxa and save them to the `css_tse` object. We keep the `glom_tse` and `css_tse` objects separate as it will make things easier later.
+
+```{r}
+# Calculate the taxa sums by row
+taxa_sums <- rowSums(assay(glom_tse, "css"))
+
+# Select the top 15 taxa
+top15_taxa <- names(sort(taxa_sums, decreasing = TRUE)[1:15])
+
+# Create the new TreeSummarizedExperiment object with assays, colData, and rowData
+css_tse <- TreeSummarizedExperiment(
+  assays = list(css = assay(glom_tse, "css")[top15_taxa, ]),
+  colData = colData(glom_tse),
+  rowData = rowData(glom_tse)[top15_taxa, ]
+)
+```
+
+## Computing alpha diversity indices
+Alpha diversity is a measure of species diversity in a particular area or an ecosystem. In terms of microbial ecology, analyzing the sample diversity of sequencing data is commonly the first step in assessing differences between microbial environments. Some of the most popular alpha diversity indices reported in microbial community analyses are Chao, abundance-based coverage estimators (ACE), Simpson, and Shannon-Weaver.
+
+Chao1 and ACE are nonparametric estimators that describe diversity as the max number of expected species in the sample (species richness). They consider the proportion of species that have been observed before (“recaptured”) to those that are observed only once. Both Chao1 and ACE underestimate true richness at low sample sizes.
+
+On the other hand, Simpson and Shannon-Weaver, consider relative abundances and depends on both, species richness and the evenness (or equitableness), with which individuals are distributed among the different species. However, both metrics have specific biases. The Shannon-Weaver index places a greater weight on species richness, whereas the Simpson index considers evenness more than richness in its measurement.
+
+More discussion and examples illustrating how sample size and normalization methods can affect alpha diversity metrics in references 4 and 5.
+
+In this example, we're going to calculate the diversity measures for our data with no normalization, our CSS normalized data, and our rarefied data.
+
+1. First, let's define a function for calculating the diversity measures for a given assay.
+```{r}
+calculate_diversity_measures <- function(tse, assay_type) {
+  colData(tse)[[paste0("observed_", assay_type)]] <- estimateRichness(tse, index = "observed", assay.type = assay_type)$observed
+  colData(tse)[[paste0("chao1_", assay_type)]] <- estimateRichness(tse, index = "chao1", assay.type = assay_type)$chao1
+  colData(tse)[[paste0("ace_", assay_type)]] <- estimateRichness(tse, index = "ace", assay.type = assay_type)$ace
+  colData(tse)[[paste0("shannon_", assay_type)]] <- estimateDiversity(tse, index = "shannon", assay.type = assay_type)$shannon
+  colData(tse)[[paste0("simpson_", assay_type)]] <- estimateDiversity(tse, index = "inverse_simpson", assay.type = assay_type)$inverse_simpson
+  
+  return(tse)
+}
+```
+
+2. Let's also define a function for extracting the diversity data frame from a `tse` object, and melting it into long format, for easy plotting with `ggplot2`.
+
+```{r}
+create_diversity_df <- function(tse, assay_type) {
+  # Cretate the data frame
+  diversity_df <- data.frame(
+    Sample = rownames(colData(tse)),
+    Observed = colData(tse)[[paste0("observed_", assay_type)]],
+    Chao1 = colData(tse)[[paste0("chao1_", assay_type)]],
+    ACE = colData(tse)[[paste0("ace_", assay_type)]],
+    Shannon = colData(tse)[[paste0("shannon_", assay_type)]],
+    Simpson = colData(tse)[[paste0("simpson_", assay_type)]]
+  )
+  
+  # Melt the data frame
+  melted_df <- melt(diversity_df, id.vars = c("Sample"), measure.vars = c("Observed", "Chao1", "ACE", "Shannon", "Simpson"), 
+                    variable.name = "measure", value.name = "value")
+
+  return(melted_df)
+}
+```
+
+3. Now, prepare our melted data frames on our non-normalized data, our css normalized data, and our tss normalized data.
+
+```{r}
+# Prepare df with no normalization
+normal_tse <- calculate_diversity_measures(filtered_tse, "counts")
+normal_melted_df <- create_diversity_df(normal_tse, "counts")
+
+# Prepare our rarefied df
+rarefied_tse <- calculate_diversity_measures(filtered_tse, "rarefy")
+rarefied_melted_df <- create_diversity_df(rarefied_tse, "rarefy")
+
+# Round the css data for this example - keeping the original css data for later
+rounded_tse <- filtered_tse
+assay(rounded_tse, "css") <- round(assay(rounded_tse, "css"))
+
+# Prepare our css df
+css_tse <- calculate_diversity_measures(rounded_tse, "css")
+css_melted_df <- create_diversity_df(css_tse, "css")
+```
+
+4. Plot the 3 plots.
+
+```{r}
+# Plot with no normalization
+alpha_diversity_no_norm <- ggplot(normal_melted_df, aes(x = Sample, y = value, color = Sample)) +
+  geom_boxplot() +
+  facet_wrap(~ measure, scales = "free_y") +
+  theme_bw() +
+  scale_color_manual(values = viridis(40)) +
+  labs(title = "No normalization", x = '', color = "Environment") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 6))
+
+# Plot with rarefied data
+alpha_diversity_rarefy <- ggplot(rarefied_melted_df, aes(x = Sample, y = value, color = Sample)) +
+  geom_boxplot() +
+  facet_wrap(~ measure, scales = "free_y") +
+  theme_bw() +
+  scale_color_manual(values = viridis(40)) +
+  labs(title = "Rarefy", x = '', color = "Environment") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 6))
+
+# Plot with css normalization
+alpha_diversity_css <- ggplot(css_melted_df, aes(x = Sample, y = value, color = Sample)) +
+  geom_boxplot() +
+  facet_wrap(~ measure, scales = "free_y") +
+  theme_bw() +
+  scale_color_manual(values = viridis(40)) +
+  labs(title = "CSS Normalization", x = '', color = "Environment") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1, size = 6))
+```
+
+## Community profile visualization
+Here we visualise the taxonomic profiles in barplots at class ranks for our top tss normalized taxa, rarefied taxa and css normalized taxa.
+
+1. Lets change any unknown taxonomic rowDate information to "Unknown" from "NA".
+
+```{r}
+# Changing rowData on tss_tse object
+rowData(tss_tse)$Class <- ifelse(is.na(rowData(tss_tse)$Class), "Unknown", rowData(tss_tse)$Class)
+
+# Changing rowData on rarefy_tse object
+rowData(rarefy_tse)$Class <- ifelse(is.na(rowData(rarefy_tse)$Class), "Unknown", rowData(rarefy_tse)$Class)
+
+# Changing rowData on css_tse object
+rowData(css_tse)$Class <- ifelse(is.na(rowData(css_tse)$Class), "Unknown", rowData(css_tse)$Class)
+```
+
+2. Create the plots with the `plotAbundance` `mia` method.
+
+```{r}
+# Plotting our tss data
+tss_plot <- plotAbundance(tss_tse,
+                            assay.type = "tss",
+                            rank = "Class",
+                            order_rank_by = "abund")
+
+# Plotting our rarefied data
+rarefy_plot <- plotAbundance(rarefy_tse,
+                               assay.type = "rarefy",
+                               rank = "Class",
+                               order_rank_by = "abund")
+
+# Plotting our css data
+css_plot <- plotAbundance(css_tse,
+                             assay.type = "css",
+                             rank = "Class",
+                             order_rank_by = "abund")
+```
+
+By naked eye, we can see that the profiles change. Let’s take a deeper look at some interesting Classes to check how the abundance change depending on the normalization method.
+
+1. Define our subset classes
+
+```{r}
+subset_classes <- c("Betaproteobacteria", 
+                    "Bacteroidia", 
+                    "Actinobacteria")
+```
+
+
+2. Subset our TreeSummarizedExperiment objects.
+
+```{r}
+# Function to subset TreeSummarizedExperiment object
+subset_tse <- function(tse, classes) {
+  subset_indices <- which(rowData(tse)$Class %in% classes)
+  tse[subset_indices, ]
+}
+
+# Subset TreeSummarizedExperiment objects
+tss_subset <- subset_tse(tss_tse, subset_classes)
+rarefy_subset <- subset_tse(rarefy_tse, subset_classes)
+css_subset <- subset_tse(css_tse, subset_classes)
+```
+
+3. Plot our new plots with the `plotAbundance` `mia` method.
+
+```{r}
+tss_plot <- plotAbundance(tss_subset, 
+                            assay.type = "tss", 
+                            rank = "Class", 
+                            order_rank_by = "abund")
+
+rarefy_plot <- plotAbundance(rarefy_subset, 
+                            assay.type = "rarefy", 
+                            rank = "Class", 
+                            order_rank_by = "abund")
+
+css_plot <- plotAbundance(css_subset, 
+                            assay.type = "css", 
+                            rank = "Class", 
+                            order_rank_by = "abund")
+```
 
 
 
