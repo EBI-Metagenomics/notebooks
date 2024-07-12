@@ -42,20 +42,20 @@ suppressMessages({
   library(metagenomeSeq)
   library(reshape2)
   library(viridis)
+  library(patchwork)
+  library(IRdisplay)
+  library(ALDEx2)
+  library(ANCOMBC)
+  library(mikropml)
+  library(MLeval)
+  library(caret)
 })
 
 display_markdown(file = '../_resources/mgnifyr_help.md')
 ```
 
-```{r}
-# Setting tables and figures size to display (these will be reset later):
-options(repr.matrix.max.cols=150, repr.matrix.max.rows=200)
-options(repr.plot.width=4, repr.plot.height=4)
-```
-
-:::
 # Fetching data and preprocessing
-In this example we are going to fetch MGnify analysis results and metadata for a dataset on EMG produced TPA metagenomics assembly of the Gut microbial dysbiosis in young adults with obesity ([MGYS00005333](https://www.ebi.ac.uk/metagenomics/studies/MGYS00005333#overview)).
+In this example we are going to fetch MGnify analysis results and metadata for a dataset on the human gut microbiome viewed across age and geography -  ([MGYS00005154](https://www.ebi.ac.uk/metagenomics/studies/MGYS00005154)).
 
 ## Setting the study accession
 1. First, set the accession number of the study we're using to the `mgnify_study_accession` variable.
@@ -66,7 +66,7 @@ In this example we are going to fetch MGnify analysis results and metadata for a
 source("./lib/variable_utils.r")
 
 mgnify_study_accession <- get_variable_from_link_or_input('MGYS', 'Study Accession', 
-                                                          'MGYS00005333')
+                                                          'MGYS00005154')
 
 # You can also just directly set the accession variable in code, like this:
 # mgnify_study_accession <- "MGYS00005292"
@@ -93,7 +93,7 @@ analyses_accessions
 ```{r}
 #| output: false
 analyses_metadata_df <- getMetadata(mg, head(analyses_accessions,
-                                                              20))
+                                                              30))
 ```
 
 2. The table could be big, so let's look at a sample of it (`head`)
@@ -158,7 +158,7 @@ filtered_library_sie_histogram <- ggplot(filtered_data) +
         axis.line = element_line(colour = "black"))
 ```
 
-2. Remove singletons. Singletons are OTUs of size one, meaning that only one read was assigned to that OTU. These very low-abundance OTUs could be biologically real (belonging to the rare biosphere ([1](https://docs.mgnify.org/src/notebooks/R%20Examples/Comparative%20Metagenomics.html#reference_1))), or they could be false positives due to sequencing artefacts. Singletons observed in only one sample are more likely to be artefacts, and it is good practice to remove them from the OTUs counts table to avoid artificially over-estimating the OTUs richness. You can find more discussion about this in [Robert Edgar’s blog](https://drive5.com/usearch/manual/singletons.html).
+2. Remove singletons. Singletons are OTUs of size one, meaning that only one read was assigned to that OTU. These very low-abundance OTUs could be biologically real (belonging to the rare biosphere ([1](#ref-lynch2015))), or they could be false positives due to sequencing artefacts. Singletons observed in only one sample are more likely to be artefacts, and it is good practice to remove them from the OTUs counts table to avoid artificially over-estimating the OTUs richness. You can find more discussion about this in [Robert Edgar’s blog](https://drive5.com/usearch/manual/singletons.html).
 
 ```{r}
 # Calculate the total counts for each taxa across all samples in the filtered data
@@ -221,6 +221,7 @@ boxplot_plot <- boxplot_plot +
   geom_text(data = stats_df, aes(x = x, y = y, label = label, vjust = vjust, hjust = hjust), size = 3.5)
 ```
 
+An approximately 5-fold difference in the library sizes means that we will need to apply a normalization method before continuing with the analysis. The most common normalization methods used in microbiome count data are proportions and rarefaction. However, other methods originally developed to normalize RNA-seq counts have been adapted to differential-abundance analysis in microbiome data. A discussion about how to choose the right normalization method is out of the scope of this material, but the topic has been covered in multiple forums and scientific publications. Depending on the downstream analysis we intend to perform, different methods might be appropriate. For instance, to compare groups of samples at community-level through beta-diversity, “…proportions and rarefying produced more accurate comparisons among communities and are the only methods that fully normalized read depths across samples. Additionally, upper quartile, cumulative sum scaling (CSS), edgeR-TMM, and DESeq-VS often masked differences among communities when common OTUs differed, and they produced false positives when rare OTUs differed” ([2](#ref-mcknight2019)). On the other hand, for detection of differentially abundant species, “both proportions and rarefied counts result in a high rate of false positives in tests for species that are differentially abundant across sample classes” ([3](#ref-mcmurdie2014)).
 
 In the following examples we will show three popular ways of normalization: relative abundance, rarefaction and cummulative sum scaling.
 
@@ -244,9 +245,6 @@ glom_tse <- agglomerateByRank(filtered_tse, rank = "Class", assay.type = "relabu
 3. Get the top 15 features and store them in the `tss_tse`. We store the top features in a new tse object as keeping the `glom_tse` and `tss_tse` objects  will come in handy later on.
 
 ```{r}
-# The below method is correct but mia hasn't updated to it - COME BACK TO THIS
-# top_tse <- getTop(filtered_tse, method = "mean", assay.type = "relabundance", top = 15L)
-
 # Take the top 15 features based on their means
 top15_tss <- getTopFeatures(glom_tse, method = "mean", assay.type = "relabundance", top = 15L)
 
@@ -270,9 +268,6 @@ min_size <- min(colSums2(assay(filtered_tse, "counts")))
 2. Rarefying to the smallest sample.
 
 ```{r}
-# Rarefy to the smallest sample - correct method not working - COME BACK TO THIS
-# rarefied_tse <- rarefyAssay(filtered_tse, assay.type = "counts", sample = min_size, name = "rarefy")
-
 filtered_tse <- subsampleCounts(filtered_tse, assay.type = "counts", size = min_size, name = "rarefy")
 ```
 
@@ -359,6 +354,7 @@ More discussion and examples illustrating how sample size and normalization meth
 In this example, we're going to calculate the diversity measures for our data with no normalization, our CSS normalized data, and our rarefied data.
 
 1. First, let's define a function for calculating the diversity measures for a given assay.
+
 ```{r}
 calculate_diversity_measures <- function(tse, assay_type) {
   colData(tse)[[paste0("observed_", assay_type)]] <- estimateRichness(tse, index = "observed", assay.type = assay_type)$observed
@@ -528,14 +524,329 @@ css_plot <- plotAbundance(css_subset,
 ```
 
 
+## Comparative metagenomics at community level: Beta diversity
+
+Beta (β)-diversity is used in ecology to assess the heterogeneity of local communities. It is defined as the ratio between regional and local species diversity. In simpler terms, it calculates the number of species that are not the same in two different environments.
+
+Some of the most popular beta diversity measures in microbiome research include Bray-Curtis index (for compositional data), Jaccard index (for presence/absence data, ignoring abundance information), Aitchison distance (Euclidean distance for transformed abundances, aiming to avoid the compositionality bias), and the Unifrac distances (that use the phylogenetic tree information). Only some of the commonly used beta diversity measures are actual distances, therefore, the term dissimilarity or beta-diversity is commonly used. The workflow to assess β-diversity between groups of samples starts with calculating the diversity indices for each pair of samples. This results in a distance (or dissimilarity) matrix that is often used for ordination (e.g., principal coordinates analysis) and data exploration in microbiota data analysis ([6](#ref-wagner2018)).
+
+For statistical analysis, [adonis](https://www.rdocumentation.org/packages/vegan/versions/2.6-4/topics/adonis) and [betadisper](https://www.rdocumentation.org/packages/vegan/versions/2.6-4/topics/betadisper) methods are widely used together in β-diversity analyses.
+
+Adonis tests whether two or more groups have different compositions. Adonis calculates the squared deviations of each site to the centroid and then, performs significance tests using F-tests based on sequential sums of squares from permutations of the raw data. It can be seen as an ANOVA using distance matrices (analogous to MANOVA). A non significant p-value (p>0.05), means that there’s no difference in composition between groups (null hypothesis of no difference in composition between groups).
+
+Betadisper tests if two or more groups are homogeneously dispersed in relation to their species in studied samples. This test can be done to see if one group has more compositional variance than another. The method use the distance matrix to calculate the multivariate dispersions (variances; average distance to centroids). Then we use group dispersions to perform an ANOVA test. ANOVA’s p-value not significant (p>0.05) means that group dispersions are homogenous (null hypothesis of no difference in dispersion between groups).
+
+Compute beta diversity using various methods to calculate distance, and perform principle components analysis ploting the first two axes.
+According to Pereira et al., (2018)([7](#ref-pereira2018)), the best normalization method for metagenomic gene abundance is CSS for large group sizes. For this reason, we will use this method to show beta-diversity. Using as a guide the steps described in ([8](#ref-mcmurdie2018)), we will create a list of suitable distance methods, iterate through them, and display a combined plot. For a better visualization we are going to show the 95% confidence region with an ellipse.
+
+1. Let's define the list of methods we're going to test.
+
+```{r}
+# Define method list
+vegdist_methods <- c("manhattan", "euclidean", "canberra", "bray", "kulczynski", "jaccard",
+                     "gower", "altGower", "morisita", "horn", "mountford", "raup",
+                     "binomial", "chao", "cao")
+
+# Create empty vectors to hold method names and plots
+created <- c()
+plots <- c()
+```
+
+2. Loop through these method types and plot abundance for each, saving each plot into the `plots` vector.
+
+```{r}
+# Loop through these methods and plot abundance
+for (method in vegdist_methods) {
+  # Set the method name
+  method_name <- paste("MDS", method, sep = "_")
+  created <- method_name
+  
+    # Run MDS 
+    mds_tse <- runMDS(filtered_tse,
+                  FUN = vegan::vegdist,
+                  method = method,
+                  assay.type = "css",
+                  name = method_name)
+  
+  # Create plot object of reducedDim slot
+  p <- plotReducedDim(mds_tse, dimred = paste("MDS", method, sep = "_"))
+  
+  # Calculate explained variance
+  e <- attr(reducedDim(mds_tse, method_name), "eig")
+  rel_eig <- e / sum(e[e > 0])
+  
+  # Add explained variance for each axis
+  p <- p + labs(x = paste("MDS_1_", method, " (", round(100 * rel_eig[1], 1), "%)", sep = ""),
+                y = paste("MDS_2_", method, " (", round(100 * rel_eig[2], 1), "%)", sep = ""),
+                title = paste("MDS using distance method", method)) +
+    theme_minimal(base_size = 6) + # Use a minimal theme for clarity
+    theme(
+      plot.title = element_text(hjust = 0.5), # Center the title
+      axis.title = element_text(size = 6), # Smaller axis titles
+      axis.text = element_text(size = 6), # Smaller axis labels
+      legend.position = "bottom", # Position the legend at the bottom
+      legend.title = element_text(size = 6), # Smaller legend title
+      legend.text = element_text(size = 6) # Smaller legend text
+    )
+  
+  # Save plot
+  plots[[method_name]] <- p
+}
+```
+
+3. Combine all plots using patchwork.
+
+```{r}
+# Combine all plots using patchwork
+wrapped_plots <- wrap_plots(plots) +
+  plot_layout(guides = "collect") + 
+  plot_annotation(title = "MDS on Various Distance Metrics",
+                  theme = theme(plot.title = element_text(size = 14, hjust = 0.5)))
+```
+
+Separation of the groups observed in some of the ordination plots could be due to location effect, dispersion effect, or both. To test the location effect (null hypothesis of no difference in composition between groups) we use a permanova implemented in the `vegan` library’s `adonis2` function. We will use the distance metric that best segregates the groups and determine whether the two groups of samples have different centroids. 
+
+1. First we create the metadata data frame.
+
+```{r}
+# Create the metadata data frame
+metadata <- data.frame(colData(filtered_tse))
+rownames(metadata) <- colnames(filtered_tse)
+```
+
+2. Then we generate the `mountford` distance matrix.
+
+```{r}
+# Transpose the css matrix to test effects in samples
+css_data <- t(assay(filtered_tse, "css"))
+
+# Use the vegan package to generate a mountford distance matrix
+distance_matrix <- vegan::vegdist(css_data, method = "mountford")
+```
+
+3. Run the `adonis2` method.
+
+```{r}
+# Perform PERMANOVA using adonis2 from the vegan package - testing location effects
+adonis_result <- adonis2(distance_matrix ~ sample_geographic.location..country.and.or.sea.region., data = metadata, perm = 1000)
+adonis_result
+```
+
+Adonis assumes there is homogeneity of dispersion among groups. Let’s test this assumption, to check whether the differences detected by adonis are due to variation in dispersion of the data. The strategy is to run a `betadisper` (also from the `vegan` library) to calculate variances and evaluate if there’s a significant variation between groups through an anova. `Betadisper` is a sister function to `adonis` to study the differences in dispersion within the same geometric framework.
+
+```{r}
+bd = betadisper(distance_matrix, metadata$'sample_geographic.location..country.and.or.sea.region.')
+anova(bd)
+```
+ANOVA's p-value is signficant (p>0.05), meaning that group dispersins aren't 
+homogenous (reject the null hypothesis of no difference in dispersion between groups). The general conclusion of `adonis` and `betadisper` is that our georgaphic groups of samples aren't homogenous on group dispersions (compositions vary significantly within the group) whilst they also have significantly different compositions between groups (according to `adonis` p<0.05).
 
 
+## Detection of differentially abundant taxa
+There are many approaches out there to detect differentially abundant taxa (or genes). Here we detect microbiome community composition changes due to various environmental factors. Describing such associations in quantitative models has multiple applications, such as in predicting disease status based on microbiome data. In addition, the pipeline includes the generation of high-quality plots for visual inspection of results ([9](#ref-wirbel2021)). There are multiple parameters that can be adjusted for better performance in each step of the analysis. However, in this exercise we are using default arguments with minimal tuning.
+
+### Association testing
+
+1. First we use our original counts data on our `filtered_tse` object and agglomerate by rank to a new `genus_tse` object.
+
+```{r}
+genus_tse <- agglomerateByRank(filtered_tse, assay.type = "counts", rank = "Genus")
+```
+
+2. Now take the top 25% of taxa.
+
+```{r}
+# Determine the number of taxa corresponding to the top 25%
+total_taxa <- nrow(assay(genus_tse, "counts"))
+top_25_percent <- ceiling(total_taxa * 0.25)
+
+# Take the top taxa
+top_taxa <- getTopFeatures(genus_tse, method = "prevalence", assay.type = "counts", top = top_25_percent)
+
+# Subset the SummarizedExperiment object to include only the top prevalent taxa
+tse <- tse[rownames(tse) %in% top_taxa, ]
+```
+
+3. Now we transform the count assay to relative abundances and do abundance filtering.
+
+```{r}
+# Apply relabundance transformation
+genus_tse <- transformAssay(genus_tse,
+                assay.type = "counts",
+                method = "relabundance")
+
+# Apply abundance filtering
+abundance_cutoff <- 1e-03
+abundant_taxa <- rownames(genus_tse)[rowMeans(assay(genus_tse, "relabundance")) >= abundance_cutoff]
+genus_tse <- genus_tse[abundant_taxa, ]
+```
+
+4. Subset our `genus_tse` samples into 2 geographic groups, and add an extra `colData` column to accommodate this.
+
+```{r}
+# Create a new condition vector
+conditions <- ifelse(colData(genus_tse)$sample_geographic.location..country.and.or.sea.region. == "GAZ:United States of America", "USA", "Other")
+
+# Add conditions as a new column in the colData of genus_tse
+colData(genus_tse)$geo_location <- conditions
+```
+
+5. Now we use the `ALDEx2` package to compute the differential abundance analysis.
+
+```{r}
+# Set seed for reproducibility
+set.seed(123)
+
+# Generate Monte Carlo samples of the Dirichlet distribution for each sample using the geographic location for grouping
+x <- aldex.clr(assay(subset_genus_tse, "counts"), genus_tse$geo_location)
+
+# Calculates expected values of the Welch's t-test and Wilcoxon rank
+x_tt <- aldex.ttest(x, paired.test = FALSE, verbose = FALSE)
+
+# Determine the median clr abundance of the feature in all samples and in groups, the median difference between the two groups, the median variation within each group and the effect size - which is the median of the ration of the between group difference and the larger of the variance within groups
+x_effect <- aldex.effect(x, CI = TRUE, verbose = FALSE)
+
+# Now combine all outputs into a data frame
+aldex_out <- data.frame(x_tt, x_effect)
+
+# Now we plot a Bland-ALtman plot (left) and a dispersion plot (right)
+par(mfrow = c(1, 2))
+
+# Set up a 1x2 plotting area
+par(mfrow = c(1, 2))
+
+# Bland-Altman plot (left)
+aldex.plot(aldex_out,
+  type = "MA",
+  test = "welch",
+  xlab = "Log-ratio abundance",
+  ylab = "Difference",
+  cutoff = 0.05)
+
+# Dispersion plot (right)
+aldex.plot(aldex_out,
+  type = "MW",
+  test = "welch",
+  xlab = "Dispersion",
+  ylab = "Difference",
+  cutoff = 0.05)
+
+# Reset plotting layout
+par(mfrow = c(1, 1))
+
+# Then do some further evaluation on the results
+aldex_out %>%
+  rownames_to_column(var = "Genus") %>%
+  # here we choose the wilcoxon output rather than t-test output
+  filter(wi.eBH <= 0.05)  %>%
+  dplyr::select(Genus, we.eBH, wi.eBH, effect, overlap) %>%
+  knitr::kable()
+```
+
+## Confounder Testing 
+
+Test the associated metadata variables for potential confounding influence. As many biological and technical factors beyond the primary phenotype of interest can influence microbiome composition, simple association studies may suffer confounding by other variables, which can lead to spurious results. Associations are visualized either as barplot or Q-Q plot, depending on the type of metadata. Additionally, it evaluates associations among metadata variables using conditional entropy and associations with the label using generalized linear models, producing a correlation heatmap and appropriate quantitative barplots, respectively.
+
+Here we use the `ANCOMBC` package to test for cofounders.
+
+1. Compute and store the library size in `colData`.
+
+```{r}
+colData(genus_tse)$library_size <- colSums(assay(genus_tse, "counts"))
+```
 
 
+2. The `ancombc2_out` method performs the differential abundance analysis whilst accounting for multiple covariates and potential confounders. 
 
+```{r}
+# Perform the analysis 
+ancombc2_out <- ancombc2(genus_tse,
+                         assay.type = "counts",
+                         fix_formula = "sample_geographic.location..country.and.or.sea.region. + library_size",
+                         p_adj_method = "fdr",
+                         lib_cut = 0,
+                         group = "sample_geographic.location..country.and.or.sea.region.", 
+                         struc_zero = TRUE, 
+                         neg_lb = TRUE,
+                         alpha = 0.05,
+                         global = TRUE)
+```
 
+## Generation of a predictive model: Machine learning workflow
 
+We'll now use the `mikropml` library to construct a machine learning meta-analysis models on the basis of microbial markers. The steps to follow include functions for data normalization, splitting the data into cross-validation folds, training the model, and making predictions based on cross-validation instances and the trained models. Such a model can be built on one dataset and then be applied on another, similarly processed holdout dataset. This might be of interest when comparing data from two different studies testing the same condition.
 
+1. Normalize the data using CLR transformation.
 
+```{r}
+filtered_tse <- transformAssay(filtered_tse, assay.type = "counts", method = "clr", MARGIN = "samples", pseudocount = 1)
+assay <- assay(filtered_tse, "clr")
+```
 
+2. Prepare the cross-validation data frame. Cross-validation is a technique to assess how well a machine learning model would generalize to external data by partitioning the dataset into training and test sets. Here, we prepare the data frame needed for cross-validation.
 
+```{r}
+# Prepare the cross-validation data frame.
+# Transpose the assay matrix to have samples as rows and features (taxa) as columns
+assay <- t(assay)
+
+# Convert the transposed matrix to a data frame for easier manipulation and analysis
+df <- as.data.frame(assay)
+
+# Extract the geographic location labels from the colData of the tse object
+labels <- colData(tse)$sample_geographic.location..country.and.or.sea.region.
+
+# Simplify the labels to make them valid R variable names
+labels <- gsub(" ", "_", labels)
+labels <- gsub("[:.]", "", labels)
+
+# Convert the geographic location labels to a factor (categorical variable)
+labels <- as.factor(labels)
+
+# Add the geographic location labels as a new column in the data frame
+df$geo_location <- labels
+```
+
+3. Train the model using `mikropml`. Model training involves selecting and applying a machine learning algorithm to the data. Here, we use the random forest algorithm (rf) to train our model. We do 10 folds for our cross-validation, and repeat the process 5 times.
+
+```{r}
+results <- run_ml(df, "rf", outcome_colname = "geo_location", kfold = 10, cv_times = 5, training_frac = 0.8)
+```
+
+4. Model evaluation involves assessing the performance of the trained model. Here, we use a confusion matrix to evaluate the model's predictions. A confusion matrix provides a summary of prediction results on a classification problem, showing the number of correct and incorrect predictions made by the model compared to the actual outcomes.
+
+```{r}
+conf_matrix <- confusionMatrix(data = results$trained_model$finalModel$predicted, reference = results$trained_model$finalModel$y)
+```
+
+5. Evaluate model using `MLEval`. This generates detailed evaluation metrics.
+
+```{r}
+res <- evalm(results$trained_model, showplots = FALSE)
+```
+
+6. Plot ROC and precision-recall curves side-by-side. Visualization is an important step to understand the performance of the model. Here, we plot the ROC and precision-recall curves.
+
+```{r}
+roc_pr_plot <- res$roc + res$proc + plot_layout(guides = "collect") & theme(legend.position = 'bottom')
+```
+
+# References
+
+1. <a name="ref-lynch2015"></a>Lynch, M., Neufeld, J. Ecology and exploration of the rare biosphere. Nat Rev Microbiol 13:217–229 (2015) [DOI:10.1038/nrmicro3400](https://doi.org/10.1038/nrmicro3400)
+
+2. <a name="ref-mcknight2019"></a>McKnight, DT., Huerlimann, R., Bower, DS. et al. Methods for Normalizing Microbiome Data: An Ecological Perspective. Methods in Ecology and Evolution / British Ecological Society 10(3):389–400 (2019) [DOI:10.1111/2041-210X.13115](https://doi.org/10.1111/2041-210X.13115)
+
+3. <a name="ref-mcmurdie2014"></a>McMurdie, PJ., Holmes, S. Waste Not, Want Not: Why Rarefying Microbiome Data Is Inadmissible. PLoS Comput Biol 10(4):e1003531 (2014) [DOI:10.1371/journal.pcbi.1003531](https://doi.org/10.1371/journal.pcbi.1003531)
+
+4. <a name="ref-willis2019"></a>Willis, A. Rarefaction, Alpha Diversity, and Statistics. Front. Microbiol. Sec. Terrestrial Microbiology 10:2407 (2019) [DOI:10.3389/fmicb.2019.02407](https://doi.org/10.3389/fmicb.2019.02407)
+
+5. <a name="ref-kim2017"></a>Kim, BR., Shin, J., Guevarra, R. et al. Deciphering Diversity Indices for a Better Understanding of Microbial Communities. J Microbiol Biotechnol 28;27(12):2089-2093 (2017) [DOI:10.4014/jmb.1709.09027](https://doi.org/10.4014/jmb.1709.09027)
+
+6. <a name="ref-wagner2018"></a>Wagner, BD., Grunwald, GK., Zerbe, GO. et al. On the Use of Diversity Measures in Longitudinal Sequencing Studies of Microbial Communities. Front. Microbiol. 9:1037 (2018) [DOI:10.3389/fmicb.2018.01037](https://doi.org/10.3389/fmicb.2018.01037)
+
+7. <a name="ref-pereira2018"></a>Pereira, M., Wallroth, M., Jonsson, V. et al. Comparison of normalization methods for the analysis of metagenomic gene abundance data. BMC Genomics 19,274 (2018) [DOI:10.1186/s12864-018-4637-6](https://doi.org/10.1186/s12864-018-4637-6)
+
+8. <a name="ref-mcmurdie2018"></a>McMurdie, P., Holmes, S. Tutorial of 2018: The distance function in phyloseq. Available at website
+
+9. <a name="ref-wirbel2021"></a>Wirbel, J., Zych, K., Essex, M. et al. Microbiome meta-analysis and cross-disease comparison enabled by the SIAMCAT machine learning toolbox. Genome Biol 22:93 (2021) [DOI:10.1186/s13059-021-02306-1](https://doi.org/10.1186/s13059-021-02306-1)

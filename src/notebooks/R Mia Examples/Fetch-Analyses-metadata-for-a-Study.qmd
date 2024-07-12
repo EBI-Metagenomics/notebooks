@@ -67,7 +67,7 @@ display_markdown(file = '../_resources/mgnifyr_help.md')
 
 ```{r}
 #| output: false
-analyses_accessions <- searchAnalysis(mg, mgnify_study_accession)
+analyses_accessions <- searchAnalysis(mg, "studies", mgnify_study_accession)
 analyses_accessions
 ```
 
