@@ -1,5 +1,5 @@
 ---
-title: "Fetch Analyses metadata for a Study"
+title: "Fetch analyses metadata for a study"
 author:
   - name: Noah de Gunst
     affiliation:
@@ -13,16 +13,11 @@ execute:
 ::: {style="max-width:1200px"}
 ![](./../_resources/mgnify_logo.png)
 
-# Fetch a Study using MGnifyR; download the metadata for all of its Analyses
+# Fetch a study using MGnifyR; download the metadata for all of its analyses
 
 The [MGnify API](https://www.ebi.ac.uk/metagenomics/api/v1) returns data and relationships as JSON. [MGnifyR](https://github.com/beadyallen/MGnifyR) is a package to help you read MGnify data into your R analyses.
 
-**This example shows you how fetch the Analyses for a Study into a TreeSummarizedExperiment 
-or MultiAsayExperiment object so you can use mia**
-
 You can find all of the other "API endpoints" using the [Browsable API interface in your web browser](https://www.ebi.ac.uk/metagenomics/api/v1).
-
-Also, if you would like to learn about mia, please [visit the website](https://microbiome.github.io/OMA/docs/devel/).
 
 This is an interactive code notebook (a Jupyter Notebook). To run this code, click into each cell and press the ▶ button in the top toolbar, or press `shift+enter`.
 
@@ -34,7 +29,7 @@ This is an interactive code notebook (a Jupyter Notebook). To run this code, cli
 ```{r}
 #| output: false
 
-source("./lib/variable_utils.r")
+source("./utils/variable_utils.r")
 
 mgnify_study_accession <- get_variable_from_link_or_input('MGYS', 'Study Accession', 
                                                           'MGYS00005116')
@@ -88,16 +83,16 @@ The table could be big, so let's look at a sample of it (`head`)
 t(head(analyses_metadata_df))
 ```
 
-## Convert to MultiAssayExperiment (MAE) object containing multiple [TreeSummarizedExperiment objects using mia](https://microbiome.github.io/)
+## Download the data to a multi-assay data object
 
 > [mia](https://microbiome.github.io/mia/) is a Bioconductor package designed to import, store and analyze microbiome data using an object called a TreeSummarizedExperiment. This is a tailored data container optimized for microbiome data analysis.
 Being built on the SummarizedExperiment class, miaverse seamlessly integrates into the extensive SummarizedExperiment ecosystem.
+In this example we download the MGnifyR data to an MAE, which contains multiple TreeSummarizedExperiment objects.
+
 
 ```{r}
 #| output: false
 mae <- getResult(mg, accession = analyses_accessions)
 ```
 
-You can now use any of the `mia` methods to explore this Study's Analyses (run `?mia` in a code cell to learn more). 
-
-You could also use further `MGnifyR` features, e.g. to download data. Check the Cheat Sheet at the top for more.
+You use `MGnifyR` features further, for example to download data. Check the Cheat Sheet at the top for more.
