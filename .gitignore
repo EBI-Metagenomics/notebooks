@@ -28,3 +28,4 @@ src/notebooks/R Examples/*.tsv
 src/notebooks/R Examples/*.txt
 .Rproj.user
 .RData
+.Rprofile
