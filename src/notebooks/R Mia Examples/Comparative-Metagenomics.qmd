@@ -19,12 +19,12 @@ execute:
 # Normalization methods, alpha & beta diversity, and differentially abundant taxa
 
 In this notebook we aim to demonstrate how the MGnifyR tool can be used to fetch 
-data and metadata of a MGnify metagenomic analyisis. 
+data and metadata of a MGnify metagenomic analysis 
 
-Then we show how to generate diversity metrics for comparative metagenomics using 
+Then we show how to generate diversity metrics for comparative metagenomics using
 taxonomic profiles. 
 
-Finally, we use the `mikropml` package to detect differentially abundant taxa and 
+Finally, we use the `mikropml` package to detect differentially abundant taxa and
 to build an ML classification model. 
 
 It's important to note, we're using methods and protocols that align with the 
@@ -39,7 +39,7 @@ The benefit of MGnifyR is that data can either be fetched in tsv format or be di
 combined in a [TreeSummarizedExperiment](https://www.bioconductor.org/packages/release/bioc/vignettes/TreeSummarizedExperiment/inst/doc/Introduction_to_treeSummarizedExperiment.html)
 object to run an analysis in a custom workflow.
 
-`TreeSummarizedExperiment` is an object within the [mia bioconductor package](https://microbiome.github.io/mia/), 
+`TreeSummarizedExperiment` is supported by the [mia bioconductor package](https://microbiome.github.io/mia/), 
 which is dedicated to microbiome analysis.
 
 This is an interactive code notebook (a Jupyter Notebook). To run this code, 
@@ -144,7 +144,134 @@ tse <- getResult(mg, analyses_metadata_df$analysis_accession)
 ```
 
 # Normalization, alpha diversity indices and taxonomic profiles visualization
-## Cleaning the OTUs matrix
+
+Let's Show some stats on sequencing depth across samples.
+
+```{r}
+# Calculate and print max difference
+max_difference <- max(tse$sum) / min(tse$sum)
+sprintf("The max difference in sequencing depth is %s", max_difference)
+```
+
+An approximate 4.5-fold difference in the library sizes means that we will need 
+to apply a normalization method before continuing with the analysis. The most 
+common normalization methods used in microbiome count data are proportions and rarefaction. 
+
+However, other methods originally developed to normalize RNA-seq counts have been 
+adapted to differential-abundance analysis in microbiome data. A discussion about 
+how to choose the right normalization method is out of the scope of this material, 
+but the topic has been covered in multiple forums and scientific publications. 
+
+Depending on the downstream analysis we intend to perform, different methods might 
+be appropriate. For instance, to compare groups of samples at community-level 
+through beta-diversity, “…proportions and rarefying produced more accurate comparisons 
+among communities and are the only methods that fully normalized read depths across 
+samples.
+
+Additionally, upper quartile, cumulative sum scaling (CSS), edgeR-TMM, and DESeq-VS 
+often masked differences among communities when common OTUs differed, and they 
+produced false positives when rare OTUs differed” ([1](#ref-mcknight2019)). On 
+the other hand, for detection of differentially abundant species, “both proportions 
+and rarefied counts result in a high rate of false positives in tests for species 
+that are differentially abundant across sample classes” ([2](#ref-mcmurdie2014)).
+
+However, rarefaction can utilize information in the full read count data, and 
+the debate on the pros and cons of rarefaction is ongoing ([3](#ref-schloss2024a), 
+[4](#ref-schloss2024b)).
+
+In the following examples we will show two popular ways of normalization: 
+relative abundance transformation (transforming features into zero mean, unit variance - 
+also called relative abundance transformation) and rarefaction.
+
+## Normalization by total sum scaling (TSS, relative abundance or proportions)
+The simplest way to normalize the differences in sample size is to do a relative 
+abundance transformation on the OTU counts table by dividing by the number of 
+total reads of each sample. This type of normalization is also referred to as 
+relative abundance or proportions. 
+
+We use this normalization to compare taxonomic profiles, while alpha diversity 
+indices are computed on the non-normalized matrix. The reason to do so is that 
+we need a matrix of integer numbers as input.
+
+1. Apply the relative abundance transformation to raw counts matrix.
+
+```{r}
+tse <- transformAssay(tse, name = "relabundance", method = "relabundance")
+```
+
+2. Agglomerate taxonomy at Class rank and save to the `glom_tse_relab` object 
+within `altExp`. Then remove all assays other than `relabundance` for simplicity.
+
+```{r}
+# Agglomerate at class rank
+altExp(tse, "glom_tse_relab") <- agglomerateByRank(tse, rank = "Class")
+
+# Remove assays other than relabundance
+assays(altExp(tse, "glom_tse_relab")) <- assays(altExp(tse, "glom_tse_relab"))["relabundance"]
+```
+
+3. Get the top 15 features of the `relabundance` assay and subset the `altExp` 
+`relabundance` assay by those top 15 features.
+
+```{r}
+# Take the top 15 features based on their means
+top15_relabundance <- getTop(altExp(tse, "glom_tse_relab"), method = "mean", 
+                             assay.type = "relabundance", top = 15L)
+
+# Subset relabundance tse by top features
+altExp(tse, "glom_tse_relab") <- altExp(tse, "glom_tse_relab")[top15_tss, ]
+```
+
+## Normalization by subsampling (rarefaction)
+Rarefaction is an alternative to doing a relative abundance transformation to 
+obtain an adjusted OTUs count matrix. The method is based on a process of subsampling 
+to the smallest library size in the data set. 
+
+The algorithm randomly removes reads until the samples reach the same library size. 
+Despite the apparent disadvantage of discarding information from the larger samples, 
+rarefaction is quite popular in microbial ecology. 
+
+The first step is to find the smallest sample size. We can use the number of 
+observed OTUs in the original matrix to do so.
+
+1. Find the smallest sample size.
+
+```{r}
+min_size <- min(colSums2(assay(tse, "counts")))
+```
+
+2. Rarefying to the smallest sample.
+
+```{r}
+tse <- rarefyAssay(tse, assay.type = "counts", size = min_size, name = "rarefy")
+```
+
+3. Agglomerate taxonomy at Class rank and save to the `glom_tse` object within `altExp`. 
+Then remove all assays other than `rarefy` for simplicity.
+
+```{r}
+# Agglomerate at class rank
+altExp(tse, "glom_tse_rarefy") <- agglomerateByRank(tse, rank = "Class")
+
+# Remove assays other than rarefy
+assays(altExp(tse, "glom_tse_rarefy")) <- assays(altExp(tse, "glom_tse_rarefy"))["rarefy"]
+```
+
+
+4. Get the top 15 features of the `rarefy` assay and subset the `altExp`
+`rarefy` assay by those top 15 features. 
+
+```{r}
+# Get the top features
+top15_rarefy <- getTop(altExp(tse, "glom_tse_rarefy"), top = 15L, 
+                       assay.type = "rarefy", method = "mean")
+
+# Subset original rarefy tse by top features
+altExp(tse, "glom_tse_rarefy") <- altExp(tse, "glom_tse_rarefy")[top15_rarefy, ]
+```
+
+## OTU Filtering
+
 1. First, identify the total counts per sample and add them to the colData of our 
 `tse` object.
 
@@ -169,7 +296,7 @@ Let’s filter out the outliers and plot a new histogram.
 
 At the same time, we can also filter out singletons. Singletons are OTUs of size 
 one, meaning that only one read was assigned to that OTU. These very low-abundance 
-OTUs could be biologically real (belonging to the rare biosphere ([1](#ref-lynch2015))), 
+OTUs could be biologically real (belonging to the rare biosphere ([5](#ref-lynch2015))), 
 or they could be false positives due to sequencing artefacts. Singletons observed 
 in only one sample are more likely to be artefacts, and it is good practice to 
 remove them from the OTUs counts table to avoid artificially over-estimating the 
@@ -178,130 +305,15 @@ OTUs richness. You can find more discussion about this in [Robert Edgar’s blog
 ```{r}
 # Subset the tse object to keep only samples with library sizes > 10^6.2 
 # and non-singleton taxa in the filtered data
-filtered_tse <- tse[rowSums(assay(tse, "counts")) > 1, tse$sum < 10^6.2]
+tse <- tse[rowSums(assay(tse, "counts")) > 1, tse$sum < 10^6.2]
 
 # Now we redo the scatter plot
-filtered_scatter_plot <- plotColData(filtered_tse, y = "sum") +
+filtered_scatter_plot <- plotColData(tse, y = "sum") +
    scale_y_log10(
     breaks = trans_breaks("log10", function(x) 10^x, n = 8),
     labels = trans_format("log10", math_format(10^.x))
   ) +
   labs(x = "Samples", y = "Library size (log scale)") 
-```
-
-4. Show some stats on sequencing depth across samples.
-
-```{r}
-# Calculate and print max difference
-max_difference <- max(filtered_tse$sum) / min(filtered_tse$sum)
-sprintf("The max difference in sequencing depth is %s", max_difference)
-```
-
-An approximately 4-fold difference in the library sizes means that we will need 
-to apply a normalization method before continuing with the analysis. The most 
-common normalization methods used in microbiome count data are proportions and rarefaction. 
-
-However, other methods originally developed to normalize RNA-seq counts have been 
-adapted to differential-abundance analysis in microbiome data. A discussion about 
-how to choose the right normalization method is out of the scope of this material, 
-but the topic has been covered in multiple forums and scientific publications. 
-
-Depending on the downstream analysis we intend to perform, different methods might 
-be appropriate. For instance, to compare groups of samples at community-level 
-through beta-diversity, “…proportions and rarefying produced more accurate comparisons 
-among communities and are the only methods that fully normalized read depths across 
-samples.
-
-Additionally, upper quartile, cumulative sum scaling (CSS), edgeR-TMM, and DESeq-VS 
-often masked differences among communities when common OTUs differed, and they 
-produced false positives when rare OTUs differed” ([2](#ref-mcknight2019)). On 
-the other hand, for detection of differentially abundant species, “both proportions 
-and rarefied counts result in a high rate of false positives in tests for species 
-that are differentially abundant across sample classes” ([3](#ref-mcmurdie2014)).
-
-In the following examples we will show three popular ways of normalization: 
-relative abundance transformation (transforming features into zero mean, unit variance - 
-also called relative abundance transformation), rarefaction and cummulative sum scaling.
-
-## Normalization by total sum scaling (TSS, relative abundance or proportions)
-The simplest way to normalize the differences in sample size is to do a relative 
-abundance transformation on the OTU counts table by dividing by the number of 
-total reads of each sample. This type of normalization is also referred to as 
-relative abundance or proportions. 
-
-We use this normalization to compare taxonomic profiles, while alpha diversity 
-indices are computed on the non-normalized matrix. The reason to do so is that 
-we need a matrix of integer numbers as input.
-
-1. Apply the relative abundance transformation to raw counts matrix.
-
-```{r}
-filtered_tse <- transformAssay(filtered_tse, assay.type = "counts", 
-                               name = "relabundance", method = "relabundance")
-```
-
-2. Agglomerate by class rank to the `glom_tse` object, which is an `altExp` object 
-within `filtered_tse`.
-
-```{r}
-altExp(filtered_tse, "glom_tse") <- agglomerateByRank(filtered_tse, rank = "Class")
-```
-
-3. Get the top 15 features and store them in the `tss_tse`. We store the top features 
-in a new tse object as keeping the `glom_tse` and `tss_tse` objects  will come in 
-handy later on.
-
-```{r}
-# Take the top 15 features based on their means
-top15_tss <- getTop(altExp(filtered_tse, "glom_tse"), method = "mean", 
-                    assay.type = "relabundance", top = 15L)
-
-# Store those top 15 features and all relevant metadata in a new tse
-tss_tse <- altExp(filtered_tse, "glom_tse")[top15_tss, ]
-```
-
-## Normalization by subsampling (rarefaction)
-Rarefaction is an alternative to doing a relative abundance transformation to 
-obtain an adjusted OTUs count matrix. The method is based on a process of subsampling 
-to the smallest library size in the data set. 
-
-The algorithm randomly removes reads until the samples reach the same library size. 
-Despite the apparent disadvantage of discarding information from the larger samples, 
-rarefaction is quite popular in microbial ecology. 
-
-The first step is to find the smallest sample size. We can use the number of 
-observed OTUs in the original matrix to do so.
-
-1. Find the smallest sample size.
-
-```{r}
-min_size <- min(colSums2(assay(filtered_tse, "counts")))
-```
-
-2. Rarefying to the smallest sample.
-
-```{r}
-filtered_tse <- rarefyAssay(filtered_tse, assay.type = "counts", 
-                            size = min_size, name = "rarefy")
-```
-
-3. Agglomerate taxonomy at Class rank and save to the `glom_tse` object within `altExp`.
-
-```{r}
-altExp(filtered_tse, "glom_tse") <- agglomerateByRank(filtered_tse, rank = "Class", 
-                                                      name = "rarefy")
-```
-
-4. Select the top 15 taxa and save them to `rarefy_tse`. We keep our `altExp` 
-object `glom_tse` and `rarefy_tse` separate as it will make things easier later. 
-
-```{r}
-# Get the top features
-top15_rarefy <- getTop(altExp(filtered_tse, "glom_tse"), top = 15L, 
-                       assay.type = "rarefy", method = "sum")
-
-# Create the new TreeSummarizedExperiment object with assays, colData, and rowData
-rarefy_tse <- altExp(filtered_tse, "glom_tse")[top15_rarefy, ]
 ```
 
 ## Computing alpha diversity indices
@@ -323,7 +335,7 @@ specific biases. The Shannon-Weaver index places a greater weight on species ric
 whereas the Simpson index considers evenness more than richness in its measurement.
 
 More discussion and examples illustrating how sample size and normalization methods 
-can affect alpha diversity metrics in references [4](#ref-willis2019) and [5](#ref-kim2017).
+can affect alpha diversity metrics in references [6](#ref-willis2019) and [7](#ref-kim2017).
 
 In this example, we're going to calculate the diversity measures for our original 
 counts data, and for our rarefied original counts data.
@@ -346,7 +358,7 @@ tse <- addAlpha(tse, index = "shannon_diversity", name = "shannon_diversity_norm
 
 # Compute alpha diversity on rarefied data
 tse <- addAlpha(tse, index = "shannon_diversity", name = "shannon_diversity_rarefy", 
-                niter = 1)
+                niter = 10)
 ```
 
 2. Plot alpha diversity with `plotColData`, generating a plot for our shannon 
@@ -377,28 +389,37 @@ wrapped_plots <- wrap_plots(plots) +
 Here we visualise the taxonomic profiles in barplots at class ranks for our top 
 tss normalized taxa and rarefied taxa.
 
-1. Lets change any unknown taxonomic rowData information to "Unknown" from "NA" 
-in our `filtered_tse` object.
+1. Let's store our `glom_tse_relab` and `glom_tse_rarefy` objects in 
+variables to make referencing them easier.
 
 ```{r}
-rowData(tss_tse)$Class <- ifelse(is.na(rowData(tss_tse)$Class), "Unknown", 
-                                 rowData(tss_tse)$Class)
-rowData(rarefy_tse)$Class <- ifelse(is.na(rowData(rarefy_tse)$Class), "Unknown", 
-                                    rowData(rarefy_tse)$Class)
+glom_tse_relab <- altExp(tse, "glom_tse_relab")
+glom_tse_rarefy <- altExp(tse, "glom_tse_rarefy")
 ```
 
-2. Create the plots with the `plotAbundance` `mia` method. We use our agglomerated 
-`tss_tse` and `rarefy_tse` objects from earlier to do this.
+
+2. Lets change any unknown taxonomic rowData information to "Unknown" from "NA" 
+in our `tse` objects.
+
+```{r}
+rowData(glom_tse_relab)$Class <- ifelse(is.na(rowData(glom_tse_relab)$Class), "Unknown", 
+                                        rowData(glom_tse_relab)$Class)
+rowData(glom_tse_rarefy)$Class <- ifelse(is.na(rowData(glom_tse_rarefy)$Class), "Unknown", 
+                                         rowData(glom_tse_rarefy)$Class)
+```
+
+3. Create the plots with the `plotAbundance` `mia` method. We use our agglomerated 
+`relabundance` and `rarefy` assays from our `tse` objects to do this.
 
 ```{r}
 # Plotting our tss data
-tss_plot <- plotAbundance(tss_tse,
+relabundance_plot <- plotAbundance(glom_tse_relab,
                           assay.type = "relabundance",
                           rank = "Class",
                           order_rank_by = "abund")
 
 # Plotting our rarefied data
-rarefy_plot <- plotAbundance(rarefy_tse,
+rarefy_plot <- plotAbundance(glom_tse_rarefy,
                              assay.type = "rarefy",
                              rank = "Class",
                              order_rank_by = "abund")
@@ -417,26 +438,26 @@ subset_classes <- c("Betaproteobacteria",
 ```
 
 
-2. Subset our `TreeSummarizedExperiment` objects.
+2. Subset our `tse` objects.
 
 ```{r}
-class_subset <- filtered_tse[rowData(filtered_tse)$Class %in% subset_classes, ]
+glom_tse_relab <- glom_tse_relab[rowData(glom_tse_relab)$Class %in% subset_classes, ]
+glom_tse_rarefy <- glom_tse_rarefy[rowData(glom_tse_rarefy)$Class %in% subset_classes, ]
 ```
 
 3. Plot our new plots with the `plotAbundance` `mia` method.
 
 ```{r}
-tss_plot <- plotAbundance(class_subset, 
-                          assay.type = "relabundance", 
-                          rank = "Class", 
-                          order_rank_by = "abund")
+relabundance_plot <- plotAbundance(glom_tse_relab, 
+                                   assay.type = "relabundance", 
+                                   rank = "Class", 
+                                   order_rank_by = "abund")
 
-rarefy_plot <- plotAbundance(class_subset, 
+rarefy_plot <- plotAbundance(glom_tse_rarefy, 
                              assay.type = "rarefy", 
                              rank = "Class", 
                              order_rank_by = "abund")
 ```
-
 
 ## Comparative metagenomics at community level: Beta diversity
 
@@ -456,19 +477,19 @@ therefore, the term dissimilarity or beta-diversity is commonly used. The workfl
 to assess β-diversity between groups of samples starts with calculating the diversity 
 indices for each pair of samples. This results in a distance (or dissimilarity) 
 matrix that is often used for ordination (e.g., principal coordinates analysis) 
-and data exploration in microbiota data analysis ([6](#ref-wagner2018)).
+and data exploration in microbiota data analysis ([8](#ref-wagner2018)).
 
 For statistical analysis, [adonis](https://www.rdocumentation.org/packages/vegan/versions/2.6-4/topics/adonis) 
 and [betadisper](https://www.rdocumentation.org/packages/vegan/versions/2.6-4/topics/betadisper) 
 methods are widely used together in β-diversity analyses.
 
-Adonis tests whether two or more groups have different compositions. Adonis 
+PERMANOVA tests whether two or more groups have different compositions. PERMANOVA 
 calculates the squared deviations of each site to the centroid and then, performs 
 significance tests using F-tests based on sequential sums of squares from 
 permutations of the raw data. It can be seen as an ANOVA using distance matrices 
 (analogous to MANOVA). A non significant p-value (p>0.05), means that there’s no 
-difference in composition between groups (null hypothesis of no difference in 
-composition between groups).
+significant difference in composition between groups (we accept the null hypothesis 
+of no significant difference in composition between groups).
 
 Betadisper tests if two or more groups are homogeneously dispersed in relation to 
 their species in studied samples. This test can be done to see if one group has 
@@ -481,11 +502,11 @@ in dispersion between groups).
 
 Compute beta diversity using various methods to calculate distance, and perform 
 principle components analysis ploting the first two axes. According to Pereira 
-et al., (2018)([7](#ref-pereira2018)), the best normalization method for metagenomic 
+et al., (2018)([9](#ref-pereira2018)), the best normalization method for metagenomic 
 gene abundance is CSS for large group sizes. For this reason, we will use this 
 method to show beta-diversity. 
 
-Using as a guide the steps described in ([8](#ref-mcmurdie2018)), we will create 
+Using as a guide the steps described in ([10](#ref-mcmurdie2018)), we will create 
 a list of suitable distance methods, iterate through them, and display a combined 
 plot. For a better visualization we are going to show the 95% confidence region 
 with an ellipse.
@@ -513,7 +534,7 @@ for (method in vegdist_methods) {
   created <- method_name
   
     # Run MDS 
-    mds_tse <- runMDS(filtered_tse,
+    mds_tse <- runMDS(tse,
                   FUN = vegan::vegdist,
                   method = method,
                   assay.type = "relabundance",
@@ -562,7 +583,7 @@ a location effect, dispersion effect, or both. To test the location effect (null
 hypothesis of no difference in composition between groups) we use a permanova test, 
 using the bray method to calculate the distance matrix. 
 
-Permanova assumes there is homogeneity of dispersion among groups. We want to also 
+PERMANOVA assumes there is homogeneity of dispersion among groups. We want to also 
 test this assumption, to check whether the differences detected by our permanova 
 test are due to variation in dispersion of the data. 
 
@@ -573,7 +594,7 @@ To do all these tests, we use the `addRDA` method, which will do all of them for
 
 ```{r}
 beta_diversity_tse <- addRDA(
-  filtered_tse,
+  tse,
   formula = data ~ sample_geographic.location..country.and.or.sea.region.,
   assay.type = "relabundance",
   method = "bray",
@@ -595,7 +616,7 @@ significance_results <- attr(reducedDim(beta_diversity_tse, "RDA"), "significanc
 significance_results
 ```
 
-ANOVA's p-value is significant (p>0.05), meaning that there's no significant 
+ANOVA's p-value is not significant (p>0.05), meaning that there's no significant 
 difference in dispersion among groups. The PERMANOVA however showed a significant 
 P value (p<0.05), meaning significant differences in community composition between 
 the groups. 
@@ -607,21 +628,21 @@ factors. Describing such associations in quantitative models has multiple applic
 such as in predicting disease status based on microbiome data. 
 
 In addition, the pipeline includes the generation of high-quality plots for visual 
-inspection of results ([9](#ref-wirbel2021)). There are multiple parameters that 
+inspection of results ([11](#ref-wirbel2021)). There are multiple parameters that 
 can be adjusted for better performance in each step of the analysis. However, in 
 this exercise we are using default arguments with minimal tuning.
 
 ### Association testing
 
-1. First we use our original counts data on our `filtered_tse` object and agglomerate 
+1. First we use our original counts data on our `tse` object and agglomerate 
 by rank to a new `genus_tse` object.
 
 ```{r}
-genus_tse <- agglomerateByRank(filtered_tse, rank = "Genus")
+genus_tse <- agglomerateByRank(tse, rank = "Genus")
 ```
 
 2. Subset the dataset by prevalence to include only the taxa that are present in 
-at least 25% of the samples. .
+at least 25% of the samples.
 
 ```{r}
 genus_tse <- subsetByPrevalent(genus_tse, prevalence = 0.25, include.lowest = TRUE)
@@ -716,7 +737,6 @@ Here we use the `ANCOMBC` package to test for cofounders.
 genus_tse$library_size <- colSums(assay(genus_tse, "counts"))
 ```
 
-
 2. The `ancombc2_out` method performs the differential abundance analysis whilst 
 accounting for multiple covariates and potential confounders. 
 
@@ -724,8 +744,7 @@ accounting for multiple covariates and potential confounders.
 # Perform the analysis 
 ancombc2_out <- ancombc2(genus_tse,
                          assay.type = "counts",
-                         fix_formula = "sample_geographic.location..country.and.or.sea.region. 
-                                       + library_size",
+                         fix_formula = "sample_geographic.location..country.and.or.sea.region. + library_size",
                          p_adj_method = "fdr",
                          lib_cut = 0,
                          group = "sample_geographic.location..country.and.or.sea.region.", 
@@ -770,7 +789,7 @@ assay <- t(assay)
 df <- as.data.frame(assay)
 
 # Extract the geographic location labels from the colData of the tse object
-labels <- colData(filtered_tse)$sample_geographic.location..country.and.or.sea.region.
+labels <- colData(tse)$sample_geographic.location..country.and.or.sea.region.
 
 # Simplify the labels to make them valid R variable names
 labels <- gsub(" ", "_", labels)
@@ -821,36 +840,44 @@ roc_pr_plot <- res$roc + res$proc + plot_layout(guides = "collect") & theme(lege
 
 # References
 
-1. <a name="ref-lynch2015"></a>Lynch, M., Neufeld, J. Ecology and exploration of 
-the rare biosphere. Nat Rev Microbiol 13:217–229 (2015) [DOI:10.1038/nrmicro3400](https://doi.org/10.1038/nrmicro3400)
-
-2. <a name="ref-mcknight2019"></a>McKnight, DT., Huerlimann, R., Bower, DS. et al. 
+1. <a name="ref-mcknight2019"></a>McKnight, DT., Huerlimann, R., Bower, DS. et al. 
 Methods for Normalizing Microbiome Data: An Ecological Perspective. Methods in 
 Ecology and Evolution / British Ecological Society 10(3):389–400 (2019) 
 [DOI:10.1111/2041-210X.13115](https://doi.org/10.1111/2041-210X.13115)
 
-3. <a name="ref-mcmurdie2014"></a>McMurdie, PJ., Holmes, S. Waste Not, Want Not: 
+2. <a name="ref-mcmurdie2014"></a>McMurdie, PJ., Holmes, S. Waste Not, Want Not: 
 Why Rarefying Microbiome Data Is Inadmissible. PLoS Comput Biol 10(4):e1003531 (2014) 
 [DOI:10.1371/journal.pcbi.1003531](https://doi.org/10.1371/journal.pcbi.1003531)
 
-4. <a name="ref-willis2019"></a>Willis, A. Rarefaction, Alpha Diversity, and Statistics. 
+3. <a name="ref-schloss2024a"></a>Schloss, Patrick D. ‘Waste Not, Want Not: 
+Revisiting the Analysis That Called into Question the Practice of Rarefaction’. 
+mSphere 9, no. 1 (2024): e00355-23 [DOI:10.1128/msphere.00355-23](https://journals.asm.org/doi/10.1128/msphere.00355-23)
+
+4. <a name="ref-schloss2024b"></a>Schloss PD. 2024. Rarefaction is currently the 
+best approach to control for uneven sequencing effort in amplicon sequence analyses. 
+mSphere 9 [DOI:10.1128/msphere.00354-23](https://journals.asm.org/doi/10.1128/msphere.00354-23)
+
+5. <a name="ref-lynch2015"></a>Lynch, M., Neufeld, J. Ecology and exploration of 
+the rare biosphere. Nat Rev Microbiol 13:217–229 (2015) [DOI:10.1038/nrmicro3400](https://doi.org/10.1038/nrmicro3400)
+
+6. <a name="ref-willis2019"></a>Willis, A. Rarefaction, Alpha Diversity, and Statistics. 
 Front. Microbiol. Sec. Terrestrial Microbiology 10:2407 (2019) [DOI:10.3389/fmicb.2019.02407](https://doi.org/10.3389/fmicb.2019.02407)
 
-5. <a name="ref-kim2017"></a>Kim, BR., Shin, J., Guevarra, R. et al. Deciphering 
+7. <a name="ref-kim2017"></a>Kim, BR., Shin, J., Guevarra, R. et al. Deciphering 
 Diversity Indices for a Better Understanding of Microbial Communities. J Microbiol 
 Biotechnol 28;27(12):2089-2093 (2017) [DOI:10.4014/jmb.1709.09027](https://doi.org/10.4014/jmb.1709.09027)
 
-6. <a name="ref-wagner2018"></a>Wagner, BD., Grunwald, GK., Zerbe, GO. et al. On 
+8. <a name="ref-wagner2018"></a>Wagner, BD., Grunwald, GK., Zerbe, GO. et al. On 
 the Use of Diversity Measures in Longitudinal Sequencing Studies of Microbial 
 Communities. Front. Microbiol. 9:1037 (2018) [DOI:10.3389/fmicb.2018.01037](https://doi.org/10.3389/fmicb.2018.01037)
 
-7. <a name="ref-pereira2018"></a>Pereira, M., Wallroth, M., Jonsson, V. et al. 
+9. <a name="ref-pereira2018"></a>Pereira, M., Wallroth, M., Jonsson, V. et al. 
 Comparison of normalization methods for the analysis of metagenomic gene abundance 
 data. BMC Genomics 19,274 (2018) [DOI:10.1186/s12864-018-4637-6](https://doi.org/10.1186/s12864-018-4637-6)
 
-8. <a name="ref-mcmurdie2018"></a>McMurdie, P., Holmes, S. Tutorial of 2018: The 
+10. <a name="ref-mcmurdie2018"></a>McMurdie, P., Holmes, S. Tutorial of 2018: The 
 distance function in phyloseq. Available at website
 
-9. <a name="ref-wirbel2021"></a>Wirbel, J., Zych, K., Essex, M. et al. Microbiome 
+11. <a name="ref-wirbel2021"></a>Wirbel, J., Zych, K., Essex, M. et al. Microbiome 
 meta-analysis and cross-disease comparison enabled by the SIAMCAT machine learning 
 toolbox. Genome Biol 22:93 (2021) [DOI:10.1186/s13059-021-02306-1](https://doi.org/10.1186/s13059-021-02306-1)
