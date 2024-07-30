@@ -182,6 +182,7 @@ class CODARFE():
     self.selected_taxa = None
     self.__model = None
     self.__n_max_iter_huber = None
+    self.__applyAbunRel = True
 
     self.__correlation_list = {}
 
@@ -426,7 +427,11 @@ class CODARFE():
     n_cols_2_remove = max([int(len(self.data.columns)*n_cols_2_remove),1])
 
     # Define X inicial como descritores
-    X_train = self.data
+    if self.__applyAbunRel:
+      X_train = self.__toAbunRel(self.data)
+    else:
+      X_train = self.data
+    
     tot2display = len(list(X_train.columns))
     # Define variável alvo
     if self.__sqrt_transform:
@@ -499,7 +504,10 @@ class CODARFE():
       atributos = atributos[:-n_cols_2_remove]
 
       # Remove atributos n selecionados
-      X_train = X_train[atributos]
+      if self.__applyAbunRel:
+        X_train = self.__toAbunRel(self.data[atributos])
+      else:
+        X_train = X_train[atributos]
 
       # Calculo da % para mostrar na tela
       percentagedisplay = round(100 - (len(list(X_train.columns))/tot2display)*100)
@@ -586,6 +594,8 @@ class CODARFE():
 
       self.__model = RandomForestRegressor(n_estimators = 160, criterion = 'poisson',random_state=42)
       X = self.data[self.selected_taxa]
+      if self.__applyAbunRel:
+        X = self.__toAbunRel(X)
       X = self.__toCLR(X)
 
       if allow_transform_high_variation and np.std(self.target)/np.mean(self.target)>0.2:# Caso varie muitas vezes a média (ruido)
@@ -735,7 +745,7 @@ class CODARFE():
 
     if applyAbunRel:
       #transforma em abundância relativa
-      self.data = self.__toAbunRel(self.data)
+      self.__applyAbunRel = True
 
     method = HuberRegressor(epsilon = 2.0,alpha = 0.0003, max_iter = n_max_iter_huber)
 
@@ -762,10 +772,10 @@ class CODARFE():
         self.__write_results(path_out,name_append)
 
       if float(self.results['R² adj']) <= 0 or float(self.results['R² adj'])>1.0:
-        warnings.warn("The model created has poor generalization power, please check codarfe.results before using it for prediction.",LowFitModelWarning)
+        warnings.warn("The model created has poor generalization power, please check codarfe.results before using it for prediction.")
 
       if float(self.results['F-statistic']) > 0.5:
-        warnings.warn("The model has a p-value not statistically significant for the selected features! Please consider check your data and re-run the model-training.",NotSignificantPvalueWarning)
+        warnings.warn("The model has a p-value not statistically significant for the selected features! Please consider check your data and re-run the model-training.")
 
     else:
       warnings.warn('The model was not able to generalize your Data. Consider checking your data and re-run the model-training.',ImpossibleToGeneralizeWarning)
@@ -951,11 +961,20 @@ class CODARFE():
     top = bottom + height
     y = self.target
     X = self.data[self.selected_taxa]
+    
+    if self.__applyAbunRel:
+      X = self.__toAbunRel(X)
+
     X = self.__toCLR(X)
     pred = self.__model.predict(X)
 
     if self.__sqrt_transform: # Caso tenha aprendido com valores transformados
+      
+      pred = self.__calc_inverse_sqrt_redimension(pred) # Destransforma-os
+    if self.__transform:
+      
       pred = self.__calc_inverse_redimension(pred) # Destransforma-os
+
     plt.figure()
     plt.clf()
     ax = plt.gca()
@@ -1051,6 +1070,10 @@ class CODARFE():
     test_size = test_size/100
     method = RandomForestRegressor(n_estimators = 160, criterion = 'poisson',random_state=42)
     X = self.data[self.selected_taxa]
+
+    if self.__applyAbunRel:
+      X = self.__toAbunRel(X)
+
     X = self.__toCLR(X)
     y = self.target
     maes = []
@@ -1059,9 +1082,13 @@ class CODARFE():
       X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size) # divide em treino e teste
 
       if self.__sqrt_transform: # Caso tenha aprendido originalmente com valores transformados
-        method.fit(X_train,self.__calc_new_redimension(y_train)) # Re-treina com os valores transformados
+        method.fit(X_train,self.__calc_new_sqrt_redimension(y_train)) # Re-treina com os valores transformados
         y_pred = method.predict(X_test) # Realiza a predição
-        y_pred = self.__calc_inverse_redimension(y_pred) # Destransforma-os
+        y_pred = self.__calc_inverse_sqrt_redimension(y_pred) # Destransforma-os
+      elif self.__transform:
+        method.fit(X_train,self.__calc_new_redimension(y_train))
+        y_pred = method.predict(X_test)
+        y_pred = self.__calc_inverse_redimension(y_pred)
       else:
         method.fit(X_train,y_train)
         y_pred = method.predict(X_test)
@@ -1168,8 +1195,18 @@ class CODARFE():
 
     method = HuberRegressor(epsilon = 2.0,alpha = 0.0003, max_iter = self.__n_max_iter_huber)
     X = self.data[self.selected_taxa]
+
+    if self.__applyAbunRel:
+      X = self.__toAbunRel(X)
+
     X = self.__toCLR(X)
-    y = self.target
+    # y = self.target
+    if self.__sqrt_transform:
+      y = np.array(self.__calc_new_sqrt_redimension(self.target))
+    elif self.__transform:
+      y = np.array(self.__calc_new_redimension(self.target))
+    else:
+      y = self.target
     resp = method.fit(X,y)
 
     dfaux = pd.DataFrame(data={'features':resp.feature_names_in_,'coefs':resp.coef_})
@@ -1492,7 +1529,10 @@ class CODARFE():
 
     # Pega o dataframe original porem apenas o que foi selecioando
     selected_features = self.data[self.selected_taxa]
-
+    
+    if self.__applyAbunRel:
+      selected_features = self.__toAbunRel(selected_features)
+    
     # Clusterizando bacterias
     y = self.target
 
