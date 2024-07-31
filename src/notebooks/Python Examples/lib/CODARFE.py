@@ -38,21 +38,21 @@ class CODARFE():
 
     data: pd.DataFrame = None
           DataFrame containing count data (microbiome);
-    metaData: pd.DataFrame = None
+    metadata: pd.DataFrame = None
           DataFrame containing the target variable related to the microbiome;
-    metaData_target: str = None
-          Name of the column in metaData that contains the target variable.
+    target: str = None
+          Name of the column in metadata that contains the target variable.
 
   Usage:
       1) Create an instance of CODARFE with your data:
 
       coda = CODARFE(data       = <microbiome_dataframe>,
-                     metaData   = <metadata_dataframe>,
-                     metaData_Target = <string_target_variable_name>)
+                     metadata   = <metadata_dataframe>,
+                     target = <string_target_variable_name>)
 
       2) Train a model:
 
-      coda.CreateModel( write_results            = True,
+      coda.fit( write_results            = True,
                         path_out                 = '',
                         name_append              = '',
                         rLowVar                  = True,
@@ -69,7 +69,7 @@ class CODARFE():
 
       3) Save the model:
 
-      coda.Save_Instance(path_out    = <path_to_folder>,
+      coda.save_instance(path_out    = <path_to_folder>,
                          name_append = <name>)
 
 
@@ -77,7 +77,7 @@ class CODARFE():
 
       
       coda = CODARFE()
-      coda.Load_Instance(path2instance = <path_to_file_instance.foda>)
+      coda.load_instance(path2instance = <path_to_file_instance.foda>)
      
 
 
@@ -124,12 +124,12 @@ class CODARFE():
 
   """
   class ModelNotCreatedError(Exception):
-    def __init__(self, mensagem="No model created! Please create the model using the CreateModel function and try again."):
+    def __init__(self, mensagem="No model created! Please create the model using the fit function and try again."):
             self.mensagem = mensagem
             super().__init__(self.mensagem)
 
   class EmptyDataError(Exception):
-    def __init__(self, mensagem="No model created! Please create the model using the CreateModel function and try again."):
+    def __init__(self, mensagem="No model created! Please create the model using the fit function and try again."):
             self.mensagem = mensagem
             super().__init__(self.mensagem)
             
@@ -148,28 +148,27 @@ class CODARFE():
 
   def __init__(self,
                data: Optional[pd.DataFrame] = None,
-               metaData: Optional[pd.DataFrame] = None,
-               metaData_Target: Optional[str] = None) -> None:
+               metadata: Optional[pd.DataFrame] = None,
+               target: Optional[str] = None) -> None:
     """
     Parameters
     ----------
     data: pd.DataFrame = None
           The microbiome dataframe (counting table)
-    metaData: pd.DataFrame = None
+    metadata: pd.DataFrame = None
           The metadata dataframe with the target variable
-    metaData_Target: str = None
+    target: str = None
           The name of the target variable column inside the metadata 
     """
 
-    self.__metaData = metaData
-    if (type(data) != type(None)) and (type(metaData) != type(None)) and (type(metaData_Target) != type(None)):
-      #print("Loading data... It may take some minutes depending on the size of the data")
-      self.data, self.target = self.__Read_Data(data,metaData,metaData_Target)
+    self.__metadata = metadata
+    if (type(data) != type(None)) and (type(metadata) != type(None)) and (type(target) != type(None)):
+      self.data, self.target = self.__read_rata(data,metadata,target)
       self.__totalPredictorsInDatabase = len(self.data.columns)
     else:
       self.data = None
       self.target = None
-      # print('No complete data provided. Please use the function Load_Instance(<path_2_instance>) to load an already created CODARFE model.')
+      # print('No complete data provided. Please use the function load_instance(<path_2_instance>) to load an already created CODARFE model.')
 
     self.__sqrt_transform = None
     self.__transform = None
@@ -186,13 +185,13 @@ class CODARFE():
 
     self.__correlation_list = {}
 
-  def __Read_Data(self,data,metadata,target_column_name):
+  def __read_rata(self,data,metadata,target_column_name):
 
     totTotal = len(metadata)
     if target_column_name not in metadata.columns:
       print("The Target is not present in the metadata table!")
       sys.exit(1)
-    totNotNa = metadata[target_column_name].isna().sum()
+    tot_not_na = metadata[target_column_name].isna().sum()
     metadata.dropna(subset=[target_column_name],axis=0,inplace=True)
 
     indxs = [idx for idx in metadata.index if idx in data.index]
@@ -202,11 +201,11 @@ class CODARFE():
     if len(data) == 0:
       print('There is no correspondence between the ids of the predictors and the metadata.\nMake sure the column corresponding to the identifiers is first.')
       sys.exit(1)
-    print('Total samples with the target variable: ',totTotal-totNotNa,'/',totTotal)
+    print('Total samples with the target variable: ',totTotal-tot_not_na,'/',totTotal)
 
     return data,y
 
-  def Save_Instance(self,path_out: str,name_append: Optional[str]='CODARFE_MODEL') -> None:
+  def save_instance(self,path_out: str,name_append: Optional[str]='CODARFE_MODEL') -> None:
     """
     Parameters
     ----------
@@ -255,7 +254,7 @@ class CODARFE():
 
     print('\n\nInstance saved at ',name+'.foda\n\n')
 
-  def Load_Instance(self,path2instance: str) -> None:
+  def load_instance(self,path2instance: str) -> None:
     """
     Load the CODARFE instance stored in the <path2instance> file into this object.
 
@@ -299,65 +298,64 @@ class CODARFE():
     print('\n\nInstance restored successfully!\n\n')
 
 
-  def __removeLowVar(self):
+  def __remove_low_var(self):
     aux = self.data.copy()
     cols = aux.columns
     selector = VarianceThreshold(aux.var(axis=0).mean()/8)#8
     aux = selector.fit(aux)
     not_to_drop=list(cols[selector.get_support()])
-    totRemoved = len(self.data.columns) - len(not_to_drop)
-    print('\nA total of ',totRemoved,' predictors were removed due to very low variance\n')
+    tot_removed = len(self.data.columns) - len(not_to_drop)
+    print('\nA total of ',tot_removed,' predictors were removed due to very low variance\n')
     self.data =  self.data[not_to_drop]
 
-  def __toAbunRel(self,data):
+  def __to_abun_rel(self,data):
     return data.apply(lambda x: x/x.sum() if x.sum()!=0 else x,axis=1)
 
   def __calc_new_redimension(self,target):
 
-    minimo = min(target)
-    maximo = max(target)
+    min_number = min(target)
+    max_number = max(target)
     if self.__min_target_transformed == None or self.__max_target_transformed == None:
-      self.__min_target_transformed = minimo
-      self.__max_target_transformed = maximo
+      self.__min_target_transformed = min_number
+      self.__max_target_transformed = max_number
 
-    numeros_redimensionados = [x + abs(self.__min_target_transformed)+1 for x in target]
-    return numeros_redimensionados
+    resized_numbers = [x + abs(self.__min_target_transformed)+1 for x in target]
+    return resized_numbers
   
   def __calc_inverse_redimension(self,predictions):
 
-    numeros_restaurados = [x - abs(self.__min_target_transformed)-1 for x in predictions]
+    restored_numbers = [x - abs(self.__min_target_transformed)-1 for x in predictions]
 
-    return numeros_restaurados
+    return restored_numbers
 
   def __calc_new_sqrt_redimension(self,target):
     target = target.apply(lambda x: np.sqrt(abs(x)) * (-1 if x < 0 else 1))
 
-    minimo = min(target)
-    maximo = max(target)
+    min_number = min(target)
+    max_number = max(target)
     if self.__min_target_sqrt_transformed == None or self.__max_target_sqrt_transformed == None:
-      self.__min_target_sqrt_transformed = minimo
-      self.__max_target_sqrt_transformed = maximo
+      self.__min_target_sqrt_transformed = min_number
+      self.__max_target_sqrt_transformed = max_number
 
-    # numeros_redimensionados = [x + abs(self.__min_target_sqrt_transformed)+1 for x in target]
-    new_min = 0  # novo valor mínimo desejado
-    new_max = 100  # novo valor máximo desejado
+    new_min = 0  # new max value used in the transformation
+    new_max = 100  # new max value used in the transformation
 
-    numeros_redimensionados = [(x - minimo) / (maximo - minimo) * (new_max - new_min) + new_min for x in target]
-    return numeros_redimensionados
+    resized_numbers = [(x - min_number) / (max_number - min_number) * (new_max - new_min) + new_min for x in target]
+    return resized_numbers
 
   def __calc_inverse_sqrt_redimension(self,predictions):
-    new_min = 0  # novo valor mínimo usado na transformação
-    new_max = 100  # novo valor máximo usado na transformação
+    new_min = 0  # new min value used in the transformation
+    new_max = 100  # new max value used in the transformation
 
-    minimo = self.__min_target_sqrt_transformed
-    maximo = self.__max_target_sqrt_transformed
+    min_number = self.__min_target_sqrt_transformed
+    max_number = self.__max_target_sqrt_transformed
 
-    # numeros_restaurados = [x + abs(self.__min_target_sqrt_transformed)+1 for x in predictions]
-    numeros_restaurados = [(x - new_min) / (new_max - new_min) * (maximo - minimo) + minimo for x in predictions]
-    numeros_restaurados_sqrt_inverse = [(x**2) * (-1 if x <0 else 1) for x in numeros_restaurados]
-    return numeros_restaurados_sqrt_inverse
+    # restored_numbers = [x + abs(self.__min_target_sqrt_transformed)+1 for x in predictions]
+    restored_numbers = [(x - new_min) / (new_max - new_min) * (max_number - min_number) + min_number for x in predictions]
+    restored_numbers_sqrt_inverse = [(x**2) * (-1 if x <0 else 1) for x in restored_numbers]
+    return restored_numbers_sqrt_inverse
 
-  def __toCLR(self,df): # Transform to CLr
+  def __to_clr(self,df): # Transform to CLr
     aux = df.copy()
     aux+=0.0001 # Pseudo count
     aux = aux.apply(lambda x: np.log(x/np.exp(np.log(x).mean())),axis=1)
@@ -421,19 +419,21 @@ class CODARFE():
         </progress>
     """.format(value=value, max=max))
 
-  def __superRFE(self,method,n_cols_2_remove,n_Kfold_CV):
+  def __super_RFE(self,method,n_cols_2_remove,n_Kfold_CV):
     print("\nStarting RFE...\n")
-    # Define o total de atributos a serem removidos por rodada
+    
+    # Sets the total number of attributes to be removed per round
     n_cols_2_remove = max([int(len(self.data.columns)*n_cols_2_remove),1])
 
-    # Define X inicial como descritores
+    # Sets initial X_train 
     if self.__applyAbunRel:
-      X_train = self.__toAbunRel(self.data)
+      X_train = self.__to_abun_rel(self.data)
     else:
       X_train = self.data
     
-    tot2display = len(list(X_train.columns))
-    # Define variável alvo
+    tot_2_display = len(list(X_train.columns))
+    
+    # Sets target
     if self.__sqrt_transform:
       y_train = np.array(self.__calc_new_sqrt_redimension(self.target))
     elif self.__transform:
@@ -441,12 +441,12 @@ class CODARFE():
     else:
       y_train = self.target
 
-    # Inicializa tabela de resultados
-    resultTable = pd.DataFrame(columns=['Atributos','R² adj','F-statistic','BIC','MSE-CV'])
-    percentagedisplay = round(100 - (len(list(X_train.columns))/tot2display)*100)
+    # Iniciate the results table
+    result_table = pd.DataFrame(columns=['attributes','R² adj','F-statistic','BIC','MSE-CV'])
+    percentage_display = round(100 - (len(list(X_train.columns))/tot_2_display)*100)
     out = display(self.__progress(0, 100), display_id=True)
     while len(X_train.columns) - n_cols_2_remove > n_cols_2_remove or len(X_train.columns) > 1:
-      X = self.__toCLR(X_train)
+      X = self.__to_clr(X_train)
 
       method.fit(X,y_train)
 
@@ -460,7 +460,7 @@ class CODARFE():
       BIC = self.__calc_bic(pred,y_train,X)
 
       msecv_results = []
-      #Adicionando etapa de validação cruzada
+      # Cross-validation step
       kf = KFold(n_splits=n_Kfold_CV,shuffle=True,random_state=42)
 
       for train, test in kf.split(X):
@@ -473,114 +473,114 @@ class CODARFE():
 
       msecv = np.mean(msecv_results)
 
-      # caso consiga calcular um p-valor
+      # If there is a p_value calculate the p_value
       if not math.isnan(Fprob) and r2adj < 1.0:
-        # Cria linha com: Atributos separados por ';', R² ajustado, estatistica F e estatistica BIC
-        newline = pd.DataFrame.from_records([{'Atributos':'@'.join(list(X.columns)),'R² adj':float(r2adj),'F-statistic':float(Fprob),'BIC':float(BIC),'MSE-CV':float(msecv)}])
+        # Create line with attributes splitted by ";", with R² adjusted, F-statistics, BIC and MSECV
+        new_line = pd.DataFrame.from_records([{'attributes':'@'.join(list(X.columns)),'R² adj':float(r2adj),'F-statistic':float(Fprob),'BIC':float(BIC),'MSE-CV':float(msecv)}])
 
-        # Adiciona linha na tabela de resultado
-        resultTable = pd.concat([resultTable,newline])
+        # add the line to the table
+        result_table = pd.concat([result_table,new_line])
 
-      # Cria tabela de dados dos atributos
-      atr = pd.DataFrame(data = [[xx,w] for xx,w in zip(X.columns,method.coef_)],columns = ['Atributos','coef'])
+      # Create the data table of attributes
+      atr = pd.DataFrame(data = [[xx,w] for xx,w in zip(X.columns,method.coef_)],columns = ['attributes','coef'])
 
-      # Transforma coluna de coeficiente p/ float
+      # Cast it to float
       atr = atr.astype({'coef':float})
 
-      # Remove colunas com coeficientes iguais ou menores que 0 / Acelera o rfe
+      # Remove the columns with coefficient less or equal than 0 (Fast RFE)
       atr = atr[atr.coef != 0]# Remove zeros
-      atr.coef = atr.coef.abs()#Transforma em abs para remover apenas os X% mais perto de zero
+      atr.coef = atr.coef.abs()# Transform into abs to remove only the X% near zero (high negative correlated is high correlated)
 
-      # Ordena de forma decrescente pelo coeficiente
+      # Sort by coefficients 
       atr = atr.sort_values(by=['coef'],ascending=False)
 
-      # Cria lista de atributos selecionados
-      atributos = list(atr.Atributos)
+      # Create list of selected attributes
+      attributes = list(atr.attributes)
 
-      # Remove espaços em brancos inseridos pela tabela de atributos
-      atributos = [x.strip() for x in atributos]
+      # Remove empty spaces inserted by attributes table 
+      attributes = [x.strip() for x in attributes]
 
-      # Remove n_cols_2_remove menos relevantes
-      atributos = atributos[:-n_cols_2_remove]
+      # Remove n_cols_2_remove less significative
+      attributes = attributes[:-n_cols_2_remove]
 
-      # Remove atributos n selecionados
+      # Remove NOT SELECTED attributes 
       if self.__applyAbunRel:
-        X_train = self.__toAbunRel(self.data[atributos])
+        X_train = self.__to_abun_rel(self.data[attributes])
       else:
-        X_train = X_train[atributos]
+        X_train = X_train[attributes]
 
-      # Calculo da % para mostrar na tela
-      percentagedisplay = round(100 - (len(list(X_train.columns))/tot2display)*100)
-      #print(percentagedisplay,'% done...\n')
-      out.update(self.__progress(int(percentagedisplay), 100))
-    #Remove possiveis nan
-    resultTable.dropna(inplace=True)
-    #print('100% done!\n')
+      # Calculates the % for display 
+      percentage_display = round(100 - (len(list(X_train.columns))/tot_2_display)*100)
+    
+      out.update(self.__progress(int(percentage_display), 100))
+    #Remove nan
+    result_table.dropna(inplace=True)
+    
     out.update(self.__progress(100, 100))
-    # Retorna a tabela com os resultados
-    return resultTable
+    
+    return result_table
 
-  def __scoreAndSelection(self,resultTable,weightR2,weightProbF,weightBIC,weightRMSE):
-    # Cria cópia da tabela original
-    df_aux = resultTable.copy()
+  def __score_and_selection(self,result_table,weightR2,weightProbF,weightBIC,weightRMSE):
+    # Copy the otiginal table
+    df_aux = result_table.copy()
     df_aux.replace([np.inf, -np.inf], np.nan, inplace=True)
     df_aux.dropna(inplace=True)
 
-    # Normaliza o R² ajustado
+    # Normalize R²
     df_aux['R² adj'] = MinMaxScaler().fit_transform(np.array(df_aux['R² adj']).reshape(-1,1))
 
-    # Aplica a transformação -log10(f) e então normaliza a estatistica f
+    # -log10(f) transform and normalize the f-statistic
     df_aux['F-statistic'] = [-math.log10(x) if x !=0 else sys.float_info.max for x in df_aux['F-statistic']]
     df_aux['F-statistic'] = MinMaxScaler().fit_transform(np.array(df_aux['F-statistic']).reshape(-1,1))
 
-    # Normaliza e então inverte a estatistica BIC (Quanto menor menor)
+    # Normalize the BIC and inverts it
     df_aux['BIC'] = MinMaxScaler().fit_transform(np.array(df_aux['BIC']).reshape(-1,1))
     df_aux['BIC'] = [np.clip(1-x,0,1) for x in df_aux['BIC']]
 
-    # Normaliza 'MSE-CV' e inverte a estatistica MSE-cv
+    # Normalize the and inverts the 'MSE-CV'
     df_aux['MSE-CV'] = MinMaxScaler().fit_transform(np.array(df_aux['MSE-CV']).reshape(-1,1))
     df_aux['MSE-CV'] = [np.clip(1-x,0,1) for x in df_aux['MSE-CV']]
 
-    # Cria coluna de Score
+    # Create score column
     df_aux['Score'] = [(r*weightR2)+(f*weightProbF)+(b*weightBIC)+(m*weightRMSE) for r,f,b,m in zip(df_aux['R² adj'],df_aux['F-statistic'],df_aux['BIC'],df_aux['MSE-CV'])]
 
-    # Encontra indice de maior Score
+    # Finds the highest score index
     indexSelected = list(df_aux.Score).index(max(list(df_aux.Score)))
 
-    # Seleciona atributos
-    selected = df_aux.iloc[indexSelected].Atributos.split('@')
+    # Select the attributes
+    selected = df_aux.iloc[indexSelected].attributes.split('@')
 
-    self.selected_taxa = selected # salva os atributos selecionados
+    self.selected_taxa = selected # Save it
 
-    retEstatisticas = list(resultTable.iloc[indexSelected][['R² adj','F-statistic','BIC','MSE-CV']])
+    retEstatisticas = list(result_table.iloc[indexSelected][['R² adj','F-statistic','BIC','MSE-CV']])
 
     self.results = {'R² adj':retEstatisticas[0],
                     'F-statistic':retEstatisticas[1],
                     'BIC':retEstatisticas[2],
-                    'MSE-CV':retEstatisticas[3]} # Salva as estatisticas
+                    'MSE-CV':retEstatisticas[3]} # Save the statistics
 
     retScore = df_aux.iloc[indexSelected].Score
 
-    self.score_best_model = retScore # Salva a pontuação do melhor modelo
+    self.score_best_model = retScore # Save the best model score
 
   def __write_results(self,path_out,name_append):
-    # adiciona '/' caso n tneha
+    # add the '/' if not
     if path_out != '':
       if path_out[-1]!= '/':
         path_out+='/'
     else:
-      path_out = '/'.join(self.__path2MetaData.split('/')[:-1])+'/'
-    # adiciona '_' caso n tenha
+      path_out = '/'.join(self.__path2Metadata.split('/')[:-1])+'/'
+    # add the '_' if not
     if name_append != '':
       if name_append[0]!= '_':
         name_append = 'CODARFE_RESULTS_'+name_append
     else:
       name_append = 'CODARFE_RESULTS'
 
-    path2write = path_out +name_append+'.txt'
-    print('Writing results at ',path2write)
+    path_2_write = path_out +name_append+'.txt'
+    print('Writing results at ',path_2_write)
 
-    with open(path2write,'w') as f:
+    with open(path_2_write,'w') as f:
       f.write('Results: \n\n')
       f.write('R² adj -> '+     str(self.results['R² adj'])+'\n')
       f.write('F-statistic -> '+str(self.results['F-statistic'])+'\n')
@@ -590,18 +590,18 @@ class CODARFE():
       f.write('Selected predictors: \n\n')
       f.write(','.join(self.selected_taxa))
 
-  def __DefineModel(self,allow_transform_high_variation):
+  def __define_model(self,allow_transform_high_variation):
 
       self.__model = RandomForestRegressor(n_estimators = 160, criterion = 'poisson',random_state=42)
       X = self.data[self.selected_taxa]
       if self.__applyAbunRel:
-        X = self.__toAbunRel(X)
-      X = self.__toCLR(X)
+        X = self.__to_abun_rel(X)
+      X = self.__to_clr(X)
 
-      if allow_transform_high_variation and np.std(self.target)/np.mean(self.target)>0.2:# Caso varie muitas vezes a média (ruido)
-        targetLogTransformed = self.__calc_new_sqrt_redimension(self.target) # Aplica transformação no alvo
-        self.__model.fit(X,targetLogTransformed) # Treina com o alvo transformado
-        self.__sqrt_transform = True # Define flag de transformação
+      if allow_transform_high_variation and np.std(self.target)/np.mean(self.target)>0.2:# In case of it varies many times its mean (noise)
+        target_log_transformed = self.__calc_new_sqrt_redimension(self.target) # Apply the transformation
+        self.__model.fit(X,target_log_transformed) # Fit the models with the target transformed
+        self.__sqrt_transform = True # Set the flag for this transformation (to be used during predict)
         self.__transform = False
       else:
         if any(t < 0 for t in self.target):
@@ -612,8 +612,8 @@ class CODARFE():
           print(f"The data was shifted {abs(self.__min_target_transformed)} + 1 units due to negative values not supported by poisson distribution.")
 
         else:
-          self.__model.fit(X,self.target) # Treina um segundo modelo com o alvo como é
-          self.__sqrt_transform = False # Define flag de transformação
+          self.__model.fit(X,self.target) 
+          self.__sqrt_transform = False 
           self.__transform = False
 
 
@@ -639,7 +639,7 @@ class CODARFE():
       elif value < 0:
           raise ValueError(f"{name} must be greater than or equal to 0.")
 
-  def __checkModelParams(self,
+  def __check_model_params(self,
                          write_results,
                          path_out,
                          name_append,
@@ -673,20 +673,20 @@ class CODARFE():
       self.__check_non_negative_float(weightRMSE, "weightRMSE")
 
 
-  def CreateModel(self,
-                  write_results: bool =False,
-                  path_out: str ='',
-                  name_append: str ='',
-                  rLowVar: bool =True,
-                  applyAbunRel: bool = True,
-                  allow_transform_high_variation = True,
-                  percentage_cols_2_remove: int =1,
-                  n_Kfold_CV: int=10,
-                  weightR2: float =1.0,
-                  weightProbF: float=0.5,
-                  weightBIC: float=1.0,
-                  weightRMSE: float=1.5,
-                  n_max_iter_huber: int=100) -> None:
+  def fit(self,
+          write_results: bool =False,
+          path_out: str ='',
+          name_append: str ='',
+          rLowVar: bool =True,
+          applyAbunRel: bool = True,
+          allow_transform_high_variation = True,
+          percentage_cols_2_remove: int =1,
+          n_Kfold_CV: int=10,
+          weightR2: float =1.0,
+          weightProbF: float=0.5,
+          weightBIC: float=1.0,
+          weightRMSE: float=1.5,
+          n_max_iter_huber: int=100) -> None:
     """
     Parameters
     ----------
@@ -730,35 +730,35 @@ class CODARFE():
 
 
     if type(self.data) == type(None):
-      print('No data was provided!\nPlease make sure to provide complete information or use the Load_Instance(<path_2_instance>) function to load an already created CODARFE model')
+      print('No data was provided!\nPlease make sure to provide complete information or use the load_instance(<path_2_instance>) function to load an already created CODARFE model')
       return None
     print('\n\nChecking model parameters...',end="")
-    self.__checkModelParams(write_results,path_out,name_append,rLowVar,applyAbunRel,allow_transform_high_variation,percentage_cols_2_remove,n_Kfold_CV,weightR2,weightProbF,weightBIC,weightRMSE,n_max_iter_huber)
+    self.__check_model_params(write_results,path_out,name_append,rLowVar,applyAbunRel,allow_transform_high_variation,percentage_cols_2_remove,n_Kfold_CV,weightR2,weightProbF,weightBIC,weightRMSE,n_max_iter_huber)
     print('OK')
 
     n_cols_2_remove = percentage_cols_2_remove/100
-    self.__n_max_iter_huber = n_max_iter_huber # Define o numero de iterações utilziado pelo huber
+    self.__n_max_iter_huber = n_max_iter_huber # Defines the maximum number of iterations for the huber regressor
 
     if rLowVar:
-      #Remove baixa variância
-      self.__removeLowVar()
+      #Remove low variance columns
+      self.__remove_low_var()
 
     if applyAbunRel:
-      #transforma em abundância relativa
+      #Transform into relative abundance
       self.__applyAbunRel = True
 
     method = HuberRegressor(epsilon = 2.0,alpha = 0.0003, max_iter = n_max_iter_huber)
 
-    # Remove iterativamente atributos enquanto cria vários modelos
-    resultTable = self.__superRFE(method,n_cols_2_remove,n_Kfold_CV)
+    # Remove attributes iteratively creating many models
+    result_table = self.__super_RFE(method,n_cols_2_remove,n_Kfold_CV)
 
-    if len(resultTable)>0:
+    if len(result_table)>0:
       
     
-      # Calcula pontuação e seleciona o melhor modelo
-      self.__scoreAndSelection(resultTable,weightR2,weightProbF,weightBIC,weightRMSE)
+      # Create the score and select the best one
+      self.__score_and_selection(result_table,weightR2,weightProbF,weightBIC,weightRMSE)
 
-      self.__DefineModel(allow_transform_high_variation)
+      self.__define_model(allow_transform_high_variation)
 
       print('\nModel created!\n\n')
       print('Results: \n\n')
@@ -772,13 +772,13 @@ class CODARFE():
         self.__write_results(path_out,name_append)
 
       if float(self.results['R² adj']) <= 0 or float(self.results['R² adj'])>1.0:
-        warnings.warn("The model created has poor generalization power, please check codarfe.results before using it for prediction.")
+        warnings.warn("The model created has poor generalization power, please check codarfe.results before using it for prediction.",self.LowFitModelWarning)
 
       if float(self.results['F-statistic']) > 0.5:
-        warnings.warn("The model has a p-value not statistically significant for the selected features! Please consider check your data and re-run the model-training.")
+        warnings.warn("The model has a p-value not statistically significant for the selected features! Please consider check your data and re-run the model-training.",self.NotSignificantPvalueWarning)
 
     else:
-      warnings.warn('The model was not able to generalize your Data. Consider checking your data and re-run the model-training.',ImpossibleToGeneralizeWarning)
+      warnings.warn('The model was not able to generalize your Data. Consider checking your data and re-run the model-training.',self.ImpossibleToGeneralizeWarning)
 
   def __pairwise_correlation(self,A, B):
     am = A - np.mean(A, axis=0, keepdims=True)
@@ -788,46 +788,21 @@ class CODARFE():
                keepdims=True)).T * np.sqrt(
         np.sum(bm**2, axis=0, keepdims=True)))
 
-  def __CreateCorrelationImputer(self):
-    threshold = 0.6 # Considered as strong correlation
-    aux = self.__toCLR(self.data) # Remove composicionalidade usando CLR nos dados originais
+  def __create_correlation_imputation_method(self):
+    threshold = 0.7 # Considered as strong correlation
+    aux = self.__to_clr(self.data) # Apply CLR 
 
-    for selected in self.selected_taxa: # Para cada taxa selecionada
-      self.__correlation_list[selected] = [] # Cria instancia para esta taxa selecionada
-      for taxa in aux.columns: # Verifica correlação com todas as outras
-        if taxa != selected: # n comparar consigo mesmo
-          corr = self.__pairwise_correlation(np.array(aux[selected]),np.array(aux[taxa]))# Calcula a correlação de forma rapida
-          if corr >= threshold: # Somenta adiciona caso seja fortemente correlacionada
-            self.__correlation_list[selected].append({'taxa':taxa,'corr':corr}) # Adiciona taxa correlacionada
-      self.__correlation_list[selected].sort(reverse=True,key = lambda x: x['corr']) # Ordena pela correlação
+    for selected in self.selected_taxa: # For each selected taxa 
+      self.__correlation_list[selected] = [] # Create a instance for this selected taxa 
+      for taxa in aux.columns: # Check its correlation to every single other 
+        if taxa != selected: # 
+          corr = self.__pairwise_correlation(np.array(aux[selected]),np.array(aux[taxa]))# Calculate the correlation
+          if corr >= threshold: # Add if it is strongly correlated
+            self.__correlation_list[selected].append({'taxa':taxa,'corr':corr}) # add the correlated taxa
+      self.__correlation_list[selected].sort(reverse=True,key = lambda x: x['corr']) # Srot by correlation
 
-  def __Read_new_Data(self,path2Data):
-    extension = path2Data.split('.')[-1]
-    if extension == 'csv':
-        data = pd.read_csv(path2Data,encoding='latin1')
-        data.set_index(list(data.columns)[0],inplace=True)
-    elif extension == 'tsv':
-        data = pd.read_csv(path2Data,sep='\t',encoding='latin1')
-        data.set_index(list(data.columns)[0],inplace=True)
-    elif extension == 'biom':
-        table = load_table(path2Data)
-        data = table.to_dataframe()
-    elif extension == 'qza':
-        output_directory =  '/'.join(path2Data.split('/')[:-1])+'/QZA_EXTRACT_CODARFE_TEMP/'
-        # Openning the .qza file as an zip file
-        with zipfile.ZipFile(path2Data, 'r') as zip_ref:
-            # extracting all data to the output directory
-            zip_ref.extractall(output_directory)
-        # Getting the biom path file
-        biompath = output_directory+os.listdir(output_directory)[0]+'/data/'
-        biompath += [f for f in os.listdir(biompath) if f[-5:]=='.biom'][0]
-        table = load_table(biompath)# Read the biom file
-        data = table.to_dataframe() # Tranform it to a pandas dataframe
 
-        shutil.rmtree(output_directory) # remove the pathTree created
-    return data
-
-  def Predict(self,
+  def predict(self,
               new: pd.DataFrame,
               applyAbunRel: bool = True,
               writeResults: bool = False,
@@ -874,44 +849,44 @@ class CODARFE():
 
     if self.__correlation_list == {}:
       print('\n\nCreating correlation list for imputation method. It may take a few minutes depending on the size of the original dataset, but it will be create only once.\n\n')
-      self.__CreateCorrelationImputer()
+      self.__create_correlation_imputation_method()
       print('Correlation list created!\n\n')
 
-    data2predict = pd.DataFrame() # Cria um dataframe para colocar apenas os dados selecionados
+    data_2_predict = pd.DataFrame() # Create a empty df
     totalNotFound = 0
-    for selected in self.selected_taxa: # Para cada taxa selecionada
-      if selected in new.columns: # Caso exista no novo conjunto
-        data2predict[selected] = new[selected] # Adiciona o valor do novo conjunto no df de previsão
+    for selected in self.selected_taxa: # for each selected taxa
+      if selected in new.columns: # If it exists
+        data_2_predict[selected] = new[selected] # add the value to the df
       else: # Senão
-        found = False # Flag que indica se encontrou substitudo
-        for correlated_2_selected in self.__correlation_list[selected]: # Para cada taxa correlacionada com a que não existe
-          if correlated_2_selected['taxa'] in new.columns: # Caso encontre um substituto
-            data2predict[selected] = new[correlated_2_selected['taxa']] # Coloca ele no lugar do que n existe
-            found = True # Seta flag
+        found = False # flg that indicates that a substitution was found
+        for correlated_2_selected in self.__correlation_list[selected]: # for each taxa with correlation to the one that is missing
+          if correlated_2_selected['taxa'] in new.columns: # if a substitute was found
+            data_2_predict[selected] = new[correlated_2_selected['taxa']] # set it as the imput for the missing one
+            found = True # Set flag
             break
         if not found:
-          data2predict[selected] = 0 # Caso não encontra retorna zero
-          print('Warning! Taxa ',selected,' was not found and have no correlations! It may affect the model accuracy')
+          data_2_predict[selected] = 0 # If cant find a substitute set as zero
+          print('Taxa ',selected,' was not found and have no correlations! It may affect the model accuracy')
           totalNotFound+=1
 
     if totalNotFound >= len(self.selected_taxa)*0.75:
-      warnings.warn('The new samples has less than 25% of selected taxa. The model will not be able to predict it.')
+      warnings.warn('The new samples has less than 25% of selected taxa. The model will not be able to predict it.',self.LowRateOfSelectedPresentWarning)
       return None,totalNotFound
 
 
-    data2predict = data2predict.fillna(0)
+    data_2_predict = data_2_predict.fillna(0)
 
     if applyAbunRel:
-      data2predict = self.__toAbunRel(data2predict) # Transforma em abundancia relativa
+      data_2_predict = self.__to_abun_rel(data_2_predict) # Applyt relative abundance 
 
-    data2predict = self.__toCLR(data2predict) # Transforma para CLR
+    data_2_predict = self.__to_clr(data_2_predict) # apply CLR
 
-    resp = self.__model.predict(data2predict)
+    resp = self.__model.predict(data_2_predict)
 
-    if self.__sqrt_transform: # Caso o modelo tenha sido treinado nos dados log transformados
-      resp = self.__calc_inverse_sqrt_redimension(resp)#,totalNotFound # Retorna os valores restaurados ao original
+    if self.__sqrt_transform: # Csae it was trasnformed
+      resp = self.__calc_inverse_sqrt_redimension(resp)#undo trasnformation
     if self.__transform:
-      resp = self.__calc_inverse_redimension(resp) # Retorna os valores restaurados ao original
+      resp = self.__calc_inverse_redimension(resp) #undo trasnformation
 
     if writeResults:
 
@@ -926,7 +901,7 @@ class CODARFE():
 
     return resp,totalNotFound
 
-  def Plot_Correlation(self,saveImg: bool=False,path_out: str='',name_append: str='') -> None:
+  def plot_correlation(self,saveImg: bool=False,path_out: str='',name_append: str='') -> None:
     """
     Parameters
     ---------
@@ -944,7 +919,7 @@ class CODARFE():
     Raises
     ------
     ModelNotCreatedError:
-              if the CODARFE.CreateModel was not run yet
+              if the CODARFE.fit was not run yet
     FileNotFoundError:
               If the path_out does not exists
     """
@@ -963,17 +938,17 @@ class CODARFE():
     X = self.data[self.selected_taxa]
     
     if self.__applyAbunRel:
-      X = self.__toAbunRel(X)
+      X = self.__to_abun_rel(X)
 
-    X = self.__toCLR(X)
+    X = self.__to_clr(X)
     pred = self.__model.predict(X)
 
-    if self.__sqrt_transform: # Caso tenha aprendido com valores transformados
+    if self.__sqrt_transform: # In the case it was transformed
       
-      pred = self.__calc_inverse_sqrt_redimension(pred) # Destransforma-os
+      pred = self.__calc_inverse_sqrt_redimension(pred) # Undo transformation
     if self.__transform:
       
-      pred = self.__calc_inverse_redimension(pred) # Destransforma-os
+      pred = self.__calc_inverse_redimension(pred) # Undo transformation
 
     plt.figure()
     plt.clf()
@@ -981,13 +956,13 @@ class CODARFE():
 
     corr, what = pearsonr(y, pred)
 
-    #Plota os pontos previsto por esperado
+    #Plot the predicted vs expected
     plt.plot(pred, y, 'o')
 
-    # calcula o slop e intercept para uma regressão linear (plot da linha)
+    # Calculate the slop and intercept for the line
     m, b = np.polyfit(pred, y, 1)
 
-    #Adiciona a linha no plot
+    #Add the line
     plt.plot(pred, m*pred+b)
     shiftX = 0.2 * max(pred)
     shiftY = 0.1 * max(y)
@@ -1018,7 +993,7 @@ class CODARFE():
 
     plt.show()
 
-  def __checkHoldOutParams(self,n_repetitions,test_size,path_out,name_append):
+  def __check_holdOut_params(self,n_repetitions,test_size,path_out,name_append):
     self.__check_integer(n_repetitions,"n_repetitions")
     self.__check_integer_range(n_repetitions,"n_repetitions",2,1000)
     self.__check_integer(test_size,"test_size")
@@ -1027,7 +1002,7 @@ class CODARFE():
       raise FileNotFoundError("\nThe path out does not exists.\nPlease try again with the correct path or let it blank to write in the same path as the metadata")
 
 
-  def Plot_HoldOut_Validation(self,
+  def plot_holdOut_validation(self,
                               n_repetitions: int = 100,
                               test_size: int = 20,
                               saveImg: str = False,
@@ -1057,14 +1032,14 @@ class CODARFE():
     ValueError
               If any of the parameters is not the correct type or is outside the range
     ModelNotCreatedError
-              if the CODARFE.CreateModel was not run yet
+              if the CODARFE.fit was not run yet
     FileNotFoundError:
               If the path_out does not exists
     """
     if self.__model == None:
       raise self.ModelNotCreatedError()
 
-    self.__checkHoldOutParams(n_repetitions,test_size,path_out,name_append)
+    self.__check_holdOut_params(n_repetitions,test_size,path_out,name_append)
 
 
     test_size = test_size/100
@@ -1072,19 +1047,19 @@ class CODARFE():
     X = self.data[self.selected_taxa]
 
     if self.__applyAbunRel:
-      X = self.__toAbunRel(X)
+      X = self.__to_abun_rel(X)
 
-    X = self.__toCLR(X)
+    X = self.__to_clr(X)
     y = self.target
     maes = []
     out = display(self.__progress(0, 100), display_id=True)
     for i in range(n_repetitions):
-      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size) # divide em treino e teste
+      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size) # divide train/test
 
-      if self.__sqrt_transform: # Caso tenha aprendido originalmente com valores transformados
-        method.fit(X_train,self.__calc_new_sqrt_redimension(y_train)) # Re-treina com os valores transformados
-        y_pred = method.predict(X_test) # Realiza a predição
-        y_pred = self.__calc_inverse_sqrt_redimension(y_pred) # Destransforma-os
+      if self.__sqrt_transform: # Check if needs to transform
+        method.fit(X_train,self.__calc_new_sqrt_redimension(y_train)) 
+        y_pred = method.predict(X_test) 
+        y_pred = self.__calc_inverse_sqrt_redimension(y_pred) 
       elif self.__transform:
         method.fit(X_train,self.__calc_new_redimension(y_train))
         y_pred = method.predict(X_test)
@@ -1093,7 +1068,7 @@ class CODARFE():
         method.fit(X_train,y_train)
         y_pred = method.predict(X_test)
 
-      # Calculo do MAE
+      # Calculate the Mean Absolute Error
       tt = 0
       for ii in range(len(y_pred)):
         tt+=abs(y_test.iloc[ii]-y_pred[ii])
@@ -1103,18 +1078,18 @@ class CODARFE():
     sns.set_theme(style="ticks")
 
     out.update(self.__progress(100, 100))
-    # Cria a figura zerada
+    # Create empty figure
     plt.figure()
     f, ax = plt.subplots(figsize=(7, 6))
 
-    # Plota o boxplot
+    # boxplot
     sns.boxplot(x=[1]*len(maes),
                 y=maes,
                 whis=[0, 100],
                 width=.6,
                 palette="vlag")
 
-    # Adiciona os pontos sobre o boxplot
+    # Add the dots on top of the boxplot
     sns.stripplot(x=[1]*len(maes),
                   y=maes,
                   size=4,
@@ -1130,14 +1105,13 @@ class CODARFE():
     testSize = int(test_size*100)
     ax.set_title('Hold-out Validation ('+str(trainSize)+'-'+str(testSize)+') '+str(n_repetitions)+' repetitions',fontweight='bold')
     ax.set_ylabel('Mean Absolute Error')
-    #ax.set_xlabel(target+' MAE')
 
     if saveImg:
       if path_out != '':
         if path_out[-1]!= '/':
           path_out+='/'
 
-        # adiciona '_' caso n tenha
+        # add '_' if not
         if name_append != '':
           if name_append[0]!= '_':
             name_append = 'HoldOut_Validation_'+name_append
@@ -1154,7 +1128,7 @@ class CODARFE():
     plt.show()
 
 
-  def Plot_Relevant_Predictors(self,
+  def plot_relevant_predictors(self,
                                n_max_features: int = 100,
                                saveImg: bool = False,
                                path_out: str = '',
@@ -1180,7 +1154,7 @@ class CODARFE():
     ValueError
               If any of the parameters is not the correct type or is outside the range
     ModelNotCreatedError
-              if the CODARFE.CreateModel was not run yet
+              if the CODARFE.fit was not run yet
     FileNotFoundError:
               If the path_out does not exists
     """
@@ -1197,9 +1171,9 @@ class CODARFE():
     X = self.data[self.selected_taxa]
 
     if self.__applyAbunRel:
-      X = self.__toAbunRel(X)
+      X = self.__to_abun_rel(X)
 
-    X = self.__toCLR(X)
+    X = self.__to_clr(X)
     # y = self.target
     if self.__sqrt_transform:
       y = np.array(self.__calc_new_sqrt_redimension(self.target))
@@ -1251,7 +1225,7 @@ class CODARFE():
         if path_out[-1]!= '/':
           path_out+='/'
 
-        # adiciona '_' caso n tenha
+        # add '_' if not
         if name_append != '':
           if name_append[0]!= '_':
             name_append = 'Relevant_Predictors_'+name_append
@@ -1433,7 +1407,7 @@ class CODARFE():
     return features
 
 
-  # HEAT MAP (ps: eu n lembro de porra nenhuma de como eu criei isso... melhor n tentar otimizar nada)
+  
   def __neatMapLinkage(self,selected_features):
     # Correcting for bad user inputation
     selected_features = selected_features.fillna(0)
@@ -1445,10 +1419,6 @@ class CODARFE():
 
     pc1 = w['CA1']
     pc2 = w['CA2']
-
-    # w = ca(selected_features)
-    # pc1 = w.features['CA1']
-    # pc2 = w.features['CA2']
 
     xc = np.mean(pc1)
     yc = np.mean(pc2)
@@ -1494,7 +1464,7 @@ class CODARFE():
 
     return im, cbar
 
-  def Plot_Heatmap(self,
+  def plot_heatmap(self,
                    saveImg: bool=False,
                    path_out: str='',
                    name_append: str=''
@@ -1516,7 +1486,7 @@ class CODARFE():
     Raises
     ------
     ModelNotCreatedError
-              if the CODARFE.CreateModel was not run yet
+              if the CODARFE.fit was not run yet
     FileNotFoundError:
               If the path_out does not exists
     """
@@ -1527,18 +1497,17 @@ class CODARFE():
     if path_out != '' and not os.path.exists(path_out):
       raise FileNotFoundError("\nThe path out does not exists.\nPlease try again with the correct path or let it blank to write in the same path as the metadata")
 
-    # Pega o dataframe original porem apenas o que foi selecioando
+    # Gets only the selected taxa on the original dataset
     selected_features = self.data[self.selected_taxa]
     
     if self.__applyAbunRel:
-      selected_features = self.__toAbunRel(selected_features)
+      selected_features = self.__to_abun_rel(selected_features)
     
-    # Clusterizando bacterias
+    # Clustering
     y = self.target
 
-    ###### Aqui clusteriza por CA ############
     leaf_names = self.__neatMapLinkage(selected_features)
-    ##########################################
+    
     clustered_df = pd.DataFrame()
 
     for name in leaf_names:
@@ -1546,18 +1515,17 @@ class CODARFE():
     clustered_df['Target'] = y
     selected_features = clustered_df
 
-    # Ordenando bacterias por variável alvo
+    # Sorting by target
     selected_features_t = selected_features.T
     sorted_t = selected_features_t.sort_values(by='Target',axis=1,ascending=False)
     y = list(sorted_t.iloc[-1])
 
-    # Separando os dados para o plot
     bac_counts = sorted_t.drop('Target',axis=0).replace(0,0.5).values
 
     bacs = list(sorted_t.drop('Target',axis=0).index[:])
 
-    # Aplica o CLR
-    bac_clr = self.__toCLR(pd.DataFrame(data=bac_counts))#bac_clr = clr(bac_counts+0.001)
+    # Apply the CLR
+    bac_clr = self.__to_clr(pd.DataFrame(data=bac_counts))
     vmin = min(bac_clr.values.flatten())
     vmax = max(bac_clr.values.flatten())
     norm = colors.TwoSlopeNorm(vmin=vmin, vcenter=0, vmax=vmax)
@@ -1577,13 +1545,13 @@ class CODARFE():
 
     im, cbar = self.__heatmap(bac_clr, bacs, y, ax=ax, cmap="RdYlBu",norm = norm, cbarlabel="Center-Log-Ratio")
 
-    #fig.tight_layout()
+
     if saveImg:
       if path_out != '':
         if path_out[-1]!= '/':
           path_out+='/'
 
-        # adiciona '_' caso n tenha
+        # add '_' if not
         if name_append != '':
           if name_append[0]!= '_':
             name_append = 'HeatMap_'+name_append
