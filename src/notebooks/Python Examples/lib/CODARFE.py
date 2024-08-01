@@ -419,6 +419,21 @@ class CODARFE():
         </progress>
     """.format(value=value, max=max))
 
+  def __check_coef_of_variation_target_for_transformation(self,allow_transform_high_variation):
+    if allow_transform_high_variation and np.std(self.target)/np.mean(self.target)>0.2 :# Caso varie muitas vezes a média (ruido)
+      
+      self.__sqrt_transform = True 
+      self.__transform = False
+
+    else:
+      if any(t < 0 for t in self.target):
+        self.__transform = True
+        self.__sqrt_transform = False
+        
+      else:
+        self.__sqrt_transform = False # Define flag de transformação
+        self.__transform = False
+
   def __super_RFE(self,method,n_cols_2_remove,n_Kfold_CV):
     print("\nStarting RFE...\n")
     
@@ -598,23 +613,19 @@ class CODARFE():
         X = self.__to_abun_rel(X)
       X = self.__to_clr(X)
 
-      if allow_transform_high_variation and np.std(self.target)/np.mean(self.target)>0.2:# In case of it varies many times its mean (noise)
-        target_log_transformed = self.__calc_new_sqrt_redimension(self.target) # Apply the transformation
-        self.__model.fit(X,target_log_transformed) # Fit the models with the target transformed
-        self.__sqrt_transform = True # Set the flag for this transformation (to be used during predict)
-        self.__transform = False
-      else:
-        if any(t < 0 for t in self.target):
-          self.__transform = True
-          targetTranformed = self.__calc_new_redimension(self.target)
-          self.__model.fit(X,targetTranformed)
-          self.__sqrt_transform = False
-          print(f"The data was shifted {abs(self.__min_target_transformed)} + 1 units due to negative values not supported by poisson distribution.")
+      if self.__sqrt_transform:# Caso varie muitas vezes a média (ruido)
+      
+        targetLogTransformed = self.__calc_new_sqrt_redimension(self.target) # Aplica transformação no alvo
+        self.__model.fit(X,targetLogTransformed) # Treina com o alvo transformado
+        
+      elif self.__transform:
 
-        else:
-          self.__model.fit(X,self.target) 
-          self.__sqrt_transform = False 
-          self.__transform = False
+        targetTranformed = self.__calc_new_redimension(self.target)
+        self.__model.fit(X,targetTranformed)
+        print(f"The data was shifted {abs(self.__min_target_transformed)} + 1 units due to negative values not supported by poisson distribution.")
+
+      else:
+        self.__model.fit(X,self.target) # Treina um segundo modelo com o alvo como é
 
 
   def __check_boolean(self,value, name):
@@ -748,7 +759,10 @@ class CODARFE():
       self.__applyAbunRel = True
 
     method = HuberRegressor(epsilon = 2.0,alpha = 0.0003, max_iter = n_max_iter_huber)
-
+    
+    # Define flags related to target transformation
+    self.__check_coef_of_variation_target_for_transformation(allow_transform_high_variation)
+    
     # Remove attributes iteratively creating many models
     result_table = self.__super_RFE(method,n_cols_2_remove,n_Kfold_CV)
 
