@@ -7,8 +7,7 @@ author:
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: Guide to using MGnify's peptide sequence search service
-order: 9
+description: Guide to using MGnify's Protein Database sequence search service
 ---
 
 ## Landing page
