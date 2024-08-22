@@ -22,7 +22,7 @@ The MGnify Proteins portal features a search form that allows users to submit qu
 
 ## Organization of the Protein Detail Page
 
-Each cluster representative from the Protein Database has a dedicated detail page. This page contains metadata about the protein and, if available, its 3D structure as predicted by the [ESM Metagenomics Atlas](https://esmatlas.com/).
+Each cluster representative from the Protein Database has a dedicated detail page. This page includes metadata about the protein and, when available, its 3D structure as predicted by the [ESM Metagenomics Atlas](https://esmatlas.com/) team. Not all clusters have a predicted structure, as the release cycles of MGnify Proteins and the ESM Atlas are independent. The MGnify team is not involved in the protein structure predictions; instead, we link this service in this portal, which is generously provided by the ESM Atlas team for the community.
 
 ### Protein Information
 
@@ -38,7 +38,7 @@ This section at the top of the page provides essential details about the protein
 
 ## 3D Structure
 
-This section displays a 3D structure of the protein, predicted by the [ESM Metagenomics Atlas](https://esmatlas.com/) using the ESMFold model:
+This section displays a 3D structure of the protein, predicted by the [ESM Metagenomics Atlas](https://esmatlas.com/) team using the [ESMFold](https://www.science.org/doi/10.1126/science.ade2574):
 
 - **3D Structure Visualization**: A graphic representation of the protein structure generated from the amino acid sequence.
 - **More Information**: A link below the visualization directs users to additional details about the [ESM Metagenomics Atlas](https://esmatlas.com/).
