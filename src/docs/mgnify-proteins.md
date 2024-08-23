@@ -14,7 +14,7 @@ description: Description of the MGnify Proteins and related services
 
 ## Introduction
 
-The MGnify Protein Database comprises sequences predicted from assemblies generated from publicly available metagenomic datasets. Since its initial release in August 2017, which comprised just under 50 million sequences, it has grown to over 2.4 billion sequences. All sequences have stable accessions, prefixed with MGYP, such as [MGYP000261684433](https://www.ebi.ac.uk/metagenomics/proteins/MGYP000261684433/). Due to the dataset's size, sequences are clustered at 90% identity using [MMSeq2/Linclust](https://github.com/soedinglab/MMseqs2). Despite clustering, the sequences still capture the biological complexity inherent in metagenomic data.
+The MGnify Protein Database comprises sequences predicted from [assemblies](glossary.md#assembly) generated from publicly available [metagenomic](glossary.md#metagenomic) datasets. Since its initial release in August 2017, which comprised just under 50 million sequences, it has grown to over 2.4 billion sequences. All sequences have stable accessions, prefixed with MGYP, such as [MGYP000261684433](https://www.ebi.ac.uk/metagenomics/proteins/MGYP000261684433/). Due to the dataset's size, sequences are clustered at 90% identity using [MMSeq2/Linclust](https://github.com/soedinglab/MMseqs2). Despite clustering, the sequences still capture the biological complexity inherent in metagenomic data.
 
 The dataset is accessible via several platforms:
 
@@ -22,6 +22,8 @@ The dataset is accessible via several platforms:
 - **HMMER Sequence Search Webservice**: Accessible through our [Sequence Search service](mgnify-proteins-sequence-search.md).
 - **MGnify Proteins Portal**: Explore the data on the [MGnify Proteins web portal](mgnify-proteins-web.md).
 - **Google Cloud Public Dataset**: Available as a [Big Query public dataset](mgnify-proteins-big-query.qmd) on [Google Cloud](https://cloud.google.com/).
+
+![Schematic of MGnify Proteins resource](images/proteins/mgnify-proteins-schematic.png)
 
 ## License
 
