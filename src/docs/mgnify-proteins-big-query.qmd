@@ -220,8 +220,8 @@ erDiagram
 |-------------------|----------|-----------|-----------------------------------------------------------------------|
 | `assembly_id`     |          | INTEGER   | Assembly ID                                                           |
 | `accession`       | REQUIRED | STRING    | The ENA assembly accession                                            |
-| `study_id`        | INTEGER  | INTEGER   | Study ID                                                              |
-| `biome_id`        | INTEGER  | INTEGER   | Biome ID                                                              |
+| `study_id`        |          | INTEGER   | Study ID                                                              |
+| `biome_id`        |          | INTEGER   | Biome ID                                                              |
 | `pipeline_version`|          | STRING    | The version of the MGnify pipeline used to call the proteins in this assembly |
 
 #### Architecture
