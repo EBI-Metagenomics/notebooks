@@ -13,7 +13,7 @@ proxy:
       description: Examples of accessing MGnify metagenomics data using Python and R notebooks.
       container-cmd: ["start-notebook.sh", "--ServerApp.token=''", "--ServerApp.base_url=#{proxy.getRuntimeValue('SHINYPROXY_PUBLIC_PATH')}"]
       container-image: quay.io/microbiome-informatics/emg-notebooks.dev:latest
-      container-volumes: [ "/tmp/jupyter/#{proxy.userId}/work:/home/jovyan/work"]
+      container-volumes: [ "/tmp/jupyter/#{proxy.userId}/work:/home/mgnify/work"]
       port: 8888
       websocket-reconnection-mode: None
       target-path: "#{proxy.getRuntimeValue('SHINYPROXY_PUBLIC_PATH')}"

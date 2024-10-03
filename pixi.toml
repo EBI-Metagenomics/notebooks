@@ -1,0 +1,34 @@
+[project]
+authors = ["Sandy Rogers <sandyr@ebi.ac.uk>"]
+channels = ["conda-forge", "bioconda"]
+description = "Notebooks for interacting with EMBL-EBI's MGnify metagenomics resource"
+name = "notebooks"
+platforms = ["linux-64", "osx-64"]
+version = "2.0.0"
+
+[tasks]
+install_query_params_plugin = "pip install /tmp/jlab_query_params"
+install_mgnify_jupyter_ui = "pip install /tmp/mgnify_jupyter_lab_ui"
+
+[dependencies]
+python = "3.11"
+pyspark = "3.*"
+jsonapi-client = "0.9.9"
+pandas = "2.*"
+ipykernel = "6.*"
+matplotlib = "3.*"
+seaborn = "0.13.*"
+plotly = "5.*"
+biopython = "1.*"
+pyarrow = "*"
+leafmap = "*"
+geopandas = "*"
+jupyterlab = ">=4.2.5,<5"
+pip = ">=24.2,<25"
+nodejs = ">=22.7.0,<23"
+cairo = ">=1.18.0,<2"
+
+[pypi-dependencies]
+sourmash = ">=4.8.11, <5"
+gffutils = ">=0.13, <0.14"
+

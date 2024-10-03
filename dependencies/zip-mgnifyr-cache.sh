@@ -1,3 +1,4 @@
 #!/bin/bash
 rm mgnify-cache.tgz
-tar -czf mgnify-cache.tgz --absolute-names /home/jovyan/.mgnify_cache
+Rscript populate-mgnifyr-cache.R
+tar -czf mgnify-cache.tgz --absolute-names /home/mgnify/.mgnify_cache

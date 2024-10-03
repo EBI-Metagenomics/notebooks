@@ -72,7 +72,6 @@ It should be localhost port 8888, with a random token.
 
 When you're finished editing, use normal `git add` and `git commit` to contribute your changes.
 
-For info, "jovyan" is always the user for these Jupyter Docker images. Jovyan as in jovian (a being from the planet Jupiter), but from Jupyter!
 
 #### Guidance for authoring notebooks
 
@@ -85,7 +84,7 @@ For info, "jovyan" is always the user for these Jupyter Docker images. Jovyan as
 ##### Caching data in the image
 
 MGnifyR uses a cache of pulled MGnify data.
-This is populated during the Docker build, into `/home/jovyan/.mgnify_cache`, by the script in `dependencies/populate-mgnify-cache.R`.
+This is populated during the Docker build, into `/home/mgnify/.mgnify_cache`, by the script in `dependencies/populate-mgnify-cache.R`.
 Add commands to this to include other datasets in the cache.
 The cache is zipped and checked into the repo for faster population during builds (`dependencies/mgnify-cache.tgz`), since it rarely changes.
 To check in an updated version of the cache...

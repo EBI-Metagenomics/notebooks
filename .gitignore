@@ -15,6 +15,7 @@ site_libs
 src/docs/*.html
 src/*.html
 src/notebooks/**/*.html
+src/notebooks/**/*_files/
 src/*-listing.json
 
 *.parquet
@@ -22,4 +23,6 @@ src/*-listing.json
 *.sig
 ko*.pathview.png
 src/notebooks/R Examples/*.tsv
-src/notebooks/R Examples/*.txt
+src/notebooks/R Examples/*.txt# pixi environments
+.pixi
+*.egg-info

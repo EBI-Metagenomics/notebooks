@@ -1,10 +1,13 @@
 FROM quay.io/microbiome-informatics/emg-notebooks.dev
 
-ARG QUARTO_VERSION="1.4.358"
+ARG QUARTO_VERSION="1.5.57"
 WORKDIR /tmp
+USER root
 RUN wget https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb
 RUN dpkg -i quarto-${QUARTO_VERSION}-linux-amd64.deb
-# install conda kernels to standard jupyter kernels
-RUN python -m nb_conda_kernels list
+ARG NB_USER="mgnify"
+ARG NB_UID="1000"
+ARG NB_GID="100"
+USER ${NB_UID}
 
-ENTRYPOINT ["quarto"]
+ENTRYPOINT ["tini", "-g", "--", "/bin/bash", "/shell-hook.sh", "quarto"]

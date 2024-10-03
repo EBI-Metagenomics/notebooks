@@ -2,6 +2,8 @@ version: '3'
 
 env:
   NB_DOCKER_EXE: "docker"
+  NB_DOCKER_FLAGS: "--platform linux/amd64"
+  NB_IMAGE: "quay.io/microbiome-informatics/emg-notebooks.dev:latest"
 
 tasks:
   add-py-notebook:
@@ -46,7 +48,7 @@ tasks:
 
       The files in src/notebooks are mounted as editable, and served on port 8888.
     cmds:
-      - $NB_DOCKER_EXE run -it -v $PWD/src/notebooks:/home/jovyan/mgnify-examples -p 8888:8888 quay.io/microbiome-informatics/emg-notebooks.dev:latest
+      - $NB_DOCKER_EXE run $NB_DOCKER_FLAGS -it -v $PWD/src/notebooks:/home/mgnify/mgnify-examples -p 8888:8888 $NB_IMAGE
 
   build-notebook-docker:
     summary: |
@@ -56,7 +58,7 @@ tasks:
 
       NOT needed if you're just editing/adding notebooks with no additional dependencies.
     cmds:
-      - $NB_DOCKER_EXE build --load -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev:latest .
+      - $NB_DOCKER_EXE build $NB_DOCKER_FLAGS --load -f docker/Dockerfile -t $NB_IMAGE .
 
   build-static-docker:
     summary: |
@@ -64,7 +66,7 @@ tasks:
 
       The built image is tagged as `notebooks-static`.
     cmds:
-      - $NB_DOCKER_EXE build --load -f docker/docs.Dockerfile -t notebooks-static .
+      - $NB_DOCKER_EXE build $NB_DOCKER_FLAGS --load -f docker/docs.Dockerfile -t notebooks-static .
     sources:
       - docker/docs.Dockerfile
       - docker/Dockerfile
@@ -75,10 +77,12 @@ tasks:
 
       The site is built to ./_site
     cmds:
-      - $NB_DOCKER_EXE run -it -v $PWD:/opt/repo -w /opt/repo notebooks-static render --execute
+      - $NB_DOCKER_EXE run $NB_DOCKER_FLAGS -it -v $PWD:/opt/repo -w /opt/repo notebooks-static render
+      # TODO: reenable --execute, once quarto>jupyter>R is working 
     deps: [build-static-docker]
     sources:
       - src/**/*
+      - _quarto.yml
 
   serve-static:
     summary: |
@@ -87,7 +91,7 @@ tasks:
       This serves the contents of ./_site
     cmds:
       - echo "Browse to http://127.0.0.1:4444"
-      - $NB_DOCKER_EXE run -it -v $PWD:/opt/repo -w /opt/repo/_site -p 4444:4444 --entrypoint python notebooks-static -m http.server 4444
+      - $NB_DOCKER_EXE run $NB_DOCKER_FLAGS -it -v $PWD:/opt/repo -w /opt/repo/_site -p 4444:4444 --entrypoint python notebooks-static -m http.server 4444
     deps: [render-static]
 
   preview-static:
@@ -95,7 +99,7 @@ tasks:
       Runs, renders, and serves the notebooks as a static website, watching for changes
     cmds:
       - echo 'When the rendering is finished, the static preview of notebooks will be at http://127.0.0.1:4444 ...'
-      - $NB_DOCKER_EXE run -it -v $PWD:/opt/repo -w /opt/repo -p 4444:4444 notebooks-static preview --no-browser --port 4444 --host 0.0.0.0
+      - $NB_DOCKER_EXE run $NB_DOCKER_FLAGS -it -v $PWD:/opt/repo -w /opt/repo -p 4444:4444 notebooks-static preview --no-browser --port 4444 --host 0.0.0.0
     deps: [build-static-docker]
 
   update-mgnifyr-cache:
@@ -108,4 +112,4 @@ tasks:
 
       It writes a zip of the cache to dependencies/mgnify-cache.tgz
     cmds:
-      - $NB_DOCKER_EXE run -it -v $PWD/dependencies:/opt/dependencies -w /opt/dependencies quay.io/microbiome-informatics/emg-notebooks.dev:latest /bin/bash zip-mgnifyr-cache.sh
+      - $NB_DOCKER_EXE run $NB_DOCKER_FLAGS -it -v $PWD/dependencies:/opt/dependencies -w /opt/dependencies $NB_IMAGE /bin/bash zip-mgnifyr-cache.sh

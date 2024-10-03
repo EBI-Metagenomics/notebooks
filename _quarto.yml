@@ -1,7 +1,6 @@
 project:
     type: website
     render:
-        - src/docs.qmd
         - src/docs/*.md
         - src/docs/*.qmd
         - src/notebooks_list.qmd
