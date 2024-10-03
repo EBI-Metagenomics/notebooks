@@ -13,7 +13,7 @@ description: Description of the MGnify Proteins BigQuery public dataset
 # MGnify Proteins Big Query public dataset
 
 The MGnify Protein Database release 2024_04 is hosted on
-[Google Cloud Public Datasets](https://console.cloud.google.com/marketplace/product/bigquery-public-data/XXXXX),
+[Google Cloud Public Datasets](https://console.cloud.google.com/marketplace/product/bigquery-public-data/ebi-mgnify),
 and is available to download at no cost under a
 [CC0 1.0 Universal Licence](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
 
