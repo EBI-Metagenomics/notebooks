@@ -1,5 +1,5 @@
 ---
-title: Dataflow from submission to results
+title: From submission to results
 author: 
   - name: MGnify Team
     url: https://www.ebi.ac.uk/metagenomics

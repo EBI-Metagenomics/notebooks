@@ -3,6 +3,7 @@ project:
     render:
         - src/docs.qmd
         - src/docs/*.md
+        - src/docs/*.qmd
         - src/notebooks_list.qmd
         - src/notebooks/Python Examples/*.ipynb
         - src/notebooks/R Examples/*.ipynb
@@ -36,9 +37,28 @@ website:
         search: true
 
         contents:
-            - section: "Documentation"
-              href: src/docs.qmd
-              contents: src/docs/*
+            - href: src/docs/about.md
+            - section: "Data flow"
+              contents:
+              - src/docs/dataflow.md
+              - src/docs/multiomics_submission.md
+            - section: "Analyses"
+              contents:
+              - src/docs/analysis.md
+              - src/docs/additional-analyses.md
+            - section: "Website & API"
+              contents:
+              - src/docs/portal.md
+              - src/docs/api.md
+            - href: src/docs/mgnify-genomes.md
+            - section: "MGnify Proteins"
+              href: src/docs/mgnify-proteins.md
+              contents:
+                - src/docs/mgnify-proteins-web.md
+                - src/docs/mgnify-proteins-sequence-search.md
+                - src/docs/mgnify-proteins-big-query.qmd
+            - href: src/docs/faqs.md
+            - href: src/docs/glossary.md
             - href: src/notebooks_list.qmd
 
         tools:
