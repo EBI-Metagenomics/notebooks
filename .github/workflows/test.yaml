@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Free up disk space
       uses: jlumbroso/free-disk-space@main
@@ -33,6 +33,7 @@ jobs:
       run: wget -O shiny-proxy/shinyproxy-2.6.1.jar https://www.shinyproxy.io/downloads/shinyproxy-2.6.1.jar
 
     - uses: actions/setup-node@v4
+      working-directory: tests
       with:
         node-version: 20
         cache: 'npm'
