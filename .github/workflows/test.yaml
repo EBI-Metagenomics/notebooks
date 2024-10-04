@@ -33,10 +33,10 @@ jobs:
       run: wget -O shiny-proxy/shinyproxy-2.6.1.jar https://www.shinyproxy.io/downloads/shinyproxy-2.6.1.jar
 
     - uses: actions/setup-node@v4
-      working-directory: tests
       with:
         node-version: 20
         cache: 'npm'
+        cache-dependency-path: 'tests/package-lock.json'
     
     - name: Install test suite dependencies
       working-directory: ./tests
