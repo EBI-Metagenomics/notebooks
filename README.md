@@ -189,8 +189,18 @@ task build-notebook-docker
 - [Download the latest version of ShinyProxy](https://www.shinyproxy.io/downloads/) (>=2.6 is required). It is a JAR, so you need Java installed. i.e., download ShinyProxy into this repo directory.
 - The `application.yml` file must be in the same directory as the location you launch Shiny Proxy from.
 - If you want the currently deployed image instead of your local one... `docker pull quay.io/microbiome-informatics/emg-notebooks.dev:latest`
-- `cd shiny-proxy`, `java -jar shinyproxy-2.6.1.jar`
+- `task run-shiny-proxy`
 - Browse to the ShinyProxy URL, likely localhost:8080
+
+#### Apple silicon
+Because the docker image can only be built for linux-64 platforms (due to some missing ARM builds of dependencies), we need to also run ShinyProxy as if it were x86-64.
+
+To do this on an Apple-silicon Mac is a bit fiddly:
+- Install a copy of homebrew via Rosetta: `arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"` (this should not interfere with any existing aarch64 homebrew you already have).
+- Install an x86 emulated copy of java via openjdk: `arch -x86_64 /usr/local/bin/brew install java`
+- Then run ShinyProxy using that: `arch -x86_64 /usr/local/opt/openjdk/bin/java -jar shinyproxy-2.6.1.jar`
+  - In the Taskfile, you'll see that there is an env var `JAVA_EXE` that can be changed from just `java` to `arch -x86_64 /usr/local/opt/openjdk/bin/java`. This is respected by the tasks for running ShinyProxy in dev and test mode, locally.
+  - So, with that env var set, you can just do `task run-shiny-proxy`
 
 ## Jupyter Lab Extension, for deep-linking
 
@@ -218,9 +228,7 @@ You need to have built or pulled the docker/Dockerfile (tagged as `quay.io/micro
 The test suite runs Shiny Proxy, and makes sure Jupyter Lab opens, the deep-linking works, and variable insertion works in R and Python.
 
 ```bash
-cd tests
-npm install
-npm test
+task run-tests
 ```
 
 ## Deployment

@@ -11,7 +11,7 @@ proxy:
     - id: mgnify-notebook-lab
       display-name: EMBL-EBI MGnify | Jupyter Notebook Lab
       description: Examples of accessing MGnify metagenomics data using Python and R notebooks.
-      container-cmd: ["start-notebook.sh", "--ServerApp.token=''", "--ServerApp.base_url=#{proxy.getRuntimeValue('SHINYPROXY_PUBLIC_PATH')}"]
+      container-cmd: ["run-one-constantly", "jupyter", "lab", "--IdentityProvider.token=''", "--IdentityProvider.password=''", "--no-browser", "--ip=0.0.0.0", "--ServerApp.base_url=#{proxy.getRuntimeValue('SHINYPROXY_PUBLIC_PATH')}"]
       container-image: quay.io/microbiome-informatics/emg-notebooks.dev:latest
       container-volumes: [ "/tmp/jupyter/#{proxy.userId}/work:/home/mgnify/work"]
       port: 8888

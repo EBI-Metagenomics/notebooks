@@ -4,6 +4,7 @@ env:
   NB_DOCKER_EXE: "docker"
   NB_DOCKER_FLAGS: "--platform linux/amd64"
   NB_IMAGE: "quay.io/microbiome-informatics/emg-notebooks.dev:latest"
+  JAVA_EXE: "arch -x86_64 /usr/local/opt/openjdk/bin/java"
 
 tasks:
   add-py-notebook:
@@ -113,3 +114,18 @@ tasks:
       It writes a zip of the cache to dependencies/mgnify-cache.tgz
     cmds:
       - $NB_DOCKER_EXE run $NB_DOCKER_FLAGS -it -v $PWD/dependencies:/opt/dependencies -w /opt/dependencies $NB_IMAGE /bin/bash zip-mgnifyr-cache.sh
+
+  run-shiny-proxy:
+    summary: |
+      Run shiny proxy, with the notebooks image running inside similar to deployment on EMBL servers.
+    dir: shiny-proxy
+    cmds:
+      - $JAVA_EXE -jar shinyproxy-2.6.1.jar
+
+  run-tests:
+    summary: |
+      Runs the test suite for shiny-proxy / jupyter-lab integrations.
+    dir: tests
+    cmds:
+      -  npm test
+

@@ -1,12 +1,15 @@
+const javaExe = process.env.JAVA_EXE || 'java';
+const shinyProxyJar = process.env.SHINY_PROXY_JAR || 'shinyproxy-2.6.1.jar'
+
 module.exports = {
   launch: {
-    headless: true,
+    headless: false,
     dumpio: true,
-    product: 'chrome',
+    browser: 'chrome',
   },
   browserContext: 'default',
   server: {
-    command: "cd ../shiny-proxy; java -jar shinyproxy-2.6.1.jar",
+    command: `cd ../shiny-proxy; ${javaExe} -jar ${shinyProxyJar}`,
     port: 8080,
     launchTimeout: 180000,
     debug: true
