@@ -3,7 +3,7 @@ const shinyProxyJar = process.env.SHINY_PROXY_JAR || 'shinyproxy-2.6.1.jar'
 
 module.exports = {
   launch: {
-    headless: false,
+    headless: true,
     dumpio: true,
     browser: 'chrome',
   },
