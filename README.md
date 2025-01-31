@@ -31,7 +31,8 @@ You need [Task](https://taskfile.dev/) installed for handy shortcut commands. If
 To run the Docker containers on **ARM**-based systems, such as [Apple Silicon](https://support.apple.com/en-in/HT211814), follow these steps:
 
 1. Install **_Rosetta_** on your system using the command (for macOS) : `softwareupdate --install-rosetta`
-2. Go to `Docker Desktop` > `Settings` > `Features in development` > `Beta Features` > Check "`Use Rosetta for x86/amd64 emulation on Apple Silicon`"
+2. (If using Docker Desktop): go to `Docker Desktop` > `Settings` > `Features in development` > `Beta Features` > Check "`Use Rosetta for x86/amd64 emulation on Apple Silicon`"
+3. (If using Colima + docker client): Make an X86-based VM e.g. `colima start --arch x86_64 --memory 8 --disk 20 --profile x86` and then `export DOCKER_HOST="unix://$HOME/.colima/x86/docker.sock"`
 
 ## Opening the notebooks (for use or development): use Docker
 
