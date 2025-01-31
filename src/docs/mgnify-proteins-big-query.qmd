@@ -1,0 +1,242 @@
+---
+title: Big Query public dataset
+author: 
+  - name: MGnify
+    url: https://www.ebi.ac.uk/metagenomics
+    affiliation: EMBL-EBI
+    affiliation-url: https://www.ebi.ac.uk
+date: last-modified
+citation: true
+description: Description of the MGnify Proteins BigQuery public dataset
+---
+
+# MGnify Proteins Big Query public dataset
+
+The MGnify Protein Database release 2024_04 is hosted on
+[Google Cloud Public Datasets](https://console.cloud.google.com/marketplace/product/bigquery-public-data/ebi-mgnify),
+and is available to download at no cost under a
+[CC0 1.0 Universal Licence](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
+
+A Google Cloud account is required to use the dataset, but the data can be freely
+used under the terms of the [CC0 1.0 Universal Licence](https://creativecommons.org/publicdomain/zero/1.0/legalcode).
+
+BigQuery provides a serverless and highly scalable analytics tool enabling SQL
+queries over large datasets.
+
+## Creating a Google Cloud Account
+
+Downloading from the Google Cloud Public Datasets requires a Google Cloud account. See the
+[Google Cloud get started](https://cloud.google.com/docs/get-started) page, and
+explore the [free tier account usage limits](https://cloud.google.com/free).
+
+
+::: {.callout-warning}
+### Pricing information
+After the trial period has finished (90 days), to continue access,
+you are required to upgrade to a billing account. While your free tier access
+(including access to the Public Datasets storage bucket) continues, usage beyond
+the free tier will incur costs – please familiarise yourself with the pricing
+for the services that you use to avoid any surprises.
+
+The [free tier](https://cloud.google.com/bigquery/pricing#free-tier) of Google Cloud
+comes with [BigQuery Sandbox](https://cloud.google.com/bigquery/docs/sandbox)
+with 1 TB of free processed query data each month. 
+This should be sufficient for running several queries on the MGnify Protein Database, 
+though the usage depends on the queries.
+Please look at the
+[BigQuery pricing page](https://cloud.google.com/bigquery/pricing) for more
+information.
+**Repeated queries within a
+month could exceed this limit and if you have
+[upgraded to a paid Cloud Billing account](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade)
+you may be charged.**
+
+This is the user's responsibility so please ensure you keep track of your
+billing settings and resource usage in the console.
+:::
+
+1.  Go to
+    [https://cloud.google.com/datasets](https://cloud.google.com/datasets).
+2.  Create an account:
+    1.  Click "get started for free" in the top right corner.
+    2.  Read and agree to the terms of service.
+    3.  Follow the setup instructions. Note that a payment method is required,
+        but this will not be used unless you enable billing.
+    4.  Access to the Google Cloud Public Datasets storage bucket is always at
+        no cost and you will have access to the
+        [free tier.](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits)
+3.  Set up a project:
+    1.  In the top left corner, click the navigation menu (three horizontal bars
+        icon).
+    2.  Select: "Cloud overview" -> "Dashboard".
+    3.  In the top left corner there is a project menu bar (likely says "My
+        First Project"). Select this and a "Select a Project" box will appear.
+    4.  To keep using this project, click "Cancel" at the bottom of the box.
+    5.  To create a new project, click "New Project" at the top of the box:
+        1.  Select a project name.
+        2.  For location, if your organization has a Cloud account then select
+            this, otherwise leave as is.
+
+
+#### Setup
+
+Follow the
+[BigQuery Sandbox set up guide](https://cloud.google.com/bigquery/docs/sandbox).
+
+## Database structure
+
+The dataset in BigQuery has the following schema:
+
+```{mermaid}
+erDiagram
+    ARCHITECTURE ||--o{ PROTEIN : has
+    PROTEIN {
+        string mgyp PK
+        string sequence
+        string sequence_sha256sum
+        string cluster_representative
+        string architecture_hash
+        json   pfam 
+    }
+
+    PROTEIN ||--o{ METADATA : has
+    CONTIG ||--o{ METADATA : has
+    ASSEMBLY ||--o{ METADATA : has
+    GENE_CALLER ||--o{ METADATA : has
+    METADATA {
+        string mgyp FK
+        string mgyc FK
+        int    assembly_id FK
+        int    gene_caller_id FK
+        int    start_position
+        int    end_position
+        int    strand
+        bool   complete
+        string truncation
+    }
+
+    STUDY ||--o{ ASSEMBLY : belongs
+    BIOME ||--o{ ASSEMBLY : has
+    ASSEMBLY {
+        int    assembly_id PK
+        string accession
+        int    study_id FK
+        int    biome_id FK
+        string    pipeline_version
+    }
+
+    STUDY {
+        int    study_id  PK
+        string accession
+    }
+
+    ASSEMBLY ||--|{ CONTIG : belongs
+    CONTIG {
+        string mgyc PK
+        string assembly_id FK
+        string contig_name
+        string sequence_hash
+        int    contig_length
+        float  kmer_coverage
+    }
+    BIOME {
+        int    biome_id PK
+        string lineage
+    }
+    ARCHITECTURE {
+        sring  architecture_hash PK
+        string architecture
+    }
+    GENE_CALLER {
+        int    gene_caller_id PK
+        string gene_caller
+        string version
+    }
+```
+
+### Tables
+
+#### Protein
+
+| Column Name              | Mode     | Data type | Description                                                           |
+|--------------------------|----------|-----------|-----------------------------------------------------------------------|
+| `mgyp`                   | REQUIRED | STRING    | The MGnify Protein accession                                          |
+| `sequence`               |          | STRING    | The protein amino acid sequence                                       |
+| `sequence_sha256sum`     |          | STRING    | SHA-256 checksum of the amino acid sequence                           |
+| `cluster_representative` |          | STRING    | The accession of the protein cluster representative. For cluster representatives, this value is equal to the MGYP. |
+| `pfam`                   |          | JSON      | Pfam domains annotations for the protein                              |
+| `architecture_hash`      |          | STRING    |                                                                       |
+
+#### Study
+
+| Column Name | Mode     | Data type | Description                     |
+|-------------|----------|-----------|---------------------------------|
+| `study_id`  | REQUIRED | INTEGER   |                                 |
+| `accession` | REQUIRED | STRING    | The ENA study accession         |
+
+#### Metadata
+
+| Column Name       | Mode     | Data type | Description                                                           |
+|-------------------|----------|-----------|-----------------------------------------------------------------------|
+| `mgyp`            | REQUIRED | STRING    | Protein MGYP accession                                                |
+| `mgyc`            | REQUIRED | STRING    | Contig MGYC accession                                                 |
+| `assembly_id`     | REQUIRED | INTEGER   | Assembly ID                                                           |
+| `gene_caller_id`  | REQUIRED | INTEGER   | Gene Caller ID                                                        |
+| `start_position`  |          | INTEGER   | Start position coordinate of the protein in the contig                |
+| `end_position`    |          | INTEGER   | End position coordinate of the protein in the contig                  |
+| `strand`          |          | INTEGER   | Strand of the protein on the contig: 1 for positive-strand, -1 for negative-strand. |
+| `complete`        |          | BOOLEAN   | True if the protein is full-length; false if it is a fragment.        |
+| `truncation       |          | STRING    | Prodigal truncation notation: 00 full, 01 10 11 fragments.            |
+
+#### Gene caller
+
+| Column Name      | Mode     | Data type | Description                          |
+|------------------|----------|-----------|--------------------------------------|
+| `gene_caller_id` | REQUIRED | INTEGER   | Gene caller ID                       |
+| `gene_caller`    |          | STRING    | The gene caller software name        |
+| `version`        |          | STRING    | Software version                     |
+
+#### Contig
+
+| Column Name       | Mode     | Data type | Description                                                           |
+|-------------------|----------|-----------|-----------------------------------------------------------------------|
+| `mgyc`            | REQUIRED | STRING    | The contig MGYC accession                                             |
+| `assembly_id`     | REQUIRED | INTEGER   | Assembly ID                                                           |
+| `contig_name`     |          | STRING    | The contig name in the assembly files                                 |
+| `sequence_hash`   |          | STRING    | SHA-256 checksum of the nucleotide sequence of the contig             |
+| `contig_length`   |          | INTEGER   | Length of the contig in base pairs (bp)                               |
+| `kmer_coverage`   |          | FLOAT     | k-mer coverage as reported by the assembler                           |
+
+#### Biome
+
+| Column Name       | Mode     | Data type | Description                                                           |
+|-------------------|----------|-----------|-----------------------------------------------------------------------|
+| `biome_id`        | REQUIRED | INTEGER   | Biome ID                                                              |
+| `lineage`         |          | STRING    | Biome lineage encoded by separating the hierarchy with colons (:). The biomes are based on the GOLD classification |
+
+#### Assembly
+
+| Column Name       | Mode     | Data type | Description                                                           |
+|-------------------|----------|-----------|-----------------------------------------------------------------------|
+| `assembly_id`     |          | INTEGER   | Assembly ID                                                           |
+| `accession`       | REQUIRED | STRING    | The ENA assembly accession                                            |
+| `study_id`        |          | INTEGER   | Study ID                                                              |
+| `biome_id`        |          | INTEGER   | Biome ID                                                              |
+| `pipeline_version`|          | STRING    | The version of the MGnify pipeline used to call the proteins in this assembly |
+
+#### Architecture
+
+| Column Name         | Mode     | Data type | Description                                 |
+|---------------------|----------|-----------|---------------------------------------------|
+| `architecture_hash` | REQUIRED | STRING    | SHA-256 checksum of the architecture string |
+| `architecture`      | REQUIRED | STRING    | The Pfam architecture string                |
+
+
+## Licence
+
+Data is available for academic and commercial use, under a
+[CC0 1.0 Universal Licence](http://creativecommons.org/licenses/by/4.0/legalcode).
+
+If you make use of the MGnify Protein Database, please cite the following papers:
+
+*   [Richardson, L., Allen, B., Baldi, G., Beracochea, M., Bileschi, M. L., Burdett, T., Burgin, J., Caballero-Pérez, J., Cochrane, G., Colwell, L. J., Curtis, T., Escobar-Zepeda, A., Gurbich, T. A., Kale, V., Korobeynikov, A., Raj, S., Rogers, A. B., Sakharova, E., Sanchez, S., Wilkinson, D. J., Finn, R. D. MGnify: the microbiome sequence data analysis resource in 2023. *Nucleic Acids Research* (2023).](https://doi.org/10.1093/nar/gkac1080)

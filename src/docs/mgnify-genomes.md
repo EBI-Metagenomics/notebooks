@@ -1,5 +1,5 @@
 ---
-title: MGnify genomes
+title: MGnify Genomes
 author: 
   - name: MGnify
     url: https://www.ebi.ac.uk/metagenomics

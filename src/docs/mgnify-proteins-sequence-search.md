@@ -7,13 +7,12 @@ author:
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: Guide to using MGnify's peptide sequence search service
-order: 9
+description: Guide to using MGnify's Protein Database sequence search service
 ---
 
 ## Landing page
 
-The sequence search (accessed by following the ‘Sequence search’ link from menu bar)
+The sequence search (accessed by following the ‘Sequence search’ link from the MGnify web page menu bar)
 provides a search against a catalogue of predicted peptides.
 
 ![The landing page of the sequence search tool](images/sequence_search/sequence_search_landing-v5.png){#fig-sequence-search-landing}
