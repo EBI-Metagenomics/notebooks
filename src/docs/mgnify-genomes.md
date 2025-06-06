@@ -186,3 +186,5 @@ The ‘Downloads’ tab comprises summary files for all described analyses.
 ![An overview for a species representative MAG, with a pan-genome analysis.](images/genomes/genomes-overview.png){#fig-genome-overview}
 
 A set of assemblies, annotations, [pan-genome](glossary.md#pan-genome) results and protein catalogues are available in our [FTP server](http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/).
+Note that the GFF (`.gff.gz`) file for each cluster member genome on the FTP site includes both annotations in GFF tabular form, as well as the FASTA sequence of the genome at the end.
+The FASTA sequence can be obtained from the GFF file, for example with common unix tools: `gunzip -c MGYG000290000.gff.gz | awk '/##FASTA/ {found=1; next} found' > MGYG000290000.fna`
