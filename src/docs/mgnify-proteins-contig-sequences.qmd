@@ -7,12 +7,12 @@ author:
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: A guide to using retrieving contig sequences for MGnify proteins (MGYPs)
+description: A guide to retrieving contig sequences for MGnify proteins (MGYPs)
 ---
 
 ## MGnify proteins and the contigs they originate from
 
-The proteins of the MGnify Protein Database are originally called from assembled contigs. There are multiple reasons to pair up a protein of interest with the genomic neighbourhood it's transcribed in, such as the use of its encoding nucleotide sequence for protein expression experiments, or for investigating the potential existence of operons. This guide will describe the different avenues for retrieving the contig sequences for MGnify proteins.
+The proteins of the MGnify Protein Database are originally called from assembled contigs. There are multiple reasons to pair up a protein of interest with the genomic neighbourhood it's transcribed in, such as the use of its encoding nucleotide sequence for protein expression experiments, or for investigating the potential existence of operons. This guide describes the different avenues for retrieving the contig sequences for MGnify proteins.
 
 ::: {.callout-warning}
 The current process for retrieving contig sequences for MGYPs is not ideal due to missing links between our different data models. We are currently exploring new methods to simplify this process in the near future.
