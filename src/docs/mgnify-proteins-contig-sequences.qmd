@@ -67,7 +67,17 @@ For the example we've been working with so far, the query would look like this:
 curl -s 'https://www.ebi.ac.uk/metagenomics/api/v1/analyses/MGYA00237890/contigs/ENA-OSOD01046483-OSOD01046483.1-marine-metagenome-genome-assembly--contig:-NODE-46483-length-2198-cov-1.824140'
 ```
 
-Unfortunately, this analysis is not from a v5.0 pipeline run, so a contig will not be found with this method. If it were, the output of the previous command would be something like this:
+Unfortunately, this analysis is not from a v5.0 pipeline run, so a contig will not be found with this method. Here is working example:
+```{bash}
+# MGYP: 'MGYP005806982657'
+# Contig name: 'ERZ2641806.86530-NODE-86530-length-1467-cov-4.165722'
+# MGYA: 'MGYA00606085'
+
+# Run the following `curl` command:
+curl -s 'https://www.ebi.ac.uk/metagenomics/api/v1/analyses/MGYA00606085/contigs/ERZ2641806.86530-NODE-86530-length-1467-cov-4.165722'
+```
+
+Which gives the following output:
 
 >\>ERZ2641806.86530-NODE-86530-length-1467-cov-4.165722
 >GGTTGCAGGCACTCAGCATATCATCGTTATTATAAATAAAGTTAGACAGATTTA....
