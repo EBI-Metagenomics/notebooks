@@ -27,8 +27,8 @@ The way to extract the contig sequence for an MGYP depends on the version of the
 
 For both methods, two pieces of information are necessary:
 
-- The MGYA accession from the analysis of the assembly that the MGYP originates from.
-- The specific contig name the MGYP is located on.
+- The MGYA accession of a MGnify Analysis for the assembly that the MGYP originates from.
+- The name of one of the specific contigs the MGYP is located on.
 
 With both of these, the specific contig sequence of interest can be extracted from its respective assembly.
 
@@ -43,10 +43,10 @@ If you used the [MGnify Sequence Search](/src/docs/mgnify-proteins-sequence-sear
 Scrolling down the page to the `Studies - Assemblies - Contigs` section, you can find two useful pieces of information. 
 ![Assemblies where the Protein was Found](images/proteins/mgnify-proteins-detail-assemblies.png)
 
-First, clicking on the Assembly (in this case `ERZ534239`) will take you to a page describing the assembly, including the analyses that were performed on it in the `Associated analyses` section; this is how you can retrieve the MGYA accession (in this case `MGYA00237890`). That's the first piece of information we need to get the contig sequence.
+First, clicking on the Assembly (in this case `ERZ534239`) will take you to a page describing the assembly, including the analyses that were performed on it in the `Associated analyses` section; this is how you can retrieve an MGYA accession (in this case `MGYA00237890`). That's the first piece of information we need to get the contig sequence.
 ![Associated analyses for an assembly](images/proteins/mgnify-proteins-associated-analyses.png)
 
-From the `Studies - Assemblies - Contigs` section, you can also take note of the contig accession (in this case `MGYC000564781877`), as we can use it to retrieve the contig name. The next step entails downloading the different `mgy_contig_map_$.tsv.gz` files from the [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/). These files contain two columns; the first column contains the MGYC for a contig, and the second the contig name. It might be necessary to search all the contig map files to find the specific MGYC you want to look for. Running this `zgrep` command in the directory that you downloaded the contig map files to performs a search in all the files - there should only be one match.
+From the `Studies - Assemblies - Contigs` section, you can also take note of the first contig accession (in this case `MGYC000564781877`), as we can use it to retrieve a contig name. The next step entails downloading the different `mgy_contig_map_$.tsv.gz` files from the [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/). These files contain two columns; the first column contains the MGYC for a contig, and the second the contig name. It might be necessary to search all the contig map files to find the specific MGYC you want to look for. Running this `zgrep` command in the directory that you downloaded the contig map files to performs a search in all the files - there should only be one match.
 
 ```{bash}
 zgrep 'MGYC000564781877' mgy_contig_map_*.tsv.gz
@@ -74,7 +74,7 @@ Unfortunately, this analysis is not from a v5.0 pipeline run, so a contig will n
 
 #### Downloading the processed contigs file and extracting the sequence
 
-The processed contigs file that should be downloaded is located in the download section of the MGYA analysis page that we could open earlier in the Associated analyses section of the assembly, which for our example is [here](https://www.ebi.ac.uk/metagenomics/analyses/MGYA00237890#download). You can then download the `Processed contigs` FASTA file by pressing the `Download` button.
+The processed contigs file you need to download is located in the download section of the MGYA analysis page that we could open earlier in the Associated analyses section of the assembly, which for our example is [here](https://www.ebi.ac.uk/metagenomics/analyses/MGYA00237890#download). You can then download the `Processed contigs` FASTA file by pressing the `Download` button.
 
 Once you have the file (which in this case is called `ERZ534239_FASTA.fasta.gz`), you can run the following `zgrep` command to retrieve the specific contig sequence of interest:
 
