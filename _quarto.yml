@@ -57,6 +57,7 @@ website:
                 - src/docs/mgnify-proteins-web.md
                 - src/docs/mgnify-proteins-sequence-search.md
                 - src/docs/mgnify-proteins-big-query.qmd
+                - src/docs/mgnify-proteins-contig-sequences.qmd
             - href: src/docs/faqs.md
             - href: src/docs/glossary.md
             - href: src/notebooks_list.qmd
