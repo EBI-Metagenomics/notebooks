@@ -1,0 +1,294 @@
+---
+title: Remote querying of MGnify Proteins using Parquet and DuckDB
+author: 
+  - name: MGnify
+    url: https://www.ebi.ac.uk/metagenomics
+    affiliation: EMBL-EBI
+    affiliation-url: https://www.ebi.ac.uk
+date: last-modified
+citation: true
+description: Description of the MGnify Proteins and related services
+format:
+  html:
+    include-in-header:
+      text: |
+        <style>
+        table {
+          display: block;
+          overflow-x: auto;
+          white-space: nowrap;
+        }
+        </style>
+---
+
+# The shift to Parquet
+
+As of the 2026_05 release, we have started shifting towards the use of files in the Apache Parquet format for the distribution of MGnify Proteins sequence data and metadata. There are numerous advantages to this shift:
+
+- Columnar data access: As Parquet is a columnar data format, certain query structures that are commonly used to search MGnify Proteins metadata become significantly faster, as only columns of interest need to be searched. Columnar data similarly allows for partial reading of remote files.
+- Native schemas: Parquet stores metadata about each column within a file - including data types - much like a relational database. These schemas allows for a more explicit data structure, more robust data validation, and more efficient queries e.g. querying based on integer identifiers in a Parquet file vs flat-files without a schema like .tsv, the possibility of applying Bloom filters, etc. 
+- Native compression: Parquet is a naturally compressed file format, with data types allowing for more efficient storing of this data.
+- **Partial reading: Using tools like DuckDB that support partial reading on Parquet files, it is possible make remote queries without downloading the entire source file, unlike with regular flat file formats like .tsv.**
+
+Partial reading makes MGnify Proteins more accessible to users who are unable to download the increasingly massive flat files, as it is now possible to make your query over HTTPS directly by using the relevant Parquet file. In this documentation, we will go through example queries of how you can remotely query MGnify Proteins using DuckDB.
+
+## General guidelines
+
+In the regular MGnify Proteins flat files, identifiers usually start with a prefix that changes depending on the data at hand, e.g. `MGYP` for proteins, `MGYC` for contigs. In parquet however, these prefixes have been stripped to convert their data types to numeric. This change allows for faster queries and more optimised storage.
+
+Also, while Parquet allows for significant optimisations in query speeds, certain queries are likely to still be slow without the use of significant computational resources, as a full-file scan could still be required for the columns of interest. Example queries could be:
+
+- Sorting queries - we have done our best to preemptively sort the parquet files using numeric identifers where sensible to speed up potentially common queries.
+- Distinct queries - similar to sorting queries, if you need to remove duplicates from results, it could get computationally expensive depending on the size of the initial result.
+- Summary statistic queries - calculating means/medians/etc of numeric values will require a pass of the entire data, and could end up being slow.
+- Large table joins - Parquet files can be utilised in similar ways to tables and joined in queries. Depending on the complexity of the join, such queries could get computationally expensive very easily.
+
+## Parquet files available
+
+As part of the 2026_05 release, we distribute six Parquet files.
+
+### mgy_proteins_metadata.parquet
+
+All metadata related to proteins, assemblies, contigs, etc, for the entire protein database, in one Parquet file.
+
+#### Column descriptions:
+- **occurrence_id**: Identifier for a protein occurrence, which is a function of protein_id and contig_id i.e. it's an occurrence of a protein sequence on a specific contig
+- **study_id**: Identifier for an ENA study, which corresponds to a study_accession
+- **assembly_id**: Identifier for an ENA assembly, which corresponds to an assembly_accession
+- **contig_id**: Identifier for a contig within an assembly, which corresponds to a contig_name. In flat files, contig_ids are preceded by the prefix MGYC, e.g `MGYC000120576919` has the contig_id `120576919`
+- **protein_id**: Identifier for a non-redundant protein sequence, which corresponds to a protein_sequence_sha256sum, and which appears in one or more contigs (and therefore assemblies). In flat files, protein_ids are preceded by the prefix MGYC, e.g `MGYP000004750550` has the protein_id `4750550`
+- **study_accession**: ENA accession for a study
+- **assembly_accession**: ENA accession for an assembly
+- **pipeline_version**: The MGnify analysis pipeline version that ran the combined gene caller to predict proteins. **Current versions are 4.1 and 5.0.**
+- **lineage**: The biome for the protein occurrence
+- **contig_name**: The name for a specific contig in a specific assembly i.e. the header the contig had in the fasta file for the assembly
+- **contig_sequence_sha256sum**: The sha256sum for the contig sequence
+- **contig_length**: The length of the contig
+- **kmer_coverage**: The metaSPADES kmer_coverage - will be null for non-metaspades-assembled data.
+- **protein_sequence_sha256sum**: The sha256sum for the protein sequence
+- **truncation**: The partial truncation value from Prodigal i.e. 00 is a full-length sequence, everything else is partial. Will be null for FragGeneScan data
+- **start_position**: The start position of the called gene/protein on the contig
+- **end_position**: The end position of the called gene/protein on the contig
+- **strand**: The strand of the called gene/protein on the contig i.e. 1 is the forward orientation, -1 is the reverse orientation
+- **gene_caller_id**: Identifier for the gene_caller that was used for the called gene/protein i.e. 1 is Prodigal (v2.6.3), 2 is FragGeneScan (v1.31), and 3 is FragGeneScan (v1.20)
+- **cluster_rep**: The cluster representative for a protein
+- **is_cluster_rep**: A boolean for whether a protein is a cluster representative or not
+
+| occurrence_id | study_id | assembly_id | contig_id  | protein_id | study_accession | assembly_accession | pipeline_version |                              lineage                              |                                                   contig_name                                                    |                    contig_sequence_sha256sum                     | contig_length | kmer_coverage |                    protein_sequence_sha256sum                    | truncation | start_position | end_position | strand | gene_caller_id | cluster_rep | is_cluster_rep |
+|--------------:|---------:|------------:|-----------:|-----------:|-----------------|--------------------|-----------------:|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|--------------:|--------------:|------------------------------------------------------------------|------------|---------------:|-------------:|-------:|---------------:|------------:|----------------|
+| 6966728250    | 1916     | 68124       | 4225793659 | 5363       | ERP146353       | ERZ24775148        | 5.0              | root:Host-associated:Human:Digestive system:Large intestine:Fecal | ERZ27249607.747904-NODE-747904-length-578-cov-1.994264                                                           | 80e6278fa1cc6705f946cf8200720950894b690b87d9c12bc077088ceca5ffe8 | 578           | 1.994264      | 00690b597935ab73b9c843f52b3c27f1afc521452586825f8285810977af6c17 | 00         | 24468          | 25016        | 1      | 1              | 3381439768  | false          |
+| 7330778790    | 2077     | 54996       | 2021479244 | 5363       | ERP133351       | ERZ12302769        | 5.0              | root:Host-associated:Human:Digestive system                       | ERZ17085440.214625-NODE-649280-length-1024-cov-4.0000                                                            | 87a5da251471580fe36a56a25c4c458899123924d337f59f6bf275117e8fd418 | 1024          | 4.0           | 00690b597935ab73b9c843f52b3c27f1afc521452586825f8285810977af6c17 | 00         | 2811           | 3359         | 1      | 1              | 3381439768  | false          |
+| 1064630497    | 413      | 21969       | 695106590  | 5363       | ERP107929       | ERZ501651          | 4.1              | root:Host-associated:Human:Digestive system:Large intestine:Fecal | ENA-OPJI01000422-OPJI01000422.1-human-gut-metagenome-genome-assembly--contig:-NODE-422-length-16964-cov-5.202082 | 1c2a9fef9fcd7a879a393b14581d61825244860847834d5ec27969c86b78ed9a | 16964         | 5.202082      | 00690b597935ab73b9c843f52b3c27f1afc521452586825f8285810977af6c17 | 00         | 15901          | 16449        | 1      | 1              | 3381439768  | false          |
+| 2578046894    | 361      | 15623       | 1458506248 | 5363       | ERP114377       | ERZ827492          | 4.1              | root:Host-associated:Human:Digestive system:Large intestine:Fecal | ERZ827492.849-NODE-849-length-26756-cov-44.858694                                                                | 762ddf03f2692fcf16377d88fd2b1d4a6066704676fec19ba11e598bf09a5aef | 26756         | 44.858694     | 00690b597935ab73b9c843f52b3c27f1afc521452586825f8285810977af6c17 | 00         | 3026           | 3574         | -1     | 1              | 3381439768  | false          |
+| 2324969413    | 4        | 1116        | 1284878193 | 5363       | ERP123477       | ERZ1504801         | 5.0              | root:Host-associated:Human:Digestive system:Large intestine:Fecal | ERZ1504801.69-NODE-69-length-31528-cov-10.246688                                                                 | a222daa29c87f59f60b3cf48c071f0837b363f3de41a25c421bba6bb8f39fd21 | 31528         | 10.246688     | 00690b597935ab73b9c843f52b3c27f1afc521452586825f8285810977af6c17 | 00         | 23814          | 24362        | 1      | 1              | 3381439768  | false          |
+
+### mgy_protein_sequences.parquet
+
+All non-redundant protein sequences in one Parquet file, including information about whether a sequence is full-length or not.
+
+#### Column descriptions:
+- **protein_id**: Identifier for a non-redundant protein sequence
+- **description**: A flag for whether a status is considered full-length or not i.e. 1 is full-length, 0 is partial
+- **sequence**: The amino acid sequence for the protein
+
+#### Column descriptions:
+
+| protein_id | description |                                                                sequence                                                                |
+|-----------:|-------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| 7699836709 | FL=0        | MPSKFNNLAHAGRGGDVLVHGVHCHDLHQPLLLQKEEPGSQSEIL                                                                                          |
+| 7699854978 | FL=1        | MGNFDIIDSHLHVFDLNVKANFPNQNRSHEFPNQEPIVRNISQEYAKEIANKSGVKKVVFVMCYDDCPEEAQWVYDNAQKTGNGKFVIKNVFLICY                                       |
+| 7699879094 | FL=0        | EGKNLERNSKFLKVSRTLITIFIYHSYEFPSLDFYYRSIVSSIENSTLRVKHKFIVYGHTIFLIPIFHALSLIWDLHVNEQYIYIYTNVPGIIEIIHKLINDAFYFDSCWLILFLMFVQSGITRGIAPNMTWNH |
+| 7700267793 | FL=1        | MTNFIFTNRFGSPHNPAAINRAIKIIVDAHNADEEVAAKKEKREPVIIPKFSCHIFRHTFASRFCENETNIKVIQEVMGHADVSTTMNIYAEVNDEVTKTAIENLAKNMDVF                       |
+| 7700404008 | FL=0        | SYSTSHDERTDEDEIVDGPLNGEGQGFIMELSDTERGCIGTYYRVVTYYDRRESADDLKECWWFDDYQQGRL                                                               |
+
+### mgy_cluster_seqs.parquet
+
+A list of cluster representatives with their cluster member sequences.
+
+#### Column descriptions:
+- **cluster_rep_accession**: The MGYP accession for the cluster representative
+- **member_accessions**: MGYP accessions for cluster member sequences, separated by ";"
+
+
+| cluster_rep |                                   cluster_members                                    |
+|------------:|--------------------------------------------------------------------------------------|
+| 12          | MGYP000000000012                                                                     |
+| 32          | MGYP000000000032                                                                     |
+| 40          | MGYP000000000040                                                                     |
+| 49          | MGYP000000000049                                                                     |
+| 277         | MGYP000954756431;MGYP001079143076;MGYP008285086696;MGYP001039380867;MGYP000000000277 |
+
+### mgy_clusters.parquet
+
+Statistics and biome information for clusters.
+
+#### Column descriptions:
+- **cluster_rep_accession**: The MGYP accession for the cluster representative
+- **cluster_size**: The number of sequences in the cluster
+- **assembly_count**: The number of assemblies contributing to the cluster
+- **cluster_rep_biomes**: A non-redundant list of biomes for the cluster representative
+- **cluster_biomes**: A non-redundant list of biomes across the whole cluster
+
+| cluster_rep | cluster_size | cluster_assembly_count |                        cluster_rep_biomes                         |                                     cluster_members_biomes                                      |
+|------------:|-------------:|-----------------------:|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| 166         | 1            | 2                      | root:Host-associated:Human:Digestive system:Oral:Saliva           | root:Host-associated:Human:Digestive system:Oral:Saliva                                         |
+| 353         | 3            | 15                     | root:Host-associated:Human:Digestive system:Large intestine:Fecal | root:Host-associated:Human:Digestive system:Large intestine:Fecal                               |
+| 354         | 1            | 2                      | root:Host-associated:Human:Digestive system:Large intestine:Fecal | root:Host-associated:Human:Digestive system:Large intestine:Fecal                               |
+| 491         | 2            | 2                      | root:Host-associated:Mammals:Digestive system:Fecal               | root:Host-associated:Human:Digestive system;root:Host-associated:Mammals:Digestive system:Fecal |
+| 528         | 1            | 2                      | root:Host-associated:Human:Digestive system:Large intestine:Fecal | root:Host-associated:Human:Digestive system:Large intestine:Fecal                               |
+
+### mgy_biomes.parquet
+
+Biomes associated with each sequence. Sequences identified in multiple biomes will have multiple rows (one per biome) in the table.
+
+#### Column descriptions:
+- **protein_id**: Identifier for a non-redundant protein sequence
+- **lineage_count**: The number of times a particular protein has appeared in a particular lineage
+- **lineage**: The biome for the protein
+
+| protein_id | lineage_count |                              lineage                              |
+|-----------:|--------------:|-------------------------------------------------------------------|
+| 1          | 2             | root:Engineered:Bioreactor                                        |
+| 1          | 13            | root:Host-associated:Human:Digestive system:Large intestine       |
+| 1          | 187           | root:Host-associated:Human:Digestive system:Large intestine:Fecal |
+| 2          | 1             | root:Host-associated:Human:Digestive system:Large intestine:Fecal |
+| 3          | 1             | root:Host-associated:Human:Digestive system                       |
+
+
+### mgy_proteins_pfam.parquet
+
+Pfam annotations generated by HMMER for all MGYPs that result in an annotation.
+
+
+#### Column descriptions:
+- **protein_id**: Identifier for a non-redundant protein sequence
+- **pfam_accession**: The matched Pfam-A accession 
+- **i_evalue**: The independent e-value for the match
+- **score**: The bitscore for the match
+- **hmm_from**: The start of the match with respect to the HMM for the Pfam hit
+- **hmm_to**: The end of the match with respect to the HMM for the Pfam hit
+- **env_from**: The start of the match with respect to the envelope for the Pfam hit
+- **env_to**: The start of the match with respect to the envelope for the Pfam hit
+
+::: {style="overflow-x: auto;"}
+| protein_id | pfam_accession |        i_evalue        |       score        | hmm_from | hmm_to | env_from | env_to |
+|-----------:|----------------|-----------------------:|-------------------:|---------:|-------:|---------:|-------:|
+| 1          | PF02566        | 5.812243921018791e-19  | 76.21484375        | 2        | 100    | 29       | 128    |
+| 5          | PF08956        | 1.0264838383714224e-30 | 113.23670196533203 | 2        | 59     | 2        | 60     |
+| 6          | PF07733        | 1.880480774071856e-10  | 48.71669006347656  | 198      | 260    | 1025     | 1102   |
+| 6          | PF07733        | 1.0008882501161678e-40 | 147.94119262695312 | 3        | 152    | 832      | 1038   |
+| 6          | PF17657        | 2.12528020408448e-25   | 96.80313110351562  | 1        | 147    | 1105     | 1256   |
+:::
+
+## Example DuckDB queries
+
+We use DuckDB for querying the Parquet files in the examples of this section, as it is fast, simple to use, and has APIs for popular languages like Python. However, there are likely other methods that can be used to interact with Parquet files. Please see the DuckDB [website](https://duckdb.org/) and [documentation](https://duckdb.org/docs/current/) for more information about how to install and use DuckDB.
+
+For your consideration of the runtimes of each query, all examples were run on a MacBook Pro 2023 with an Apple M2 Pro chip and 16GB of RAM.
+
+::: {.callout-warning}
+When querying the MGnify Proteins Parquet files remotely, the speed will be heavily impacted by the network and HTTPS, especially for results made up of thousands of rows. To truly take advantage of the Parquet files, we highly recommend downloading them either locally, or to a webserver that allows you to query them without being impeded by network issues.
+:::
+
+### Remote URL
+
+The examples use a common URL to access the EMBL-EBI FTP that hosts the MGnify Proteins parquet files. This URL is: `https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_05`. 
+
+### Get MGYP sequences
+
+#### One MGYP
+If you have a particular MGYP accession, let's say `MGYP000000000001`, and you want its amino acid sequence, you can do so with the following query:
+
+```sql
+SELECT *
+FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_05/plp_test_data/mgy_protein_sequences.parquet'
+WHERE protein_id == 1;
+```
+Output:
+
+| protein_id | description |                                                                sequence                                                                |
+|-----------:|-------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| 1          | FL=1        | MQARVKWVEGLTFIGESASGHQILMDGNSGDKAPSPMEMVLMAAGGCSAIDVVSILQKGRHEVTNCEVKLTSERREEAPRLFTHINLHFIVTGKALKDAAVSRAVDLSAEKYCSVALMLEKAVKITHSYEVIEA |
+
+Runtime in seconds: `real 8.144 user 2.436449 sys 0.623422`
+
+#### Multiple MGYPs
+```sql
+SELECT * 
+FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_05/mgy_protein_sequences.parquet'
+WHERE protein_id IN (1,2,3);
+```
+
+Output:
+
+| protein_id | description |                                                                                                            sequence                                                                                                            |
+|-----------:|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1          | FL=1        | MQARVKWVEGLTFIGESASGHQILMDGNSGDKAPSPMEMVLMAAGGCSAIDVVSILQKGRHEVTNCEVKLTSERREEAPRLFTHINLHFIVTGKALKDAAVSRAVDLSAEKYCSVALMLEKAVKITHSYEVIEA                                                                                         |
+| 2          | FL=0        | MNSLKMIELSLTDVVIRMALAVVFGALIGLERSIKRKGFGISSNAILCLASCTISILQIQSVDILVDVVKQNSALASIISMDITRYGAQVISGVGFLGAGIIVFRERKVSGLTTAVMMWNVTIIGLVIGMGFLT                                                                                         |
+| 3          | FL=1        | MKKVVLTIALFSTFVISAKATTVYAEIADDTHGTSIAKVGLEKQDETDEPTDPIDPPDVPGTYIPTGNTGALRIDYISNIDFGTQKIASETKNYTAGNSDEFVETQISDLRGNGAGWNLQVSYDSEKAGFYTENGVALAGAELSLPAGTAKTVTENQSPAAETATVTVNKDAQNIMFAAATTGLGTWEDQMSAEAVSLKVPSGNLAGTYSATLVWTLTDAPT |
+
+Runtime in seconds: `Run Time (s): real 8.678 user 2.534470 sys 0.641432`
+
+### Get an assembly's proteins
+
+If you have an ENA assembly accession, like `ERZ23872034`, you can find all of its MGYPs like this:
+
+```sql
+SELECT protein_id
+FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_05/plp_test_data/mgy_proteins_metadata.parquet'
+WHERE assembly_accession=='ERZ23872034'
+LIMIT 500; -- This will limit to 500 results, remove if you want all results
+```
+
+Output:
+
+| protein_id |
+|-----------:|
+| 1          |
+| 17         |
+| 19         |
+| 24         |
+| 33         |
+| 53         |
+| 61         |
+| 64         |
+| 80         |
+| 86         |
+| 100        |
+| 105        |
+
+Runtimein seconds : `Run Time (s): real 17.608 user 1.659013 sys 1.293125`
+
+### Get all biomes and biome counts for a protein
+
+If you want to get all the biomes `MGYP000000000001` is in,  along with how often it appears in each biome, you can do so with the following query:
+
+```sql
+SELECT *
+FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_05/mgy_biomes.parquet'
+WHERE protein_id == 1;
+```
+
+Output:
+
+| protein_id | lineage_count |                              lineage                              |
+|-----------:|--------------:|-------------------------------------------------------------------|
+| 1          | 2             | root:Engineered:Bioreactor                                        |
+| 1          | 5             | root:Engineered:Bioremediation:Terephthalate:Wastewater           |
+| 1          | 6             | root:Engineered:Built environment                                 |
+| 1          | 6             | root:Engineered:Wastewater                                        |
+| 1          | 6             | root:Host-associated:Fish:Digestive system                        |
+| 1          | 53            | root:Host-associated:Human:Digestive system                       |
+| 1          | 3             | root:Host-associated:Human:Digestive system:Hindgut:Rectum        |
+| 1          | 13            | root:Host-associated:Human:Digestive system:Large intestine       |
+| 1          | 187           | root:Host-associated:Human:Digestive system:Large intestine:Fecal |
+| 1          | 7             | root:Host-associated:Human:Digestive system:Oral                  |
+| 1          | 3             | root:Host-associated:Human:Skin                                   |
+| 1          | 15            | root:Host-associated:Insecta:Digestive system                     |
+| 1          | 2             | root:Host-associated:Mammals:Digestive system:Fecal               |
+| 1          | 1             | root:Host-associated:Mammals:Gastrointestinal tract:Intestine     |
+| 1          | 1             | root:Host-associated:Plants:Phylloplane                           |
+| 1          | 6             | root:Mixed                                                        |
+
+Runtime in seconds: `Run Time (s): real 1.349 user 2.633575 sys 0.282383`
+
