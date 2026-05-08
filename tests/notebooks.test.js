@@ -4,20 +4,21 @@ describe('Shiny Proxy launcher', () => {
     await page.goto('http://127.0.0.1:8080')
   })
 
-  it('should display mgnify app', async () => {
-    await expect(page).toMatchTextContent('EMBL-EBI MGnify | Jupyter Notebook Lab')
+  it('should display mgnify apps', async () => {
+    await expect(page).toMatchTextContent('EMBL-EBI MGnify | Python Notebook Lab')
+    await expect(page).toMatchTextContent('EMBL-EBI MGnify | R Notebook Lab')
     await page.screenshot({ path: 'shiny_proxy_launched.png' })
   })
 })
 
-describe('Jupyter Lab launcher', () => {
+describe('Python Jupyter Lab launcher', () => {
   jest.setTimeout(30000)
   jest.retryTimes(3, {logErrorsBeforeRetry: true})
 
   let frame
 
   beforeEach(async () => {
-    await page.goto('http://127.0.0.1:8080/app/mgnify-notebook-lab', {waitUntil: 'networkidle2'})
+    await page.goto('http://127.0.0.1:8080/app/mgnify-python-notebook-lab', {waitUntil: 'networkidle2'})
     await page.screenshot({ path: 'launching_jl.png' })
     const frameHandle = await page.waitForSelector('iframe')
     frame = await frameHandle.contentFrame();
@@ -25,9 +26,26 @@ describe('Jupyter Lab launcher', () => {
     await page.screenshot({ path: 'jl_launched.png' })
   })
 
-  it ('should show python and R in launcher', async () => {
+  it ('should show python in launcher', async () => {
     await expect(frame).toMatchTextContent('Python (mgnify-py-env)')
-    await expect(frame).toMatchTextContent('R file')
+  })
+})
+
+describe('R Jupyter Lab launcher', () => {
+  jest.setTimeout(30000)
+  jest.retryTimes(3, {logErrorsBeforeRetry: true})
+
+  let frame
+
+  beforeEach(async () => {
+    await page.goto('http://127.0.0.1:8080/app/mgnify-r-notebook-lab', {waitUntil: 'networkidle2'})
+    const frameHandle = await page.waitForSelector('iframe')
+    frame = await frameHandle.contentFrame();
+    await frame.waitForSelector('.jp-Launcher')
+  })
+
+  it ('should show R in launcher', async () => {
+    await expect(frame).toMatchTextContent('R (mgnify-r-env)')
   })
 })
 
@@ -38,7 +56,7 @@ describe('Deep-linking to a notebook', () => {
   let frame
 
   beforeAll(async () => {
-    await page.goto('http://127.0.0.1:8080/app/mgnify-notebook-lab?jlpath=mgnify-examples/home.ipynb', {waitUntil: 'networkidle2'})
+    await page.goto('http://127.0.0.1:8080/app/mgnify-python-notebook-lab?jlpath=mgnify-examples/home.ipynb', {waitUntil: 'networkidle2'})
     const frameHandle = await page.waitForSelector('iframe')
     frame = await frameHandle.contentFrame();
     await frame.waitForSelector('#main')
@@ -57,7 +75,7 @@ describe('Environment variable insertion', () => {
   let frame
 
   beforeEach(async () => {
-    await page.goto('http://127.0.0.1:8080/app/mgnify-notebook-lab?jlvar_TEST=TESTYMCTESTERSON', {waitUntil: 'networkidle2'})
+    await page.goto('http://127.0.0.1:8080/app/mgnify-python-notebook-lab?jlvar_TEST=TESTYMCTESTERSON', {waitUntil: 'networkidle2'})
     const frameHandle = await page.waitForSelector('iframe')
     frame = await frameHandle.contentFrame();
     await frame.waitForSelector('.jp-Launcher')
@@ -87,6 +105,22 @@ describe('Environment variable insertion', () => {
     await expect(frame).toMatchTextContent('TESTYMCTESTERSON')
 
   })
+})
+
+describe('R environment variable insertion', () => {
+  jest.setTimeout(20000)
+  jest.retryTimes(3, {logErrorsBeforeRetry: true})
+  
+  let frame
+
+  beforeEach(async () => {
+    await page.goto('http://127.0.0.1:8080/app/mgnify-r-notebook-lab?jlvar_TEST=TESTYMCTESTERSON', {waitUntil: 'networkidle2'})
+    const frameHandle = await page.waitForSelector('iframe')
+    frame = await frameHandle.contentFrame();
+    await frame.waitForSelector('.jp-Launcher')
+    const simpleModeSwitch = await frame.waitForSelector('button.jp-switch')
+    await simpleModeSwitch.evaluate(b => b.click());
+  })
 
   it ('should have env var available in new R kernel', async () => {
     const launcherOpener = await frame.waitForSelector('button[title^="New Launcher"]')
@@ -111,4 +145,3 @@ describe('Environment variable insertion', () => {
   })
 
 })
-
