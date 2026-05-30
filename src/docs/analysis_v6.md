@@ -64,7 +64,7 @@ The v6 amplicon analysis pipeline includes the following key features:
 - rRNA Sequence Categorisation: Uses Infernal/cmsearch and Rfam models to identify [SSU, LSU](glossary.md#lsu-ssu), and [ITS](glossary.md#its) sequences
 - Automatic Amplified Region Inference: Automatically identifies amplified regions for 16S and 18S rRNA using PIMENTO
 - Automatic Primer Identification and Trimming: Uses cutadapt for primer handling, with validation via Infernal
-- ASV Calling: Identifies Amplicon Sequence Variants (ASVs) using DADA2 for supported amplicons
+- ASV Calling: Calls Amplicon Sequence Variants (ASVs) using DADA2 for supported amplicons
 - Taxonomic Classification: Produces closed-reference and ASV taxonomy assignments using MAPseq and Krona visualisation
 - Reference Databases: Uses SILVA, PR2, UNITE, ITSoneDB, and Rfam
 
