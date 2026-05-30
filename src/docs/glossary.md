@@ -21,7 +21,7 @@ Main eukaryotic ribosomal RNA genes used for taxonomic assignments.
 Refers to an environmental sample where a marker gene has been amplified and sequenced. On the MGnify website, we use the term amplicon when the amplified marker gene is a ribosomal RNA gene. Analysis will yield taxonomic information.
 
 ## Amplicon Sequence Variant (ASV)
-An inferred single DNA sequence recovered from high-throughput analysis of marker genes after removing errors introduced during PCR and sequencing. ASVs can distinguish sequence variation down to a single nucleotide and provide finer resolution than sequence clusters such as [OTUs](#otu).
+An inferred unique DNA sequence recovered from high-throughput analysis of marker genes after removing errors introduced during PCR and sequencing. ASVs can distinguish sequence variation down to a single nucleotide and provide finer resolution than sequence clusters such as [OTUs](#otu).
 
 ## Analysis result
 The end result of the [pipeline](#pipeline) analysis of a [run](#run).
