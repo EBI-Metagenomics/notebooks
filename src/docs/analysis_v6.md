@@ -97,7 +97,7 @@ For each analysed [run](glossary.md#run), MGnify displays and provides downloads
 
 - Quality control summaries, including read filtering and primer trimming metrics.
 - Amplified-region and primer-identification summaries for supported 16S and 18S datasets.
-- Closed-reference taxonomic profiles for SILVA-SSU, SILVA-LSU, PR2, UNITE, and ITSoneDB, with interactive Krona visualisations where available.
+- Closed-reference taxonomic profiles for SILVA PR2, UNITE, and ITSoneDB, with interactive Krona visualisations where available.
 - ASV sequences, ASV read-count tables, and ASV taxonomic assignments against SILVA and PR2 when ASV analysis is supported for the inferred amplicon.
 
 Study-level pages aggregate run-level quality-control and primer-validation information where multiple runs are available.
