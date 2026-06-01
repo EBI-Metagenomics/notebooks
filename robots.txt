@@ -1,0 +1,1 @@
+Sitemap: https://docs.mgnify.org/sitemap.xml

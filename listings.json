@@ -1,0 +1,24 @@
+[
+  {
+    "listing": "/src/docs.html",
+    "items": [
+      "/src/docs/about.html",
+      "/src/docs/dataflow.html",
+      "/src/docs/multiomics_submission.html",
+      "/src/docs/analysis.html",
+      "/src/docs/portal.html",
+      "/src/docs/mgnify-genomes.html",
+      "/src/docs/api.html",
+      "/src/docs/notebooks.html",
+      "/src/docs/ftp.html",
+      "/src/docs/faqs.html",
+      "/src/docs/glossary.html",
+      "/src/docs/tutorials.html",
+      "/src/docs/mgnify-proteins-big-query.html",
+      "/src/docs/mgnify-proteins.html",
+      "/src/docs/mgnify-proteins-web.html",
+      "/src/docs/mgnify-proteins-contig-sequences.html",
+      "/src/docs/mgnify-proteins-sequence-search.html"
+    ]
+  }
+]

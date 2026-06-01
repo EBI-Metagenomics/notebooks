@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="MGnify">
+<meta name="dcterms.date" content="2026-06-01">
+<meta name="description" content="Description of the MGnify genomes pipelines and web resource">
+
+<title>MGnify Genomes – MGnify Resources</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../src/docs/mgnify-proteins.html" rel="next">
+<link href="../../src/docs/ftp.html" rel="prev">
+<link href="../../src/static-resources/mgnify_logo.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">MGnify Resources</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.ebi.ac.uk/metagenomics"> 
+<span class="menu-text">Open MGnify</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://status.mgnify.org"> 
+<span class="menu-text">Service status</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../src/docs/mgnify-genomes.html">MGnify Genomes</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+        <div class="sidebar-tools-collapse">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-collapse-item" href="https://github.com/ebi-metagenomics/notebooks">
+            Docs source
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-collapse-item" href="https://github.com/ebi-metagenomics">
+            MGnify repositories
+            </a>
+          </li>
+      </ul>
+    </div>
+    <a href="mailto:metagenomics-help@ebi.ac.uk" title="Help" class="quarto-navigation-tool px-1" aria-label="Help"><i class="bi bi-question-circle-fill"></i></a>
+</div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About MGnify</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data flow</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/dataflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From submission to results</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/multiomics_submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multi-omics dataset submission</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Analyses</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis pipeline v5.0</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Website &amp; API</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/portal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Website and portal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RESTful API</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/ftp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transfer Services (FTP) file server</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-genomes.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">MGnify Genomes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../src/docs/mgnify-proteins.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Proteins</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-web.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sequence search</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-big-query.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Big Query public dataset</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-contig-sequences.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Retrieving contig sequences for MGnify proteins</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/faqs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossary</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#genome-catalogues" id="toc-genome-catalogues" class="nav-link active" data-scroll-target="#genome-catalogues">Genome Catalogues</a></li>
+  <li><a href="#generating-genome-catalogues" id="toc-generating-genome-catalogues" class="nav-link" data-scroll-target="#generating-genome-catalogues">Generating genome catalogues</a>
+  <ul class="collapse">
+  <li><a href="#updating-an-existing-catalogue" id="toc-updating-an-existing-catalogue" class="nav-link" data-scroll-target="#updating-an-existing-catalogue">Updating an existing catalogue</a></li>
+  </ul></li>
+  <li><a href="#searching-across-catalogues" id="toc-searching-across-catalogues" class="nav-link" data-scroll-target="#searching-across-catalogues">Searching across catalogues</a>
+  <ul class="collapse">
+  <li><a href="#by-accession-or-taxonomy" id="toc-by-accession-or-taxonomy" class="nav-link" data-scroll-target="#by-accession-or-taxonomy">By accession or taxonomy</a></li>
+  <li><a href="#by-gene-fragment" id="toc-by-gene-fragment" class="nav-link" data-scroll-target="#by-gene-fragment">By gene fragment</a></li>
+  <li><a href="#by-whole-genome-mag" id="toc-by-whole-genome-mag" class="nav-link" data-scroll-target="#by-whole-genome-mag">By whole genome / MAG</a></li>
+  </ul></li>
+  <li><a href="#browsing-a-catalogue" id="toc-browsing-a-catalogue" class="nav-link" data-scroll-target="#browsing-a-catalogue">Browsing a catalogue</a>
+  <ul class="collapse">
+  <li><a href="#searching-a-catalogue" id="toc-searching-a-catalogue" class="nav-link" data-scroll-target="#searching-a-catalogue">Searching a catalogue</a></li>
+  </ul></li>
+  <li><a href="#genome-detail" id="toc-genome-detail" class="nav-link" data-scroll-target="#genome-detail">Genome detail</a>
+  <ul class="collapse">
+  <li><a href="#genome-annotation-browser" id="toc-genome-annotation-browser" class="nav-link" data-scroll-target="#genome-annotation-browser">Genome annotation browser</a></li>
+  </ul></li>
+  <li><a href="#pan-genome" id="toc-pan-genome" class="nav-link" data-scroll-target="#pan-genome">Pan-genome</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/mgnify-genomes.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">MGnify Genomes</h1>
+</div>
+
+<div>
+  <div class="description">
+    Description of the MGnify genomes pipelines and web resource
+  </div>
+</div>
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://www.ebi.ac.uk/metagenomics">MGnify</a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://www.ebi.ac.uk">
+            EMBL-EBI
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 1, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="genome-catalogues" class="level2">
+<h2 class="anchored" data-anchor-id="genome-catalogues">Genome Catalogues</h2>
+<p>MGnify Genomes (accessed from the ‘Genomes’ tab of the ‘Browse data’ area in the menu bar) provides a detailed interactive view of prokaryotic genomes and their functional annotations.</p>
+<p>MGnify displays genomes in biome-specific Catalogues.</p>
+<p>The latest version of each Catalogue is shown on the website, whilst older versions can be downloaded from our <a href="http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/">FTP server</a>.</p>
+<div id="fig-genome-catalogues-list" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-genome-catalogues-list-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genomes/genomes-genome-catalogues-list.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genome-catalogues-list-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: MGnify genomes are collected into biome-specific catalogues.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="generating-genome-catalogues" class="level2">
+<h2 class="anchored" data-anchor-id="generating-genome-catalogues">Generating genome catalogues</h2>
+<p>There are two processes that have been put in place to generate a genome catalogue. A new catalogue (v1.0 of any catalogue) is generated using <a href="https://github.com/EBI-Metagenomics/genomes-pipeline">MGnify genome analysis pipeline</a>. Pipeline structure and tool descriptions are included in the <a href="https://github.com/EBI-Metagenomics/genomes-pipeline/blob/master/README.md">README file</a> in the repository.</p>
+<p>The process to produce updated versions of the catalogues is described below.</p>
+<section id="updating-an-existing-catalogue" class="level3">
+<h3 class="anchored" data-anchor-id="updating-an-existing-catalogue">Updating an existing catalogue</h3>
+<p>New genomes (MAGs or isolates) are added to an existing catalogue following the steps outlined in <a href="#fig-genome-update-pipeline" class="quarto-xref">Figure&nbsp;2</a>. To be added to a catalogue, a genome must be available in <a href="https://www.insdc.org/">INSDC</a>.</p>
+<div id="fig-genome-update-pipeline" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-genome-update-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genomes/update_pipeline.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genome-update-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: The algorithm to update an existing genome catalog.
+</figcaption>
+</figure>
+</div>
+<p>Briefly, the new genomes undergo QC filtration: quality score (QS) is calculated for each genome as <code>% completeness - 5 \* % contamination</code>; genomes with QS &lt; 50 or contamination &gt; 5% are removed. The genomes are then dereplicated at 99.9% similarity to remove strain redundancy and compared to the previous version of the genome catalogue using <a href="https://github.com/marbl/Mash">Mash</a> to determine whether each genome represents a novel species, a novel strain or a strain that already exists in the catalogue. The category under which a new genome falls is based on the distance between the new genome and the most similar genome in the existing catalog: &gt; 0.05 = new species, 0.001 - 0.05 = new strain, &lt; 0.001 = strain already exists.</p>
+<p>If the strain already exists, the genome is discarded. Genomes classified as novel species are dereplicated at 95% similarity to identify genomes that belong to the same species cluster and undergo two more quality control steps: genomes are screened with <a href="https://github.com/grp-bork/gunc">GUNC</a> to remove possible chimeras and contigs are screened for human contamination using <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a>. Genomes that represent a novel strain become the new species representative for their respective cluster if any of the following conditions is true:</p>
+<ul>
+<li><p>the new genome is an isolate while the current species representative is a MAG;</p></li>
+<li><p>the new genome is a MAG and it’s quality score (<code>completeness - 5 \* contamination</code>) is 10% higher than that of the current species representative;</p></li>
+<li><p>the new genome and the current representative are isolates and the quality score of the new genome is 10% higher than that of the current species representative.</p></li>
+</ul>
+<p>If none of the above conditions is true, the new strain is added to the species cluster but does not replace the existing species representative.</p>
+<p>The tools used to annotate the new genomes and to update the pan-genomes for each species containing multiple conspecific genomes to which new genomes have been added are listed in the README files associated with each catalog on the <a href="http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/">FTP server</a>.</p>
+</section>
+</section>
+<section id="searching-across-catalogues" class="level2">
+<h2 class="anchored" data-anchor-id="searching-across-catalogues">Searching across catalogues</h2>
+<p>There are three ways to search for species across all of the catalogues.</p>
+<section id="by-accession-or-taxonomy" class="level3">
+<h3 class="anchored" data-anchor-id="by-accession-or-taxonomy">By accession or taxonomy</h3>
+<div id="fig-genome-all-genomes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-genome-all-genomes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genomes/genomes-all-genomes.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genome-all-genomes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Searching for “Prevotella” genomes from all catalogues.
+</figcaption>
+</figure>
+</div>
+<p>The Browse &gt; Genomes &gt; All Genomes tab lists genomes from all catalogues. The genome accessions and taxonomic lineages are indexed for full-text search. This is helpful to find a specific genome where the biome is irrelevant, or to find the set of biomes (catalogues) which a certain taxonomic classification is present in.</p>
+</section>
+<section id="by-gene-fragment" class="level3">
+<h3 class="anchored" data-anchor-id="by-gene-fragment">By gene fragment</h3>
+<p>The ‘Gene search’ tab is a <a href="https://arxiv.org/abs/1905.09624">COmpact Bitsliced Signature index (COBS)</a> based search engine. COBS queries short sequence fragments against the species representatives of some or all genome catalogues.</p>
+<p>One or more catalogues can be selected to search against. By default, your query is compared to all current catalogues.</p>
+<p>The table of results provides the user with direct links to the matching genomes. Match statistics are shown as a count and percentage of kmers found. A score of 100% means that all of the <a href="https://en.wikipedia.org/wiki/K-mer">31-length kmers</a> in the query were found in the indexed Genome.</p>
+<p>The minimum kmer proportion is set at a default of 0.4 and can be increased or decreased within a range of 0.1-1 with the available toggle.</p>
+<div id="fig-genome-search-cobs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-genome-search-cobs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genomes/genome-search-cobs.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genome-search-cobs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: COBS search example with table of results.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="by-whole-genome-mag" class="level3">
+<h3 class="anchored" data-anchor-id="by-whole-genome-mag">By whole genome / MAG</h3>
+<p>The ‘MAG search’ tab is a <a href="https://sourmash.readthedocs.io/en/latest/">Sourmash</a> based search engine. Sourmash queries complete MAGs for similarity against the species representatives of some or all genome catalogues.</p>
+<p>One or more catalogues can be selected to search against. By default, your query is compared to all current catalogues.</p>
+<p>The query genome must be a nucleotide sequence file.</p>
+<p>Use the browse button to upload either a single FastA file, or multiple files by holding [ctrl] or [shift] while clicking in the file explorer. Alternatively you can select a whole directory of files using the directory mode (select this option below the Browse button). In this mode, the tool will process all FastA files in the selected directory, however it will not descend into subdirectories. Files are not uploaded onto MGnify servers. Rather, Sourmash generates a signature of your file(s) in your browser, and compares this signature against our MAG catalogue on the server. Successful searches create a CSV result file for each signature submitted. These are compiled into a TGZ allowing you to fetch all your results in one click. These result files are only stored in our servers for 30 days, so please be sure to download them before they expire.</p>
+<div id="fig-genome-search-sourmash" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-genome-search-sourmash-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genomes/genomes-sourmash.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genome-search-sourmash-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Sourmash search example with file selected
+</figcaption>
+</figure>
+</div>
+<section id="sourmash-details" class="level4">
+<h4 class="anchored" data-anchor-id="sourmash-details">Sourmash details</h4>
+<p>Specifically, the MAG search runs the <a href="https://sourmash.readthedocs.io/en/latest/classifying-signatures.html#analyzing-metagenomic-samples-with-gather">sourmash <code>gather</code> command</a>. In this mode, sourmash finds the minimum set of MAGs in the database that collectively contain as much of the query (meta)genome as possible. The “Best Match” MAG from each catalogue is the MAG that contains the largest content from the query (if any). To use this search programmatically (by submitting sourmash sketches of your own query MAGs to the MGnify API), the sourmash parameters must match those used by MGnify. MGnify use the default parameters for kmer size (<code>-k 31</code>) and sketch scaling (<code>--scaled 1000</code>).</p>
+<p>See the “Search MGnify Genomes” notebook in <a href="../notebooks_list.qmd">MGnify’s notebooks repository</a> for an example of how to query this API programmatically.</p>
+</section>
+</section>
+</section>
+<section id="browsing-a-catalogue" class="level2">
+<h2 class="anchored" data-anchor-id="browsing-a-catalogue">Browsing a catalogue</h2>
+<p>Clicking on a Catalogue ID in the list on the <a href="https://www.ebi.ac.uk/metagenomics/browse#genomes">MGnify website</a> allows you to browse the catalogue’s contents.</p>
+<p>The “Genome list” tab contains a catalogue of non-redundant isolate and metagenome assembled genomes (<a href="../../src/docs/glossary.html#mags">MAGs</a>). Each accession is a species representative of a cluster of genomes. To constitute a cluster: genomes with completeness greater than 50%, contamination less than 5% and average quality score (completeness - 5*contamination) greater than 50 - calculated with <a href="https://genome.cshlp.org/content/25/7/1043?ijkey=a446ec2b6e540d598d39c9253e0fdfbdab52b2f4&amp;keytype2=tf_ipsecsha">CheckM, v.1.0.11</a> are clustered with <a href="https://www.nature.com/articles/ismej2017126">dRep v2.2.4</a> using an average nucleotide identity (ANI) cutoff of ≥95% and an aligned fraction (AF) of ≥30% . The species representative for each cluster is the best quality genome judged by completeness, contamination and the assembly N50 values. Isolate genomes are prioritised over MAGs for a species representative.</p>
+<div id="fig-genomes-list" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-genomes-list-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genomes/genomes-catalogue-genomes-list.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genomes-list-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Each catalogue contains MAGs and isolate genomes.
+</figcaption>
+</figure>
+</div>
+<p>The ‘Taxonomy tree’ is a subset of the GTDB taxonomy which can be viewed interactively. Genomes from the catalogue can be found in the tree by taxonomic lineage. Each orange coloured genome accession links to further statistics and functional annotation data.</p>
+<div id="fig-genome-tax-tree" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-genome-tax-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genomes/genomes-taxonomy-tree.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genome-tax-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: GTDB interactive taxonomy tree for a catalogue
+</figcaption>
+</figure>
+</div>
+<p>The ‘Protein catalogue’ is clusters of all the predicted coding sequences in the genome catalogue. Separate catalogues are generated at different amino acid identity levels (100%, 95%, 90% and 50%). Data for the Protein catalogue are available at the linked FTP server location.</p>
+<section id="searching-a-catalogue" class="level3">
+<h3 class="anchored" data-anchor-id="searching-a-catalogue">Searching a catalogue</h3>
+<p>There are single-catalogue versions of the COBS and Sourmash searches available on the ‘Search by gene’ and ‘Search by MAG’ tabs, respectively. These searches work exactly the same as the cross-catalogue searches described above, except that they always search against only one catalogue.</p>
+</section>
+</section>
+<section id="genome-detail" class="level2">
+<h2 class="anchored" data-anchor-id="genome-detail">Genome detail</h2>
+<p>View a specific Genome by clicking it in the Genome List, or a search result.</p>
+<p>The page header details the genome type and a full GTDB lineage assigned with <a href="https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btz848/5626182">GTDB-tk</a>. The ‘Overview’ tab contains statistics about the genome. Type of genome (isolate or MAG), length, percentage completeness and contamination, the number of contigs, number of genomes represented by the species cluster, total number of proteins, N50 and GC content are shown here.</p>
+<p><a href="http://europepmc.org/abstract/MED/24008419">Infernal</a> is used to screen for the presence of ribosomal RNAs against <a href="http://europepmc.org/articles/PMC4383904">Rfam</a> covariance models for 5S, 16S and 23S rRNA. Transfer RNAs are identified with <a href="https://academic.oup.com/nar/article/25/5/955/5133591">tRNAScan-SE</a>. These figures are presented in the Genome RNA coverage section, as the percentage coverage for each rRNA type and a count of total tRNA and ncRNAs.</p>
+<p><a href="../../src/docs/glossary.html#predicted-coding-sequence-pcds">pCDS</a> are inferred with <a href="https://academic.oup.com/bioinformatics/article/30/14/2068/2390517">Prokka</a> which uses <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-119">Prodigal</a> . <a href="https://www.biorxiv.org/content/10.1101/076331v1.full">eggNOG-mapper tool</a> assigns <a href="../../src/docs/glossary.html#kegg">KEGG</a> and <a href="../../src/docs/glossary.html#cog">COG</a> annotations against the pCDS. InterProScan performs protein annotations with 5 member databases. The proportion of predicted proteins with an <a href="../../src/docs/glossary.html#interpro">InterPro</a> or eggNOG annotation are given as a coverage percentage. COG and KEGG annotations are visualised in their respective tabs with the top 10 hits in an interactive bar graph.</p>
+<p>Additionally, the geographic origin of each genome, and links to ENA accessions can be found towards the bottom of this page.</p>
+<p>The mobile genetic elements annotation is generated for representative genomes using the <a href="https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline">Mobilome Annotation Pipeline</a>. It includes prediction of plasmids, viral sequences (including prophages), integrons, transposons, and insertion sequences. When detected, putative excision sites are reported as well. The final output is generated in GFF format and can be downloaded from the “Downloads” tab of each genome web page, or the FTP site. The location of mobile genetic elements in the contig can be visualized in the Genome annotation browser.</p>
+<section id="genome-annotation-browser" class="level3">
+<h3 class="anchored" data-anchor-id="genome-annotation-browser">Genome annotation browser</h3>
+<p>All genome annotations can be viewed interactively in the ‘Browse genome’ tab to browse all assigned functional annotations in more detail.</p>
+<p>The “Functional annotation track colour” dropdown menu can be used to pick an annotation type of interest. Once selected, the annotation region will be coloured (and labelled, depending on the annotation type).</p>
+<div id="fig-genome-browser" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-genome-browser-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genomes/genome-browser.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genome-browser-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: An annotated genome in the Genome Browser.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="pan-genome" class="level2">
+<h2 class="anchored" data-anchor-id="pan-genome">Pan-genome</h2>
+<p>Genome accessions with more than 1 genome in a species cluster have additional pan-genome analyses. <a href="https://academic.oup.com/bioinformatics/article/31/22/3691/240757">Roary v3.12.0</a> performs an iterative clustering of predicted genes with greater than 90% amino acid identity (AAI) for all genomes in the species cluster, to infer a core genome. Further BLASTp steps identify groups of homologous genes pertaining to the accessory genomes. The overview page has an extra ‘Pan-genome statistics’ block. Figures for pan-genome size - a ratio of the total core and accessory genes versus the total number of genes in the species representative, pan-genome core size and pan-genome accessory size can be found here. <a href="https://www.biorxiv.org/content/10.1101/076331v1.full">eggNOG-mapper tool</a> and InterProScan annotations are performed as above. The COG and KEGG visualisations have an extra bar in the plot representing the pan-genome analysis.</p>
+<p>The ‘Downloads’ tab comprises summary files for all described analyses.</p>
+<div id="fig-genome-overview" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-genome-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/genomes/genomes-overview.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-genome-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: An overview for a species representative MAG, with a pan-genome analysis.
+</figcaption>
+</figure>
+</div>
+<p>A set of assemblies, annotations, <a href="../../src/docs/glossary.html#pan-genome">pan-genome</a> results and protein catalogues are available in our <a href="http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/">FTP server</a>. Note that the GFF (<code>.gff.gz</code>) file for each cluster member genome on the FTP site includes both annotations in GFF tabular form, as well as the FASTA sequence of the genome at the end. The FASTA sequence can be obtained from the GFF file, for example with common unix tools: <code>gunzip -c MGYG000290000.gff.gz | awk '/##FASTA/ {found=1; next} found' &gt; MGYG000290000.fna</code></p>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{2026,
+  author = {, MGnify},
+  title = {MGnify {Genomes}},
+  date = {2026-06-01},
+  url = {https://docs.mgnify.org/src/docs/mgnify-genomes.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+MGnify. 2026. <span>“MGnify Genomes.”</span> June 1, 2026. <a href="https://docs.mgnify.org/src/docs/mgnify-genomes.html">https://docs.mgnify.org/src/docs/mgnify-genomes.html</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/docs\.mgnify\.org");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../src/docs/ftp.html" class="pagination-link" aria-label="Transfer Services (FTP) file server">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Transfer Services (FTP) file server</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../src/docs/mgnify-proteins.html" class="pagination-link" aria-label="MGnify Proteins">
+        <span class="nav-page-text">MGnify Proteins</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/mgnify-genomes.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
