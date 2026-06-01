@@ -15,6 +15,16 @@ order: 4
 
 ![Homepage of the MGnify website](images/portal/mgnify-home-page.png)
 
+### [Submit or request data](https://www.ebi.ac.uk/metagenomics/submit), and [My Data](https://www.ebi.ac.uk/metagenomics/mydata)
+
+You can submit your own metagenomic data for analysis using our [pipeline](glossary.md#pipeline),
+or ask us to analyse an existing public dataset.
+
+If you submit private data, once it is analysed you’ll find it by logging into the [My Data](https://www.ebi.ac.uk/metagenomics/mydata) section.
+
+For more information, see [the dataflow section](dataflow.md).
+
+
 ### [Text Search](https://www.ebi.ac.uk/metagenomics/search)
 
 MGnify’s [Studies](glossary.md#study), [Samples](glossary.md#sample), and [Analyses](glossary.md#analysis-result)
@@ -27,21 +37,6 @@ The [Browse Data](https://www.ebi.ac.uk/metagenomics/browse) section of the MGni
 listings of the core datasets.
 
 See the following section for full details.
-
-### [Submit or request data](https://www.ebi.ac.uk/metagenomics/submit), and [My Data](https://www.ebi.ac.uk/metagenomics/mydata)
-
-You can submit your own metagenomic data for analysis using our [pipeline](glossary.md#pipeline),
-or ask us to analyse an existing public dataset.
-
-If you submit private data, once it is analysed you’ll find it by logging into the [My Data](https://www.ebi.ac.uk/metagenomics/mydata) section.
-
-For more information, see [the dataflow section](dataflow.md).
-
-### [API](https://www.ebi.ac.uk/metagenomics/api/latest/)
-
-The API is the basis of programmatic access to MGnify’s database.
-
-For more information, see [the API section](api.md).
 
 ## Organisation and access of data on the MGnify website
 
@@ -97,6 +92,11 @@ This includes the MGnify Studies associated with the Publication, as well as add
 Genomes within MGnify are metagenomic-assembled genomes ([MAGs](glossary.md#mags)) organised into biome-specific catalogues
 (in some cases alongside a small number of isolate genomes).
 There is a separate page of [documentation for the Genomes resource](genome-viewer).
+
+### [API](https://www.ebi.ac.uk/metagenomics/api/v2/)
+This section also includes the API, which is the basis of programmatic access to MGnify’s database.
+
+For more information, see [the API section](api.md).
 
 ## Viewing metadata for MGnify Samples, Studies, Publications
 
@@ -154,123 +154,105 @@ newly added publications is every 3 months.
 This table lists all [samples](glossary.md#sample) and [runs](glossary.md#run) associated with a project as well as the experiment type ([Amplicon](glossary.md#amplicon), [Assembly](glossary.md#assembly), [Metabarcoding](glossary.md#metabarcoding), [Metagenomic](glossary.md#metagenomic) or [Metatranscriptomic](glossary.md#metatranscriptomic)), sequencing instrument model and pipeline version for each individual run.
 In addition, the last field displays links to analysis results.
 
-## Finding quality control information about runs on the MGnify website
+## Viewing a metagenomic analysis (MGYA) on the MGnify website
+
+### Overview
+The Overview tab of an analysis explains the [run](glossary.md#run) or [assembly](glossary.md#assembly) that was analysed, 
+and the [sample](glossary.md#sample) it was derived from, 
+as well as the [pipeline](glossary.md#pipeline) used to analyse it.
+
+### Quality control information
 
 Quality control (QC) analysis of runs within projects on the [MGnify website](https://www.ebi.ac.uk/metagenomics/) can be accessed by selecting the ‘Quality control’ tab found toward the top of any run page (see @fig-qc below).
 
 ![A 'Quality control' tab can be found towards the top of each run page.](images/portal/qc1.png){#fig-qc}
 
 
-Selecting this tab brings up a page containing four graphical representations: a count of reads/contigs remaining pre and post QC, a histogram of minimum, maximum and average sequence length (post QC), distribution of GC content and the first 500 nucleotides (post QC). These are available to download via the ‘Download’ tab found toward the top of any run page (see @fig-downloads below).
+The visualisations shown here depend on the pipeline version, for example MGnify's version 6 pipeline present a self-contained [MultiQC](https://seqera.io/multiqc/) report, whereas older versions show a series of individual visualisations.
 
-::: {#fig-nucleotide-distribution layout-ncol=2 layout-valign="bottom"}
-
-![Metagenome nucleotide distribution](images/portal/qc_metag.png)
-
-![Amplicon nucleotide distribution.](images/portal/qc_ndamplicon.png)
-
-Comparing nucleotide distributions. The typical even nucleotide distribution expected for metagenome, metatranscriptome and assembly datasets (left). Note that the stretch of uneven distribution observed until position 20 are indicative that the sequencing adapters had not been completely removed in the submitted reads. The Amplicon dataset (right) has a typically uneven nucleotide distribution.
-:::
-    
-
-## Finding functional information about runs on the MGnify website
-
-Functional analysis of runs within projects on the [MGnify website](https://www.ebi.ac.uk/metagenomics/) can be accessed by selecting the ‘Functional Analysis’ tab found toward the top of any run page (see @fig-functional-analysis below). Note that this tab will be greyed for amplicon runs that have no functional results.
-
-![A Functional analysis tab can be found towards the top of each run page. Selecting this tab brings up a page displaying sequence features ('Predicted CDS', 'Contigs with predicted CDS' and 'Contigs with predicted rRNA')](images/portal/func1-amplicon.png){#fig-functional-analysis}
-
-Below this first bar chart, there are 4 tabs with different types of functional annotation:
-
-::: {layout="[[1], [1], [1, 1]]" layout-valign="bottom"}
-![InterPro match information for the predicted coding sequences in the run is shown. The number of InterPro matches are displayed graphically, and as a downloadable table with links to corresponding InterPro entries.](images/portal/func1-v5.png){.tall-figure fig-align="left"}
-
-![Predicted GO slim terms are displayed. Different graphical representations are available, and can be selected by clicking on the ‘Switch view’ icons. ](images/portal/func2-v5.png)
-
-![A table of Pfam matches for predicted coding sequences with a bar graph showing the top 10 hits.](images/portal/func3-v5.png)
-
-![A table of KEGG ortholog matches for predicted coding sequences with a bar graph showing the top 10 hits.](images/portal/func4-v5.png)
-
-Functional analysis of metagenomics data, as shown on the MGnify website.
-:::
-
-## Finding pathways/systems information about runs on the MGnify website
-
-Pathway and system annotations of runs within projects on the [MGnify website](https://www.ebi.ac.uk/metagenomics/) can be accessed by selecting the ‘Pathways/Systems’ tab found toward the top of any run page. Note that this tab will only be accessible for assembly analysis.
-
-There are 3 types of pathway and system annotations:
-
-::: {layout="[[1, 1], [1]]" layout-valign="bottom"}
-![A table and bar graph of KEGG modules derived from KEGG orthologs, with pathway completeness values.](images/portal/path1-v5.png)
-
-![An expandable list of present Genome Properties, grouped by top level systems, derived from InterProScan outputs.](images/portal/path2-v5.png)
-
-![A table of antiSMASH hits with a bar graph showing the top 10 hits.](images/portal/path3-v5.png)
-
-Annotation of potential pathways and high order system classification, as shown on the MGnify website.
-:::
-
-## Viewing functional annotation per contig
-
-This feature is available for assembly analysis only and can be found in the tab ‘Contig Viewer’.
-
-::: {layout-nrow=2 layout-ncol=1}
-![The main page contains a table of contigs with annotations, length and coverage. Text search and tickboxes allow users to search for functional annotations by method.](images/portal/contig1-v5.png){.tall-figure fig-align="left"}
-
-![Hover over each coding sequence to see functional annotation with external links, and protein length for that region.](images/portal/contig2-v5.png)
-
-Interactive contig viewer for localised visualisation of functional annotation per contig.
-:::
-
-The Contig Viewer also displays tracks from any [additional analyses](additional-analyses) that may have been run on the same assembly.
-
-## Finding taxonomic information about runs on the MGnify website
+### Taxonomic profile annotations
 
 Taxonomic analysis of runs within projects on the [MGnify website](https://www.ebi.ac.uk/metagenomics/) can be accessed by selecting the ‘Taxonomic analysis’ tab found toward the top of any run page (see @fig-taxonomic-analysis below).
 
-![A 'Taxonomic analysis' tab can be found towards the top of each run page. Selecting this tab brings up a page displaying the taxonomic results displayed as an interactive Krona plot.](images/portal/taxonomy.png){#fig-taxonomic-analysis}
+
+::: {layout-nrow=1 layout-ncol=2}
+![Typically there are taxonomy results from multiple reference databases, and in the case of Amplicon, from multiple marker genes: the Marker Gene table shows which have any annotations.](images/portal/taxonomy-marker-genes.png){#fig-taxonomic-analysis}
+
+![For each marker-gene with data (and for each reference database) an interactive Krona plot is available alongwith a tabular data file for download.](images/portal/taxonomy-krona.png){#fig-taxonomic-analysis}
+:::
     
 
 The taxonomic analysis results are displayed as Krona plot. This feature allows users to explore the taxonomic results and to zoom in on a particular taxonomic level by double clicking on it. The corresponding distribution charts are displayed on the right hand side of the panel.
 
-Alternative pie-, bar- and stacked-chart representations can be generated by clicking on the ‘Switch view’ icons located above the Krona plot, however data are then presented at the phylum level for clarity.
+### Functional profile annotations
 
-## Files available to download on the MGnify website
+Functional analysis of runs within projects on the [MGnify website](https://www.ebi.ac.uk/metagenomics/) can be accessed by selecting the ‘Functional Analysis’ tab found toward the top of any run page (see @fig-functional-analysis below). Note that this tab not be shown for amplicon runs that have no functional results.
 
-The full data sets used to generate the graphs, along with a host of additional data and intermediate files can be downloaded for further analysis by clicking the ‘Download’ tab, found towards the top of the page.
+Functional profiles are typically shown as cards representing the counts tables of how many occurrences of a given identifier were found in the dataset.
+For example the Functional analysis > InterPro tab of a V6 Assembly Analysis shows a table of InterPro accessions (protein IDs), their description, and a Count column of occurrences.
+These files can be downloaded from the [Transfer Services are](ftp.md) using the download button next to the file name.
+The website also shows a preview of these tables by uncompressing them in chunks. 
+This same data table can be viewed as a chart by pressing the "Switch to chart view" button: the chart type depends on the data, and is usually a bar chart of the most frequently occurring annotation identifiers in the dataset, e.g. the most common IPRxxxxxxx accession found.
 
-::: {.callout-note collapse="true" icon="false"}
-### Show Downloads tab screenshot
-![The Download tab is organised into sections: ‘Sequence data’, ‘Functional analysis’ (not available in the case of amplicon runs), 'Pathways and Systems' (available only for assemblies), ‘Taxonomic analysis SSU’, 'Taxonomic analysis LSU', 'Taxonomic analysis ITS' (available for amplicon only) and 'non-coding RNAs' (will only exist if any non coding RNAs are identified).](images/portal/download_1-v5.png){#fig-downloads}
-:::
 
-Some of the files, particularly the sequence files in FASTA format, can be large. To facilitate the download process, these files are compressed with [GZIP](https://en.wikipedia.org/wiki/Gzip) and when too large to be easily transferable, chunked into a manageable size. If it is the case for your runs, please download all chunks, decompress them and concatenate them to reconstitute the full file. Ensure the chunks are concatenated in the order given on the download page, as headers will be in the first chunked file.
+![A Functional analysis tab can be found towards the top of each run page. Selecting this tab brings up a page displaying sequence features, including InterPro, GO, Pfam, and Kegg annotations. The InterPro identifiers table is shown here, and inset is a chart view of the same data.](images/portal/functional.png){#fig-functional-analysis}
 
-### Description of fasta files available to download
 
-* Processed nucleotide reads OR Processed contigs: this file contains all reads/contigs having passed the quality control (QC) step.
-* Predicted CDS: this file contains protein sequences that have pCDS.
-* Predicted ORF: this file contains nucleotide sequences that have pCDS.
+### Finding pathways/systems information about runs on the MGnify website
 
-### Description of functional annotation files available to download
+Pathway and system annotations of runs within projects on the [MGnify website](https://www.ebi.ac.uk/metagenomics/) can be accessed by selecting the ‘Pathways/Systems’ tab found toward the top of any run page. Note that this tab will only be accessible for assembly analysis.
+This tab is similar to the Functional profile annotations: showing tabular data and chart views of each.
+The Genome Properties data is hierarchical in nature rather than tabular, so its JSON file is viewed as a tree.
 
-* InterPro matches: A tab-delimited file containing 15 columns. They are fully described [here](https://github.com/ebi-pf-team/interproscan/wiki/OutputFormats)
-* Pfam annotation: summary of Pfam annotations and their frequencies.
-* Complete GO annotation: summary of GO term annotations in 4 columns: GO terms (labelled [GO:XXXXXXX](GO:XXXXXXX)), GO term description, GO category (biological process, molecular function or cellular location) and number of pCDS annotated with a GO term.
-* GO slim annotation file: this file is derived from the ‘Complete GO annotation file’ and has the same format.
-* DIAMOND annotation: a tab-delimited file containing 16 columns with Uniref IDs and taxonomic annotation of protein sequences.
-* KEGG orthologues annotation: summary of KEGG ortholog annotations and their frequencies.
 
-### Description of pathway and system annotation files available to download
-* antiSMASH annotation: EMBL flatfile and GenBank formatted files with annotations per contig.
-* Genome Properties annotation: summary of genome properties and and their frequency.
-* KEGG pathway annotation: summary of KEGG modules, pathway names and completeness.
+![A card for the JSON file of a Genome Properties output, viewed as a tree.](images/portal/pathways-gp.png)
 
-### Description of taxonomic assignment files available to download
 
-* Reads/Contigs encoding…: All reads predicted to encode for LSU, SSU, ITS or any other non-coding RNAs (ncRNAs). LSU, SSU and ncRNAS are predicted with Infernal. ITS have the predicted LSU and SSU sequences masked.
-* MAPseq assignments: this file contains the output from mapseq - a taxonomic assignment where applicable for each input sequence.
-* OTUs, counts and taxonomic assignments (TSV): this file contains a taxonomic lineage column followed by the frequency of it’s annotation and the corresponding NCBI taxid (not available for UNITE). This file can be directly imported into [Megan6](http://ab.inf.uni-tuebingen.de/software/megan6/) for visualisation and further analysis.
-* OTUs, counts and taxonomic assignments (HDF5/JSON) - two files for each type of rRNA or ITS database. These contain the same taxonomic information as the TSV files in JSON and HDF5 formats. The Biom files are [computer-readable files](http://biom-format.org). The HDF5 (Hierarchical Data Format) format can be imported into analysis and visualisation tools such as Matlab and R. A larger number of commercial and freely available tools, such as MEGAN6, can consume the JavaScript Object Notation (JSON) format.
+### Viewing functional annotation per contig
+
+#### Assembly analysis GFF file
+
+This feature is available for assembly analysis only and can be found in the tab ‘Contig Viewer’.
+
+The contig viewer shows annotated [metagenome assemblies contigs](glossary.md#assembly), and their annotations (e.g. protein coding sequences).
+The assembly contigs are stored as a FASTA file (which is available for download from the Downloads tab).
+The annotations are stored as a [GFF file](glossary.md#gff).
+The GFF file itself can be previewed in the "Preview GFF" sub-tab.
+
+![A preview of the tabular GFF file from a V6 assembly analysis](images/portal/contig-gff.png)
+
+#### Assembly analysis browser & annotation search index
+
+The website also allows this GFF file to be downloaded and indexed for searching within your browser.
+Because the entire GFF file can potentially be large (e.g. 100s of MB), it is not automatically downloaded:
+
+![Searching contigs relies on downloading a large GFF file into your browser for indexing](images/portal/contig-interstitial.png)
+
+Pressing "Download & index GFF" fetches the large file and, providing your web browser is relatively modern, indexes the annotations for searching.
+
+Once indexed, contigs can be searched for by whether they contain certain annotations, like an InterPro identifier or Pfam family of interest. 
+Most of the search facet include auto-complete of available identifiers.
+
+![The interface for searching contigs by contained annotations](images/portal/contig-search.png)
+
+The browser itself (showing genomic tracks above the search table) is powered by [JBrowse](https://jbrowse.org/jb2/).
+It is an interactive viewer for the assembly contig sequences and their annotations.
+Clicking on a contig in the search results table jumps to that contig in the JBrowse instance.
+Clicking on a region in the browser will bring up the feature details panel, including any annotations available for it.
+
+![The feature details of an annotation, found by clicking it in the genome browser](images/portal/contig-feature-details.png)
+
+### Files available to download on the MGnify website
+
+The full data sets used to generate the graphs, along with a host of additional data and intermediate files can be downloaded for further analysis by clicking the ‘Downloads’ tab, found towards the top of the page.
+
+![The Downloads tab is organised into sections, for different stages of the analysis pipeline and different data types. The available options vary depending on the pipeline version and the data type. This screenshot shows the top few sections of a V6 assembly analysis.](images/portal/downloads.png){#fig-downloads}
+
+Some of the files, particularly the sequence files in FASTA format, can be large. To facilitate the download process, these files are compressed with [GZIP](https://en.wikipedia.org/wiki/Gzip) and when too large to be easily transferable, chunked into a manageable size.
+
+Each card representing a downloadable result file includes a description of the file.
+There are also three buttons above all the files, to help bulk-download some or all of the files from the [Transfer Services file server](ftp.md).
+For examples, "Show curl script" gives you a copy-pastable command line script to download all of the files.
 
 ## Summary files
 

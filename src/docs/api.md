@@ -18,158 +18,68 @@ access to the data for cross-database complex queries.
 
 ### Current version
 
-Current API version is **v1**
+Current API version is **v2**.
+
+::: {.callout-warning}
+
+### API v1 Deprecation
+
+The API v1 was deprecated in June 2026. It will be turned off no earlier than September 1st 2026, but will serve frozen data that does not include MGnify V6 analyses.
+:::
+
 
 ### Base URL
 
-The base address to the API is [https://www.ebi.ac.uk/metagenomics/api/latest/](https://www.ebi.ac.uk/metagenomics/api/latest/).
+The base address to the API is [https://www.ebi.ac.uk/metagenomics/api/v2/](https://www.ebi.ac.uk/metagenomics/api/v2/).
 
-A GET request can be issued to the root endpoint to get all categories that the API supports.
+Browsing the API root (i.e. going to [`/api/v2`](https://www.ebi.ac.uk/metagenomics/api/v2/) in a web browser) shows a human-readable, browsable, interactive documentation page for the API.
+This is the easiest way to explore it.
+
+To programatically explore it, e.g. to help instruct a large-language model to use it, an OpenAPI JSON is provided:
 
 ```bash
-curl -X GET "https://www.ebi.ac.uk/metagenomics/api/latest/"
+curl -X GET "https://www.ebi.ac.uk/metagenomics/api/v2/openapi.json"
 ```
 
 There are several easy-to-use top-levels resources, such as
-[studies](glossary.md#study), [samples](glossary.md#sample), [runs](glossary.md#run),
-experiment-types, [biomes](glossary.md#biome), and annotations. For example
-[https://www.ebi.ac.uk/metagenomics/api/latest/studies](https://www.ebi.ac.uk/metagenomics/api/latest/studies) retrieves a list
-of all studies, while [https://www.ebi.ac.uk/metagenomics/api/latest/studies/ERP009004](https://www.ebi.ac.uk/metagenomics/api/latest/studies/ERP009004)
-retrieves a single study, with the accession ERP009004. The samples contained
+[studies](glossary.md#study), [samples](glossary.md#sample), [runs](glossary.md#run), [biomes](glossary.md#biome), and [analyses](glossary.md#analysis+result). For example
+[https://www.ebi.ac.uk/metagenomics/api/v2/studies](https://www.ebi.ac.uk/metagenomics/api/v2/studies) retrieves a list
+of all studies, while [https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397](https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397)
+retrieves a single study, with the accession `MGYS00010397`. The samples contained
 within this study can be retrieved using the relationship URL:
-[https://www.ebi.ac.uk/metagenomics/api/latest/studies/ERP009004/samples](https://www.ebi.ac.uk/metagenomics/api/latest/studies/ERP009004/samples).
-
-### The Browsable API
-
-The easiest way to discover the API’s capabilities is to open the interactive
-[“Browsable API” in your web browser](https://www.ebi.ac.uk/metagenomics/api/latest/).
-
-This interace is created automatically when you open an API endpoint from a program
-that supports HTML (i.e. your browser).
-If you were to request the same URL using e.g. `curl`, plain JSON would be returned.
-This means you can find the URL pattern for data you’re interested in interactively,
-then copy the URL into your scripts.
+[https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397/samples/](https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397/samples/).
 
 ### HTTP methods
 
-API provides read-only access to all resources, that means only HTTP GET
-method can be used with exception of authentication endpoint.
+The API provides mostly read-only access to all resources, that means only HTTP GET
+method can be used with exception of the authentication endpoint and some search endpoints that accept a query sequence.
 
-### Response
+### Responses
 
-Links to a resource return a JSON object formatted data structure that
-contains the resource type (in this example [studies](glossary.md#study)), associated
-object identifier (*id*) and *attributes*. Where appropriate, *relationships*
-and links are provided to other resources, allowing complex queries to be
-constructed.
+Responses to list endpoints (like `/studies/`, `/genomes/` etc) return data following a schema like:
+```json
+  "count": 10,
+  "items": [...]
+```
 
+The same is true of detail -> list relationship endpoints (like `/studies/MGYS00010397/samples/` for example).
+
+Responses to a detail endpoint (like `/studies/MGYS00010397`, `/analyses/MGYA01020362` etc) return data following a schema appropriate for the data type, e.g. for analysis:
 ```json
 {
-  "data": {
-      "type": "studies",  // <1> 
-      "id": "MGYS00002008",  // <2> 
-      "attributes": {  // <3> 
-          "bioproject": "PRJEB22493",
-          "samples-count": 136,
-          "accession": "MGYS00002008",
-          "secondary-accession": "ERP104174",
-          "centre-name": "EMBL-EBI",
-          "is-public": true,
-          "public-release-date": null,
-          "study-abstract": "The APY Third Party Annotation (TPA) assembly was derived from the primary whole genome shotgun (WGS) data set PRJEB1787. This project includes samples from the following biomes : Marine.",
-          "study-name": "EMG produced TPA metagenomics assembly of the Shotgun Sequencing of Tara Oceans DNA samples corresponding to size fractions for  prokaryotes. (APY) data set",
-          "data-origination": "SUBMITTED",
-          "last-update": "2022-01-16T11:17:46"
-      },
-      "relationships": {  // <4> 
-          "downloads": {
-              "links": {
-                  "related": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008/downloads"
-              }
-          },
-          "biomes": {
-              "links": {
-                  "related": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008/biomes"
-              },
-              "data": [
-                  {
-                      "type": "biomes",
-                      "id": "root:Environmental:Aquatic:Marine:Oceanic",
-                      "links": {
-                          "self": "https://www.ebi.ac.uk/metagenomics/api/v1/biomes/root:Environmental:Aquatic:Marine:Oceanic"
-                      }
-                  }
-              ]
-          },
-          "studies": {
-              "links": {
-                  "related": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008/studies"
-              },
-              "data": [
-                  {
-                      "type": "studies",
-                      "id": "MGYS00000410",
-                      "links": {
-                          "self": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00000410"
-                      }
-                  },
-                  {
-                      "type": "studies",
-                      "id": "MGYS00000492",
-                      "links": {
-                          "self": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00000492"
-                      }
-                  },
-                  {
-                      "type": "studies",
-                      "id": "MGYS00001482",
-                      "links": {
-                          "self": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00001482"
-                      }
-                  }
-              ]
-          },
-          "samples": {
-              "links": {
-                  "related": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008/samples"
-              }
-          },
-          "geocoordinates": {
-              "links": {
-                  "related": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008/geocoordinates"
-              }
-          },
-          "publications": {
-              "links": {
-                  "related": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008/publications"
-              },
-          },
-          "analyses": {
-              "links": {
-                  "related": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008/analyses"
-              },
-          }
-      },
-      "links": {
-          "self": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008"
-      }
-  }
+  "experiment_type": "Metatranscriptomic",
+  "study_accession": "MGYS000000001",
+  "accession": "MGYA000000001",
+  ...
 }
 ```
-1. The `type` of this data object
-2. The `id` of this specific object
-3. The `attributes` (i.e. properties) of this data object
-4. The `relationships` this object has with others
 
-### Hypermedia
+The schema of a detail endpoint often includes more fields than when the same object appears in a list.
+For examples, an analysis's `downloads` field is not shown in `/analyses/` but is in `/analyses/MGYA01020362`.
 
-All resources may have one or more **links** properties referencing to other
-resources, to provide explicit URLs so that proper API clients don’t need to
-construct URLs on their own.
+The schema for all responses is available from the [Open API spec](https://www.ebi.ac.uk/metagenomics/api/v2/openapi.json), and this is also shown - often with example data - in the browsable API.
 
-::: {.callout-note}
-It is highly recommended for API clients to use links for future upgrades of the API.
-:::
+![The schema for a request is shown here in the browsable API](images/api/endpoint-browse.png)
 
 ### Pagination
 
@@ -179,305 +89,64 @@ that return multiple items is paginated to 20 items by default, and can be
 increased up to 100:
 
 ```bash
-curl -X GET "https://www.ebi.ac.uk/metagenomics/api/latest/studies?page_size=100"
+curl -X GET "https://www.ebi.ac.uk/metagenomics/api/v2/studies?page_size=100"
 ```
 
-Navigation through pages:
-
-```json
-{
-  "links": {
-    "first": "https://www.ebi.ac.uk/metagenomics/api/latest/studies?page=1",
-    "last": "https://www.ebi.ac.uk/metagenomics/api/latest/studies?page=63",
-    "next": "https://www.ebi.ac.uk/metagenomics/api/latest/studies?page=26",
-    "prev": "https://www.ebi.ac.uk/metagenomics/api/latest/studies?page=24"
-  },
-  "data": [ ],
-  "meta": {
-    "pagination": {
-      "page": 25,
-      "pages": 63,
-      "count": 1255
-    }
-  }
-}
-```
-
-::: {.callout-note}
-Some API endpoint use *cursor-based pagination*, because they come from a document database.
-The `links` object in responses provided the necesary cursors to fetch
-:::
-
-For example, fetching Contigs for an [analysis](glossary.md#analysis-result).
+The `"count"` given at the top-level of a list endpoint's JSON response, combined with the `page_size` requested, allows you to compute how many pages need to be requested.
+For each page, use a `?page=x` query parameter, e.g.:
 
 ```bash
-curl -X GET "https://www.ebi.ac.uk/metagenomics/api/v1/analyses/MGYA00585528/contigs"
+curl -X GET "https://www.ebi.ac.uk/metagenomics/api/v2/studies/?page=2&page_size=100"
 ```
 
-Gives:
-
-```json
-{
-  "links": {
-      "next": "https://www.ebi.ac.uk/metagenomics/api/v1/analyses/MGYA00585528/contigs?cursor=cD02MTUyMDU0Yzg5YTUzNWM2ZDQzYTY5MGI%3D",
-      "prev": null
-  },
-  "data": [
-      {
-          "type": "analysis-job-contigs",
-          "id": "6152054c89a535c6d43a68f3",
-          "attributes": {
-              "contig-id": "ERZ2310312.1-contig-1",
-              "length": 20832,
-              "coverage": 0.0,
-              "analysis-id": "585528",
-              "accession": "MGYA00585528",
-              "pipeline-version": "5.0",
-              "job-id": 585528,
-              "has-cog": true,
-              "has-kegg": true,
-              "has-go": true,
-              "has-pfam": true,
-              "has-interpro": true,
-              "has-antismash": false,
-              "has-kegg-module": false
-          }
-      },
-      "..."
-  ],
-  "meta": {
-      "pagination": {
-          "count": 105
-      }
-  }
-}
-```
+This pagination can be interated.
 
 ### Parameters
 
-Lists of resources can be filtered and sorted by selected parameters, allowing
-the construction of more complex queries. For instance, in order to retrieve
-oceanographic [samples](glossary.md#sample) from [metagenomic](glossary.md#metagenomic)
-[studies](glossary.md#study) taken at temperature less than 10C, the following query
-could be constructed [`https://www.ebi.ac.uk/metagenomics/api/latest/biomes/root:Environmental:Aquatic:Marine/samples?experiment_type=metagenomic&metadata_key=temperature&metadata_value_lte=10&ordering=accession`](https://www.ebi.ac.uk/metagenomics/api/latest/biomes/root:Environmental:Aquatic:Marine/samples?experiment_type=metagenomic&metadata_key=temperature&metadata_value_lte=10&ordering=accession)
+In APIv2, there are very few query parameters for filtering lists: instead the API returns fast responses for entire lists which can be easily filtered downstream.
+A limited number of search filters are supported, though, for very common queries. 
+For example to search studies by their title including the words `space station`:
 
 ```bash
-curl -X GET "https://www.ebi.ac.uk/metagenomics/api/latest/biomes/root:Environmental:Aquatic:Marine/samples?experiment_type=metagenomic&metadata_key=temperature&metadata_value_lte=10&ordering=accession"
+curl -X GET "https://www.ebi.ac.uk/metagenomics/api/v2/studies/?search=space+station"
 ```
 
-The provision of such complex queries allows metadata to be combined with
-annotation for powerful data analysis and visualisation.
-
-### Customising queries: compound documents
-
-The API response distinguishes between attributes and relationships,
-allowing customisation of the response by passing fields or including
-relations as parameters in the initial query.
-
-Some relationship fields render the related data automatically,
-in cases where the count of related objects is known to always be small,
-and where this is an extremely common requirement.
-
-For other relationships, adding `?include=<relationship field>`
-to a query will result in the
-`relationships` response including a `<relationship field>.data` object,
-with a list of IDs of the related object.
-Provided these data arrays are non-empty,
-the response will also include a top-level `included` array,
-with the corresponding IDs and fully rendered data for the related objects.
-This format is known as a
-[“Compound Document”](https://jsonapi.org/format/#document-compound-documents).
-
-::: {.callout-warning}
-The list of related objects is *not* paginated,
-and can be very expensive to query.
-Only a subset of relationships are available for inclusion in compound documents:
-these are based on common use cases and on queries that can be optimised
-so are less likely to run slowly or time out.
-:::
-
-The supported `?include=` relationships are discoverable using the
-[“Browsable API” in your web browser](https://www.ebi.ac.uk/metagenomics/api/latest/).
-
-For example:
+or genomes with taxa including `Rickettsiales`:
 
 ```bash
-curl -X GET "https://www.ebi.ac.uk/metagenomics/api/latest/studies/MGYS00002008?include=samples,biomes"
+curl -X GET "https://www.ebi.ac.uk/metagenomics/api/v2/genomes/?search=Rickettsiales"
 ```
 
-```json
-{
-  "data": {
-      "type": "studies",
-      "id": "MGYS00002008",
-      "attributes": {
-          "..."
-      },
-      "relationships": {
-          "samples": {
-              "links": {
-                  "related": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008/samples"
-              },
-              "data": [
-                  {
-                      "type": "samples",
-                      "id": "6173"
-                  }
-              ]
-          },
-          "..."
-          "biomes": {
-              "links": {
-                  "related": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008/biomes"
-              },
-              "data": [
-                  {
-                      "type": "biomes",
-                      "id": "root:Environmental:Aquatic:Marine",
-                      "links": {
-                          "self": "https://www.ebi.ac.uk/metagenomics/api/v1/biomes/root:Environmental:Aquatic:Marine"
-                      }
-                  }
-              ]
-          },
-          "..."
-      },
-      "links": {
-          "self": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008"
-      }
-  },
-  "included": [ // <1>
-      {
-          "type": "biomes",
-          "id": "root:Environmental:Aquatic:Marine",
-          "attributes": {
-              "samples-count": 183,
-              "biome-name": "Marine",
-              "lineage": "root:Environmental:Aquatic:Marine"
-          },
-          "relationships": {
-              "samples": {
-                  "links": {
-                      "related": "https://www.ebi.ac.uk/metagenomics/api/v1/biomes/root:Environmental:Aquatic:Marine/samples"
-                  }
-              },
-              "children": {
-                  "links": {
-                      "related": "https://www.ebi.ac.uk/metagenomics/api/v1/biomes/root:Environmental:Aquatic:Marine/children"
-                  }
-              },
-              "genomes": {
-                  "links": {
-                      "related": "https://www.ebi.ac.uk/metagenomics/api/v1/biomes/root:Environmental:Aquatic:Marine/genomes"
-                  }
-              },
-              "studies": {
-                  "links": {
-                      "related": "https://www.ebi.ac.uk/metagenomics/api/v1/biomes/root:Environmental:Aquatic:Marine/studies"
-                  }
-              }
-          },
-          "links": {
-              "self": "https://www.ebi.ac.uk/metagenomics/api/v1/biomes/root:Environmental:Aquatic:Marine"
-          }
-      },
-      {
-          "type": "samples",
-          "id": "ERS487899",
-          "attributes": {
-              "sample-metadata": [],
-              "longitude": -6.5669,
-              "biosample": "SAMEA2619376",
-              "latitude": 36.5533,
-              "accession": "ERS487899",
-              "analysis-completed": "2015-03-17",
-              "collection-date": "2009-09-15",
-              "geo-loc-name": null,
-              "sample-desc": "&quot;This sample (TARA_X000000263) was collected during the Tara Oceans expedition (2009-2013) at station TARA_004 (latitudeN=36.5533, longitudeE=-6.5669) on date/time=2009-09-15T11:30, using a PUMP (High Volume Peristaltic Pump).  The sample material (saline water (ENVO:00002010), including plankton (ENVO:xxxxxxxx)) was collected at a depth of 3-7 m, targeting a surface water layer (ENVO:00002042) in the marine biome (ENVO:00000447). The sample was size-fractionated (0.22-1.6 micrometres), and stored in liquid nitrogen for later detection of prokaryote nucleic acid sequences by pyrosequencing methods, and for later metagenomics analysis. This sample has replicate sample(s): TARA_X000000264.&quot;",
-              "environment-biome": "marine biome (ENVO:00000447)",
-              "environment-feature": "surface water layer (ENVO:00002042)",
-              "environment-material": "&quot;saline water (ENVO:00002010), including plankton (ENVO:xxxxxxxx)&quot;",
-              "sample-name": "TARA_X000000263",
-              "sample-alias": "TARA_X000000263",
-              "host-tax-id": null,
-              "species": null,
-              "last-update": "2019-09-25T16:24:35"
-          },
-          "relationships": {
-              "runs": {
-                  "links": {
-                      "related": "https://www.ebi.ac.uk/metagenomics/api/v1/samples/ERS487899/runs"
-                  }
-              },
-              "biome": {
-                  "data": {
-                      "type": "biomes",
-                      "id": "root:Environmental:Aquatic:Marine"
-                  },
-                  "links": {
-                      "related": "https://www.ebi.ac.uk/metagenomics/api/v1/biomes/root:Environmental:Aquatic:Marine"
-                  }
-              },
-              "studies": {
-                  "links": {
-                      "related": "https://www.ebi.ac.uk/metagenomics/api/v1/samples/ERS487899/studies"
-                  },
-                  "data": [
-                      {
-                          "type": "studies",
-                          "id": "MGYS00002008",
-                          "links": {
-                              "self": "https://www.ebi.ac.uk/metagenomics/api/v1/studies/MGYS00002008"
-                          }
-                      }
-                  ]
-              }
-          },
-          "links": {
-              "self": "https://www.ebi.ac.uk/metagenomics/api/v1/samples/ERS487899"
-          }
-      }
-  ]
-}
-```
-
-1. The `included` data objects of this Compound Document
-
-Datasets that cannot be made using a single Compound Document
-should be built up by making several requests to the API,
-using the URIs provided in the `relationships.<related field>.links.related`
-attributes.
+### Links
+Some endpoints in the API schema include "Links", which are not URLs, but rather other endpoint in the API (or "operations") that get related data.
+These are part of the Open API specification, and are mostly useful to programmatic clients like large-language models.
+For example, they specify how one can retrieve the genome-catalogue mentioned in the detail endpoint response from a genome.
 
 ### Errors
 
 There are three possible types of client errors on API calls:
 
 
-* 400 Bad requests.
+* 400 Bad requests, usually a bad query parameter.
 
+* 401 Unauthorized, usually trying to access private analyses with the wrong credentials.
 
-* 404 Not found.
-
+* 404 Not found, usually a broken link or a dataset that has been suppressed.
 
 * 403 Authentication failed.
 
-### Cross Origin Resource Sharing
-
-The API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin.
-
 ## Examples
 
+### Download all taxonomy files from a metagenomic analyses (MGYA)
+This example uses common command-line tools [curl](https://curl.se/) and [jq](https://jqlang.org/)
+```bash
+curl "https://www.ebi.ac.uk/metagenomics/api/v2/analyses/MGYA01020362" | jq '.downloads[] | select(.download_group | startswith("taxonomies.")) | .url' | xargs -n1 curl -O
+```
 
-* Examples of using the API are provided in our [MGnify Notebooks Server](notebooks.md), which is available at [notebooks.mgnify.org](http://notebooks.mgnify.org). See the [dedicated documentation](notebooks.md) for that resource for more information.
+### Access MGnify from Python
+
+We have a Python client, MGnipy, designed to streamline access to the APIv2 from Python.
+
+Documentation for MGnipy can be found at [mgnipy.mgnify.org/](https://mgnipy.mgnify.org/).
 
 
-* You can also find our [example notebooks and scripts on GitHub](https://github.com/EBI-Metagenomics/notebooks/tree/main/notebooks-src/notebooks).
-
-
-* We also have short examples of [how to fetch paginated data from the API into one big CSV/TSV file](https://gist.github.com/SandyRogers/5d9eff7f1f7b08cfa40265f5e2adf9cd).
-
-## Interactive documentation
-
-We have utilised an interactive documentation framework (Swagger UI) to visualise and simplify interaction with the API’s resources via an HTML interface. Detailed explanations of the purpose of all resources, along with many examples, are provided to guide end-users.
-
-Documentation on how to use the endpoints is available at [https://www.ebi.ac.uk/metagenomics/api/docs/](https://www.ebi.ac.uk/metagenomics/api/docs/).

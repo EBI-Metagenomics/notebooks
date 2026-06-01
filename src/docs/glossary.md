@@ -35,11 +35,17 @@ An ecological community type. In MGnify, [biomes](#biome) are organised hierarch
 ## COG
 Cluster of Orthologous Groups of proteins - a database of groups of proteins inferred by orthology.
 
+## GFF
+A GFF (General Feature Format) file is a tab-delimited file used to store annotation regions of a genomic sequence.
+
 ## GO term
 A defined vocabulary term to represent the functional attributes of a protein. Defined by the the [Gene Ontology](http://geneontology.org/) initiative, GO terms are organised hierarchically to unambiguously define the biological process, precise molecular function or cellular location of a protein.
 
 ## GO slim
 A GO slim is a cut-down version of the GO hierarchy to give an overview of the functional results. It is used on MGnify website. The GO slim hierarchy lacks the fine granularity of the full GO hierarchy.
+
+## INSDC
+The International Nucleotide Sequence Database Collaboration (INSDC) archives nucleotide sequence data, from raw to assembled and annotated sequences, from around the world. In consists of interlinked databases from the DDBJ in Japan, the NCBI in the USA, and the ENA in Europe.
 
 ## InterPro
 Combines protein signatures from a number of member databases into a single searchable resource, capitalising on their individual strengths to produce a powerful integrated database and diagnostic tool.
