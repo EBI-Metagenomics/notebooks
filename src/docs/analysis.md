@@ -7,15 +7,17 @@ author:
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: Description of the latest MGnify analysis pipeline and the tools it uses.
+description: Description of the previous MGnify analysis pipeline and the tools it used.
 order: 3
 ---
 ## Overview
 
-The latest MGnify analysis service (version 5.0) offers specialised workflows for three different data types: [amplicon](glossary.md#amplicon), raw [metagenomic](glossary.md#metagenomic)/[metatranscriptomic](glossary.md#metatranscriptomic) reads, and [assembly](glossary.md#assembly). Each workflow is defined in common workflow language ([CWL](https://figshare.com/articles/Common_Workflow_Language_draft_3/3115156/2)). ([MGnify v5.0 CWL repository](https://github.com/EBI-Metagenomics/pipeline-v5))
+The previous MGnify analysis service (version 5.0) offered specialised workflows for three different data types: [amplicon](glossary.md#amplicon), raw [metagenomic](glossary.md#metagenomic)/[metatranscriptomic](glossary.md#metatranscriptomic) reads, and [assembly](glossary.md#assembly). Each workflow was defined in common workflow language ([CWL](https://figshare.com/articles/Common_Workflow_Language_draft_3/3115156/2)). ([MGnify v5.0 CWL repository](https://github.com/EBI-Metagenomics/pipeline-v5))
 All databases are available from an [FTP link](ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/pipeline-5.0/ref-dbs)
 
 The software and databases used for the various processing steps and analyses are listed in the following table.
+
+Pipeline version 5.0 was superceeded by version 6.0, but previously-run version 5.0 analyses continue to be available via MGnify's [API](api.md), [Website](portal.md) and downloadable from the [Transfer Services](ftp.md) area.
 
 ## Software, Databases and Versions used by MGnify:
 
