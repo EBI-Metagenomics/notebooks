@@ -16,6 +16,9 @@ src/docs/*.html
 src/*.html
 src/notebooks/**/*.html
 src/*-listing.json
+renv/
+renv.lock
+.Rhistory
 
 *.parquet
 !**/example-data/**/*.parquet
@@ -23,3 +26,6 @@ src/*-listing.json
 ko*.pathview.png
 src/notebooks/R Examples/*.tsv
 src/notebooks/R Examples/*.txt
+.Rproj.user
+.RData
+.Rprofile
