@@ -1,0 +1,43 @@
+[workspace]
+name = "mgnify-python-notebooks"
+version = "0.1.0"
+description = "MGnify Python notebook server environment"
+channels = ["conda-forge", "bioconda"]
+platforms = ["linux-64", "linux-aarch64"]
+
+[dependencies]
+python = "3.11.*"
+pip = "*"
+jupyterlab = ">=4,<5"
+jupyter_server = ">=2,<3"
+notebook = "*"
+ipykernel = "6.25.1.*"
+ipywidgets = "*"
+nbformat = "*"
+nbconvert = "*"
+jupyterlab_widgets = "*"
+nodejs = "*"
+hatchling = "*"
+hatch-nodejs-version = "*"
+hatch-jupyter-builder = "*"
+git = "*"
+openjdk = "*"
+pyspark = "3.3.2.*"
+pandas = ">=2.1.4,<2.2"
+matplotlib = "3.7.2.*"
+seaborn = "0.12.2.*"
+plotly = "5.16.1.*"
+biopython = "1.81.*"
+pyarrow = "13.0.0.*"
+leafmap = ">=0.61,<0.62"
+geopandas = ">=0.14.2,<0.15"
+flake8 = "*"
+sourmash = ">=4.9,<5"
+gffutils = "0.12.*"
+
+[pypi-dependencies]
+jsonapi-client = "==0.9.10"
+
+[tasks]
+install-kernel = "python -m ipykernel install --sys-prefix --name mgnify-py-env --display-name 'Python (mgnify-py-env)'"
+start = "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --ServerApp.allow_origin='*' --ServerApp.root_dir=/home/jovyan"

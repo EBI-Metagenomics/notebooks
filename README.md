@@ -4,7 +4,8 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[![Quay.io docker container build](https://quay.io/repository/microbiome-informatics/emg-notebooks.dev/status)](https://quay.io/repository/microbiome-informatics/emg-notebooks.dev)
+[![Quay.io Python docker container build](https://quay.io/repository/microbiome-informatics/emg-notebooks-python.dev/status)](https://quay.io/repository/microbiome-informatics/emg-notebooks-python.dev)
+[![Quay.io R docker container build](https://quay.io/repository/microbiome-informatics/emg-notebooks-r.dev/status)](https://quay.io/repository/microbiome-informatics/emg-notebooks-r.dev)
 ![Tests](https://github.com/ebi-metagenomics/notebooks/actions/workflows/test.yaml/badge.svg)
 
 This repository contains the user documentation for MGnify, written in Markdown.
@@ -27,16 +28,12 @@ For major documentation edits or any edits to the notebooks, you need [Docker](h
 
 You need [Task](https://taskfile.dev/) installed for handy shortcut commands. If you don't want to install that, check `Taskfile.yml` for the long commands.
 
-**Note :**
-To run the Docker containers on **ARM**-based systems, such as [Apple Silicon](https://support.apple.com/en-in/HT211814), follow these steps:
-
-1. Install **_Rosetta_** on your system using the command (for macOS) : `softwareupdate --install-rosetta`
-2. Go to `Docker Desktop` > `Settings` > `Features in development` > `Beta Features` > Check "`Use Rosetta for x86/amd64 emulation on Apple Silicon`"
+The notebook images are built for both `linux/amd64` and `linux/arm64`, so they run natively on Intel/AMD machines and Apple Silicon.
 
 ## Opening the notebooks (for use or development): use Docker
 
-Between the [base image](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-datascience-notebook)
-and the extra requirements (`dependecies/*`), the Docker contains all the libraries we need.
+The notebook images are based on Pixi's Docker image and have separate Pixi environments for Python and R.
+The Pixi manifests live in `images/python/pixi.toml` and `images/r/pixi.toml`.
 
 ### To add a new notebook
 
@@ -62,8 +59,9 @@ This copies and fills in a template notebook stub file with a standard header, i
 task edit-notebooks
 ```
 
-This runs the Docker image `quay.io/microbiome-informatics/emg-notebooks.dev:latest` which will either by pulled from Quay,
+This runs the Python Docker image `quay.io/microbiome-informatics/emg-notebooks-python.dev:latest` which will either be pulled from Quay,
 or run from your local image if you have built it (see below).
+Use `task edit-r-notebooks` to open the R image instead.
 
 The folder `src/notebooks` will be mounted into the Docker container, so that changes you make are reflected in the repository.
 
@@ -98,8 +96,8 @@ git add dependencies/mgnify-cache.tgz
 ### Changing dependencies and Docker build
 
 
-You can temporarily try things by opening a Terminal inside Jupyter Lab and `mambda install`ing the package(s).
-But make sure you reflect everything in the conda environment file.
+You can temporarily try things by opening a Terminal inside Jupyter Lab and using `pixi add` or `pixi run python -m pip install`.
+Make sure you reflect permanent changes in the relevant Pixi manifest.
 
 Then check the environment builds by (re)building the Docker:
 
@@ -107,12 +105,19 @@ Then check the environment builds by (re)building the Docker:
 task build-notebook-docker
 ```
 
+You can also build one language image at a time:
+
+```bash
+task build-python-docker
+task build-r-docker
+```
+
 ## Generating the documentation site
 
 There is a setup to use [Quarto](https://quarto.org/) to render the notebooks – including inputs and outputs – as well as the static documentation, to a documentation website.
 This allows us to use both the docs and notebooks interchangebly to provide user guidance.
 
-There is a Dockerfile to add Quarto on top of the regular Docker stack: `docker/docs.Dockerfile`.
+There is a Dockerfile to add Quarto on top of the Python notebook image: `docker/docs.Dockerfile`.
 
 To preview the statically rendered notebooks, use:
 
@@ -189,7 +194,7 @@ task build-notebook-docker
 
 - [Download the latest version of ShinyProxy](https://www.shinyproxy.io/downloads/) (>=2.6 is required). It is a JAR, so you need Java installed. i.e., download ShinyProxy into this repo directory.
 - The `application.yml` file must be in the same directory as the location you launch Shiny Proxy from.
-- If you want the currently deployed image instead of your local one... `docker pull quay.io/microbiome-informatics/emg-notebooks.dev:latest`
+- If you want the currently deployed images instead of your local ones... `docker pull quay.io/microbiome-informatics/emg-notebooks-python.dev:latest` and `docker pull quay.io/microbiome-informatics/emg-notebooks-r.dev:latest`
 - `cd shiny-proxy`, `java -jar shinyproxy-2.6.1.jar`
 - Browse to the ShinyProxy URL, likely localhost:8080
 
@@ -202,10 +207,10 @@ This extenion is needed because Shiny Proxy does not pass the URL path beyond an
 
 The extension does two things:
 
-1. **Allows deeplinking to notebooks.** It watches for a URL querystring parameter, `?jlpath=`, and uses this to forward Jupyter Lab to an internal URI which activates that path. This works because Shiny Proxy **does** include the query params in the iframe. E.g. browsing to `localhost:8080/app/mgnify-notebook-lab?jlpath=notebooks/home.ipynb` will trigger Jupyter Lab to open the `home.ipynb` notebooks once the application initialises. This is a frontend extension in `shiny_proxy_jlab_query_params/src/index.ts`.
+1. **Allows deeplinking to notebooks.** It watches for a URL querystring parameter, `?jlpath=`, and uses this to forward Jupyter Lab to an internal URI which activates that path. This works because Shiny Proxy **does** include the query params in the iframe. E.g. browsing to `localhost:8080/app/mgnify-python-notebook-lab?jlpath=notebooks/home.ipynb` will trigger Jupyter Lab to open the `home.ipynb` notebooks once the application initialises. This is a frontend extension in `shiny_proxy_jlab_query_params/src/index.ts`.
 2. **Sets ENV VARs based on query params.** On Jupyter Lab launch, it sends the querystring parameters to a Jupyter Lab "server-side" extension handler. The handler takes any querystring params beginning `?jlvar_` and sets corresponding ENV VARs. E.g., `?jlvar_MGYS=MGYS007` results in an ENV VAR of `MGYS=MGYS007` being available to any kernels launched after this. These ENV VARs can then, of course, be read in Notebooks (e.g. `os.getenv('MGYS')` in Python or `Sys.getenv('MGYS')` in R). There are helper utilities for both R and Python, that try to read such an ENV VAR otherwise ask for user input. These are in `src/notebooks/{Python Examples | R Examples}/lib/variable_utils.{R|Python}`.
 
-Together, this means a URL like: `localhost:8080/app/mgnify-notebook-lab?jlpath=notebooks/home.ipynb&jlvar_MGYS=MGYS00005116` will trigger Shiny Proxy to start the container, then open the `home` notebook, and have an MGYS environment variable ready to use in code.
+Together, this means a URL like: `localhost:8080/app/mgnify-python-notebook-lab?jlpath=notebooks/home.ipynb&jlvar_MGYS=MGYS00005116` will trigger Shiny Proxy to start the container, then open the `home` notebook, and have an MGYS environment variable ready to use in code.
 
 ## Jupyter Lab Extension, for MGnify-specific help
 
@@ -215,7 +220,7 @@ This is in the `mgnify_jupyter_lab_ui` folder.
 ## Testing
 
 A small integration test suite is written using Jest-Puppetteer.
-You need to have built or pulled the docker/Dockerfile (tagged as `quay.io/microbiome-informatics/emg-notebooks.dev:latest`), and have Shiny Proxy downloaded first.
+You need to have built or pulled both notebook images, and have Shiny Proxy downloaded first.
 The test suite runs Shiny Proxy, and makes sure Jupyter Lab opens, the deep-linking works, and variable insertion works in R and Python.
 
 ```bash
@@ -226,7 +231,7 @@ npm test
 
 ## Deployment
 
-There is an on-push build trigger for this repository that builds images to `quay.io/quay.io/microbiome-informatics/emg-notebooks.dev`
+There is an on-push build trigger for this repository that builds images to `quay.io/microbiome-informatics/emg-notebooks-python.dev` and `quay.io/microbiome-informatics/emg-notebooks-r.dev`.
 
 Just push to the repository (all branches are built and tagged). If you push to the `main` branch, the `:latest` tag will point to that version, once it is built.
 

@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Free up disk space
       uses: jlumbroso/free-disk-space@main
@@ -23,16 +23,7 @@ jobs:
         swap-storage: false
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
-    - name: Build Dockerfile
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        file: ./docker/Dockerfile
-        load: true
-        push: false
-        tags: quay.io/microbiome-informatics/emg-notebooks.dev:latest
+      uses: docker/setup-buildx-action@v4
 
     - name: Login to Quay.io
       uses: docker/login-action@v3
@@ -41,7 +32,24 @@ jobs:
         username: ${{ secrets.QUAY_USERNAME }}
         password: ${{ secrets.QUAY_PASSWORD }}
 
-    - name: Push
-      run: |
-        docker tag quay.io/microbiome-informatics/emg-notebooks.dev:latest quay.io/microbiome-informatics/emg-notebooks.dev:${{ github.ref_name }}
-        docker push quay.io/microbiome-informatics/emg-notebooks.dev:${{ github.ref_name }}
+    - name: Build and push Python Docker image
+      uses: docker/build-push-action@v7
+      with:
+        context: .
+        file: ./images/python/Dockerfile
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          quay.io/microbiome-informatics/emg-notebooks-python.dev:latest
+          quay.io/microbiome-informatics/emg-notebooks-python.dev:${{ github.ref_name }}
+
+    - name: Build and push R Docker image
+      uses: docker/build-push-action@v7
+      with:
+        context: .
+        file: ./images/r/Dockerfile
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          quay.io/microbiome-informatics/emg-notebooks-r.dev:latest
+          quay.io/microbiome-informatics/emg-notebooks-r.dev:${{ github.ref_name }}
