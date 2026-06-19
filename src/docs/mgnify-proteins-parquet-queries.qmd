@@ -317,8 +317,8 @@ If you have a MGYP that you know is a cluster representative, and you want to fe
 
 ```sql
 SELECT *
-         FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_cluster_seqs.parquet'
-         WHERE cluster_rep = 21;
+FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_cluster_seqs.parquet'
+WHERE cluster_rep = 21;
 ```
 
 Output:
