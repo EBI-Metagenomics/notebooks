@@ -53,7 +53,7 @@ All metadata related to proteins, assemblies, contigs, etc, for the entire prote
 
 #### Column descriptions:
 - occurrence_id: Identifier for a protein occurrence, which is a function of protein_id and contig_id i.e. it's an occurrence of a protein sequence on a specific contig
-- study_id: Identifier for an ENA study, which corresponds to a study_accession
+- study_id: Identifier for an ENA study, which corresponds to an internal counter of the study_accession. **Note that this is not the same integer as the study's MGYS accession.**
 - assembly_id: Identifier for an ENA assembly, which corresponds to an assembly_accession
 - contig_id: Identifier for a contig within an assembly, which corresponds to a contig_name. In flat files, contig_ids are preceded by the prefix MGYC, e.g `MGYC000120576919` has the contig_id `120576919`
 - protein_id: Identifier for a non-redundant protein sequence which appears in one or more contigs (and therefore assemblies). In flat files, protein_ids are preceded by the prefix MGYP, e.g `MGYP000004750550` has the protein_id `4750550`
