@@ -11,6 +11,8 @@ dependencies:
   - ipykernel==6.25.1
   - matplotlib==3.7.2
   - seaborn==0.12.2
+  - scikit-learn==1.3.0
+  - scipy==1.10.1
   - plotly==5.16.1
   - biopython==1.81
   - pyarrow==13.0.0
