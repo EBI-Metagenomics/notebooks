@@ -49,7 +49,7 @@ website:
               - src/docs/ftp.md
             - href: src/docs/mgnify-genomes.md
             - section: "MGnify Proteins"
-              href: src/docs/mgnify-proteins.qmd
+              href: src/docs/mgnify-proteins.md
               contents:
                 - src/docs/mgnify-proteins-web.md
                 - src/docs/mgnify-proteins-sequence-search.md
