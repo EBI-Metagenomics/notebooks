@@ -1,38 +1,5 @@
 [
   {
-    "objectID": "src/docs/mgnify-proteins.html",
-    "href": "src/docs/mgnify-proteins.html",
-    "title": "MGnify Proteins Resource",
-    "section": "",
-    "text": "The MGnify Protein Database comprises sequences predicted from assemblies generated from publicly available metagenomic datasets. Since its initial release in August 2017, which comprised just under 50 million sequences, it has grown to over 5.7 billion sequences. All sequences have stable accessions, prefixed with MGYP, such as MGYP000261684433. Due to the dataset’s size, sequences are clustered at 90% and 30% identity using DIAMOND/Linclust. Despite clustering, the sequences still capture the biological complexity inherent in metagenomic data.\nThe dataset is accessible via several platforms:\n\nFTP Server: Available for download from our FTP server.\nHMMER Sequence Search Webservice: Accessible through our Sequence Search service.\nMGnify Proteins Portal: Explore the data on the MGnify Proteins web portal.\nGoogle Cloud Public Dataset: Available as a Big Query public dataset on Google Cloud.\n\n\n\n\n\n\n\nWarning\n\n\n\nThe latest release (2026_06) is available on the FTP, and is used in the HMMER Sequence Search, MGnify Proteins Portal. The Google Cloud Public (GCP) dataset is still on the 2024-04 release. We are working hard to update the GCP dataset to the newest release as soon as possible.\n\n\n\n\n\nSchematic of MGnify Proteins resource\n\n\n\n\n\nThe data is available for both academic and commercial use under a CC0 1.0 Universal License.\nIf you make use of the MGnify Protein Database, please cite the following paper:\n\nRichardson, L., Allen, B., Baldi, G., Beracochea, M., Bileschi, M. L., Burdett, T., Burgin, J., Caballero-Pérez, J., Cochrane, G., Colwell, L. J., Curtis, T., Escobar-Zepeda, A., Gurbich, T. A., Kale, V., Korobeynikov, A., Raj, S., Rogers, A. B., Sakharova, E., Sanchez, S., Wilkinson, D. J., Finn, R. D. MGnify: the microbiome sequence data analysis resource in 2023. Nucleic Acids Research (2023). https://doi.org/10.1093/nar/gkac1080",
-    "crumbs": [
-      "Open MGnify",
-      "MGnify Proteins"
-    ]
-  },
-  {
-    "objectID": "src/docs/mgnify-proteins.html#introduction",
-    "href": "src/docs/mgnify-proteins.html#introduction",
-    "title": "MGnify Proteins Resource",
-    "section": "",
-    "text": "The MGnify Protein Database comprises sequences predicted from assemblies generated from publicly available metagenomic datasets. Since its initial release in August 2017, which comprised just under 50 million sequences, it has grown to over 5.7 billion sequences. All sequences have stable accessions, prefixed with MGYP, such as MGYP000261684433. Due to the dataset’s size, sequences are clustered at 90% and 30% identity using DIAMOND/Linclust. Despite clustering, the sequences still capture the biological complexity inherent in metagenomic data.\nThe dataset is accessible via several platforms:\n\nFTP Server: Available for download from our FTP server.\nHMMER Sequence Search Webservice: Accessible through our Sequence Search service.\nMGnify Proteins Portal: Explore the data on the MGnify Proteins web portal.\nGoogle Cloud Public Dataset: Available as a Big Query public dataset on Google Cloud.\n\n\n\n\n\n\n\nWarning\n\n\n\nThe latest release (2026_06) is available on the FTP, and is used in the HMMER Sequence Search, MGnify Proteins Portal. The Google Cloud Public (GCP) dataset is still on the 2024-04 release. We are working hard to update the GCP dataset to the newest release as soon as possible.\n\n\n\n\n\nSchematic of MGnify Proteins resource",
-    "crumbs": [
-      "Open MGnify",
-      "MGnify Proteins"
-    ]
-  },
-  {
-    "objectID": "src/docs/mgnify-proteins.html#license",
-    "href": "src/docs/mgnify-proteins.html#license",
-    "title": "MGnify Proteins Resource",
-    "section": "",
-    "text": "The data is available for both academic and commercial use under a CC0 1.0 Universal License.\nIf you make use of the MGnify Protein Database, please cite the following paper:\n\nRichardson, L., Allen, B., Baldi, G., Beracochea, M., Bileschi, M. L., Burdett, T., Burgin, J., Caballero-Pérez, J., Cochrane, G., Colwell, L. J., Curtis, T., Escobar-Zepeda, A., Gurbich, T. A., Kale, V., Korobeynikov, A., Raj, S., Rogers, A. B., Sakharova, E., Sanchez, S., Wilkinson, D. J., Finn, R. D. MGnify: the microbiome sequence data analysis resource in 2023. Nucleic Acids Research (2023). https://doi.org/10.1093/nar/gkac1080",
-    "crumbs": [
-      "Open MGnify",
-      "MGnify Proteins"
-    ]
-  },
-  {
     "objectID": "src/docs/mgnify-proteins-contig-sequences.html",
     "href": "src/docs/mgnify-proteins-contig-sequences.html",
     "title": "Retrieving contig sequences for MGnify proteins",
@@ -146,592 +113,120 @@
     "text": "Using the notebooks on your own computer instead\nThe code for our notebooks is open source and available on GitHub.\nThe notebook server is containerised with Docker, making installation fairly simple.\nYou can also simply copy the notebooks themselves from GitHub, but you will have to install the dependencies using e.g. Conda."
   },
   {
-    "objectID": "src/docs/mgnify-proteins-web.html",
-    "href": "src/docs/mgnify-proteins-web.html",
-    "title": "Portal",
+    "objectID": "src/docs/mgnify-proteins.html",
+    "href": "src/docs/mgnify-proteins.html",
+    "title": "MGnify Proteins Resource",
     "section": "",
-    "text": "The MGnify Proteins portal provides detailed information for protein cluster representatives derived from metagenomic assemblies. Due to the size of the database, detailed pages are generated exclusively for cluster representatives, rather than for each individual protein sequence.\n\n\n\nHomepage of MGnify Proteins\n\n\n\n\nThe MGnify Proteins portal features a search form that allows users to submit queries to the Sequence Search. Search queries are processed by the search service, and the results link back to the protein detail page within the portal.\n\n\n\nEach cluster representative from the Protein Database has a dedicated detail page. This page includes metadata about the protein and, when available, its 3D structure as predicted by the ESM Metagenomics Atlas team. Not all clusters have a predicted structure, as the release cycles of MGnify Proteins and the ESM Atlas are independent. The MGnify team is not involved in the protein structure predictions; instead the MGnify Proteins portal links to the ESM Atlas service, which is generously provided for the community by the ESM Atlas team.\n\n\nThis section at the top of the page provides essential details about the protein:\n\nProtein Accession: The unique identifier for the protein (e.g., MGYP000261684433).\nCluster Size: Indicates the number of proteins in the cluster (e.g., 1 protein).\nFull-Length ORF: Specifies whether the sequence represents a full-length open reading frame (ORF). A checkmark indicates a full-length ORF, while an ‘X’ denotes a fragment.\nBiome: Displays the biome(s) from which samples were sequenced that this protein was derived from (e.g., “Marine”).\nPfam Annotations: A table displaying Pfam domains identified within the protein.\n\n\n\n\nProtein Detail Header\n\n\n\n\n\n\nThis section displays a 3D structure of the protein, predicted by the ESM Metagenomics Atlas team using ESMFold:\n\n3D Structure Visualization: A graphic representation of the protein structure generated from the amino acid sequence.\nMore Information: A link below the visualization directs users to additional details about the ESM Metagenomics Atlas.\n\n\n\n\nESMFold Protein Predicted Structure\n\n\n\n\n\nThis table lists the assemblies from which the protein sequence was derived:\n\nStudy: The Study ID associated with the assembly.\nAssembly ID: The specific ID for the assembly.\nContig: The contig within the assembly where the protein sequence is located.\nContig Start/End: Coordinates indicating the start and end positions of the protein on the contig.\nStrand: Indicates whether the protein is on the positive or negative DNA strand.\n\n\n\n\nAssemblies where the Protein was Found\n\n\n\n\n\nThis section provides a detailed view of the amino acid sequence for the protein.\n\n\n\nProtein Amino Acid Sequence",
+    "text": "The MGnify Protein Database comprises sequences predicted from assemblies generated from publicly available metagenomic datasets. Since its initial release in August 2017, which comprised just under 50 million sequences, it has grown to over 2.4 billion sequences. All sequences have stable accessions, prefixed with MGYP, such as MGYP000261684433. Due to the dataset’s size, sequences are clustered at 90% identity using MMSeq2/Linclust. Despite clustering, the sequences still capture the biological complexity inherent in metagenomic data.\nThe dataset is accessible via several platforms:\n\nFTP Server: Available for download from our FTP server.\nHMMER Sequence Search Webservice: Accessible through our Sequence Search service.\nMGnify Proteins Portal: Explore the data on the MGnify Proteins web portal.\nGoogle Cloud Public Dataset: Available as a Big Query public dataset on Google Cloud.\n\n\n\n\nSchematic of MGnify Proteins resource\n\n\n\n\n\nThe data is available for both academic and commercial use under a CC0 1.0 Universal License.\nIf you make use of the MGnify Protein Database, please cite the following paper:\n\nRichardson, L., Allen, B., Baldi, G., Beracochea, M., Bileschi, M. L., Burdett, T., Burgin, J., Caballero-Pérez, J., Cochrane, G., Colwell, L. J., Curtis, T., Escobar-Zepeda, A., Gurbich, T. A., Kale, V., Korobeynikov, A., Raj, S., Rogers, A. B., Sakharova, E., Sanchez, S., Wilkinson, D. J., Finn, R. D. MGnify: the microbiome sequence data analysis resource in 2023. Nucleic Acids Research (2023). https://doi.org/10.1093/nar/gkac1080",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Proteins"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-proteins.html#introduction",
+    "href": "src/docs/mgnify-proteins.html#introduction",
+    "title": "MGnify Proteins Resource",
+    "section": "",
+    "text": "The MGnify Protein Database comprises sequences predicted from assemblies generated from publicly available metagenomic datasets. Since its initial release in August 2017, which comprised just under 50 million sequences, it has grown to over 2.4 billion sequences. All sequences have stable accessions, prefixed with MGYP, such as MGYP000261684433. Due to the dataset’s size, sequences are clustered at 90% identity using MMSeq2/Linclust. Despite clustering, the sequences still capture the biological complexity inherent in metagenomic data.\nThe dataset is accessible via several platforms:\n\nFTP Server: Available for download from our FTP server.\nHMMER Sequence Search Webservice: Accessible through our Sequence Search service.\nMGnify Proteins Portal: Explore the data on the MGnify Proteins web portal.\nGoogle Cloud Public Dataset: Available as a Big Query public dataset on Google Cloud.\n\n\n\n\nSchematic of MGnify Proteins resource",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Proteins"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-proteins.html#license",
+    "href": "src/docs/mgnify-proteins.html#license",
+    "title": "MGnify Proteins Resource",
+    "section": "",
+    "text": "The data is available for both academic and commercial use under a CC0 1.0 Universal License.\nIf you make use of the MGnify Protein Database, please cite the following paper:\n\nRichardson, L., Allen, B., Baldi, G., Beracochea, M., Bileschi, M. L., Burdett, T., Burgin, J., Caballero-Pérez, J., Cochrane, G., Colwell, L. J., Curtis, T., Escobar-Zepeda, A., Gurbich, T. A., Kale, V., Korobeynikov, A., Raj, S., Rogers, A. B., Sakharova, E., Sanchez, S., Wilkinson, D. J., Finn, R. D. MGnify: the microbiome sequence data analysis resource in 2023. Nucleic Acids Research (2023). https://doi.org/10.1093/nar/gkac1080",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Proteins"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-proteins-sequence-search.html",
+    "href": "src/docs/mgnify-proteins-sequence-search.html",
+    "title": "Sequence search",
+    "section": "",
+    "text": "The sequence search (accessed by following the ‘Sequence search’ link from the MGnify web page menu bar) provides a search against a catalogue of predicted peptides.\n\n\n\n\n\n\nFigure 1: The landing page of the sequence search tool\n\n\n\nThese sequences comprise a non-redundant set of proteins predicted from contigs that have been assembled from sequencing runs. The HMMER search engine has been adapted to provide fast searches against this database. The results can be linked back to the sample and run from which the peptide was derived and also to sequences with an exact match in the UniProtKB database.\nOwing to the large size of the database we are not able to offer a search against the full set of proteins. Instead, we have applied a clustering algorithm which groups sequences into clusters based on similarity. The clusters each have a ‘representative sequence’ and it is these that are offered in the search, though the full set of proteins may be obtained from our FTP server.\nThe search takes a FASTA-formatted amino acid sequence.\n\n\n\n\n\n\nFigure 2: Example of a well-formatted input sequence\n\n\n\nYou can search against all of the sequences in the database (‘All’), or restrict your search to full length sequences, or partial sequences only (see Partial and full length peptides). Alternatively, you may choose to search from a subset of environments or biomes. Sequences observed in multiple runs may be found in more than one biome. ‘Other’ sequences are those found in none of the other environment or biome categories.\n\n\n\n\n\n\nFigure 3: How to select the peptide database to search against",
     "crumbs": [
       "Open MGnify",
       "MGnify Proteins",
-      "Portal"
+      "Sequence search"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-web.html#sequence-search",
-    "href": "src/docs/mgnify-proteins-web.html#sequence-search",
-    "title": "Portal",
+    "objectID": "src/docs/mgnify-proteins-sequence-search.html#landing-page",
+    "href": "src/docs/mgnify-proteins-sequence-search.html#landing-page",
+    "title": "Sequence search",
     "section": "",
-    "text": "The MGnify Proteins portal features a search form that allows users to submit queries to the Sequence Search. Search queries are processed by the search service, and the results link back to the protein detail page within the portal.",
+    "text": "The sequence search (accessed by following the ‘Sequence search’ link from the MGnify web page menu bar) provides a search against a catalogue of predicted peptides.\n\n\n\n\n\n\nFigure 1: The landing page of the sequence search tool\n\n\n\nThese sequences comprise a non-redundant set of proteins predicted from contigs that have been assembled from sequencing runs. The HMMER search engine has been adapted to provide fast searches against this database. The results can be linked back to the sample and run from which the peptide was derived and also to sequences with an exact match in the UniProtKB database.\nOwing to the large size of the database we are not able to offer a search against the full set of proteins. Instead, we have applied a clustering algorithm which groups sequences into clusters based on similarity. The clusters each have a ‘representative sequence’ and it is these that are offered in the search, though the full set of proteins may be obtained from our FTP server.\nThe search takes a FASTA-formatted amino acid sequence.\n\n\n\n\n\n\nFigure 2: Example of a well-formatted input sequence\n\n\n\nYou can search against all of the sequences in the database (‘All’), or restrict your search to full length sequences, or partial sequences only (see Partial and full length peptides). Alternatively, you may choose to search from a subset of environments or biomes. Sequences observed in multiple runs may be found in more than one biome. ‘Other’ sequences are those found in none of the other environment or biome categories.\n\n\n\n\n\n\nFigure 3: How to select the peptide database to search against",
     "crumbs": [
       "Open MGnify",
       "MGnify Proteins",
-      "Portal"
+      "Sequence search"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-web.html#organization-of-the-protein-detail-page",
-    "href": "src/docs/mgnify-proteins-web.html#organization-of-the-protein-detail-page",
-    "title": "Portal",
-    "section": "",
-    "text": "Each cluster representative from the Protein Database has a dedicated detail page. This page includes metadata about the protein and, when available, its 3D structure as predicted by the ESM Metagenomics Atlas team. Not all clusters have a predicted structure, as the release cycles of MGnify Proteins and the ESM Atlas are independent. The MGnify team is not involved in the protein structure predictions; instead the MGnify Proteins portal links to the ESM Atlas service, which is generously provided for the community by the ESM Atlas team.\n\n\nThis section at the top of the page provides essential details about the protein:\n\nProtein Accession: The unique identifier for the protein (e.g., MGYP000261684433).\nCluster Size: Indicates the number of proteins in the cluster (e.g., 1 protein).\nFull-Length ORF: Specifies whether the sequence represents a full-length open reading frame (ORF). A checkmark indicates a full-length ORF, while an ‘X’ denotes a fragment.\nBiome: Displays the biome(s) from which samples were sequenced that this protein was derived from (e.g., “Marine”).\nPfam Annotations: A table displaying Pfam domains identified within the protein.\n\n\n\n\nProtein Detail Header",
+    "objectID": "src/docs/mgnify-proteins-sequence-search.html#result-page",
+    "href": "src/docs/mgnify-proteins-sequence-search.html#result-page",
+    "title": "Sequence search",
+    "section": "Result page",
+    "text": "Result page\nOn completion, a list of matching sequences is shown in order of E-value significance. All sequences in the database have a stable MGYP accession. Additional columns, such as the mapping to UniProtKB identifiers, can be enabled by clicking ‘Customise’ on the results page and checking the appropriate boxes.\n\n\n\n\n\n\nFigure 4: Different features on the result page after triggering a sequence search",
     "crumbs": [
       "Open MGnify",
       "MGnify Proteins",
-      "Portal"
+      "Sequence search"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-web.html#d-structure",
-    "href": "src/docs/mgnify-proteins-web.html#d-structure",
-    "title": "Portal",
-    "section": "",
-    "text": "This section displays a 3D structure of the protein, predicted by the ESM Metagenomics Atlas team using ESMFold:\n\n3D Structure Visualization: A graphic representation of the protein structure generated from the amino acid sequence.\nMore Information: A link below the visualization directs users to additional details about the ESM Metagenomics Atlas.\n\n\n\n\nESMFold Protein Predicted Structure",
+    "objectID": "src/docs/mgnify-proteins-sequence-search.html#build-process",
+    "href": "src/docs/mgnify-proteins-sequence-search.html#build-process",
+    "title": "Sequence search",
+    "section": "Build process",
+    "text": "Build process\nThe database is updated periodically and is created as follows:\n\nShort reads from runs are assembled into contigs using an assembler, such as metaSPAdes\nContigs are filtered by length (minimum 500 base pairs)\nPeptides are predicted using the Prodigal gene caller\nResulting peptides are made non-redundant to produce a set of unique sequences\nSequences are mapped back to MGnify run and sample accessions and annotated with biome(s)\nMatching sequences in UniProtKB are identified\nSequences are clustered using MMseqs2/Linclust\n\n\nEach update (versioned using the release year/month) is cumulative and uses all predicted peptides available at that time.",
     "crumbs": [
       "Open MGnify",
       "MGnify Proteins",
-      "Portal"
+      "Sequence search"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-web.html#assemblies-information",
-    "href": "src/docs/mgnify-proteins-web.html#assemblies-information",
-    "title": "Portal",
-    "section": "",
-    "text": "This table lists the assemblies from which the protein sequence was derived:\n\nStudy: The Study ID associated with the assembly.\nAssembly ID: The specific ID for the assembly.\nContig: The contig within the assembly where the protein sequence is located.\nContig Start/End: Coordinates indicating the start and end positions of the protein on the contig.\nStrand: Indicates whether the protein is on the positive or negative DNA strand.\n\n\n\n\nAssemblies where the Protein was Found",
+    "objectID": "src/docs/mgnify-proteins-sequence-search.html#partial-and-full-length-peptides",
+    "href": "src/docs/mgnify-proteins-sequence-search.html#partial-and-full-length-peptides",
+    "title": "Sequence search",
+    "section": "Partial and full length peptides",
+    "text": "Partial and full length peptides\nIn common with some other protein coding sequence predictors, Prodigal provides an indication as to whether a gene is full length or extends beyond the contig. This is recorded as two digits (one for each end of the sequence), each of which is either 0 (the gene is encoded within the contig) or 1 (it extends beyond). Thus a full length sequence is described as ‘00’ and a partial as ‘11’. The values ‘10’ or ‘01’ are used for the cases where the gene is truncated only at one end.\n&gt;seq_1 # 3 # 371 # 1 # ID=1_1;partial=10;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.501\nSEGCEYLAAYLDKRIASGETINESSAVMTLSQGYLMKGRNKDAGKKFITTPAITKEIREA\nQT\n&gt;seq_2 # 4738 # 5193 # -1 # ID=1_9;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.568\nMSAYWYAVIWGGSFGAVLAAAGPRFRKAIPAIRGRMKNSIKWSTSAKAINGISWAGPFAA\nQT\n&gt;seq_3 # 7546 # 8232 # -1 # ID=1_11;partial=00;start_type=TTG;rbs_motif=GGAG/GAGG;rbs_spacer=5-10bp;gc_cont=0.541\nMKKKVLSIQNIACETLGTLEGMFRKDGLEVENVSAQEGGIPIKSSEYSAVVVLGGPMAVY\nQT\n&gt;seq_4 # 32 # 103 # -1 # ID=37115_1;partial=01;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.542\nWILDGIDIDAMIRHPVRQYQIAG",
     "crumbs": [
       "Open MGnify",
       "MGnify Proteins",
-      "Portal"
+      "Sequence search"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-web.html#amino-acid-sequence-viewer",
-    "href": "src/docs/mgnify-proteins-web.html#amino-acid-sequence-viewer",
-    "title": "Portal",
-    "section": "",
-    "text": "This section provides a detailed view of the amino acid sequence for the protein.\n\n\n\nProtein Amino Acid Sequence",
+    "objectID": "src/docs/mgnify-proteins-sequence-search.html#availability",
+    "href": "src/docs/mgnify-proteins-sequence-search.html#availability",
+    "title": "Sequence search",
+    "section": "Availability",
+    "text": "Availability\nAs well as searches via a web server, we provide all data for download from our FTP server. This includes the sequence database (separate fasta files for the full database and cluster representatives); run, sample, biome, Swiss-Prot and TrEMBL mappings; the partial status of the sequences and counts of the number of times each sequence was observed in the database as a whole.\n\n\n\n\n\n\nFigure 5: List of available files on the FTP server",
     "crumbs": [
       "Open MGnify",
       "MGnify Proteins",
-      "Portal"
+      "Sequence search"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-genomes.html",
-    "href": "src/docs/mgnify-genomes.html",
-    "title": "MGnify Genomes",
-    "section": "",
-    "text": "MGnify Genomes (accessed from the ‘Genomes’ tab of the ‘Browse data’ area in the menu bar) provides a detailed interactive view of prokaryotic genomes and their functional annotations.\nMGnify displays genomes in biome-specific Catalogues.\nThe latest version of each Catalogue is shown on the website, whilst older versions can be downloaded from our FTP server.\n\n\n\n\n\n\nFigure 1: MGnify genomes are collected into biome-specific catalogues.",
+    "objectID": "src/docs/mgnify-proteins-sequence-search.html#further-information",
+    "href": "src/docs/mgnify-proteins-sequence-search.html#further-information",
+    "title": "Sequence search",
+    "section": "Further information",
+    "text": "Further information\nFull documentation regarding the HMMER webserver is available. Note that some of the documented features (such as the taxonomy view) are not relevant to the peptide search and are therefore disabled. If there are additional features or feedback on this search service, please get in contact with us.",
     "crumbs": [
       "Open MGnify",
-      "MGnify Genomes"
-    ]
-  },
-  {
-    "objectID": "src/docs/mgnify-genomes.html#genome-catalogues",
-    "href": "src/docs/mgnify-genomes.html#genome-catalogues",
-    "title": "MGnify Genomes",
-    "section": "",
-    "text": "MGnify Genomes (accessed from the ‘Genomes’ tab of the ‘Browse data’ area in the menu bar) provides a detailed interactive view of prokaryotic genomes and their functional annotations.\nMGnify displays genomes in biome-specific Catalogues.\nThe latest version of each Catalogue is shown on the website, whilst older versions can be downloaded from our FTP server.\n\n\n\n\n\n\nFigure 1: MGnify genomes are collected into biome-specific catalogues.",
-    "crumbs": [
-      "Open MGnify",
-      "MGnify Genomes"
-    ]
-  },
-  {
-    "objectID": "src/docs/mgnify-genomes.html#generating-genome-catalogues",
-    "href": "src/docs/mgnify-genomes.html#generating-genome-catalogues",
-    "title": "MGnify Genomes",
-    "section": "Generating genome catalogues",
-    "text": "Generating genome catalogues\nThere are two processes that have been put in place to generate a genome catalogue. A new catalogue (v1.0 of any catalogue) is generated using MGnify genome analysis pipeline. Pipeline structure and tool descriptions are included in the README file in the repository.\nThe process to produce updated versions of the catalogues is described below.\n\nUpdating an existing catalogue\nNew genomes (MAGs or isolates) are added to an existing catalogue following the steps outlined in Figure 2. To be added to a catalogue, a genome must be available in INSDC.\n\n\n\n\n\n\nFigure 2: The algorithm to update an existing genome catalog.\n\n\n\nBriefly, the new genomes undergo QC filtration: quality score (QS) is calculated for each genome as % completeness - 5 \\* % contamination; genomes with QS &lt; 50 or contamination &gt; 5% are removed. The genomes are then dereplicated at 99.9% similarity to remove strain redundancy and compared to the previous version of the genome catalogue using Mash to determine whether each genome represents a novel species, a novel strain or a strain that already exists in the catalogue. The category under which a new genome falls is based on the distance between the new genome and the most similar genome in the existing catalog: &gt; 0.05 = new species, 0.001 - 0.05 = new strain, &lt; 0.001 = strain already exists.\nIf the strain already exists, the genome is discarded. Genomes classified as novel species are dereplicated at 95% similarity to identify genomes that belong to the same species cluster and undergo two more quality control steps: genomes are screened with GUNC to remove possible chimeras and contigs are screened for human contamination using BLAST. Genomes that represent a novel strain become the new species representative for their respective cluster if any of the following conditions is true:\n\nthe new genome is an isolate while the current species representative is a MAG;\nthe new genome is a MAG and it’s quality score (completeness - 5 \\* contamination) is 10% higher than that of the current species representative;\nthe new genome and the current representative are isolates and the quality score of the new genome is 10% higher than that of the current species representative.\n\nIf none of the above conditions is true, the new strain is added to the species cluster but does not replace the existing species representative.\nThe tools used to annotate the new genomes and to update the pan-genomes for each species containing multiple conspecific genomes to which new genomes have been added are listed in the README files associated with each catalog on the FTP server.",
-    "crumbs": [
-      "Open MGnify",
-      "MGnify Genomes"
-    ]
-  },
-  {
-    "objectID": "src/docs/mgnify-genomes.html#searching-across-catalogues",
-    "href": "src/docs/mgnify-genomes.html#searching-across-catalogues",
-    "title": "MGnify Genomes",
-    "section": "Searching across catalogues",
-    "text": "Searching across catalogues\nThere are three ways to search for species across all of the catalogues.\n\nBy accession or taxonomy\n\n\n\n\n\n\nFigure 3: Searching for “Prevotella” genomes from all catalogues.\n\n\n\nThe Browse &gt; Genomes &gt; All Genomes tab lists genomes from all catalogues. The genome accessions and taxonomic lineages are indexed for full-text search. This is helpful to find a specific genome where the biome is irrelevant, or to find the set of biomes (catalogues) which a certain taxonomic classification is present in.\n\n\nBy gene fragment\nThe ‘Gene search’ tab is a COmpact Bitsliced Signature index (COBS) based search engine. COBS queries short sequence fragments against the species representatives of some or all genome catalogues.\nOne or more catalogues can be selected to search against. By default, your query is compared to all current catalogues.\nThe table of results provides the user with direct links to the matching genomes. Match statistics are shown as a count and percentage of kmers found. A score of 100% means that all of the 31-length kmers in the query were found in the indexed Genome.\nThe minimum kmer proportion is set at a default of 0.4 and can be increased or decreased within a range of 0.1-1 with the available toggle.\n\n\n\n\n\n\nFigure 4: COBS search example with table of results.\n\n\n\n\n\nBy whole genome / MAG\nThe ‘MAG search’ tab is a Sourmash based search engine. Sourmash queries complete MAGs for similarity against the species representatives of some or all genome catalogues.\nOne or more catalogues can be selected to search against. By default, your query is compared to all current catalogues.\nThe query genome must be a nucleotide sequence file.\nUse the browse button to upload either a single FastA file, or multiple files by holding [ctrl] or [shift] while clicking in the file explorer. Alternatively you can select a whole directory of files using the directory mode (select this option below the Browse button). In this mode, the tool will process all FastA files in the selected directory, however it will not descend into subdirectories. Files are not uploaded onto MGnify servers. Rather, Sourmash generates a signature of your file(s) in your browser, and compares this signature against our MAG catalogue on the server. Successful searches create a CSV result file for each signature submitted. These are compiled into a TGZ allowing you to fetch all your results in one click. These result files are only stored in our servers for 30 days, so please be sure to download them before they expire.\n\n\n\n\n\n\nFigure 5: Sourmash search example with file selected\n\n\n\n\nSourmash details\nSpecifically, the MAG search runs the sourmash gather command. In this mode, sourmash finds the minimum set of MAGs in the database that collectively contain as much of the query (meta)genome as possible. The “Best Match” MAG from each catalogue is the MAG that contains the largest content from the query (if any). To use this search programmatically (by submitting sourmash sketches of your own query MAGs to the MGnify API), the sourmash parameters must match those used by MGnify. MGnify use the default parameters for kmer size (-k 31) and sketch scaling (--scaled 1000).\nSee the “Search MGnify Genomes” notebook in MGnify’s notebooks repository for an example of how to query this API programmatically.",
-    "crumbs": [
-      "Open MGnify",
-      "MGnify Genomes"
-    ]
-  },
-  {
-    "objectID": "src/docs/mgnify-genomes.html#browsing-a-catalogue",
-    "href": "src/docs/mgnify-genomes.html#browsing-a-catalogue",
-    "title": "MGnify Genomes",
-    "section": "Browsing a catalogue",
-    "text": "Browsing a catalogue\nClicking on a Catalogue ID in the list on the MGnify website allows you to browse the catalogue’s contents.\nThe “Genome list” tab contains a catalogue of non-redundant isolate and metagenome assembled genomes (MAGs). Each accession is a species representative of a cluster of genomes. To constitute a cluster: genomes with completeness greater than 50%, contamination less than 5% and average quality score (completeness - 5*contamination) greater than 50 - calculated with CheckM, v.1.0.11 are clustered with dRep v2.2.4 using an average nucleotide identity (ANI) cutoff of ≥95% and an aligned fraction (AF) of ≥30% . The species representative for each cluster is the best quality genome judged by completeness, contamination and the assembly N50 values. Isolate genomes are prioritised over MAGs for a species representative.\n\n\n\n\n\n\nFigure 6: Each catalogue contains MAGs and isolate genomes.\n\n\n\nThe ‘Taxonomy tree’ is a subset of the GTDB taxonomy which can be viewed interactively. Genomes from the catalogue can be found in the tree by taxonomic lineage. Each orange coloured genome accession links to further statistics and functional annotation data.\n\n\n\n\n\n\nFigure 7: GTDB interactive taxonomy tree for a catalogue\n\n\n\nThe ‘Protein catalogue’ is clusters of all the predicted coding sequences in the genome catalogue. Separate catalogues are generated at different amino acid identity levels (100%, 95%, 90% and 50%). Data for the Protein catalogue are available at the linked FTP server location.\n\nSearching a catalogue\nThere are single-catalogue versions of the COBS and Sourmash searches available on the ‘Search by gene’ and ‘Search by MAG’ tabs, respectively. These searches work exactly the same as the cross-catalogue searches described above, except that they always search against only one catalogue.",
-    "crumbs": [
-      "Open MGnify",
-      "MGnify Genomes"
-    ]
-  },
-  {
-    "objectID": "src/docs/mgnify-genomes.html#genome-detail",
-    "href": "src/docs/mgnify-genomes.html#genome-detail",
-    "title": "MGnify Genomes",
-    "section": "Genome detail",
-    "text": "Genome detail\nView a specific Genome by clicking it in the Genome List, or a search result.\nThe page header details the genome type and a full GTDB lineage assigned with GTDB-tk. The ‘Overview’ tab contains statistics about the genome. Type of genome (isolate or MAG), length, percentage completeness and contamination, the number of contigs, number of genomes represented by the species cluster, total number of proteins, N50 and GC content are shown here.\nInfernal is used to screen for the presence of ribosomal RNAs against Rfam covariance models for 5S, 16S and 23S rRNA. Transfer RNAs are identified with tRNAScan-SE. These figures are presented in the Genome RNA coverage section, as the percentage coverage for each rRNA type and a count of total tRNA and ncRNAs.\npCDS are inferred with Prokka which uses Prodigal . eggNOG-mapper tool assigns KEGG and COG annotations against the pCDS. InterProScan performs protein annotations with 5 member databases. The proportion of predicted proteins with an InterPro or eggNOG annotation are given as a coverage percentage. COG and KEGG annotations are visualised in their respective tabs with the top 10 hits in an interactive bar graph.\nAdditionally, the geographic origin of each genome, and links to ENA accessions can be found towards the bottom of this page.\nThe mobile genetic elements annotation is generated for representative genomes using the Mobilome Annotation Pipeline. It includes prediction of plasmids, viral sequences (including prophages), integrons, transposons, and insertion sequences. When detected, putative excision sites are reported as well. The final output is generated in GFF format and can be downloaded from the “Downloads” tab of each genome web page, or the FTP site. The location of mobile genetic elements in the contig can be visualized in the Genome annotation browser.\n\nGenome annotation browser\nAll genome annotations can be viewed interactively in the ‘Browse genome’ tab to browse all assigned functional annotations in more detail.\nThe “Functional annotation track colour” dropdown menu can be used to pick an annotation type of interest. Once selected, the annotation region will be coloured (and labelled, depending on the annotation type).\n\n\n\n\n\n\nFigure 8: An annotated genome in the Genome Browser.",
-    "crumbs": [
-      "Open MGnify",
-      "MGnify Genomes"
-    ]
-  },
-  {
-    "objectID": "src/docs/mgnify-genomes.html#pan-genome",
-    "href": "src/docs/mgnify-genomes.html#pan-genome",
-    "title": "MGnify Genomes",
-    "section": "Pan-genome",
-    "text": "Pan-genome\nGenome accessions with more than 1 genome in a species cluster have additional pan-genome analyses. Roary v3.12.0 performs an iterative clustering of predicted genes with greater than 90% amino acid identity (AAI) for all genomes in the species cluster, to infer a core genome. Further BLASTp steps identify groups of homologous genes pertaining to the accessory genomes. The overview page has an extra ‘Pan-genome statistics’ block. Figures for pan-genome size - a ratio of the total core and accessory genes versus the total number of genes in the species representative, pan-genome core size and pan-genome accessory size can be found here. eggNOG-mapper tool and InterProScan annotations are performed as above. The COG and KEGG visualisations have an extra bar in the plot representing the pan-genome analysis.\nThe ‘Downloads’ tab comprises summary files for all described analyses.\n\n\n\n\n\n\nFigure 9: An overview for a species representative MAG, with a pan-genome analysis.\n\n\n\nA set of assemblies, annotations, pan-genome results and protein catalogues are available in our FTP server. Note that the GFF (.gff.gz) file for each cluster member genome on the FTP site includes both annotations in GFF tabular form, as well as the FASTA sequence of the genome at the end. The FASTA sequence can be obtained from the GFF file, for example with common unix tools: gunzip -c MGYG000290000.gff.gz | awk '/##FASTA/ {found=1; next} found' &gt; MGYG000290000.fna",
-    "crumbs": [
-      "Open MGnify",
-      "MGnify Genomes"
-    ]
-  },
-  {
-    "objectID": "src/docs/ftp.html",
-    "href": "src/docs/ftp.html",
-    "title": "Transfer Services (FTP) file server",
-    "section": "",
-    "text": "EMBL-EBI operates a Transfer Services file server, providing high-bandwidth access to datasets from EMBL-EBI services including MGnify.\nMGnify’s (public) results are available in the following directories:\n\nMetagenomic analyses (i.e. the files produced when analysing MGYA-accessioned analyses) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/\n\nThese files are arranged into directories using the studies’ INSDC acccessions, with substring-prefixed folder names, and then their MGnify Pipeline version number. E.g. the version 5.0 analysis of ERP003408 is found in ERP003/ERP003408/version_5.0.\n\nGenomes (i.e. the files produced when analysing MGYG-accessioned genomes from catalogues) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/\n\nThese files are arranged into the biome-specific catalogues according to the MGnify Genomes schema\n\nProteins (the MGnify Protein database of proteins found in metagenome assemblies) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/\n\nThese files are arranged into date-versioned releases. The latest release is always linked from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/",
-    "crumbs": [
-      "Open MGnify",
-      "Website & API",
-      "Transfer Services (FTP) file server"
-    ]
-  },
-  {
-    "objectID": "src/docs/ftp.html#transfer-services",
-    "href": "src/docs/ftp.html#transfer-services",
-    "title": "Transfer Services (FTP) file server",
-    "section": "",
-    "text": "EMBL-EBI operates a Transfer Services file server, providing high-bandwidth access to datasets from EMBL-EBI services including MGnify.\nMGnify’s (public) results are available in the following directories:\n\nMetagenomic analyses (i.e. the files produced when analysing MGYA-accessioned analyses) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/\n\nThese files are arranged into directories using the studies’ INSDC acccessions, with substring-prefixed folder names, and then their MGnify Pipeline version number. E.g. the version 5.0 analysis of ERP003408 is found in ERP003/ERP003408/version_5.0.\n\nGenomes (i.e. the files produced when analysing MGYG-accessioned genomes from catalogues) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/\n\nThese files are arranged into the biome-specific catalogues according to the MGnify Genomes schema\n\nProteins (the MGnify Protein database of proteins found in metagenome assemblies) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/\n\nThese files are arranged into date-versioned releases. The latest release is always linked from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/",
-    "crumbs": [
-      "Open MGnify",
-      "Website & API",
-      "Transfer Services (FTP) file server"
-    ]
-  },
-  {
-    "objectID": "src/docs/dataflow.html",
-    "href": "src/docs/dataflow.html",
-    "title": "From submission to results",
-    "section": "",
-    "text": "Figure 1: MGnify data flow from submission to analysis results.\n\n\n\n\nRegister\n\n: Submissions are handled by the** European Nucleotide Archive (ENA) and therefore users must have an ENA Webin account. In addition, users submitting private data must provide an expressed agreement that MGnify can access their private data for analysis, by filling this form. Otherwise, MGnify will not be able to access their data. MGnify will, of course, handle this data confidentially.\n\nLogin\n\n: Access to the** ENA submission page requires a login using a registered email address or a Webin identifier (Webin-XXXX).\n\nUpload, and 4. Submission\n\n: These steps are described in detail in the ENA online guides. The MGnify and EMBL-EBI online tutorials provide a step by step guide to submission. Please also check our FAQs.\n\n\n\n\n\n\nNote\n\n\n\nAll queries concerning data submission should be directed to ENA dedicated help desk\n\n\nThe following ENA submission criteria must be fulfilled. Please note, MGnify will not have access to retrieve data for analyses until these criteria are met.\n\nAssemblies: The associated sample taxonomy must be in the metagenomic tax tree 408169. Please see the environmental taxonomy guidelines for further details.\nRaw metagenomic or metatranscriptomic reads: Same taxonomy guidelines as assemblies apply AND/OR the library source should be either ‘METAGENOMIC’ or ‘METATRANSCRIPTOMIC’. Please see the library source guidelines for further details.\n\nAfter validation by ENA, if the above criteria are met we will be able to access the submitted data.\nTo request private analysis with MGnify, navigate to the home page, click ‘Submit and/or Request’ and complete the form. You will need to login to request analysis of private data. To request analysis of a public dataset in ENA click ‘Request’ and complete the form. Once we have received the requests, they will be queued for analysis (more details about our Analysis pipeline).\nThe length of time required for analysis varies according to the number of projects in the queue and the nature and number of runs in the submission. However, we aim to have most analyses completed in less than a week once validated by ENA.\n\nAccessing analysed data\n\n: Upon completion of analysis, data will be uploaded on the website. MGnify pipeline will generate a number of charts and downloadable files (Files available to download on the MGnify website).\n\nPrivate access\n\n: For private data, users will have to login to the MGnify website to access their data, until they become public\n\nPublic access to private data\n\n: Private data will become public after an initial confidential period of two years. Submitters will receive an email from ENA prior to the public release of their data, giving them the opportunity to extend the confidential period which is set to two years as default (as indicated at Can I change the release date of my project?).\n\n\n\nCitationBibTeX citation:@online{team2026,\n  author = {Team, MGnify},\n  title = {From Submission to Results},\n  date = {2026-07-03},\n  url = {https://docs.mgnify.org/src/docs/dataflow.html},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nTeam, MGnify. 2026. “From Submission to Results.” July 3.\nhttps://docs.mgnify.org/src/docs/dataflow.html.",
-    "crumbs": [
-      "Open MGnify",
-      "Data flow",
-      "From submission to results"
-    ]
-  },
-  {
-    "objectID": "src/docs/analysis.html",
-    "href": "src/docs/analysis.html",
-    "title": "Analysis pipeline v5.0",
-    "section": "",
-    "text": "The previous MGnify analysis service (version 5.0) offered specialised workflows for three different data types: amplicon, raw metagenomic/metatranscriptomic reads, and assembly. Each workflow was defined in common workflow language (CWL). (MGnify v5.0 CWL repository) All databases are available from an FTP link\nThe software and databases used for the various processing steps and analyses are listed in the following table.\nPipeline version 5.0 was superceeded by version 6.0, but previously-run version 5.0 analyses continue to be available via MGnify’s API, Website and downloadable from the Transfer Services area.",
-    "crumbs": [
-      "Open MGnify",
-      "Analyses",
-      "Analysis pipeline v5.0"
-    ]
-  },
-  {
-    "objectID": "src/docs/analysis.html#overview",
-    "href": "src/docs/analysis.html#overview",
-    "title": "Analysis pipeline v5.0",
-    "section": "",
-    "text": "The previous MGnify analysis service (version 5.0) offered specialised workflows for three different data types: amplicon, raw metagenomic/metatranscriptomic reads, and assembly. Each workflow was defined in common workflow language (CWL). (MGnify v5.0 CWL repository) All databases are available from an FTP link\nThe software and databases used for the various processing steps and analyses are listed in the following table.\nPipeline version 5.0 was superceeded by version 6.0, but previously-run version 5.0 analyses continue to be available via MGnify’s API, Website and downloadable from the Transfer Services area.",
-    "crumbs": [
-      "Open MGnify",
-      "Analyses",
-      "Analysis pipeline v5.0"
-    ]
-  },
-  {
-    "objectID": "src/docs/analysis.html#software-databases-and-versions-used-by-mgnify",
-    "href": "src/docs/analysis.html#software-databases-and-versions-used-by-mgnify",
-    "title": "Analysis pipeline v5.0",
-    "section": "Software, Databases and Versions used by MGnify:",
-    "text": "Software, Databases and Versions used by MGnify:\n\n\n\n\n\n\n\n\n\n\n\nTool/Database\nVersion\nPurpose\nAmplicon\nRaw reads\nAssemblies\n\n\n\n\nSeqPrep\n1.2\nMerging paired end reads\nYes\nYes\n\n\n\nTrimmomatic\n0.36\nQuality controlled\nYes\nYes\n\n\n\nBiopython\n1.74\nQuality controlled\nYes\nYes\nYes\n\n\nbedtools\n2.28.0\nSSU/LSU rRNA masking for ITS\nYes\n\n\n\n\npre-assembled\n0.45h\nSequence extraction\nYes\nYes\nYes\n\n\nInfernal\n1.1.2\nRNA predictions\nYes\nYes\nYes\n\n\nRfam\n13.0\nIdentification of SSU/LSU rRNA and other ncRNAs\nYes\nYes\nYes\n\n\nMAPseq\n1.2.3\nTaxonomic assignment of SSU/LSU rRNA and ITS\nYes\nYes\nYes\n\n\nKronatools\n2.7.1\nVisualisation of taxonomic analyses\nYes\nYes\nYes\n\n\nbiom-format\n2.1.6\nFormatting of taxonomic analyses\nYes\nYes\nYes\n\n\nmOTUs2\n2.5.1\nPhylogenetic marker gene based taxonomic profiling\n\nYes\n\n\n\nFragGeneScan\n1.20\nProtein coding sequence prediction\n\nYes\nYes\n\n\nProdigal\n2.6.3\nProtein coding sequence prediction\n\n\nYes\n\n\nInterProScan\n75.0\nProtein function annotation with separate Pfam results\n\nYes\nYes\n\n\nGO terms in-house scripts\nN/A\nAssign gene ontology terms\n\nYes\nYes\n\n\neggNOG-mapper\n4.5.1\nProtein function annotation\n\n\nYes\n\n\neggNOG-mapper\n1.0.3\nProtein function annotation\n\n\nYes\n\n\nHMMER\n3.2.1\nKEGG Ortholog prediction\n\nYes\nYes\n\n\nKOfam - a modified version based on KEGG 90.0\n2019-04-06\nKEGG Ortholog prediction\n\nYes\nYes\n\n\nKEGG and in-house descriptions\n90.0\nKEGG pathway predictions\n\n\nYes\n\n\nGenome Properties\n2.0.1\nSystems and pathways annotation\n\n\nYes\n\n\nantiSMASH\n4.2.0\nSecondary metabolite biosynthetic gene cluster annotation\n\n\nYes\n\n\nDIAMOND\n0.9.25.126\nProtein sequence-based taxonomic analysis\n\n\nYes\n\n\nSILVA release\n132\nSSU/LSU rRNA taxonomic database\nYes\nYes\nYes\n\n\nITSoneDB\n1.138\nITS1 taxonomic database\nYes\n\n\n\n\nUNITE\n8.0\nITS taxonomic database\nYes\n\n\n\n\nUniRef90\n2019_11\nProtein sequence-based taxonomic analysis\n\n\nYes\n\n\nmetaSPAdes\n3.13\nAssembly of raw reads (available on request)\nN/A\nN/A\nN/A",
-    "crumbs": [
-      "Open MGnify",
-      "Analyses",
-      "Analysis pipeline v5.0"
-    ]
-  },
-  {
-    "objectID": "src/docs/analysis.html#amplicon-analysis-pipeline",
-    "href": "src/docs/analysis.html#amplicon-analysis-pipeline",
-    "title": "Analysis pipeline v5.0",
-    "section": "Amplicon analysis pipeline",
-    "text": "Amplicon analysis pipeline\nAmplicon reads are merged with SeqPrep (where appropriate) and filtered with Trimmomatic to trim sequence regions with an average Phred 33 quality score of less than 15 in a sliding window of 4 base pairs. This is followed by removal of reads less than 100bp in length. An additional Biopython filtering step removes reads with more than 10% ambiguous bases. Infernal (running in hmm-only mode) using a library of ribosomal RNA hidden Markov models from Rfam is run to identify large and small subunit ribosomal ribonucleic acid (LSU and SSU rRNA) genes, using families found in the following clans: CL00111 (SSU) and CL00112 (LSU). Theses undergo taxonomic classification using the SILVA database in conjunction with MAPSeq which offers fast and accurate classification of reads, and provides corresponding confidence scores for assignment at each taxonomic level.\nMGnify can also provide analysis of ITS (internal transcribed spacer) amplicons. ITS1 and ITS2 reside between the LSU and SSU genes and can be targeted for accurate classification of eukaryotic organisms. ITS taxonomy is assigned by MAPseq using two reference databases: ITSoneDB containing ITS1 sequences and UNITE containing ITS1 and ITS2 sequences. The SSU and LSU regions are masked using Rfam, as described above, prior to ITS classification, minimising cross reactivity.\n\n\n\n\n\n\nFigure 1: Overview of the main steps in the amplicon workflow.",
-    "crumbs": [
-      "Open MGnify",
-      "Analyses",
-      "Analysis pipeline v5.0"
-    ]
-  },
-  {
-    "objectID": "src/docs/analysis.html#raw-reads-analysis-pipeline",
-    "href": "src/docs/analysis.html#raw-reads-analysis-pipeline",
-    "title": "Analysis pipeline v5.0",
-    "section": "Raw reads analysis pipeline",
-    "text": "Raw reads analysis pipeline\nMetagenomic and metatranscriptomic raw reads undergo merging, quality control and SSU/LSU based taxonomic analysis, as described for the amplicon pipeline above. Additional non-coding RNAs (ncRNAs) are identified with Infernal, using families from the following Rfam clans: CL00001 (tRNA), CL00002 (RNAse) and CL00003 (SRP). Supplementary phylogenetic classification based on marker gene profiling, is performed using mOTUs2 on the quality controlled reads.\nFor functional analysis, the sequence regions encoding rRNAs are masked, and FragGeneScan is used to predict coding sequences (pCDS). Coding sequences are assigned protein annotations with InterProScan, using 5 member databases that are able to process large numbers of potentially fragmented sequences (Gene3D, TIGRFAMs, Pfam, PRINTS and PROSITE patterns). Pfam annotations are provided as separate visualisations and downloads. GO terms are extracted from the InterProScan results and grouped according to category (Biological Process, Molecular Function and Cellular Component). GO terms are also summarized using a specialized GO Slim developed for metagenomic data. Finally, protein coding sequences undergo KEGG ortholog annotations using HMMER v3.2.1 and a modified version of KOfam 2019-04-06 (based on KEGG 90.0).\n\n\n\n\n\n\nFigure 2: Overview of the main steps in the raw reads workflow.",
-    "crumbs": [
-      "Open MGnify",
-      "Analyses",
-      "Analysis pipeline v5.0"
-    ]
-  },
-  {
-    "objectID": "src/docs/analysis.html#assembly-analysis-pipeline",
-    "href": "src/docs/analysis.html#assembly-analysis-pipeline",
-    "title": "Analysis pipeline v5.0",
-    "section": "Assembly analysis pipeline",
-    "text": "Assembly analysis pipeline\nUsers can request assembly of their own raw sequencing reads, or publicly available datasets, using the ‘Request analysis’ section of the MGnify home page. Users own raw reads (with host sequences removed) must be archived in ENA before submitting an assembly request. The sequences then undergo quality control, as well as a precautionary additional host contamination removal process (where applicable) with bwa-mem. metaSPAdes is used for assembly of paired end reads and SPAdes for single reads. Alternatively, pre-assembled datasets, including those produced using other assembly algorithms, can be analysed. Quality control for assemblies is based on sequence length, with contigs less than 500 nucleotides removed from the analysis process.\nrRNAs are identified and undergo taxonomic analysis as for raw reads above. Sequence regions encoding rRNAs are masked and protein coding sequences are predicted using a combined gene caller that utilises both Prodigal and FragGeneScan. In addition to rRNA-based taxonomic analyses, DIAMOND is used to assign taxonomy to protein sequences, based on the top hit to the UniRef90 database.\nProtein function is assigned in the form of InterProScan annotations, GO terms, and KEGG ortholog predictions, as described for the raw reads analysis pipeline above. Additionally, clusters of orthologous groups (COGs) annotations and eggNOG functional descriptions are provided by the eggNOG-mapper tool.\nKEGG ortholog annotations are further processed to produce KEGG pathway information, including module presence and completeness. Similarly, InterPro annotations for individual protein sequences are amalgamated to generate Genome Properties (GP), providing inference of higher level pathways and systems that may be present in the dataset. Finally, antiSMASH is used to identify and annotate biosynthetic gene clusters that code for the production of secondary metabolites.\n\n\n\n\n\n\nFigure 3: Overview of the main steps in the assembly workflow.",
-    "crumbs": [
-      "Open MGnify",
-      "Analyses",
-      "Analysis pipeline v5.0"
-    ]
-  },
-  {
-    "objectID": "src/docs.html",
-    "href": "src/docs.html",
-    "title": "MGnify Documentation",
-    "section": "",
-    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data.\nThe resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA).\nThis is MGnify’s documentation resource, providing guides to use the MGnify website, API, and submission services."
-  },
-  {
-    "objectID": "src/docs.html#mgnify-documentation",
-    "href": "src/docs.html#mgnify-documentation",
-    "title": "MGnify Documentation",
-    "section": "",
-    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data.\nThe resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA).\nThis is MGnify’s documentation resource, providing guides to use the MGnify website, API, and submission services."
-  },
-  {
-    "objectID": "src/docs.html#contents",
-    "href": "src/docs.html#contents",
-    "title": "MGnify Documentation",
-    "section": "Contents",
-    "text": "Contents\n\n\n\n\n\nAbout MGnify\n\n\nBackground to the MGnify service, our funding and citation info, and how to contact us.\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify Team\n\n\n\n\n\n\n\nFrom submission to results\n\n\nHow MGnify data moves from submission to analysis\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify Team\n\n\n\n\n\n\n\nMulti-omics dataset submission\n\n\nBest practices for multi-omics dataset submission\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nAnalysis pipeline v5.0\n\n\nDescription of the previous MGnify analysis pipeline and the tools it used.\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nWebsite and portal\n\n\nUser guide to the MGnify website\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify Genomes\n\n\nDescription of the MGnify genomes pipelines and web resource\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nRESTful API\n\n\nProgramatically accessing MGnify data via the API (Application Programming Interface)\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify notebooks servers\n\n\nUsing MGnify’s Jupyter Notebooks to explore and access data programatically\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nTransfer Services (FTP) file server\n\n\nHow to download data from MGnify’s file server\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nFAQs\n\n\nFrequently asked questions about MGnify\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nGlossary\n\n\nDictionary of terms used in MGnify and throughout this documentaiton\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nGuides and tutorials\n\n\nList of online tutorials relevant to MGnify and ENA\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nBig Query public dataset\n\n\nDescription of the MGnify Proteins BigQuery public dataset\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify Proteins Resource\n\n\nDescription of the MGnify Proteins and related services\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nPortal\n\n\nGuide to using MGnify’s Proteins website\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nRemote querying of MGnify Proteins using Parquet and DuckDB\n\n\nDescription of the MGnify Proteins and related services\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nRetrieving contig sequences for MGnify proteins\n\n\nA guide to retrieving contig sequences for MGnify proteins (MGYPs)\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nSequence search\n\n\nGuide to using MGnify’s Protein Database sequence search service\n\n\n\n\n\nJul 3, 2026\n\n\nMGnify\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "src/docs/about.html",
-    "href": "src/docs/about.html",
-    "title": "About MGnify",
-    "section": "",
-    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data. The resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA). The MGnify resource was previously known as EBI Metagenomics, but was re-branded in 2018 to reflect its growing remit.",
-    "crumbs": [
-      "Open MGnify",
-      "About MGnify"
-    ]
-  },
-  {
-    "objectID": "src/docs/about.html#the-mgnify-service",
-    "href": "src/docs/about.html#the-mgnify-service",
-    "title": "About MGnify",
-    "section": "",
-    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data. The resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA). The MGnify resource was previously known as EBI Metagenomics, but was re-branded in 2018 to reflect its growing remit.",
-    "crumbs": [
-      "Open MGnify",
-      "About MGnify"
-    ]
-  },
-  {
-    "objectID": "src/docs/about.html#what-does-mgnify-offer",
-    "href": "src/docs/about.html#what-does-mgnify-offer",
-    "title": "About MGnify",
-    "section": "What does MGnify offer",
-    "text": "What does MGnify offer\n\nPowerful analysis\nMGnify offers multiple analysis pipelines that are tailored according to input data (amplicon, raw read or assembly), providing (where appropriate) detailed taxonomic and functional analysis of microbiome sequence data.\n\n\nAccess to an extensive selection of analysed data\nMGnify houses a vast repository of analysed microbiome datasets, processed using standardized pipelines and workflows, allowing analyses to be placed in context with other studies from similar environments.\n\n\nProgrammatic access to analysed data\nIn addition to visualisations available from the website and downloadable results files, MGnify analyses can be queried and retrieved via a RESTful API, giving full programmatic access to the data.\n\n\nArchiving of user-submitted data\nThrough partnership with the European Nucleotide Archive (ENA), user-submitted sequence data and metadata is archived. Accession numbers are supplied as part of this process, which is a prerequisite for publication in many journals.\n\n\nStandards-compliant data\nSubmission tools help ensure sequence data and metadata comply with ENA data schemes and the Genomic Standards Consortium (GSC) metadata guidelines, allowing harmonisation of analysis efforts across the wider genomics community.",
-    "crumbs": [
-      "Open MGnify",
-      "About MGnify"
-    ]
-  },
-  {
-    "objectID": "src/docs/about.html#funding",
-    "href": "src/docs/about.html#funding",
-    "title": "About MGnify",
-    "section": "Funding",
-    "text": "Funding\nCurrent funding: MGnify currently receives funding support from: the European Union’s Horizon 2020 Research and Innovation programme (817729, 862923, and 952914) and Research Infrastructures programme (824087); the Biotechnology and Biological Sciences Research Council (BB/S009043/1, BB/T000902/1, BB/V01868X/1, and BB/W002965/1); ELIXIR, the research infrastructure for Life-Science data; EMBL – FNR (CORE International); and European Molecular Biology Laboratory (EMBL) core funds.\nPrevious funding: MGnify was initiated with institutional funding from EMBL. It gratefully acknowledges previous funding received from the Biotechnology and Biological Sciences Research Council (BB/M011755/1 and BB/I02612X/1), the European Union’s Horizon 2020 Research and Innovation programme (676559 and 654008), Innovate UK (102513) and the European Union’s Seventh Framework Programme for Research (287589).",
-    "crumbs": [
-      "Open MGnify",
-      "About MGnify"
-    ]
-  },
-  {
-    "objectID": "src/docs/about.html#how-to-cite",
-    "href": "src/docs/about.html#how-to-cite",
-    "title": "About MGnify",
-    "section": "How to cite",
-    "text": "How to cite\nIf you find this resource useful, please consider citing the following publication:\nMGnify: the microbiome sequence data analysis resource in 2023\nLorna Richardson, Ben Allen, Germana Baldi, Martin Beracochea, Maxwell L Bileschi, Tony Burdett, Josephine Burgin, Juan Caballero-Pérez, Guy Cochrane, Lucy J Colwell, Tom Curtis, Alejandra Escobar-Zepeda, Tatiana A Gurbich, Varsha Kale, Anton Korobeynikov, Shriya Raj, Alexander B Rogers, Ekaterina Sakharova, Santiago Sanchez, Darren J Wilkinson, Robert D Finn, Nucleic Acids Res 51(D1):D753-D759 (2023)",
-    "crumbs": [
-      "Open MGnify",
-      "About MGnify"
-    ]
-  },
-  {
-    "objectID": "src/docs/about.html#contact",
-    "href": "src/docs/about.html#contact",
-    "title": "About MGnify",
-    "section": "Contact",
-    "text": "Contact\nIf you would like to get in touch, please contact us using the helpdesk. We will respond as quickly as possible, but bear in mind that we do not have a member of staff dedicated to running the helpdesk service.\n\n\n\n\n\n\nNote\n\n\n\nPlease, check our FAQs prior to contacting us.\n\n\nIf your questions relate to submission of sequence data and/or metadata, please contact the (ENA helpdesk) who are responsible for this providing the submission services.",
-    "crumbs": [
-      "Open MGnify",
-      "About MGnify"
-    ]
-  },
-  {
-    "objectID": "src/docs/about.html#news-and-updates",
-    "href": "src/docs/about.html#news-and-updates",
-    "title": "About MGnify",
-    "section": "News and updates",
-    "text": "News and updates\nIf you would like to keep up to date with developments within MGnify, please follow us on Twitter (@MGnifyDB).",
-    "crumbs": [
-      "Open MGnify",
-      "About MGnify"
-    ]
-  },
-  {
-    "objectID": "src/docs/about.html#service-status",
-    "href": "src/docs/about.html#service-status",
-    "title": "About MGnify",
-    "section": "Service status",
-    "text": "Service status\nThe service status page lists any known issues and outages.",
-    "crumbs": [
-      "Open MGnify",
-      "About MGnify"
-    ]
-  },
-  {
-    "objectID": "src/docs/api.html",
-    "href": "src/docs/api.html",
-    "title": "RESTful API",
-    "section": "",
-    "text": "With the rapid expansion in the number of datasets deposited in MGnify, it has become increasingly important to provide programmatic access to the data for cross-database complex queries.",
-    "crumbs": [
-      "Open MGnify",
-      "Website & API",
-      "RESTful API"
-    ]
-  },
-  {
-    "objectID": "src/docs/api.html#api-overview",
-    "href": "src/docs/api.html#api-overview",
-    "title": "RESTful API",
-    "section": "API Overview",
-    "text": "API Overview\n\nCurrent version\nCurrent API version is v2.\n\n\n\n\n\n\nWarningAPI v1 Deprecation\n\n\n\nThe API v1 was deprecated in June 2026. It will be turned off no earlier than September 1st 2026, but will serve frozen data that does not include MGnify V6 analyses.\n\n\n\n\nBase URL\nThe base address to the API is https://www.ebi.ac.uk/metagenomics/api/v2/.\nBrowsing the API root (i.e. going to /api/v2 in a web browser) shows a human-readable, browsable, interactive documentation page for the API. This is the easiest way to explore it.\nTo programatically explore it, e.g. to help instruct a large-language model to use it, an OpenAPI JSON is provided:\ncurl -X GET \"https://www.ebi.ac.uk/metagenomics/api/v2/openapi.json\"\nThere are several easy-to-use top-levels resources, such as studies, samples, runs, biomes, and analyses. For example https://www.ebi.ac.uk/metagenomics/api/v2/studies retrieves a list of all studies, while https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397 retrieves a single study, with the accession MGYS00010397. The samples contained within this study can be retrieved using the relationship URL: https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397/samples/.\n\n\nHTTP methods\nThe API provides mostly read-only access to all resources, that means only HTTP GET method can be used with exception of the authentication endpoint and some search endpoints that accept a query sequence.\n\n\nResponses\nResponses to list endpoints (like /studies/, /genomes/ etc) return data following a schema like:\n  \"count\": 10,\n  \"items\": [...]\nThe same is true of detail -&gt; list relationship endpoints (like /studies/MGYS00010397/samples/ for example).\nResponses to a detail endpoint (like /studies/MGYS00010397, /analyses/MGYA01020362 etc) return data following a schema appropriate for the data type, e.g. for analysis:\n{\n  \"experiment_type\": \"Metatranscriptomic\",\n  \"study_accession\": \"MGYS000000001\",\n  \"accession\": \"MGYA000000001\",\n  ...\n}\nThe schema of a detail endpoint often includes more fields than when the same object appears in a list. For examples, an analysis’s downloads field is not shown in /analyses/ but is in /analyses/MGYA01020362.\nThe schema for all responses is available from the Open API spec, and this is also shown - often with example data - in the browsable API.\n\n\n\nThe schema for a request is shown here in the browsable API\n\n\n\n\nPagination\nAs some queries can result in a large response, the API supports pagination, using a page number and size of results per page as query parameters. Request that return multiple items is paginated to 20 items by default, and can be increased up to 100:\ncurl -X GET \"https://www.ebi.ac.uk/metagenomics/api/v2/studies?page_size=100\"\nThe \"count\" given at the top-level of a list endpoint’s JSON response, combined with the page_size requested, allows you to compute how many pages need to be requested. For each page, use a ?page=x query parameter, e.g.:\ncurl -X GET \"https://www.ebi.ac.uk/metagenomics/api/v2/studies/?page=2&page_size=100\"\nThis pagination can be interated.\n\n\nParameters\nIn APIv2, there are very few query parameters for filtering lists: instead the API returns fast responses for entire lists which can be easily filtered downstream. A limited number of search filters are supported, though, for very common queries. For example to search studies by their title including the words space station:\ncurl -X GET \"https://www.ebi.ac.uk/metagenomics/api/v2/studies/?search=space+station\"\nor genomes with taxa including Rickettsiales:\ncurl -X GET \"https://www.ebi.ac.uk/metagenomics/api/v2/genomes/?search=Rickettsiales\"\n\n\nLinks\nSome endpoints in the API schema include “Links”, which are not URLs, but rather other endpoint in the API (or “operations”) that get related data. These are part of the Open API specification, and are mostly useful to programmatic clients like large-language models. For example, they specify how one can retrieve the genome-catalogue mentioned in the detail endpoint response from a genome.\n\n\nErrors\nThere are three possible types of client errors on API calls:\n\n400 Bad requests, usually a bad query parameter.\n401 Unauthorized, usually trying to access private analyses with the wrong credentials.\n404 Not found, usually a broken link or a dataset that has been suppressed.\n403 Authentication failed.",
-    "crumbs": [
-      "Open MGnify",
-      "Website & API",
-      "RESTful API"
-    ]
-  },
-  {
-    "objectID": "src/docs/api.html#examples",
-    "href": "src/docs/api.html#examples",
-    "title": "RESTful API",
-    "section": "Examples",
-    "text": "Examples\n\nDownload all taxonomy files from a metagenomic analyses (MGYA)\nThis example uses common command-line tools curl and jq\ncurl \"https://www.ebi.ac.uk/metagenomics/api/v2/analyses/MGYA01020362\" | jq '.downloads[] | select(.download_group | startswith(\"taxonomies.\")) | .url' | xargs -n1 curl -O\n\n\nAccess MGnify from Python\nWe have a Python client, MGnipy, designed to streamline access to the APIv2 from Python.\nDocumentation for MGnipy can be found at mgnipy.mgnify.org/.",
-    "crumbs": [
-      "Open MGnify",
-      "Website & API",
-      "RESTful API"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html",
-    "href": "src/docs/faqs.html",
-    "title": "FAQs",
-    "section": "",
-    "text": "MGnify accepts sequencing data from a wide range of platforms, including Roche 454, Illumina and Ion Torrent. In addition to analysis of whole-genome shotgun (WGS) assemblies, sequenced metagenomic and metatranscriptomic samples, it also provides analysis of 16S and 18S ribosomal RNA (rRNA) amplicon data. We do not currently support analysis of long read data. We are in the process of expanding our assembly pipeline to make this available to users in the future.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#what-kind-of-sequence-data-does-the-service-accept",
-    "href": "src/docs/faqs.html#what-kind-of-sequence-data-does-the-service-accept",
-    "title": "FAQs",
-    "section": "",
-    "text": "MGnify accepts sequencing data from a wide range of platforms, including Roche 454, Illumina and Ion Torrent. In addition to analysis of whole-genome shotgun (WGS) assemblies, sequenced metagenomic and metatranscriptomic samples, it also provides analysis of 16S and 18S ribosomal RNA (rRNA) amplicon data. We do not currently support analysis of long read data. We are in the process of expanding our assembly pipeline to make this available to users in the future.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#can-i-submit-assembled-metagenomic-sequences-for-analysis",
-    "href": "src/docs/faqs.html#can-i-submit-assembled-metagenomic-sequences-for-analysis",
-    "title": "FAQs",
-    "section": "Can I submit assembled metagenomic sequences for analysis?",
-    "text": "Can I submit assembled metagenomic sequences for analysis?\nYes, we welcome submission of assembled data.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#can-i-submit-its-amplicon-sequences",
-    "href": "src/docs/faqs.html#can-i-submit-its-amplicon-sequences",
-    "title": "FAQs",
-    "section": "Can I submit ITS amplicon sequences?",
-    "text": "Can I submit ITS amplicon sequences?\nYes, the v5.0 analysis pipeline classifies ITS sequences for amplicon studies based on two databases: UNITE and ITSoneDB",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#can-i-submit-viral-sequences",
-    "href": "src/docs/faqs.html#can-i-submit-viral-sequences",
-    "title": "FAQs",
-    "section": "Can I submit viral sequences?",
-    "text": "Can I submit viral sequences?\nAlthough MGnify does not currently provide taxonomic analysis of viral sequences, any reads submitted to the pipeline that encode predicted protein coding sequences (pCDS) undergo functional analysis using InterPro. Therefore, while no taxonomic data will be returned for viral sequences, it should be possible to obtain functional analysis results. We hope to make specific viral analysis available in the near future.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#how-do-i-run-a-sequence-search-against-the-metagenomics-datasets",
-    "href": "src/docs/faqs.html#how-do-i-run-a-sequence-search-against-the-metagenomics-datasets",
-    "title": "FAQs",
-    "section": "How do I run a sequence search against the metagenomics datasets?",
-    "text": "How do I run a sequence search against the metagenomics datasets?\nWe offer HMMER searches against our metagenomic protein database via the web site sequence search facility.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#can-i-change-the-release-date-of-my-project",
-    "href": "src/docs/faqs.html#can-i-change-the-release-date-of-my-project",
-    "title": "FAQs",
-    "section": "Can I change the release date of my project?",
-    "text": "Can I change the release date of my project?\nThe date of release is set by you during the submission in ENA. If you do not explicitly choose a date, it is set to two years from the submission date by default. You can reduce or extend the release date by going to the ‘Submit & update’ page of the ENA website, logging in using your Webin account id, selecting the relevant study and then clicking the pen icon near the current release date to alter it.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#how-long-will-it-take-for-my-data-to-be-analyzed",
-    "href": "src/docs/faqs.html#how-long-will-it-take-for-my-data-to-be-analyzed",
-    "title": "FAQs",
-    "section": "How long will it take for my data to be analyzed?",
-    "text": "How long will it take for my data to be analyzed?\nWe aim to analyze submitted data as quickly as possible. However, submitted data are only available to us once they have been validated and archived by ENA. This process takes at least 24 hours, and in some cases several days. Once the sequence files are made available, the analysis time depends on our current analysis backlog, and the size and number of runs in the project you have submitted. Most studies will be validated, archived and analysed within two weeks. If you are concerned that your data is taking a long time to be analysed, please contact us.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#i-have-submitted-my-data---how-do-i-trigger-the-analysis",
-    "href": "src/docs/faqs.html#i-have-submitted-my-data---how-do-i-trigger-the-analysis",
-    "title": "FAQs",
-    "section": "I have submitted my data - how do I trigger the analysis?",
-    "text": "I have submitted my data - how do I trigger the analysis?\nThere is no manual way to trigger analysis. If you have provided access agreement for MGnify, we will pick up your sequences from ENA automatically and queue them for analysis. Access agreements previously provided to EBI Metagenomics will apply to MGnify.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#do-you-have-an-api",
-    "href": "src/docs/faqs.html#do-you-have-an-api",
-    "title": "FAQs",
-    "section": "Do you have an API?",
-    "text": "Do you have an API?\nYes, we do. In December 2017 we released the first version of our new RESTful API, which provides a rich search and retrieval interface for programmatic access to our data.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#how-can-i-download-multiple-sets-of-data",
-    "href": "src/docs/faqs.html#how-can-i-download-multiple-sets-of-data",
-    "title": "FAQs",
-    "section": "How can I download multiple sets of data?",
-    "text": "How can I download multiple sets of data?\nWhile our API currently does not support this, we have Python scripts allowing users to automatically download most processed files from the MGnify website. The scripts and instructions for bulk downloading from the resource can be found here.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#how-can-i-bulk-download-metadata",
-    "href": "src/docs/faqs.html#how-can-i-bulk-download-metadata",
-    "title": "FAQs",
-    "section": "How can I bulk download metadata?",
-    "text": "How can I bulk download metadata?\nIt is possible to access all the metadata associated with projects, samples and runs programmatically using our RESTful API.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#how-can-i-re-analyse-my-data-with-a-different-version-of-the-pipeline",
-    "href": "src/docs/faqs.html#how-can-i-re-analyse-my-data-with-a-different-version-of-the-pipeline",
-    "title": "FAQs",
-    "section": "How can I re-analyse my data with a different version of the pipeline?",
-    "text": "How can I re-analyse my data with a different version of the pipeline?\nIt is possible to analyse data sets with different versions of our analysis pipeline. The original analyses are not deleted and are available side by side on our website. Users interested in having data re-analysed should contact us.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#can-i-request-that-a-dataset-is-analyzed-if-i-am-not-the-original-submitter",
-    "href": "src/docs/faqs.html#can-i-request-that-a-dataset-is-analyzed-if-i-am-not-the-original-submitter",
-    "title": "FAQs",
-    "section": "Can I request that a dataset is analyzed if I am not the original submitter?",
-    "text": "Can I request that a dataset is analyzed if I am not the original submitter?\nWe are currently working through the analysis of all publicly available metagenomic datasets in ENA, so if there is a publicly available study that you would like to see analysed in MGnify, please get in touch and we will prioritise it.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#can-i-request-my-data-to-not-be-analyzed-by-mgnify",
-    "href": "src/docs/faqs.html#can-i-request-my-data-to-not-be-analyzed-by-mgnify",
-    "title": "FAQs",
-    "section": "Can I request my data to not be analyzed by MGnify?",
-    "text": "Can I request my data to not be analyzed by MGnify?\nWe can only access private data for analysis if you give us permission to do so. If, for any reason, you do not want MGnify to analyze one of your datasets, please contact us . If your data is public in ENA, we are able to analyse this data without restriction.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#can-i-compare-the-taxonomic-assignments-between-runs-of-a-project",
-    "href": "src/docs/faqs.html#can-i-compare-the-taxonomic-assignments-between-runs-of-a-project",
-    "title": "FAQs",
-    "section": "Can I compare the taxonomic assignments between runs of a project?",
-    "text": "Can I compare the taxonomic assignments between runs of a project?\nPlease refer to the summary files provided on the project page under the ‘Analysis summary’ tab. They summarize the counts per feature across the runs and provide an easy way to identify patterns.\nThe ‘OTUs, reads and taxonomic assignments.tsv’ can be directly imported into Megan 6 to perform comparison and visualisation. The Biom format can also be imported into third-party tools.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
-    ]
-  },
-  {
-    "objectID": "src/docs/faqs.html#can-i-know-which-bacteria-encodes-particular-pcds-in-my-dataset",
-    "href": "src/docs/faqs.html#can-i-know-which-bacteria-encodes-particular-pcds-in-my-dataset",
-    "title": "FAQs",
-    "section": "Can I know which bacteria encodes particular pCDS in my dataset?",
-    "text": "Can I know which bacteria encodes particular pCDS in my dataset?\nThe short answer is that it is generally not possible. The reason is that we annotate directly the reads and select the reads containing small subunit rRNA and large subunit rRNA for taxonomy assignments. The protein prediction is then performed on all reads after masking the tRNA and rRNA sequences. To link a predicted protein to a taxonomic assignments, the protein-coding gene would need to be on the same read as the annotated SSU/LSU sequence. It is possible to check if this is the case using the sequence headers from the ‘InterPro matches.tsv’ and ‘Reads encoding SSU/LSU rRNA.fasta’ files, both available on the ‘Download’ for each run. The same answer applies for assembly. However, depending on the contig length, more protein-coding genes may be located near the 16S rRNA genes.",
-    "crumbs": [
-      "Open MGnify",
-      "FAQs"
+      "MGnify Proteins",
+      "Sequence search"
     ]
   },
   {
@@ -1054,87 +549,592 @@
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-sequence-search.html",
-    "href": "src/docs/mgnify-proteins-sequence-search.html",
-    "title": "Sequence search",
+    "objectID": "src/docs/faqs.html",
+    "href": "src/docs/faqs.html",
+    "title": "FAQs",
     "section": "",
-    "text": "The sequence search (accessed by following the ‘Sequence search’ link from the MGnify web page menu bar) provides a search against a catalogue of predicted peptides.\n\n\n\n\n\n\nFigure 1: The landing page of the sequence search tool\n\n\n\nThese sequences comprise a non-redundant set of proteins predicted from contigs that have been assembled from sequencing runs. The HMMER search engine has been adapted to provide fast searches against this database. The results can be linked back to the sample and run from which the peptide was derived and also to sequences with an exact match in the UniProtKB database.\nOwing to the large size of the database we are not able to offer a search against the full set of proteins. Instead, we have applied a clustering algorithm which groups sequences into clusters based on similarity. The clusters each have a ‘representative sequence’ and it is these that are offered in the search, though the full set of proteins may be obtained from our FTP server.\nThe search takes a FASTA-formatted amino acid sequence.\n\n\n\n\n\n\nFigure 2: Example of a well-formatted input sequence\n\n\n\nYou can search against all of the sequences in the database (‘All’), or restrict your search to full length sequences, or partial sequences only (see Partial and full length peptides). Alternatively, you may choose to search from a subset of environments or biomes. Sequences observed in multiple runs may be found in more than one biome. ‘Other’ sequences are those found in none of the other environment or biome categories.\n\n\n\n\n\n\nFigure 3: How to select the peptide database to search against",
+    "text": "MGnify accepts sequencing data from a wide range of platforms, including Roche 454, Illumina and Ion Torrent. In addition to analysis of whole-genome shotgun (WGS) assemblies, sequenced metagenomic and metatranscriptomic samples, it also provides analysis of 16S and 18S ribosomal RNA (rRNA) amplicon data. We do not currently support analysis of long read data. We are in the process of expanding our assembly pipeline to make this available to users in the future.",
     "crumbs": [
       "Open MGnify",
-      "MGnify Proteins",
-      "Sequence search"
+      "FAQs"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-sequence-search.html#landing-page",
-    "href": "src/docs/mgnify-proteins-sequence-search.html#landing-page",
-    "title": "Sequence search",
+    "objectID": "src/docs/faqs.html#what-kind-of-sequence-data-does-the-service-accept",
+    "href": "src/docs/faqs.html#what-kind-of-sequence-data-does-the-service-accept",
+    "title": "FAQs",
     "section": "",
-    "text": "The sequence search (accessed by following the ‘Sequence search’ link from the MGnify web page menu bar) provides a search against a catalogue of predicted peptides.\n\n\n\n\n\n\nFigure 1: The landing page of the sequence search tool\n\n\n\nThese sequences comprise a non-redundant set of proteins predicted from contigs that have been assembled from sequencing runs. The HMMER search engine has been adapted to provide fast searches against this database. The results can be linked back to the sample and run from which the peptide was derived and also to sequences with an exact match in the UniProtKB database.\nOwing to the large size of the database we are not able to offer a search against the full set of proteins. Instead, we have applied a clustering algorithm which groups sequences into clusters based on similarity. The clusters each have a ‘representative sequence’ and it is these that are offered in the search, though the full set of proteins may be obtained from our FTP server.\nThe search takes a FASTA-formatted amino acid sequence.\n\n\n\n\n\n\nFigure 2: Example of a well-formatted input sequence\n\n\n\nYou can search against all of the sequences in the database (‘All’), or restrict your search to full length sequences, or partial sequences only (see Partial and full length peptides). Alternatively, you may choose to search from a subset of environments or biomes. Sequences observed in multiple runs may be found in more than one biome. ‘Other’ sequences are those found in none of the other environment or biome categories.\n\n\n\n\n\n\nFigure 3: How to select the peptide database to search against",
+    "text": "MGnify accepts sequencing data from a wide range of platforms, including Roche 454, Illumina and Ion Torrent. In addition to analysis of whole-genome shotgun (WGS) assemblies, sequenced metagenomic and metatranscriptomic samples, it also provides analysis of 16S and 18S ribosomal RNA (rRNA) amplicon data. We do not currently support analysis of long read data. We are in the process of expanding our assembly pipeline to make this available to users in the future.",
     "crumbs": [
       "Open MGnify",
-      "MGnify Proteins",
-      "Sequence search"
+      "FAQs"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-sequence-search.html#result-page",
-    "href": "src/docs/mgnify-proteins-sequence-search.html#result-page",
-    "title": "Sequence search",
-    "section": "Result page",
-    "text": "Result page\nOn completion, a list of matching sequences is shown in order of E-value significance. All sequences in the database have a stable MGYP accession. Additional columns, such as the mapping to UniProtKB identifiers, can be enabled by clicking ‘Customise’ on the results page and checking the appropriate boxes.\n\n\n\n\n\n\nFigure 4: Different features on the result page after triggering a sequence search",
+    "objectID": "src/docs/faqs.html#can-i-submit-assembled-metagenomic-sequences-for-analysis",
+    "href": "src/docs/faqs.html#can-i-submit-assembled-metagenomic-sequences-for-analysis",
+    "title": "FAQs",
+    "section": "Can I submit assembled metagenomic sequences for analysis?",
+    "text": "Can I submit assembled metagenomic sequences for analysis?\nYes, we welcome submission of assembled data.",
     "crumbs": [
       "Open MGnify",
-      "MGnify Proteins",
-      "Sequence search"
+      "FAQs"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-sequence-search.html#build-process",
-    "href": "src/docs/mgnify-proteins-sequence-search.html#build-process",
-    "title": "Sequence search",
-    "section": "Build process",
-    "text": "Build process\nThe database is updated periodically and is created as follows:\n\nShort reads from runs are assembled into contigs using an assembler, such as metaSPAdes\nContigs are filtered by length (minimum 500 base pairs)\nPeptides are predicted using the Prodigal gene caller\nResulting peptides are made non-redundant to produce a set of unique sequences\nSequences are mapped back to MGnify run and sample accessions and annotated with biome(s)\nMatching sequences in UniProtKB are identified\nSequences are clustered using MMseqs2/Linclust\n\n\nEach update (versioned using the release year/month) is cumulative and uses all predicted peptides available at that time.",
+    "objectID": "src/docs/faqs.html#can-i-submit-its-amplicon-sequences",
+    "href": "src/docs/faqs.html#can-i-submit-its-amplicon-sequences",
+    "title": "FAQs",
+    "section": "Can I submit ITS amplicon sequences?",
+    "text": "Can I submit ITS amplicon sequences?\nYes, the v5.0 analysis pipeline classifies ITS sequences for amplicon studies based on two databases: UNITE and ITSoneDB",
     "crumbs": [
       "Open MGnify",
-      "MGnify Proteins",
-      "Sequence search"
+      "FAQs"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-sequence-search.html#partial-and-full-length-peptides",
-    "href": "src/docs/mgnify-proteins-sequence-search.html#partial-and-full-length-peptides",
-    "title": "Sequence search",
-    "section": "Partial and full length peptides",
-    "text": "Partial and full length peptides\nIn common with some other protein coding sequence predictors, Prodigal provides an indication as to whether a gene is full length or extends beyond the contig. This is recorded as two digits (one for each end of the sequence), each of which is either 0 (the gene is encoded within the contig) or 1 (it extends beyond). Thus a full length sequence is described as ‘00’ and a partial as ‘11’. The values ‘10’ or ‘01’ are used for the cases where the gene is truncated only at one end.\n&gt;seq_1 # 3 # 371 # 1 # ID=1_1;partial=10;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.501\nSEGCEYLAAYLDKRIASGETINESSAVMTLSQGYLMKGRNKDAGKKFITTPAITKEIREA\nQT\n&gt;seq_2 # 4738 # 5193 # -1 # ID=1_9;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.568\nMSAYWYAVIWGGSFGAVLAAAGPRFRKAIPAIRGRMKNSIKWSTSAKAINGISWAGPFAA\nQT\n&gt;seq_3 # 7546 # 8232 # -1 # ID=1_11;partial=00;start_type=TTG;rbs_motif=GGAG/GAGG;rbs_spacer=5-10bp;gc_cont=0.541\nMKKKVLSIQNIACETLGTLEGMFRKDGLEVENVSAQEGGIPIKSSEYSAVVVLGGPMAVY\nQT\n&gt;seq_4 # 32 # 103 # -1 # ID=37115_1;partial=01;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.542\nWILDGIDIDAMIRHPVRQYQIAG",
+    "objectID": "src/docs/faqs.html#can-i-submit-viral-sequences",
+    "href": "src/docs/faqs.html#can-i-submit-viral-sequences",
+    "title": "FAQs",
+    "section": "Can I submit viral sequences?",
+    "text": "Can I submit viral sequences?\nAlthough MGnify does not currently provide taxonomic analysis of viral sequences, any reads submitted to the pipeline that encode predicted protein coding sequences (pCDS) undergo functional analysis using InterPro. Therefore, while no taxonomic data will be returned for viral sequences, it should be possible to obtain functional analysis results. We hope to make specific viral analysis available in the near future.",
     "crumbs": [
       "Open MGnify",
-      "MGnify Proteins",
-      "Sequence search"
+      "FAQs"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-sequence-search.html#availability",
-    "href": "src/docs/mgnify-proteins-sequence-search.html#availability",
-    "title": "Sequence search",
-    "section": "Availability",
-    "text": "Availability\nAs well as searches via a web server, we provide all data for download from our FTP server. This includes the sequence database (separate fasta files for the full database and cluster representatives); run, sample, biome, Swiss-Prot and TrEMBL mappings; the partial status of the sequences and counts of the number of times each sequence was observed in the database as a whole.\n\n\n\n\n\n\nFigure 5: List of available files on the FTP server",
+    "objectID": "src/docs/faqs.html#how-do-i-run-a-sequence-search-against-the-metagenomics-datasets",
+    "href": "src/docs/faqs.html#how-do-i-run-a-sequence-search-against-the-metagenomics-datasets",
+    "title": "FAQs",
+    "section": "How do I run a sequence search against the metagenomics datasets?",
+    "text": "How do I run a sequence search against the metagenomics datasets?\nWe offer HMMER searches against our metagenomic protein database via the web site sequence search facility.",
     "crumbs": [
       "Open MGnify",
-      "MGnify Proteins",
-      "Sequence search"
+      "FAQs"
     ]
   },
   {
-    "objectID": "src/docs/mgnify-proteins-sequence-search.html#further-information",
-    "href": "src/docs/mgnify-proteins-sequence-search.html#further-information",
-    "title": "Sequence search",
-    "section": "Further information",
-    "text": "Further information\nFull documentation regarding the HMMER webserver is available. Note that some of the documented features (such as the taxonomy view) are not relevant to the peptide search and are therefore disabled. If there are additional features or feedback on this search service, please get in contact with us.",
+    "objectID": "src/docs/faqs.html#can-i-change-the-release-date-of-my-project",
+    "href": "src/docs/faqs.html#can-i-change-the-release-date-of-my-project",
+    "title": "FAQs",
+    "section": "Can I change the release date of my project?",
+    "text": "Can I change the release date of my project?\nThe date of release is set by you during the submission in ENA. If you do not explicitly choose a date, it is set to two years from the submission date by default. You can reduce or extend the release date by going to the ‘Submit & update’ page of the ENA website, logging in using your Webin account id, selecting the relevant study and then clicking the pen icon near the current release date to alter it.",
+    "crumbs": [
+      "Open MGnify",
+      "FAQs"
+    ]
+  },
+  {
+    "objectID": "src/docs/faqs.html#how-long-will-it-take-for-my-data-to-be-analyzed",
+    "href": "src/docs/faqs.html#how-long-will-it-take-for-my-data-to-be-analyzed",
+    "title": "FAQs",
+    "section": "How long will it take for my data to be analyzed?",
+    "text": "How long will it take for my data to be analyzed?\nWe aim to analyze submitted data as quickly as possible. However, submitted data are only available to us once they have been validated and archived by ENA. This process takes at least 24 hours, and in some cases several days. Once the sequence files are made available, the analysis time depends on our current analysis backlog, and the size and number of runs in the project you have submitted. Most studies will be validated, archived and analysed within two weeks. If you are concerned that your data is taking a long time to be analysed, please contact us.",
+    "crumbs": [
+      "Open MGnify",
+      "FAQs"
+    ]
+  },
+  {
+    "objectID": "src/docs/faqs.html#i-have-submitted-my-data---how-do-i-trigger-the-analysis",
+    "href": "src/docs/faqs.html#i-have-submitted-my-data---how-do-i-trigger-the-analysis",
+    "title": "FAQs",
+    "section": "I have submitted my data - how do I trigger the analysis?",
+    "text": "I have submitted my data - how do I trigger the analysis?\nThere is no manual way to trigger analysis. If you have provided access agreement for MGnify, we will pick up your sequences from ENA automatically and queue them for analysis. Access agreements previously provided to EBI Metagenomics will apply to MGnify.",
+    "crumbs": [
+      "Open MGnify",
+      "FAQs"
+    ]
+  },
+  {
+    "objectID": "src/docs/faqs.html#do-you-have-an-api",
+    "href": "src/docs/faqs.html#do-you-have-an-api",
+    "title": "FAQs",
+    "section": "Do you have an API?",
+    "text": "Do you have an API?\nYes, we do. In December 2017 we released the first version of our new RESTful API, which provides a rich search and retrieval interface for programmatic access to our data.",
+    "crumbs": [
+      "Open MGnify",
+      "FAQs"
+    ]
+  },
+  {
+    "objectID": "src/docs/faqs.html#how-can-i-download-multiple-sets-of-data",
+    "href": "src/docs/faqs.html#how-can-i-download-multiple-sets-of-data",
+    "title": "FAQs",
+    "section": "How can I download multiple sets of data?",
+    "text": "How can I download multiple sets of data?\nWhile our API currently does not support this, we have Python scripts allowing users to automatically download most processed files from the MGnify website. The scripts and instructions for bulk downloading from the resource can be found here.",
+    "crumbs": [
+      "Open MGnify",
+      "FAQs"
+    ]
+  },
+  {
+    "objectID": "src/docs/faqs.html#how-can-i-bulk-download-metadata",
+    "href": "src/docs/faqs.html#how-can-i-bulk-download-metadata",
+    "title": "FAQs",
+    "section": "How can I bulk download metadata?",
+    "text": "How can I bulk download metadata?\nIt is possible to access all the metadata associated with projects, samples and runs programmatically using our RESTful API.",
+    "crumbs": [
+      "Open MGnify",
+      "FAQs"
+    ]
+  },
+  {
+    "objectID": "src/docs/faqs.html#how-can-i-re-analyse-my-data-with-a-different-version-of-the-pipeline",
+    "href": "src/docs/faqs.html#how-can-i-re-analyse-my-data-with-a-different-version-of-the-pipeline",
+    "title": "FAQs",
+    "section": "How can I re-analyse my data with a different version of the pipeline?",
+    "text": "How can I re-analyse my data with a different version of the pipeline?\nIt is possible to analyse data sets with different versions of our analysis pipeline. The original analyses are not deleted and are available side by side on our website. Users interested in having data re-analysed should contact us.",
+    "crumbs": [
+      "Open MGnify",
+      "FAQs"
+    ]
+  },
+  {
+    "objectID": "src/docs/faqs.html#can-i-request-that-a-dataset-is-analyzed-if-i-am-not-the-original-submitter",
+    "href": "src/docs/faqs.html#can-i-request-that-a-dataset-is-analyzed-if-i-am-not-the-original-submitter",
+    "title": "FAQs",
+    "section": "Can I request that a dataset is analyzed if I am not the original submitter?",
+    "text": "Can I request that a dataset is analyzed if I am not the original submitter?\nWe are currently working through the analysis of all publicly available metagenomic datasets in ENA, so if there is a publicly available study that you would like to see analysed in MGnify, please get in touch and we will prioritise it.",
+    "crumbs": [
+      "Open MGnify",
+      "FAQs"
+    ]
+  },
+  {
+    "objectID": "src/docs/faqs.html#can-i-request-my-data-to-not-be-analyzed-by-mgnify",
+    "href": "src/docs/faqs.html#can-i-request-my-data-to-not-be-analyzed-by-mgnify",
+    "title": "FAQs",
+    "section": "Can I request my data to not be analyzed by MGnify?",
+    "text": "Can I request my data to not be analyzed by MGnify?\nWe can only access private data for analysis if you give us permission to do so. If, for any reason, you do not want MGnify to analyze one of your datasets, please contact us . If your data is public in ENA, we are able to analyse this data without restriction.",
+    "crumbs": [
+      "Open MGnify",
+      "FAQs"
+    ]
+  },
+  {
+    "objectID": "src/docs/faqs.html#can-i-compare-the-taxonomic-assignments-between-runs-of-a-project",
+    "href": "src/docs/faqs.html#can-i-compare-the-taxonomic-assignments-between-runs-of-a-project",
+    "title": "FAQs",
+    "section": "Can I compare the taxonomic assignments between runs of a project?",
+    "text": "Can I compare the taxonomic assignments between runs of a project?\nPlease refer to the summary files provided on the project page under the ‘Analysis summary’ tab. They summarize the counts per feature across the runs and provide an easy way to identify patterns.\nThe ‘OTUs, reads and taxonomic assignments.tsv’ can be directly imported into Megan 6 to perform comparison and visualisation. The Biom format can also be imported into third-party tools.",
+    "crumbs": [
+      "Open MGnify",
+      "FAQs"
+    ]
+  },
+  {
+    "objectID": "src/docs/faqs.html#can-i-know-which-bacteria-encodes-particular-pcds-in-my-dataset",
+    "href": "src/docs/faqs.html#can-i-know-which-bacteria-encodes-particular-pcds-in-my-dataset",
+    "title": "FAQs",
+    "section": "Can I know which bacteria encodes particular pCDS in my dataset?",
+    "text": "Can I know which bacteria encodes particular pCDS in my dataset?\nThe short answer is that it is generally not possible. The reason is that we annotate directly the reads and select the reads containing small subunit rRNA and large subunit rRNA for taxonomy assignments. The protein prediction is then performed on all reads after masking the tRNA and rRNA sequences. To link a predicted protein to a taxonomic assignments, the protein-coding gene would need to be on the same read as the annotated SSU/LSU sequence. It is possible to check if this is the case using the sequence headers from the ‘InterPro matches.tsv’ and ‘Reads encoding SSU/LSU rRNA.fasta’ files, both available on the ‘Download’ for each run. The same answer applies for assembly. However, depending on the contig length, more protein-coding genes may be located near the 16S rRNA genes.",
+    "crumbs": [
+      "Open MGnify",
+      "FAQs"
+    ]
+  },
+  {
+    "objectID": "src/docs/api.html",
+    "href": "src/docs/api.html",
+    "title": "RESTful API",
+    "section": "",
+    "text": "With the rapid expansion in the number of datasets deposited in MGnify, it has become increasingly important to provide programmatic access to the data for cross-database complex queries.",
+    "crumbs": [
+      "Open MGnify",
+      "Website & API",
+      "RESTful API"
+    ]
+  },
+  {
+    "objectID": "src/docs/api.html#api-overview",
+    "href": "src/docs/api.html#api-overview",
+    "title": "RESTful API",
+    "section": "API Overview",
+    "text": "API Overview\n\nCurrent version\nCurrent API version is v2.\n\n\n\n\n\n\nWarningAPI v1 Deprecation\n\n\n\nThe API v1 was deprecated in June 2026. It will be turned off no earlier than September 1st 2026, but will serve frozen data that does not include MGnify V6 analyses.\n\n\n\n\nBase URL\nThe base address to the API is https://www.ebi.ac.uk/metagenomics/api/v2/.\nBrowsing the API root (i.e. going to /api/v2 in a web browser) shows a human-readable, browsable, interactive documentation page for the API. This is the easiest way to explore it.\nTo programatically explore it, e.g. to help instruct a large-language model to use it, an OpenAPI JSON is provided:\ncurl -X GET \"https://www.ebi.ac.uk/metagenomics/api/v2/openapi.json\"\nThere are several easy-to-use top-levels resources, such as studies, samples, runs, biomes, and analyses. For example https://www.ebi.ac.uk/metagenomics/api/v2/studies retrieves a list of all studies, while https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397 retrieves a single study, with the accession MGYS00010397. The samples contained within this study can be retrieved using the relationship URL: https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397/samples/.\n\n\nHTTP methods\nThe API provides mostly read-only access to all resources, that means only HTTP GET method can be used with exception of the authentication endpoint and some search endpoints that accept a query sequence.\n\n\nResponses\nResponses to list endpoints (like /studies/, /genomes/ etc) return data following a schema like:\n  \"count\": 10,\n  \"items\": [...]\nThe same is true of detail -&gt; list relationship endpoints (like /studies/MGYS00010397/samples/ for example).\nResponses to a detail endpoint (like /studies/MGYS00010397, /analyses/MGYA01020362 etc) return data following a schema appropriate for the data type, e.g. for analysis:\n{\n  \"experiment_type\": \"Metatranscriptomic\",\n  \"study_accession\": \"MGYS000000001\",\n  \"accession\": \"MGYA000000001\",\n  ...\n}\nThe schema of a detail endpoint often includes more fields than when the same object appears in a list. For examples, an analysis’s downloads field is not shown in /analyses/ but is in /analyses/MGYA01020362.\nThe schema for all responses is available from the Open API spec, and this is also shown - often with example data - in the browsable API.\n\n\n\nThe schema for a request is shown here in the browsable API\n\n\n\n\nPagination\nAs some queries can result in a large response, the API supports pagination, using a page number and size of results per page as query parameters. Request that return multiple items is paginated to 20 items by default, and can be increased up to 100:\ncurl -X GET \"https://www.ebi.ac.uk/metagenomics/api/v2/studies?page_size=100\"\nThe \"count\" given at the top-level of a list endpoint’s JSON response, combined with the page_size requested, allows you to compute how many pages need to be requested. For each page, use a ?page=x query parameter, e.g.:\ncurl -X GET \"https://www.ebi.ac.uk/metagenomics/api/v2/studies/?page=2&page_size=100\"\nThis pagination can be interated.\n\n\nParameters\nIn APIv2, there are very few query parameters for filtering lists: instead the API returns fast responses for entire lists which can be easily filtered downstream. A limited number of search filters are supported, though, for very common queries. For example to search studies by their title including the words space station:\ncurl -X GET \"https://www.ebi.ac.uk/metagenomics/api/v2/studies/?search=space+station\"\nor genomes with taxa including Rickettsiales:\ncurl -X GET \"https://www.ebi.ac.uk/metagenomics/api/v2/genomes/?search=Rickettsiales\"\n\n\nLinks\nSome endpoints in the API schema include “Links”, which are not URLs, but rather other endpoint in the API (or “operations”) that get related data. These are part of the Open API specification, and are mostly useful to programmatic clients like large-language models. For example, they specify how one can retrieve the genome-catalogue mentioned in the detail endpoint response from a genome.\n\n\nErrors\nThere are three possible types of client errors on API calls:\n\n400 Bad requests, usually a bad query parameter.\n401 Unauthorized, usually trying to access private analyses with the wrong credentials.\n404 Not found, usually a broken link or a dataset that has been suppressed.\n403 Authentication failed.",
+    "crumbs": [
+      "Open MGnify",
+      "Website & API",
+      "RESTful API"
+    ]
+  },
+  {
+    "objectID": "src/docs/api.html#examples",
+    "href": "src/docs/api.html#examples",
+    "title": "RESTful API",
+    "section": "Examples",
+    "text": "Examples\n\nDownload all taxonomy files from a metagenomic analyses (MGYA)\nThis example uses common command-line tools curl and jq\ncurl \"https://www.ebi.ac.uk/metagenomics/api/v2/analyses/MGYA01020362\" | jq '.downloads[] | select(.download_group | startswith(\"taxonomies.\")) | .url' | xargs -n1 curl -O\n\n\nAccess MGnify from Python\nWe have a Python client, MGnipy, designed to streamline access to the APIv2 from Python.\nDocumentation for MGnipy can be found at mgnipy.mgnify.org/.",
+    "crumbs": [
+      "Open MGnify",
+      "Website & API",
+      "RESTful API"
+    ]
+  },
+  {
+    "objectID": "src/docs/about.html",
+    "href": "src/docs/about.html",
+    "title": "About MGnify",
+    "section": "",
+    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data. The resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA). The MGnify resource was previously known as EBI Metagenomics, but was re-branded in 2018 to reflect its growing remit.",
+    "crumbs": [
+      "Open MGnify",
+      "About MGnify"
+    ]
+  },
+  {
+    "objectID": "src/docs/about.html#the-mgnify-service",
+    "href": "src/docs/about.html#the-mgnify-service",
+    "title": "About MGnify",
+    "section": "",
+    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data. The resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA). The MGnify resource was previously known as EBI Metagenomics, but was re-branded in 2018 to reflect its growing remit.",
+    "crumbs": [
+      "Open MGnify",
+      "About MGnify"
+    ]
+  },
+  {
+    "objectID": "src/docs/about.html#what-does-mgnify-offer",
+    "href": "src/docs/about.html#what-does-mgnify-offer",
+    "title": "About MGnify",
+    "section": "What does MGnify offer",
+    "text": "What does MGnify offer\n\nPowerful analysis\nMGnify offers multiple analysis pipelines that are tailored according to input data (amplicon, raw read or assembly), providing (where appropriate) detailed taxonomic and functional analysis of microbiome sequence data.\n\n\nAccess to an extensive selection of analysed data\nMGnify houses a vast repository of analysed microbiome datasets, processed using standardized pipelines and workflows, allowing analyses to be placed in context with other studies from similar environments.\n\n\nProgrammatic access to analysed data\nIn addition to visualisations available from the website and downloadable results files, MGnify analyses can be queried and retrieved via a RESTful API, giving full programmatic access to the data.\n\n\nArchiving of user-submitted data\nThrough partnership with the European Nucleotide Archive (ENA), user-submitted sequence data and metadata is archived. Accession numbers are supplied as part of this process, which is a prerequisite for publication in many journals.\n\n\nStandards-compliant data\nSubmission tools help ensure sequence data and metadata comply with ENA data schemes and the Genomic Standards Consortium (GSC) metadata guidelines, allowing harmonisation of analysis efforts across the wider genomics community.",
+    "crumbs": [
+      "Open MGnify",
+      "About MGnify"
+    ]
+  },
+  {
+    "objectID": "src/docs/about.html#funding",
+    "href": "src/docs/about.html#funding",
+    "title": "About MGnify",
+    "section": "Funding",
+    "text": "Funding\nCurrent funding: MGnify currently receives funding support from: the European Union’s Horizon 2020 Research and Innovation programme (817729, 862923, and 952914) and Research Infrastructures programme (824087); the Biotechnology and Biological Sciences Research Council (BB/S009043/1, BB/T000902/1, BB/V01868X/1, and BB/W002965/1); ELIXIR, the research infrastructure for Life-Science data; EMBL – FNR (CORE International); and European Molecular Biology Laboratory (EMBL) core funds.\nPrevious funding: MGnify was initiated with institutional funding from EMBL. It gratefully acknowledges previous funding received from the Biotechnology and Biological Sciences Research Council (BB/M011755/1 and BB/I02612X/1), the European Union’s Horizon 2020 Research and Innovation programme (676559 and 654008), Innovate UK (102513) and the European Union’s Seventh Framework Programme for Research (287589).",
+    "crumbs": [
+      "Open MGnify",
+      "About MGnify"
+    ]
+  },
+  {
+    "objectID": "src/docs/about.html#how-to-cite",
+    "href": "src/docs/about.html#how-to-cite",
+    "title": "About MGnify",
+    "section": "How to cite",
+    "text": "How to cite\nIf you find this resource useful, please consider citing the following publication:\nMGnify: the microbiome sequence data analysis resource in 2023\nLorna Richardson, Ben Allen, Germana Baldi, Martin Beracochea, Maxwell L Bileschi, Tony Burdett, Josephine Burgin, Juan Caballero-Pérez, Guy Cochrane, Lucy J Colwell, Tom Curtis, Alejandra Escobar-Zepeda, Tatiana A Gurbich, Varsha Kale, Anton Korobeynikov, Shriya Raj, Alexander B Rogers, Ekaterina Sakharova, Santiago Sanchez, Darren J Wilkinson, Robert D Finn, Nucleic Acids Res 51(D1):D753-D759 (2023)",
+    "crumbs": [
+      "Open MGnify",
+      "About MGnify"
+    ]
+  },
+  {
+    "objectID": "src/docs/about.html#contact",
+    "href": "src/docs/about.html#contact",
+    "title": "About MGnify",
+    "section": "Contact",
+    "text": "Contact\nIf you would like to get in touch, please contact us using the helpdesk. We will respond as quickly as possible, but bear in mind that we do not have a member of staff dedicated to running the helpdesk service.\n\n\n\n\n\n\nNote\n\n\n\nPlease, check our FAQs prior to contacting us.\n\n\nIf your questions relate to submission of sequence data and/or metadata, please contact the (ENA helpdesk) who are responsible for this providing the submission services.",
+    "crumbs": [
+      "Open MGnify",
+      "About MGnify"
+    ]
+  },
+  {
+    "objectID": "src/docs/about.html#news-and-updates",
+    "href": "src/docs/about.html#news-and-updates",
+    "title": "About MGnify",
+    "section": "News and updates",
+    "text": "News and updates\nIf you would like to keep up to date with developments within MGnify, please follow us on Twitter (@MGnifyDB).",
+    "crumbs": [
+      "Open MGnify",
+      "About MGnify"
+    ]
+  },
+  {
+    "objectID": "src/docs/about.html#service-status",
+    "href": "src/docs/about.html#service-status",
+    "title": "About MGnify",
+    "section": "Service status",
+    "text": "Service status\nThe service status page lists any known issues and outages.",
+    "crumbs": [
+      "Open MGnify",
+      "About MGnify"
+    ]
+  },
+  {
+    "objectID": "src/docs.html",
+    "href": "src/docs.html",
+    "title": "MGnify Documentation",
+    "section": "",
+    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data.\nThe resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA).\nThis is MGnify’s documentation resource, providing guides to use the MGnify website, API, and submission services."
+  },
+  {
+    "objectID": "src/docs.html#mgnify-documentation",
+    "href": "src/docs.html#mgnify-documentation",
+    "title": "MGnify Documentation",
+    "section": "",
+    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data.\nThe resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA).\nThis is MGnify’s documentation resource, providing guides to use the MGnify website, API, and submission services."
+  },
+  {
+    "objectID": "src/docs.html#contents",
+    "href": "src/docs.html#contents",
+    "title": "MGnify Documentation",
+    "section": "Contents",
+    "text": "Contents\n\n\n\n\n\nAbout MGnify\n\n\nBackground to the MGnify service, our funding and citation info, and how to contact us.\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify Team\n\n\n\n\n\n\n\nFrom submission to results\n\n\nHow MGnify data moves from submission to analysis\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify Team\n\n\n\n\n\n\n\nMulti-omics dataset submission\n\n\nBest practices for multi-omics dataset submission\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nAnalysis pipeline v5.0\n\n\nDescription of the previous MGnify analysis pipeline and the tools it used.\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nWebsite and portal\n\n\nUser guide to the MGnify website\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify Genomes\n\n\nDescription of the MGnify genomes pipelines and web resource\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nRESTful API\n\n\nProgramatically accessing MGnify data via the API (Application Programming Interface)\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify notebooks servers\n\n\nUsing MGnify’s Jupyter Notebooks to explore and access data programatically\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nTransfer Services (FTP) file server\n\n\nHow to download data from MGnify’s file server\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nFAQs\n\n\nFrequently asked questions about MGnify\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nGlossary\n\n\nDictionary of terms used in MGnify and throughout this documentaiton\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nGuides and tutorials\n\n\nList of online tutorials relevant to MGnify and ENA\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nBig Query public dataset\n\n\nDescription of the MGnify Proteins BigQuery public dataset\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify Proteins Resource\n\n\nDescription of the MGnify Proteins and related services\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nPortal\n\n\nGuide to using MGnify’s Proteins website\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nRetrieving contig sequences for MGnify proteins\n\n\nA guide to retrieving contig sequences for MGnify proteins (MGYPs)\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nSequence search\n\n\nGuide to using MGnify’s Protein Database sequence search service\n\n\n\n\n\nJul 6, 2026\n\n\nMGnify\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "src/docs/analysis.html",
+    "href": "src/docs/analysis.html",
+    "title": "Analysis pipeline v5.0",
+    "section": "",
+    "text": "The previous MGnify analysis service (version 5.0) offered specialised workflows for three different data types: amplicon, raw metagenomic/metatranscriptomic reads, and assembly. Each workflow was defined in common workflow language (CWL). (MGnify v5.0 CWL repository) All databases are available from an FTP link\nThe software and databases used for the various processing steps and analyses are listed in the following table.\nPipeline version 5.0 was superceeded by version 6.0, but previously-run version 5.0 analyses continue to be available via MGnify’s API, Website and downloadable from the Transfer Services area.",
+    "crumbs": [
+      "Open MGnify",
+      "Analyses",
+      "Analysis pipeline v5.0"
+    ]
+  },
+  {
+    "objectID": "src/docs/analysis.html#overview",
+    "href": "src/docs/analysis.html#overview",
+    "title": "Analysis pipeline v5.0",
+    "section": "",
+    "text": "The previous MGnify analysis service (version 5.0) offered specialised workflows for three different data types: amplicon, raw metagenomic/metatranscriptomic reads, and assembly. Each workflow was defined in common workflow language (CWL). (MGnify v5.0 CWL repository) All databases are available from an FTP link\nThe software and databases used for the various processing steps and analyses are listed in the following table.\nPipeline version 5.0 was superceeded by version 6.0, but previously-run version 5.0 analyses continue to be available via MGnify’s API, Website and downloadable from the Transfer Services area.",
+    "crumbs": [
+      "Open MGnify",
+      "Analyses",
+      "Analysis pipeline v5.0"
+    ]
+  },
+  {
+    "objectID": "src/docs/analysis.html#software-databases-and-versions-used-by-mgnify",
+    "href": "src/docs/analysis.html#software-databases-and-versions-used-by-mgnify",
+    "title": "Analysis pipeline v5.0",
+    "section": "Software, Databases and Versions used by MGnify:",
+    "text": "Software, Databases and Versions used by MGnify:\n\n\n\n\n\n\n\n\n\n\n\nTool/Database\nVersion\nPurpose\nAmplicon\nRaw reads\nAssemblies\n\n\n\n\nSeqPrep\n1.2\nMerging paired end reads\nYes\nYes\n\n\n\nTrimmomatic\n0.36\nQuality controlled\nYes\nYes\n\n\n\nBiopython\n1.74\nQuality controlled\nYes\nYes\nYes\n\n\nbedtools\n2.28.0\nSSU/LSU rRNA masking for ITS\nYes\n\n\n\n\npre-assembled\n0.45h\nSequence extraction\nYes\nYes\nYes\n\n\nInfernal\n1.1.2\nRNA predictions\nYes\nYes\nYes\n\n\nRfam\n13.0\nIdentification of SSU/LSU rRNA and other ncRNAs\nYes\nYes\nYes\n\n\nMAPseq\n1.2.3\nTaxonomic assignment of SSU/LSU rRNA and ITS\nYes\nYes\nYes\n\n\nKronatools\n2.7.1\nVisualisation of taxonomic analyses\nYes\nYes\nYes\n\n\nbiom-format\n2.1.6\nFormatting of taxonomic analyses\nYes\nYes\nYes\n\n\nmOTUs2\n2.5.1\nPhylogenetic marker gene based taxonomic profiling\n\nYes\n\n\n\nFragGeneScan\n1.20\nProtein coding sequence prediction\n\nYes\nYes\n\n\nProdigal\n2.6.3\nProtein coding sequence prediction\n\n\nYes\n\n\nInterProScan\n75.0\nProtein function annotation with separate Pfam results\n\nYes\nYes\n\n\nGO terms in-house scripts\nN/A\nAssign gene ontology terms\n\nYes\nYes\n\n\neggNOG-mapper\n4.5.1\nProtein function annotation\n\n\nYes\n\n\neggNOG-mapper\n1.0.3\nProtein function annotation\n\n\nYes\n\n\nHMMER\n3.2.1\nKEGG Ortholog prediction\n\nYes\nYes\n\n\nKOfam - a modified version based on KEGG 90.0\n2019-04-06\nKEGG Ortholog prediction\n\nYes\nYes\n\n\nKEGG and in-house descriptions\n90.0\nKEGG pathway predictions\n\n\nYes\n\n\nGenome Properties\n2.0.1\nSystems and pathways annotation\n\n\nYes\n\n\nantiSMASH\n4.2.0\nSecondary metabolite biosynthetic gene cluster annotation\n\n\nYes\n\n\nDIAMOND\n0.9.25.126\nProtein sequence-based taxonomic analysis\n\n\nYes\n\n\nSILVA release\n132\nSSU/LSU rRNA taxonomic database\nYes\nYes\nYes\n\n\nITSoneDB\n1.138\nITS1 taxonomic database\nYes\n\n\n\n\nUNITE\n8.0\nITS taxonomic database\nYes\n\n\n\n\nUniRef90\n2019_11\nProtein sequence-based taxonomic analysis\n\n\nYes\n\n\nmetaSPAdes\n3.13\nAssembly of raw reads (available on request)\nN/A\nN/A\nN/A",
+    "crumbs": [
+      "Open MGnify",
+      "Analyses",
+      "Analysis pipeline v5.0"
+    ]
+  },
+  {
+    "objectID": "src/docs/analysis.html#amplicon-analysis-pipeline",
+    "href": "src/docs/analysis.html#amplicon-analysis-pipeline",
+    "title": "Analysis pipeline v5.0",
+    "section": "Amplicon analysis pipeline",
+    "text": "Amplicon analysis pipeline\nAmplicon reads are merged with SeqPrep (where appropriate) and filtered with Trimmomatic to trim sequence regions with an average Phred 33 quality score of less than 15 in a sliding window of 4 base pairs. This is followed by removal of reads less than 100bp in length. An additional Biopython filtering step removes reads with more than 10% ambiguous bases. Infernal (running in hmm-only mode) using a library of ribosomal RNA hidden Markov models from Rfam is run to identify large and small subunit ribosomal ribonucleic acid (LSU and SSU rRNA) genes, using families found in the following clans: CL00111 (SSU) and CL00112 (LSU). Theses undergo taxonomic classification using the SILVA database in conjunction with MAPSeq which offers fast and accurate classification of reads, and provides corresponding confidence scores for assignment at each taxonomic level.\nMGnify can also provide analysis of ITS (internal transcribed spacer) amplicons. ITS1 and ITS2 reside between the LSU and SSU genes and can be targeted for accurate classification of eukaryotic organisms. ITS taxonomy is assigned by MAPseq using two reference databases: ITSoneDB containing ITS1 sequences and UNITE containing ITS1 and ITS2 sequences. The SSU and LSU regions are masked using Rfam, as described above, prior to ITS classification, minimising cross reactivity.\n\n\n\n\n\n\nFigure 1: Overview of the main steps in the amplicon workflow.",
+    "crumbs": [
+      "Open MGnify",
+      "Analyses",
+      "Analysis pipeline v5.0"
+    ]
+  },
+  {
+    "objectID": "src/docs/analysis.html#raw-reads-analysis-pipeline",
+    "href": "src/docs/analysis.html#raw-reads-analysis-pipeline",
+    "title": "Analysis pipeline v5.0",
+    "section": "Raw reads analysis pipeline",
+    "text": "Raw reads analysis pipeline\nMetagenomic and metatranscriptomic raw reads undergo merging, quality control and SSU/LSU based taxonomic analysis, as described for the amplicon pipeline above. Additional non-coding RNAs (ncRNAs) are identified with Infernal, using families from the following Rfam clans: CL00001 (tRNA), CL00002 (RNAse) and CL00003 (SRP). Supplementary phylogenetic classification based on marker gene profiling, is performed using mOTUs2 on the quality controlled reads.\nFor functional analysis, the sequence regions encoding rRNAs are masked, and FragGeneScan is used to predict coding sequences (pCDS). Coding sequences are assigned protein annotations with InterProScan, using 5 member databases that are able to process large numbers of potentially fragmented sequences (Gene3D, TIGRFAMs, Pfam, PRINTS and PROSITE patterns). Pfam annotations are provided as separate visualisations and downloads. GO terms are extracted from the InterProScan results and grouped according to category (Biological Process, Molecular Function and Cellular Component). GO terms are also summarized using a specialized GO Slim developed for metagenomic data. Finally, protein coding sequences undergo KEGG ortholog annotations using HMMER v3.2.1 and a modified version of KOfam 2019-04-06 (based on KEGG 90.0).\n\n\n\n\n\n\nFigure 2: Overview of the main steps in the raw reads workflow.",
+    "crumbs": [
+      "Open MGnify",
+      "Analyses",
+      "Analysis pipeline v5.0"
+    ]
+  },
+  {
+    "objectID": "src/docs/analysis.html#assembly-analysis-pipeline",
+    "href": "src/docs/analysis.html#assembly-analysis-pipeline",
+    "title": "Analysis pipeline v5.0",
+    "section": "Assembly analysis pipeline",
+    "text": "Assembly analysis pipeline\nUsers can request assembly of their own raw sequencing reads, or publicly available datasets, using the ‘Request analysis’ section of the MGnify home page. Users own raw reads (with host sequences removed) must be archived in ENA before submitting an assembly request. The sequences then undergo quality control, as well as a precautionary additional host contamination removal process (where applicable) with bwa-mem. metaSPAdes is used for assembly of paired end reads and SPAdes for single reads. Alternatively, pre-assembled datasets, including those produced using other assembly algorithms, can be analysed. Quality control for assemblies is based on sequence length, with contigs less than 500 nucleotides removed from the analysis process.\nrRNAs are identified and undergo taxonomic analysis as for raw reads above. Sequence regions encoding rRNAs are masked and protein coding sequences are predicted using a combined gene caller that utilises both Prodigal and FragGeneScan. In addition to rRNA-based taxonomic analyses, DIAMOND is used to assign taxonomy to protein sequences, based on the top hit to the UniRef90 database.\nProtein function is assigned in the form of InterProScan annotations, GO terms, and KEGG ortholog predictions, as described for the raw reads analysis pipeline above. Additionally, clusters of orthologous groups (COGs) annotations and eggNOG functional descriptions are provided by the eggNOG-mapper tool.\nKEGG ortholog annotations are further processed to produce KEGG pathway information, including module presence and completeness. Similarly, InterPro annotations for individual protein sequences are amalgamated to generate Genome Properties (GP), providing inference of higher level pathways and systems that may be present in the dataset. Finally, antiSMASH is used to identify and annotate biosynthetic gene clusters that code for the production of secondary metabolites.\n\n\n\n\n\n\nFigure 3: Overview of the main steps in the assembly workflow.",
+    "crumbs": [
+      "Open MGnify",
+      "Analyses",
+      "Analysis pipeline v5.0"
+    ]
+  },
+  {
+    "objectID": "src/docs/dataflow.html",
+    "href": "src/docs/dataflow.html",
+    "title": "From submission to results",
+    "section": "",
+    "text": "Figure 1: MGnify data flow from submission to analysis results.\n\n\n\n\nRegister\n\n: Submissions are handled by the** European Nucleotide Archive (ENA) and therefore users must have an ENA Webin account. In addition, users submitting private data must provide an expressed agreement that MGnify can access their private data for analysis, by filling this form. Otherwise, MGnify will not be able to access their data. MGnify will, of course, handle this data confidentially.\n\nLogin\n\n: Access to the** ENA submission page requires a login using a registered email address or a Webin identifier (Webin-XXXX).\n\nUpload, and 4. Submission\n\n: These steps are described in detail in the ENA online guides. The MGnify and EMBL-EBI online tutorials provide a step by step guide to submission. Please also check our FAQs.\n\n\n\n\n\n\nNote\n\n\n\nAll queries concerning data submission should be directed to ENA dedicated help desk\n\n\nThe following ENA submission criteria must be fulfilled. Please note, MGnify will not have access to retrieve data for analyses until these criteria are met.\n\nAssemblies: The associated sample taxonomy must be in the metagenomic tax tree 408169. Please see the environmental taxonomy guidelines for further details.\nRaw metagenomic or metatranscriptomic reads: Same taxonomy guidelines as assemblies apply AND/OR the library source should be either ‘METAGENOMIC’ or ‘METATRANSCRIPTOMIC’. Please see the library source guidelines for further details.\n\nAfter validation by ENA, if the above criteria are met we will be able to access the submitted data.\nTo request private analysis with MGnify, navigate to the home page, click ‘Submit and/or Request’ and complete the form. You will need to login to request analysis of private data. To request analysis of a public dataset in ENA click ‘Request’ and complete the form. Once we have received the requests, they will be queued for analysis (more details about our Analysis pipeline).\nThe length of time required for analysis varies according to the number of projects in the queue and the nature and number of runs in the submission. However, we aim to have most analyses completed in less than a week once validated by ENA.\n\nAccessing analysed data\n\n: Upon completion of analysis, data will be uploaded on the website. MGnify pipeline will generate a number of charts and downloadable files (Files available to download on the MGnify website).\n\nPrivate access\n\n: For private data, users will have to login to the MGnify website to access their data, until they become public\n\nPublic access to private data\n\n: Private data will become public after an initial confidential period of two years. Submitters will receive an email from ENA prior to the public release of their data, giving them the opportunity to extend the confidential period which is set to two years as default (as indicated at Can I change the release date of my project?).\n\n\n\nCitationBibTeX citation:@online{team2026,\n  author = {Team, MGnify},\n  title = {From Submission to Results},\n  date = {2026-07-06},\n  url = {https://docs.mgnify.org/src/docs/dataflow.html},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nTeam, MGnify. 2026. “From Submission to Results.” July 6.\nhttps://docs.mgnify.org/src/docs/dataflow.html.",
+    "crumbs": [
+      "Open MGnify",
+      "Data flow",
+      "From submission to results"
+    ]
+  },
+  {
+    "objectID": "src/docs/ftp.html",
+    "href": "src/docs/ftp.html",
+    "title": "Transfer Services (FTP) file server",
+    "section": "",
+    "text": "EMBL-EBI operates a Transfer Services file server, providing high-bandwidth access to datasets from EMBL-EBI services including MGnify.\nMGnify’s (public) results are available in the following directories:\n\nMetagenomic analyses (i.e. the files produced when analysing MGYA-accessioned analyses) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/\n\nThese files are arranged into directories using the studies’ INSDC acccessions, with substring-prefixed folder names, and then their MGnify Pipeline version number. E.g. the version 5.0 analysis of ERP003408 is found in ERP003/ERP003408/version_5.0.\n\nGenomes (i.e. the files produced when analysing MGYG-accessioned genomes from catalogues) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/\n\nThese files are arranged into the biome-specific catalogues according to the MGnify Genomes schema\n\nProteins (the MGnify Protein database of proteins found in metagenome assemblies) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/\n\nThese files are arranged into date-versioned releases. The latest release is always linked from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/",
+    "crumbs": [
+      "Open MGnify",
+      "Website & API",
+      "Transfer Services (FTP) file server"
+    ]
+  },
+  {
+    "objectID": "src/docs/ftp.html#transfer-services",
+    "href": "src/docs/ftp.html#transfer-services",
+    "title": "Transfer Services (FTP) file server",
+    "section": "",
+    "text": "EMBL-EBI operates a Transfer Services file server, providing high-bandwidth access to datasets from EMBL-EBI services including MGnify.\nMGnify’s (public) results are available in the following directories:\n\nMetagenomic analyses (i.e. the files produced when analysing MGYA-accessioned analyses) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/\n\nThese files are arranged into directories using the studies’ INSDC acccessions, with substring-prefixed folder names, and then their MGnify Pipeline version number. E.g. the version 5.0 analysis of ERP003408 is found in ERP003/ERP003408/version_5.0.\n\nGenomes (i.e. the files produced when analysing MGYG-accessioned genomes from catalogues) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/\n\nThese files are arranged into the biome-specific catalogues according to the MGnify Genomes schema\n\nProteins (the MGnify Protein database of proteins found in metagenome assemblies) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/\n\nThese files are arranged into date-versioned releases. The latest release is always linked from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/",
+    "crumbs": [
+      "Open MGnify",
+      "Website & API",
+      "Transfer Services (FTP) file server"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-genomes.html",
+    "href": "src/docs/mgnify-genomes.html",
+    "title": "MGnify Genomes",
+    "section": "",
+    "text": "MGnify Genomes (accessed from the ‘Genomes’ tab of the ‘Browse data’ area in the menu bar) provides a detailed interactive view of prokaryotic genomes and their functional annotations.\nMGnify displays genomes in biome-specific Catalogues.\nThe latest version of each Catalogue is shown on the website, whilst older versions can be downloaded from our FTP server.\n\n\n\n\n\n\nFigure 1: MGnify genomes are collected into biome-specific catalogues.",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Genomes"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-genomes.html#genome-catalogues",
+    "href": "src/docs/mgnify-genomes.html#genome-catalogues",
+    "title": "MGnify Genomes",
+    "section": "",
+    "text": "MGnify Genomes (accessed from the ‘Genomes’ tab of the ‘Browse data’ area in the menu bar) provides a detailed interactive view of prokaryotic genomes and their functional annotations.\nMGnify displays genomes in biome-specific Catalogues.\nThe latest version of each Catalogue is shown on the website, whilst older versions can be downloaded from our FTP server.\n\n\n\n\n\n\nFigure 1: MGnify genomes are collected into biome-specific catalogues.",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Genomes"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-genomes.html#generating-genome-catalogues",
+    "href": "src/docs/mgnify-genomes.html#generating-genome-catalogues",
+    "title": "MGnify Genomes",
+    "section": "Generating genome catalogues",
+    "text": "Generating genome catalogues\nThere are two processes that have been put in place to generate a genome catalogue. A new catalogue (v1.0 of any catalogue) is generated using MGnify genome analysis pipeline. Pipeline structure and tool descriptions are included in the README file in the repository.\nThe process to produce updated versions of the catalogues is described below.\n\nUpdating an existing catalogue\nNew genomes (MAGs or isolates) are added to an existing catalogue following the steps outlined in Figure 2. To be added to a catalogue, a genome must be available in INSDC.\n\n\n\n\n\n\nFigure 2: The algorithm to update an existing genome catalog.\n\n\n\nBriefly, the new genomes undergo QC filtration: quality score (QS) is calculated for each genome as % completeness - 5 \\* % contamination; genomes with QS &lt; 50 or contamination &gt; 5% are removed. The genomes are then dereplicated at 99.9% similarity to remove strain redundancy and compared to the previous version of the genome catalogue using Mash to determine whether each genome represents a novel species, a novel strain or a strain that already exists in the catalogue. The category under which a new genome falls is based on the distance between the new genome and the most similar genome in the existing catalog: &gt; 0.05 = new species, 0.001 - 0.05 = new strain, &lt; 0.001 = strain already exists.\nIf the strain already exists, the genome is discarded. Genomes classified as novel species are dereplicated at 95% similarity to identify genomes that belong to the same species cluster and undergo two more quality control steps: genomes are screened with GUNC to remove possible chimeras and contigs are screened for human contamination using BLAST. Genomes that represent a novel strain become the new species representative for their respective cluster if any of the following conditions is true:\n\nthe new genome is an isolate while the current species representative is a MAG;\nthe new genome is a MAG and it’s quality score (completeness - 5 \\* contamination) is 10% higher than that of the current species representative;\nthe new genome and the current representative are isolates and the quality score of the new genome is 10% higher than that of the current species representative.\n\nIf none of the above conditions is true, the new strain is added to the species cluster but does not replace the existing species representative.\nThe tools used to annotate the new genomes and to update the pan-genomes for each species containing multiple conspecific genomes to which new genomes have been added are listed in the README files associated with each catalog on the FTP server.",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Genomes"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-genomes.html#searching-across-catalogues",
+    "href": "src/docs/mgnify-genomes.html#searching-across-catalogues",
+    "title": "MGnify Genomes",
+    "section": "Searching across catalogues",
+    "text": "Searching across catalogues\nThere are three ways to search for species across all of the catalogues.\n\nBy accession or taxonomy\n\n\n\n\n\n\nFigure 3: Searching for “Prevotella” genomes from all catalogues.\n\n\n\nThe Browse &gt; Genomes &gt; All Genomes tab lists genomes from all catalogues. The genome accessions and taxonomic lineages are indexed for full-text search. This is helpful to find a specific genome where the biome is irrelevant, or to find the set of biomes (catalogues) which a certain taxonomic classification is present in.\n\n\nBy gene fragment\nThe ‘Gene search’ tab is a COmpact Bitsliced Signature index (COBS) based search engine. COBS queries short sequence fragments against the species representatives of some or all genome catalogues.\nOne or more catalogues can be selected to search against. By default, your query is compared to all current catalogues.\nThe table of results provides the user with direct links to the matching genomes. Match statistics are shown as a count and percentage of kmers found. A score of 100% means that all of the 31-length kmers in the query were found in the indexed Genome.\nThe minimum kmer proportion is set at a default of 0.4 and can be increased or decreased within a range of 0.1-1 with the available toggle.\n\n\n\n\n\n\nFigure 4: COBS search example with table of results.\n\n\n\n\n\nBy whole genome / MAG\nThe ‘MAG search’ tab is a Sourmash based search engine. Sourmash queries complete MAGs for similarity against the species representatives of some or all genome catalogues.\nOne or more catalogues can be selected to search against. By default, your query is compared to all current catalogues.\nThe query genome must be a nucleotide sequence file.\nUse the browse button to upload either a single FastA file, or multiple files by holding [ctrl] or [shift] while clicking in the file explorer. Alternatively you can select a whole directory of files using the directory mode (select this option below the Browse button). In this mode, the tool will process all FastA files in the selected directory, however it will not descend into subdirectories. Files are not uploaded onto MGnify servers. Rather, Sourmash generates a signature of your file(s) in your browser, and compares this signature against our MAG catalogue on the server. Successful searches create a CSV result file for each signature submitted. These are compiled into a TGZ allowing you to fetch all your results in one click. These result files are only stored in our servers for 30 days, so please be sure to download them before they expire.\n\n\n\n\n\n\nFigure 5: Sourmash search example with file selected\n\n\n\n\nSourmash details\nSpecifically, the MAG search runs the sourmash gather command. In this mode, sourmash finds the minimum set of MAGs in the database that collectively contain as much of the query (meta)genome as possible. The “Best Match” MAG from each catalogue is the MAG that contains the largest content from the query (if any). To use this search programmatically (by submitting sourmash sketches of your own query MAGs to the MGnify API), the sourmash parameters must match those used by MGnify. MGnify use the default parameters for kmer size (-k 31) and sketch scaling (--scaled 1000).\nSee the “Search MGnify Genomes” notebook in MGnify’s notebooks repository for an example of how to query this API programmatically.",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Genomes"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-genomes.html#browsing-a-catalogue",
+    "href": "src/docs/mgnify-genomes.html#browsing-a-catalogue",
+    "title": "MGnify Genomes",
+    "section": "Browsing a catalogue",
+    "text": "Browsing a catalogue\nClicking on a Catalogue ID in the list on the MGnify website allows you to browse the catalogue’s contents.\nThe “Genome list” tab contains a catalogue of non-redundant isolate and metagenome assembled genomes (MAGs). Each accession is a species representative of a cluster of genomes. To constitute a cluster: genomes with completeness greater than 50%, contamination less than 5% and average quality score (completeness - 5*contamination) greater than 50 - calculated with CheckM, v.1.0.11 are clustered with dRep v2.2.4 using an average nucleotide identity (ANI) cutoff of ≥95% and an aligned fraction (AF) of ≥30% . The species representative for each cluster is the best quality genome judged by completeness, contamination and the assembly N50 values. Isolate genomes are prioritised over MAGs for a species representative.\n\n\n\n\n\n\nFigure 6: Each catalogue contains MAGs and isolate genomes.\n\n\n\nThe ‘Taxonomy tree’ is a subset of the GTDB taxonomy which can be viewed interactively. Genomes from the catalogue can be found in the tree by taxonomic lineage. Each orange coloured genome accession links to further statistics and functional annotation data.\n\n\n\n\n\n\nFigure 7: GTDB interactive taxonomy tree for a catalogue\n\n\n\nThe ‘Protein catalogue’ is clusters of all the predicted coding sequences in the genome catalogue. Separate catalogues are generated at different amino acid identity levels (100%, 95%, 90% and 50%). Data for the Protein catalogue are available at the linked FTP server location.\n\nSearching a catalogue\nThere are single-catalogue versions of the COBS and Sourmash searches available on the ‘Search by gene’ and ‘Search by MAG’ tabs, respectively. These searches work exactly the same as the cross-catalogue searches described above, except that they always search against only one catalogue.",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Genomes"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-genomes.html#genome-detail",
+    "href": "src/docs/mgnify-genomes.html#genome-detail",
+    "title": "MGnify Genomes",
+    "section": "Genome detail",
+    "text": "Genome detail\nView a specific Genome by clicking it in the Genome List, or a search result.\nThe page header details the genome type and a full GTDB lineage assigned with GTDB-tk. The ‘Overview’ tab contains statistics about the genome. Type of genome (isolate or MAG), length, percentage completeness and contamination, the number of contigs, number of genomes represented by the species cluster, total number of proteins, N50 and GC content are shown here.\nInfernal is used to screen for the presence of ribosomal RNAs against Rfam covariance models for 5S, 16S and 23S rRNA. Transfer RNAs are identified with tRNAScan-SE. These figures are presented in the Genome RNA coverage section, as the percentage coverage for each rRNA type and a count of total tRNA and ncRNAs.\npCDS are inferred with Prokka which uses Prodigal . eggNOG-mapper tool assigns KEGG and COG annotations against the pCDS. InterProScan performs protein annotations with 5 member databases. The proportion of predicted proteins with an InterPro or eggNOG annotation are given as a coverage percentage. COG and KEGG annotations are visualised in their respective tabs with the top 10 hits in an interactive bar graph.\nAdditionally, the geographic origin of each genome, and links to ENA accessions can be found towards the bottom of this page.\nThe mobile genetic elements annotation is generated for representative genomes using the Mobilome Annotation Pipeline. It includes prediction of plasmids, viral sequences (including prophages), integrons, transposons, and insertion sequences. When detected, putative excision sites are reported as well. The final output is generated in GFF format and can be downloaded from the “Downloads” tab of each genome web page, or the FTP site. The location of mobile genetic elements in the contig can be visualized in the Genome annotation browser.\n\nGenome annotation browser\nAll genome annotations can be viewed interactively in the ‘Browse genome’ tab to browse all assigned functional annotations in more detail.\nThe “Functional annotation track colour” dropdown menu can be used to pick an annotation type of interest. Once selected, the annotation region will be coloured (and labelled, depending on the annotation type).\n\n\n\n\n\n\nFigure 8: An annotated genome in the Genome Browser.",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Genomes"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-genomes.html#pan-genome",
+    "href": "src/docs/mgnify-genomes.html#pan-genome",
+    "title": "MGnify Genomes",
+    "section": "Pan-genome",
+    "text": "Pan-genome\nGenome accessions with more than 1 genome in a species cluster have additional pan-genome analyses. Roary v3.12.0 performs an iterative clustering of predicted genes with greater than 90% amino acid identity (AAI) for all genomes in the species cluster, to infer a core genome. Further BLASTp steps identify groups of homologous genes pertaining to the accessory genomes. The overview page has an extra ‘Pan-genome statistics’ block. Figures for pan-genome size - a ratio of the total core and accessory genes versus the total number of genes in the species representative, pan-genome core size and pan-genome accessory size can be found here. eggNOG-mapper tool and InterProScan annotations are performed as above. The COG and KEGG visualisations have an extra bar in the plot representing the pan-genome analysis.\nThe ‘Downloads’ tab comprises summary files for all described analyses.\n\n\n\n\n\n\nFigure 9: An overview for a species representative MAG, with a pan-genome analysis.\n\n\n\nA set of assemblies, annotations, pan-genome results and protein catalogues are available in our FTP server. Note that the GFF (.gff.gz) file for each cluster member genome on the FTP site includes both annotations in GFF tabular form, as well as the FASTA sequence of the genome at the end. The FASTA sequence can be obtained from the GFF file, for example with common unix tools: gunzip -c MGYG000290000.gff.gz | awk '/##FASTA/ {found=1; next} found' &gt; MGYG000290000.fna",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Genomes"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-proteins-web.html",
+    "href": "src/docs/mgnify-proteins-web.html",
+    "title": "Portal",
+    "section": "",
+    "text": "The MGnify Proteins portal provides detailed information for protein cluster representatives derived from metagenomic assemblies. Due to the size of the database, detailed pages are generated exclusively for cluster representatives, rather than for each individual protein sequence.\n\n\n\nHomepage of MGnify Proteins\n\n\n\n\nThe MGnify Proteins portal features a search form that allows users to submit queries to the Sequence Search. Search queries are processed by the search service, and the results link back to the protein detail page within the portal.\n\n\n\nEach cluster representative from the Protein Database has a dedicated detail page. This page includes metadata about the protein and, when available, its 3D structure as predicted by the ESM Metagenomics Atlas team. Not all clusters have a predicted structure, as the release cycles of MGnify Proteins and the ESM Atlas are independent. The MGnify team is not involved in the protein structure predictions; instead the MGnify Proteins portal links to the ESM Atlas service, which is generously provided for the community by the ESM Atlas team.\n\n\nThis section at the top of the page provides essential details about the protein:\n\nProtein Accession: The unique identifier for the protein (e.g., MGYP000261684433).\nCluster Size: Indicates the number of proteins in the cluster (e.g., 1 protein).\nFull-Length ORF: Specifies whether the sequence represents a full-length open reading frame (ORF). A checkmark indicates a full-length ORF, while an ‘X’ denotes a fragment.\nBiome: Displays the biome(s) from which samples were sequenced that this protein was derived from (e.g., “Marine”).\nPfam Annotations: A table displaying Pfam domains identified within the protein.\n\n\n\n\nProtein Detail Header\n\n\n\n\n\n\nThis section displays a 3D structure of the protein, predicted by the ESM Metagenomics Atlas team using ESMFold:\n\n3D Structure Visualization: A graphic representation of the protein structure generated from the amino acid sequence.\nMore Information: A link below the visualization directs users to additional details about the ESM Metagenomics Atlas.\n\n\n\n\nESMFold Protein Predicted Structure\n\n\n\n\n\nThis table lists the assemblies from which the protein sequence was derived:\n\nStudy: The Study ID associated with the assembly.\nAssembly ID: The specific ID for the assembly.\nContig: The contig within the assembly where the protein sequence is located.\nContig Start/End: Coordinates indicating the start and end positions of the protein on the contig.\nStrand: Indicates whether the protein is on the positive or negative DNA strand.\n\n\n\n\nAssemblies where the Protein was Found\n\n\n\n\n\nThis section provides a detailed view of the amino acid sequence for the protein.\n\n\n\nProtein Amino Acid Sequence",
     "crumbs": [
       "Open MGnify",
       "MGnify Proteins",
-      "Sequence search"
+      "Portal"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-proteins-web.html#sequence-search",
+    "href": "src/docs/mgnify-proteins-web.html#sequence-search",
+    "title": "Portal",
+    "section": "",
+    "text": "The MGnify Proteins portal features a search form that allows users to submit queries to the Sequence Search. Search queries are processed by the search service, and the results link back to the protein detail page within the portal.",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Proteins",
+      "Portal"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-proteins-web.html#organization-of-the-protein-detail-page",
+    "href": "src/docs/mgnify-proteins-web.html#organization-of-the-protein-detail-page",
+    "title": "Portal",
+    "section": "",
+    "text": "Each cluster representative from the Protein Database has a dedicated detail page. This page includes metadata about the protein and, when available, its 3D structure as predicted by the ESM Metagenomics Atlas team. Not all clusters have a predicted structure, as the release cycles of MGnify Proteins and the ESM Atlas are independent. The MGnify team is not involved in the protein structure predictions; instead the MGnify Proteins portal links to the ESM Atlas service, which is generously provided for the community by the ESM Atlas team.\n\n\nThis section at the top of the page provides essential details about the protein:\n\nProtein Accession: The unique identifier for the protein (e.g., MGYP000261684433).\nCluster Size: Indicates the number of proteins in the cluster (e.g., 1 protein).\nFull-Length ORF: Specifies whether the sequence represents a full-length open reading frame (ORF). A checkmark indicates a full-length ORF, while an ‘X’ denotes a fragment.\nBiome: Displays the biome(s) from which samples were sequenced that this protein was derived from (e.g., “Marine”).\nPfam Annotations: A table displaying Pfam domains identified within the protein.\n\n\n\n\nProtein Detail Header",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Proteins",
+      "Portal"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-proteins-web.html#d-structure",
+    "href": "src/docs/mgnify-proteins-web.html#d-structure",
+    "title": "Portal",
+    "section": "",
+    "text": "This section displays a 3D structure of the protein, predicted by the ESM Metagenomics Atlas team using ESMFold:\n\n3D Structure Visualization: A graphic representation of the protein structure generated from the amino acid sequence.\nMore Information: A link below the visualization directs users to additional details about the ESM Metagenomics Atlas.\n\n\n\n\nESMFold Protein Predicted Structure",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Proteins",
+      "Portal"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-proteins-web.html#assemblies-information",
+    "href": "src/docs/mgnify-proteins-web.html#assemblies-information",
+    "title": "Portal",
+    "section": "",
+    "text": "This table lists the assemblies from which the protein sequence was derived:\n\nStudy: The Study ID associated with the assembly.\nAssembly ID: The specific ID for the assembly.\nContig: The contig within the assembly where the protein sequence is located.\nContig Start/End: Coordinates indicating the start and end positions of the protein on the contig.\nStrand: Indicates whether the protein is on the positive or negative DNA strand.\n\n\n\n\nAssemblies where the Protein was Found",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Proteins",
+      "Portal"
+    ]
+  },
+  {
+    "objectID": "src/docs/mgnify-proteins-web.html#amino-acid-sequence-viewer",
+    "href": "src/docs/mgnify-proteins-web.html#amino-acid-sequence-viewer",
+    "title": "Portal",
+    "section": "",
+    "text": "This section provides a detailed view of the amino acid sequence for the protein.\n\n\n\nProtein Amino Acid Sequence",
+    "crumbs": [
+      "Open MGnify",
+      "MGnify Proteins",
+      "Portal"
     ]
   },
   {
@@ -1340,33 +1340,5 @@
       "MGnify Proteins",
       "Big Query public dataset"
     ]
-  },
-  {
-    "objectID": "src/docs/mgnify-proteins-parquet-queries.html",
-    "href": "src/docs/mgnify-proteins-parquet-queries.html",
-    "title": "Remote querying of MGnify Proteins using Parquet and DuckDB",
-    "section": "",
-    "text": "As of the 2026_06 release, we have started shifting towards the use of files in the Apache Parquet format for the distribution of MGnify Proteins sequence data and metadata. There are numerous advantages to this shift:\n\nColumnar data access: As Parquet is a columnar data format, certain query structures that are commonly used to search MGnify Proteins metadata become significantly faster, as only columns of interest need to be searched. Columnar data similarly allows for partial reading of remote files.\nNative schemas: Parquet stores metadata about each column within a file - including data types - much like a relational database. These schemas allows for a more explicit data structure, more robust data validation, and more efficient queries e.g. querying based on integer identifiers in a Parquet file vs flat-files without a schema like .tsv, the possibility of applying Bloom filters, etc.\nNative compression: Parquet is a naturally compressed file format, with data types allowing for more efficient storing of this data.\nPartial reading: Using tools like DuckDB that support partial reading on Parquet files, it is possible make remote queries without downloading the entire source file, unlike with regular flat file formats like .tsv.\n\nPartial reading makes MGnify Proteins more accessible to users who are unable to download the increasingly massive flat files, as it is now possible to make your query over HTTPS directly by using the relevant Parquet file. In this documentation, we will go through example queries of how you can remotely query MGnify Proteins using DuckDB.\n\n\nIn the regular MGnify Proteins flat files, identifiers usually start with a prefix that changes depending on the data at hand, e.g. MGYP for proteins, MGYC for contigs. In parquet however, these prefixes have been stripped to convert their data types to numeric. This change allows for faster queries and more optimised storage.\nAlso, while Parquet allows for significant optimisations in query speeds, certain queries are likely to still be slow without the use of significant computational resources, as a full-file scan could still be required for the columns of interest. Example queries could be:\n\nSorting queries - we have done our best to preemptively sort the parquet files using numeric identifers where sensible to speed up potentially common queries.\nDistinct queries - similar to sorting queries, if you need to remove duplicates from results, it could get computationally expensive depending on the size of the initial result.\nSummary statistic queries - calculating means/medians/etc of numeric values will require a pass of the entire data, and could end up being slow.\nLarge table joins - Parquet files can be utilised in similar ways to tables and joined in queries. Depending on the complexity of the join, such queries could get computationally expensive very easily.\n\n\n\n\nAs part of the 2026_06 release, we distribute eight Parquet files.\n\n\nAll metadata related to proteins, assemblies, contigs, etc, for the entire protein database, in one Parquet file.\n\n\n\noccurrence_id: Identifier for a protein occurrence, which is a function of protein_id and contig_id i.e. it’s an occurrence of a protein sequence on a specific contig\nstudy_id: Identifier for an ENA study, which corresponds to an internal counter of the study_accession. Note that this is not the same integer as the study’s MGYS accession.\nassembly_id: Identifier for an ENA assembly, which corresponds to an assembly_accession\ncontig_id: Identifier for a contig within an assembly, which corresponds to a contig_name. In flat files, contig_ids are preceded by the prefix MGYC, e.g MGYC000120576919 has the contig_id 120576919\nprotein_id: Identifier for a non-redundant protein sequence which appears in one or more contigs (and therefore assemblies). In flat files, protein_ids are preceded by the prefix MGYP, e.g MGYP000004750550 has the protein_id 4750550\nstudy_accession: ENA accession for a study\nassembly_accession: ENA accession for an assembly\npipeline_version: The MGnify analysis pipeline version that ran the combined gene caller to predict proteins. Current versions are 4.1 and 5.0.\nlineage: The biome for the protein occurrence\ncontig_name: The name for a specific contig in a specific assembly i.e. the header the contig had in the FASTA file for the assembly\ncontig_length: The length of the contig in pair of bases\nkmer_coverage: The metaSPAdes kmer_coverage - will be null for non-metaspades-assembled data.\ntruncation: The partial truncation value from Prodigal i.e. 00 is a full-length sequence, everything else is partial. Will be null for proteins coming from FragGeneScan\nstart_position: The start position of the called gene/protein on the contig\nend_position: The end position of the called gene/protein on the contig\nstrand: The strand of the called gene/protein on the contig i.e. 1 is the forward orientation, -1 is the reverse orientation\ngene_caller_id: Identifier for the gene_caller that was used for the called gene/protein i.e. 1 is Prodigal (v2.6.3), 2 is FragGeneScan (v1.31), and 3 is FragGeneScan (v1.20)\ncluster_rep: The cluster representative for a protein\nis_cluster_rep: A boolean for whether a protein is a cluster representative or not\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\noccurrence_id\nstudy_id\nassembly_id\ncontig_id\nprotein_id\nstudy_accession\nassembly_accession\npipeline_version\nlineage\ncontig_name\ncontig_length\nkmer_coverage\ntruncation\nstart_position\nend_position\nstrand\ngene_caller_id\ncluster_rep\nis_cluster_rep\n\n\n\n\n6966728250\n1916\n68124\n4225793659\n5363\nERP146353\nERZ24775148\n5.0\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\nERZ27249607.747904-NODE-747904-length-578-cov-1.994264\n578\n1.994264\n00\n24468\n25016\n1\n1\n3381439768\nfalse\n\n\n\n\n\n\n\nAll non-redundant protein sequences in one Parquet file, including information about whether a sequence is full-length or not.\n\n\n\nprotein_id: Identifier for a non-redundant protein sequence\nfull_length: A boolean i.e. 1 is full-length, 0 is partial\nsequence: The amino acid sequence for the protein\n\n\n\n\n\n\n\n\n\nprotein_id\nfull_length\nsequence\n\n\n\n\n7700404008\nfalse\nSYSTSHDERTDEDEIVDGPLNGEGQGFIMELSDTERGCIGTYYRVVTYYDRRESADDLKECWWFDDYQQGRL\n\n\n7699836709\nfalse\nMPSKFNNLAHAGRGGDVLVHGVHCHDLHQPLLLQKEEPGSQSEIL\n\n\n7699854978\ntrue\nMGNFDIIDSHLHVFDLNVKANFPNQNRSHEFPNQEPIVRNISQEYAKEIANKSGVKKVVFVMCYDDCPEEAQWVYDNAQKTGNGKFVIKNVFLICY\n\n\n7699879094\nfalse\nEGKNLERNSKFLKVSRTLITIFIYHSYEFPSLDFYYRSIVSSIENSTLRVKHKFIVYGHTIFLIPIFHALSLIWDLHVNEQYIYIYTNVPGIIEIIHKLINDAFYFDSCWLILFLMFVQSGITRGIAPNMTWNH\n\n\n7700267793\ntrue\nMTNFIFTNRFGSPHNPAAINRAIKIIVDAHNADEEVAAKKEKREPVIIPKFSCHIFRHTFASRFCENETNIKVIQEVMGHADVSTTMNIYAEVNDEVTKTAIENLAKNMDVF\n\n\n\n\n\n\n\nA list of cluster representatives with their cluster member sequences.\n\n\n\ncluster_rep_accession: The protein_id for the cluster representative\nmember_accessions: The protein_id of a cluster member\n\n\n\n\ncluster_rep\ncluster_member\n\n\n\n\n12\n12\n\n\n32\n32\n\n\n277\n277\n\n\n277\n954756431\n\n\n277\n1079143076\n\n\n\n\n\n\n\nStatistics and biome information for clusters.\n\n\n\ncluster_rep_accession: The protein_id of the cluster representative\ncluster_size: The number of sequences in the cluster\nassembly_count: The number of assemblies contributing to the cluster\ncluster_rep_biomes: A non-redundant list of biomes for the cluster representative\ncluster_biomes: A non-redundant list of biomes across the whole cluster\n\n\n\n\n\n\n\n\n\n\n\ncluster_rep\ncluster_size\ncluster_assembly_count\ncluster_rep_biomes\ncluster_members_biomes\n\n\n\n\n166\n1\n1\nroot:Host-associated:Human:Digestive system:Oral:Saliva\nroot:Host-associated:Human:Digestive system:Oral:Saliva\n\n\n353\n3\n12\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n354\n1\n2\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n491\n2\n2\nroot:Host-associated:Mammals:Digestive system:Fecal\nroot:Host-associated:Human:Digestive system;root:Host-associated:Mammals:Digestive system:Fecal\n\n\n528\n1\n2\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n\n\n\n\n\nBiomes associated with each sequence. Sequences identified in multiple biomes will have multiple rows (one per biome) in the table.\n\n\n\nprotein_id: Identifier for a non-redundant protein sequence\nlineage_count: The number of times a particular protein has appeared in a particular lineage\nlineage: The biome for the protein\n\n\n\n\n\n\n\n\n\nprotein_id\nlineage_count\nlineage\n\n\n\n\n1\n2\nroot:Engineered:Bioreactor\n\n\n1\n13\nroot:Host-associated:Human:Digestive system:Large intestine\n\n\n1\n155\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n2\n1\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n3\n1\nroot:Host-associated:Human:Digestive system\n\n\n\n\n\n\n\nObservation counts for each biome.\n\n\n\nmgyp_count: The number of observations for the biome\nlineage_prefix: The biome for the protein\n\n\n\n\n\n\n\n\nmgyp_count\nlineage_prefix\n\n\n\n\n6047984260\nroot\n\n\n330457823\nroot:Engineered\n\n\n14332439\nroot:Engineered:Biogas plant\n\n\n3415679\nroot:Engineered:Biogas plant:Wet fermentation\n\n\n53184879\nroot:Engineered:Bioreactor\n\n\n\n\n\n\n\nPfam annotations generated by HMMER for all MGYPs that result in an annotation.\n\n\n\nprotein_id: Identifier for a non-redundant protein sequence\npfam_accession: The matched Pfam-A accession\ni_evalue: The independent e-value for the match\nscore: The bitscore for the match\nhmm_from: The start of the match with respect to the HMM for the Pfam hit\nhmm_to: The end of the match with respect to the HMM for the Pfam hit\nenv_from: The start of the match with respect to the envelope for the Pfam hit\nenv_to: The start of the match with respect to the envelope for the Pfam hit\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nprotein_id\npfam_accession\ni_evalue\nscore\nhmm_from\nhmm_to\nenv_from\nenv_to\n\n\n\n\n1\n2566\n5.812243921018791e-19\n76.21484375\n2\n100\n29\n128\n\n\n5\n8956\n1.0264838383714224e-30\n113.23670196533203\n2\n59\n2\n60\n\n\n6\n7733\n1.880480774071856e-10\n48.71669006347656\n198\n260\n1025\n1102\n\n\n6\n7733\n1.0008882501161678e-40\n147.94119262695312\n3\n152\n832\n1038\n\n\n6\n17657\n2.12528020408448e-25\n96.80313110351562\n1\n147\n1105\n1256\n\n\n\n\n\n\n\n\nObservation counts for each MGYP.\n\n\n\nmgyp: The MGYP accession for a non-redundant protein sequence\nmgyp_count: The number of observations for the protein\n\n\n\n\nmgyp\nmgyp_count\n\n\n\n\n1\n281\n\n\n2\n1\n\n\n3\n10\n\n\n5\n5236\n\n\n6\n3\n\n\n\n\n\n\n\n\nWe use DuckDB for querying the Parquet files in the examples of this section, as it is fast, simple to use, and has APIs for popular languages like Python. However, there are other methods like Polars that can be used to interact with Parquet files. Please see the DuckDB website and documentation for more information about how to install and use DuckDB.\n\n\n\n\n\n\nWarning\n\n\n\nWhen querying the MGnify Proteins Parquet files remotely, the speed will be heavily impacted by the network and HTTPS, especially for results made up of thousands of rows. To truly take advantage of the Parquet files, we highly recommend downloading them either locally, or to a webserver that allows you to query them without being impeded by network issues.\n\n\n\n\nThe examples use a common URL to access the EMBL-EBI FTP that hosts the MGnify Proteins parquet files. This URL is: https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06.\n\n\n\n\n\nIf you have a particular MGYP accession, let’s say MGYP000000000001, and you want its amino acid sequence, you can do so with the following query:\nSELECT *\nFROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_protein_sequences.parquet'\nWHERE protein_id = 1;\nOutput:\n\n\n\n\n\n\n\n\nprotein_id\nfull_length\nsequence\n\n\n\n\n1\ntrue\nMQARVKWVEGLTFIGESASGHQILMDGNSGDKAPSPMEMVLMAAGGCSAIDVVSILQKGRHEVTNCEVKLTSERREEAPRLFTHINLHFIVTGKALKDAAVSRAVDLSAEKYCSVALMLEKAVKITHSYEVIEA\n\n\n\n\n\n\nSELECT * \nFROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_protein_sequences.parquet'\nWHERE protein_id IN (1,2,3);\nOutput:\n\n\n\n\n\n\n\n\nprotein_id\nfull_length\nsequence\n\n\n\n\n1\ntrue\nMQARVKWVEGLTFIGESASGHQILMDGNSGDKAPSPMEMVLMAAGGCSAIDVVSILQKGRHEVTNCEVKLTSERREEAPRLFTHINLHFIVTGKALKDAAVSRAVDLSAEKYCSVALMLEKAVKITHSYEVIEA\n\n\n2\nfalse\nMNSLKMIELSLTDVVIRMALAVVFGALIGLERSIKRKGFGISSNAILCLASCTISILQIQSVDILVDVVKQNSALASIISMDITRYGAQVISGVGFLGAGIIVFRERKVSGLTTAVMMWNVTIIGLVIGMGFLT\n\n\n3\ntrue\nMKKVVLTIALFSTFVISAKATTVYAEIADDTHGTSIAKVGLEKQDETDEPTDPIDPPDVPGTYIPTGNTGALRIDYISNIDFGTQKIASETKNYTAGNSDEFVETQISDLRGNGAGWNLQVSYDSEKAGFYTENGVALAGAELSLPAGTAKTVTENQSPAAETATVTVNKDAQNIMFAAATTGLGTWEDQMSAEAVSLKVPSGNLAGTYSATLVWTLTDAPT\n\n\n\n\n\n\n\nIf you have an ENA assembly accession, like ERZ23872034, you can find all of its MGYPs like this:\nSELECT protein_id\nFROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_proteins_metadata.parquet'\nWHERE assembly_accession = 'ERZ23872034'\nLIMIT 500; -- This will limit to 500 results, remove if you want all results\nOutput:\n\n\n\nprotein_id\n\n\n\n\n1\n\n\n17\n\n\n19\n\n\n24\n\n\n33\n\n\n53\n\n\n61\n\n\n64\n\n\n80\n\n\n86\n\n\n100\n\n\n105\n\n\n\n\n\n\nIf you want to get all the biomes MGYP000000000001 is in, along with how often it appears in each biome, you can do so with the following query:\nSELECT *\nFROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_biomes.parquet'\nWHERE protein_id = 1;\nOutput:\n\n\n\n\n\n\n\n\nprotein_id\nlineage_count\nlineage\n\n\n\n\n1\n2\nroot:Engineered:Bioreactor\n\n\n1\n5\nroot:Engineered:Bioremediation:Terephthalate:Wastewater\n\n\n1\n6\nroot:Engineered:Built environment\n\n\n1\n3\nroot:Engineered:Wastewater\n\n\n1\n6\nroot:Host-associated:Fish:Digestive system\n\n\n1\n53\nroot:Host-associated:Human:Digestive system\n\n\n1\n3\nroot:Host-associated:Human:Digestive system:Hindgut:Rectum\n\n\n1\n13\nroot:Host-associated:Human:Digestive system:Large intestine\n\n\n1\n155\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n1\n7\nroot:Host-associated:Human:Digestive system:Oral\n\n\n1\n3\nroot:Host-associated:Human:Skin\n\n\n1\n15\nroot:Host-associated:Insecta:Digestive system\n\n\n1\n2\nroot:Host-associated:Mammals:Digestive system:Fecal\n\n\n1\n1\nroot:Host-associated:Mammals:Gastrointestinal tract:Intestine\n\n\n1\n1\nroot:Host-associated:Plants:Phylloplane\n\n\n1\n6\nroot:Mixed\n\n\n\n\n\n\n\n\nIf you have a MGYP that you know is a cluster representative, and you want to fetch all of its members, you can do this:\nSELECT *\nFROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_cluster_seqs.parquet'\nWHERE cluster_rep = 21;\nOutput:\n\n\n\ncluster_rep\ncluster_member\n\n\n\n\n21\n24867089\n\n\n21\n8799920023\n\n\n21\n9254161078\n\n\n21\n10470715852\n\n\n21\n526152225\n\n\n21\n342646082\n\n\n21\n21\n\n\n21\n7354554132\n\n\n21\n510538179\n\n\n21\n1205042829\n\n\n21\n461035109\n\n\n21\n1058480184\n\n\n21\n8315657225\n\n\n21\n84453492\n\n\n21\n8763227604\n\n\n21\n10629105130\n\n\n21\n9753012727\n\n\n21\n414100226\n\n\n21\n8096648057\n\n\n21\n1136948538\n\n\n21\n8164202599\n\n\n21\n10044486010\n\n\n21\n8998638882"
-  },
-  {
-    "objectID": "src/docs/mgnify-proteins-parquet-queries.html#general-guidelines",
-    "href": "src/docs/mgnify-proteins-parquet-queries.html#general-guidelines",
-    "title": "Remote querying of MGnify Proteins using Parquet and DuckDB",
-    "section": "",
-    "text": "In the regular MGnify Proteins flat files, identifiers usually start with a prefix that changes depending on the data at hand, e.g. MGYP for proteins, MGYC for contigs. In parquet however, these prefixes have been stripped to convert their data types to numeric. This change allows for faster queries and more optimised storage.\nAlso, while Parquet allows for significant optimisations in query speeds, certain queries are likely to still be slow without the use of significant computational resources, as a full-file scan could still be required for the columns of interest. Example queries could be:\n\nSorting queries - we have done our best to preemptively sort the parquet files using numeric identifers where sensible to speed up potentially common queries.\nDistinct queries - similar to sorting queries, if you need to remove duplicates from results, it could get computationally expensive depending on the size of the initial result.\nSummary statistic queries - calculating means/medians/etc of numeric values will require a pass of the entire data, and could end up being slow.\nLarge table joins - Parquet files can be utilised in similar ways to tables and joined in queries. Depending on the complexity of the join, such queries could get computationally expensive very easily."
-  },
-  {
-    "objectID": "src/docs/mgnify-proteins-parquet-queries.html#parquet-files-available",
-    "href": "src/docs/mgnify-proteins-parquet-queries.html#parquet-files-available",
-    "title": "Remote querying of MGnify Proteins using Parquet and DuckDB",
-    "section": "",
-    "text": "As part of the 2026_06 release, we distribute eight Parquet files.\n\n\nAll metadata related to proteins, assemblies, contigs, etc, for the entire protein database, in one Parquet file.\n\n\n\noccurrence_id: Identifier for a protein occurrence, which is a function of protein_id and contig_id i.e. it’s an occurrence of a protein sequence on a specific contig\nstudy_id: Identifier for an ENA study, which corresponds to an internal counter of the study_accession. Note that this is not the same integer as the study’s MGYS accession.\nassembly_id: Identifier for an ENA assembly, which corresponds to an assembly_accession\ncontig_id: Identifier for a contig within an assembly, which corresponds to a contig_name. In flat files, contig_ids are preceded by the prefix MGYC, e.g MGYC000120576919 has the contig_id 120576919\nprotein_id: Identifier for a non-redundant protein sequence which appears in one or more contigs (and therefore assemblies). In flat files, protein_ids are preceded by the prefix MGYP, e.g MGYP000004750550 has the protein_id 4750550\nstudy_accession: ENA accession for a study\nassembly_accession: ENA accession for an assembly\npipeline_version: The MGnify analysis pipeline version that ran the combined gene caller to predict proteins. Current versions are 4.1 and 5.0.\nlineage: The biome for the protein occurrence\ncontig_name: The name for a specific contig in a specific assembly i.e. the header the contig had in the FASTA file for the assembly\ncontig_length: The length of the contig in pair of bases\nkmer_coverage: The metaSPAdes kmer_coverage - will be null for non-metaspades-assembled data.\ntruncation: The partial truncation value from Prodigal i.e. 00 is a full-length sequence, everything else is partial. Will be null for proteins coming from FragGeneScan\nstart_position: The start position of the called gene/protein on the contig\nend_position: The end position of the called gene/protein on the contig\nstrand: The strand of the called gene/protein on the contig i.e. 1 is the forward orientation, -1 is the reverse orientation\ngene_caller_id: Identifier for the gene_caller that was used for the called gene/protein i.e. 1 is Prodigal (v2.6.3), 2 is FragGeneScan (v1.31), and 3 is FragGeneScan (v1.20)\ncluster_rep: The cluster representative for a protein\nis_cluster_rep: A boolean for whether a protein is a cluster representative or not\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\noccurrence_id\nstudy_id\nassembly_id\ncontig_id\nprotein_id\nstudy_accession\nassembly_accession\npipeline_version\nlineage\ncontig_name\ncontig_length\nkmer_coverage\ntruncation\nstart_position\nend_position\nstrand\ngene_caller_id\ncluster_rep\nis_cluster_rep\n\n\n\n\n6966728250\n1916\n68124\n4225793659\n5363\nERP146353\nERZ24775148\n5.0\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\nERZ27249607.747904-NODE-747904-length-578-cov-1.994264\n578\n1.994264\n00\n24468\n25016\n1\n1\n3381439768\nfalse\n\n\n\n\n\n\n\nAll non-redundant protein sequences in one Parquet file, including information about whether a sequence is full-length or not.\n\n\n\nprotein_id: Identifier for a non-redundant protein sequence\nfull_length: A boolean i.e. 1 is full-length, 0 is partial\nsequence: The amino acid sequence for the protein\n\n\n\n\n\n\n\n\n\nprotein_id\nfull_length\nsequence\n\n\n\n\n7700404008\nfalse\nSYSTSHDERTDEDEIVDGPLNGEGQGFIMELSDTERGCIGTYYRVVTYYDRRESADDLKECWWFDDYQQGRL\n\n\n7699836709\nfalse\nMPSKFNNLAHAGRGGDVLVHGVHCHDLHQPLLLQKEEPGSQSEIL\n\n\n7699854978\ntrue\nMGNFDIIDSHLHVFDLNVKANFPNQNRSHEFPNQEPIVRNISQEYAKEIANKSGVKKVVFVMCYDDCPEEAQWVYDNAQKTGNGKFVIKNVFLICY\n\n\n7699879094\nfalse\nEGKNLERNSKFLKVSRTLITIFIYHSYEFPSLDFYYRSIVSSIENSTLRVKHKFIVYGHTIFLIPIFHALSLIWDLHVNEQYIYIYTNVPGIIEIIHKLINDAFYFDSCWLILFLMFVQSGITRGIAPNMTWNH\n\n\n7700267793\ntrue\nMTNFIFTNRFGSPHNPAAINRAIKIIVDAHNADEEVAAKKEKREPVIIPKFSCHIFRHTFASRFCENETNIKVIQEVMGHADVSTTMNIYAEVNDEVTKTAIENLAKNMDVF\n\n\n\n\n\n\n\nA list of cluster representatives with their cluster member sequences.\n\n\n\ncluster_rep_accession: The protein_id for the cluster representative\nmember_accessions: The protein_id of a cluster member\n\n\n\n\ncluster_rep\ncluster_member\n\n\n\n\n12\n12\n\n\n32\n32\n\n\n277\n277\n\n\n277\n954756431\n\n\n277\n1079143076\n\n\n\n\n\n\n\nStatistics and biome information for clusters.\n\n\n\ncluster_rep_accession: The protein_id of the cluster representative\ncluster_size: The number of sequences in the cluster\nassembly_count: The number of assemblies contributing to the cluster\ncluster_rep_biomes: A non-redundant list of biomes for the cluster representative\ncluster_biomes: A non-redundant list of biomes across the whole cluster\n\n\n\n\n\n\n\n\n\n\n\ncluster_rep\ncluster_size\ncluster_assembly_count\ncluster_rep_biomes\ncluster_members_biomes\n\n\n\n\n166\n1\n1\nroot:Host-associated:Human:Digestive system:Oral:Saliva\nroot:Host-associated:Human:Digestive system:Oral:Saliva\n\n\n353\n3\n12\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n354\n1\n2\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n491\n2\n2\nroot:Host-associated:Mammals:Digestive system:Fecal\nroot:Host-associated:Human:Digestive system;root:Host-associated:Mammals:Digestive system:Fecal\n\n\n528\n1\n2\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n\n\n\n\n\nBiomes associated with each sequence. Sequences identified in multiple biomes will have multiple rows (one per biome) in the table.\n\n\n\nprotein_id: Identifier for a non-redundant protein sequence\nlineage_count: The number of times a particular protein has appeared in a particular lineage\nlineage: The biome for the protein\n\n\n\n\n\n\n\n\n\nprotein_id\nlineage_count\nlineage\n\n\n\n\n1\n2\nroot:Engineered:Bioreactor\n\n\n1\n13\nroot:Host-associated:Human:Digestive system:Large intestine\n\n\n1\n155\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n2\n1\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n3\n1\nroot:Host-associated:Human:Digestive system\n\n\n\n\n\n\n\nObservation counts for each biome.\n\n\n\nmgyp_count: The number of observations for the biome\nlineage_prefix: The biome for the protein\n\n\n\n\n\n\n\n\nmgyp_count\nlineage_prefix\n\n\n\n\n6047984260\nroot\n\n\n330457823\nroot:Engineered\n\n\n14332439\nroot:Engineered:Biogas plant\n\n\n3415679\nroot:Engineered:Biogas plant:Wet fermentation\n\n\n53184879\nroot:Engineered:Bioreactor\n\n\n\n\n\n\n\nPfam annotations generated by HMMER for all MGYPs that result in an annotation.\n\n\n\nprotein_id: Identifier for a non-redundant protein sequence\npfam_accession: The matched Pfam-A accession\ni_evalue: The independent e-value for the match\nscore: The bitscore for the match\nhmm_from: The start of the match with respect to the HMM for the Pfam hit\nhmm_to: The end of the match with respect to the HMM for the Pfam hit\nenv_from: The start of the match with respect to the envelope for the Pfam hit\nenv_to: The start of the match with respect to the envelope for the Pfam hit\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nprotein_id\npfam_accession\ni_evalue\nscore\nhmm_from\nhmm_to\nenv_from\nenv_to\n\n\n\n\n1\n2566\n5.812243921018791e-19\n76.21484375\n2\n100\n29\n128\n\n\n5\n8956\n1.0264838383714224e-30\n113.23670196533203\n2\n59\n2\n60\n\n\n6\n7733\n1.880480774071856e-10\n48.71669006347656\n198\n260\n1025\n1102\n\n\n6\n7733\n1.0008882501161678e-40\n147.94119262695312\n3\n152\n832\n1038\n\n\n6\n17657\n2.12528020408448e-25\n96.80313110351562\n1\n147\n1105\n1256\n\n\n\n\n\n\n\n\nObservation counts for each MGYP.\n\n\n\nmgyp: The MGYP accession for a non-redundant protein sequence\nmgyp_count: The number of observations for the protein\n\n\n\n\nmgyp\nmgyp_count\n\n\n\n\n1\n281\n\n\n2\n1\n\n\n3\n10\n\n\n5\n5236\n\n\n6\n3"
-  },
-  {
-    "objectID": "src/docs/mgnify-proteins-parquet-queries.html#example-duckdb-queries",
-    "href": "src/docs/mgnify-proteins-parquet-queries.html#example-duckdb-queries",
-    "title": "Remote querying of MGnify Proteins using Parquet and DuckDB",
-    "section": "",
-    "text": "We use DuckDB for querying the Parquet files in the examples of this section, as it is fast, simple to use, and has APIs for popular languages like Python. However, there are other methods like Polars that can be used to interact with Parquet files. Please see the DuckDB website and documentation for more information about how to install and use DuckDB.\n\n\n\n\n\n\nWarning\n\n\n\nWhen querying the MGnify Proteins Parquet files remotely, the speed will be heavily impacted by the network and HTTPS, especially for results made up of thousands of rows. To truly take advantage of the Parquet files, we highly recommend downloading them either locally, or to a webserver that allows you to query them without being impeded by network issues.\n\n\n\n\nThe examples use a common URL to access the EMBL-EBI FTP that hosts the MGnify Proteins parquet files. This URL is: https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06.\n\n\n\n\n\nIf you have a particular MGYP accession, let’s say MGYP000000000001, and you want its amino acid sequence, you can do so with the following query:\nSELECT *\nFROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_protein_sequences.parquet'\nWHERE protein_id = 1;\nOutput:\n\n\n\n\n\n\n\n\nprotein_id\nfull_length\nsequence\n\n\n\n\n1\ntrue\nMQARVKWVEGLTFIGESASGHQILMDGNSGDKAPSPMEMVLMAAGGCSAIDVVSILQKGRHEVTNCEVKLTSERREEAPRLFTHINLHFIVTGKALKDAAVSRAVDLSAEKYCSVALMLEKAVKITHSYEVIEA\n\n\n\n\n\n\nSELECT * \nFROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_protein_sequences.parquet'\nWHERE protein_id IN (1,2,3);\nOutput:\n\n\n\n\n\n\n\n\nprotein_id\nfull_length\nsequence\n\n\n\n\n1\ntrue\nMQARVKWVEGLTFIGESASGHQILMDGNSGDKAPSPMEMVLMAAGGCSAIDVVSILQKGRHEVTNCEVKLTSERREEAPRLFTHINLHFIVTGKALKDAAVSRAVDLSAEKYCSVALMLEKAVKITHSYEVIEA\n\n\n2\nfalse\nMNSLKMIELSLTDVVIRMALAVVFGALIGLERSIKRKGFGISSNAILCLASCTISILQIQSVDILVDVVKQNSALASIISMDITRYGAQVISGVGFLGAGIIVFRERKVSGLTTAVMMWNVTIIGLVIGMGFLT\n\n\n3\ntrue\nMKKVVLTIALFSTFVISAKATTVYAEIADDTHGTSIAKVGLEKQDETDEPTDPIDPPDVPGTYIPTGNTGALRIDYISNIDFGTQKIASETKNYTAGNSDEFVETQISDLRGNGAGWNLQVSYDSEKAGFYTENGVALAGAELSLPAGTAKTVTENQSPAAETATVTVNKDAQNIMFAAATTGLGTWEDQMSAEAVSLKVPSGNLAGTYSATLVWTLTDAPT\n\n\n\n\n\n\n\nIf you have an ENA assembly accession, like ERZ23872034, you can find all of its MGYPs like this:\nSELECT protein_id\nFROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_proteins_metadata.parquet'\nWHERE assembly_accession = 'ERZ23872034'\nLIMIT 500; -- This will limit to 500 results, remove if you want all results\nOutput:\n\n\n\nprotein_id\n\n\n\n\n1\n\n\n17\n\n\n19\n\n\n24\n\n\n33\n\n\n53\n\n\n61\n\n\n64\n\n\n80\n\n\n86\n\n\n100\n\n\n105\n\n\n\n\n\n\nIf you want to get all the biomes MGYP000000000001 is in, along with how often it appears in each biome, you can do so with the following query:\nSELECT *\nFROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_biomes.parquet'\nWHERE protein_id = 1;\nOutput:\n\n\n\n\n\n\n\n\nprotein_id\nlineage_count\nlineage\n\n\n\n\n1\n2\nroot:Engineered:Bioreactor\n\n\n1\n5\nroot:Engineered:Bioremediation:Terephthalate:Wastewater\n\n\n1\n6\nroot:Engineered:Built environment\n\n\n1\n3\nroot:Engineered:Wastewater\n\n\n1\n6\nroot:Host-associated:Fish:Digestive system\n\n\n1\n53\nroot:Host-associated:Human:Digestive system\n\n\n1\n3\nroot:Host-associated:Human:Digestive system:Hindgut:Rectum\n\n\n1\n13\nroot:Host-associated:Human:Digestive system:Large intestine\n\n\n1\n155\nroot:Host-associated:Human:Digestive system:Large intestine:Fecal\n\n\n1\n7\nroot:Host-associated:Human:Digestive system:Oral\n\n\n1\n3\nroot:Host-associated:Human:Skin\n\n\n1\n15\nroot:Host-associated:Insecta:Digestive system\n\n\n1\n2\nroot:Host-associated:Mammals:Digestive system:Fecal\n\n\n1\n1\nroot:Host-associated:Mammals:Gastrointestinal tract:Intestine\n\n\n1\n1\nroot:Host-associated:Plants:Phylloplane\n\n\n1\n6\nroot:Mixed\n\n\n\n\n\n\n\n\nIf you have a MGYP that you know is a cluster representative, and you want to fetch all of its members, you can do this:\nSELECT *\nFROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_cluster_seqs.parquet'\nWHERE cluster_rep = 21;\nOutput:\n\n\n\ncluster_rep\ncluster_member\n\n\n\n\n21\n24867089\n\n\n21\n8799920023\n\n\n21\n9254161078\n\n\n21\n10470715852\n\n\n21\n526152225\n\n\n21\n342646082\n\n\n21\n21\n\n\n21\n7354554132\n\n\n21\n510538179\n\n\n21\n1205042829\n\n\n21\n461035109\n\n\n21\n1058480184\n\n\n21\n8315657225\n\n\n21\n84453492\n\n\n21\n8763227604\n\n\n21\n10629105130\n\n\n21\n9753012727\n\n\n21\n414100226\n\n\n21\n8096648057\n\n\n21\n1136948538\n\n\n21\n8164202599\n\n\n21\n10044486010\n\n\n21\n8998638882"
   }
 ]
