@@ -23,7 +23,7 @@ format:
 
 # The shift to Parquet
 
-As of the 2026_06 release, we have started shifting towards the use of files in the Apache Parquet format for the distribution of MGnify Proteins sequence data and metadata. There are numerous advantages to this shift:
+As of the 2026_07 release, we have started shifting towards the use of files in the Apache Parquet format for the distribution of MGnify Proteins sequence data and metadata. There are numerous advantages to this shift:
 
 - Columnar data access: As Parquet is a columnar data format, certain query structures that are commonly used to search MGnify Proteins metadata become significantly faster, as only columns of interest need to be searched. Columnar data similarly allows for partial reading of remote files.
 - Native schemas: Parquet stores metadata about each column within a file - including data types - much like a relational database. These schemas allows for a more explicit data structure, more robust data validation, and more efficient queries e.g. querying based on integer identifiers in a Parquet file vs flat-files without a schema like .tsv, the possibility of applying Bloom filters, etc. 
@@ -45,7 +45,7 @@ Also, while Parquet allows for significant optimisations in query speeds, certai
 
 ## Parquet files available
 
-As part of the 2026_06 release, we distribute eight Parquet files.
+As part of the 2026_07 release, we distribute eight Parquet files.
 
 ### mgy_proteins_metadata.parquet
 
@@ -60,7 +60,7 @@ All metadata related to proteins, assemblies, contigs, etc, for the entire prote
 - study_accession: ENA accession for a study
 - assembly_accession: ENA accession for an assembly
 - pipeline_version: The MGnify analysis pipeline version that ran the combined gene caller to predict proteins. Current versions are 4.1 and 5.0.
-- lineage: The biome for the protein occurrence
+- biome: The biome for the protein occurrence
 - contig_name: The name for a specific contig in a specific assembly i.e. the header the contig had in the FASTA file for the assembly
 - contig_length: The length of the contig in pair of bases
 - kmer_coverage: The metaSPAdes kmer_coverage - will be null for non-metaspades-assembled data.
@@ -72,9 +72,11 @@ All metadata related to proteins, assemblies, contigs, etc, for the entire prote
 - cluster_rep: The cluster representative for a protein
 - is_cluster_rep: A boolean for whether a protein is a cluster representative or not
 
-| occurrence_id | study_id | assembly_id | contig_id  | protein_id | study_accession | assembly_accession | pipeline_version | lineage                                                           | contig_name                                            | contig_length | kmer_coverage | truncation | start_position | end_position | strand | gene_caller_id | cluster_rep | is_cluster_rep |
-| ------------: | -------: | ----------: | ---------: | ---------: | --------------- | ------------------ | ---------------: | ----------------------------------------------------------------- | ------------------------------------------------------ | ------------: | ------------: | ---------- | -------------: | -----------: | -----: | -------------: | ----------: | -------------- |
-|    6966728250 |     1916 |       68124 | 4225793659 |       5363 | ERP146353       | ERZ24775148        |              5.0 | root:Host-associated:Human:Digestive system:Large intestine:Fecal | ERZ27249607.747904-NODE-747904-length-578-cov-1.994264 |           578 |      1.994264 | 00         |          24468 |        25016 |      1 |              1 |  3381439768 | false          |
+::: {style="overflow-x: auto;"}
+| occurrence_id | study_id | assembly_id | contig_id  | protein_id | study_accession | assembly_accession |                      contig_name                      | contig_length | kmer_coverage | start_position | end_position | strand |               biome               | pipeline_version | truncation | gene_caller_id | cluster_rep | is_cluster_rep |
+|--------------:|---------:|------------:|-----------:|-----------:|-----------------|--------------------|-------------------------------------------------------|--------------:|--------------:|---------------:|-------------:|-------:|-----------------------------------|-----------------:|------------|---------------:|------------:|----------------|
+| 6966728250    | 1775     | 59597       | 2860239544 | 9680590378 | ERP145406       | ERZ17082817        | ERZ17082817.233518-NODE-783534-length-1148-cov-5.0000 | 1148          | 5.0           | 3              | 1148         | -1     | root:Environmental:Aquatic:Marine | 5.0              | 11         | 1              | 9894367754  | false          |
+:::
 
 ### mgy_protein_sequences.parquet
 
@@ -136,15 +138,15 @@ Biomes associated with each sequence. Sequences identified in multiple biomes wi
 #### Column descriptions:
 - protein_id: Identifier for a non-redundant protein sequence
 - lineage_count: The number of times a particular protein has appeared in a particular lineage
-- lineage: The biome for the protein
+- biome: The biome for the protein
 
-| protein_id | lineage_count | lineage                                                           |
-| ---------: | ------------: | ----------------------------------------------------------------- |
-|          1 |             2 | root:Engineered:Bioreactor                                        |
-|          1 |            13 | root:Host-associated:Human:Digestive system:Large intestine       |
-|          1 |           155 | root:Host-associated:Human:Digestive system:Large intestine:Fecal |
-|          2 |             1 | root:Host-associated:Human:Digestive system:Large intestine:Fecal |
-|          3 |             1 | root:Host-associated:Human:Digestive system                       |
+| protein_id | lineage_count |                          biome                          |
+|-----------:|--------------:|---------------------------------------------------------|
+| 1          | 2             | root:Engineered:Bioreactor                              |
+| 1          | 5             | root:Engineered:Bioremediation:Terephthalate:Wastewater |
+| 1          | 6             | root:Engineered:Built environment                       |
+| 1          | 3             | root:Engineered:Wastewater                              |
+| 1          | 6             | root:Host-associated:Fish:Digestive system              |
 
 ### mgy_biome_counts.parquet
 
@@ -154,13 +156,13 @@ Observation counts for each biome.
 - mgyp_count: The number of observations for the biome
 - lineage_prefix: The biome for the protein
 
-| mgyp_count |                                              lineage_prefix                                               |
-|-----------:|-----------------------------------------------------------------------------------------------------------|
-| 6047984260 | root                                                                                                      |
-| 330457823  | root:Engineered                                                                                           |
-| 14332439   | root:Engineered:Biogas plant                                                                              |
-| 3415679    | root:Engineered:Biogas plant:Wet fermentation                                                             |
-| 53184879   | root:Engineered:Bioreactor                                                                                |
+| mgyp_count |                lineage_prefix                 |
+|-----------:|-----------------------------------------------|
+| 6048290337 | root                                          |
+| 330559592  | root:Engineered                               |
+| 14332511   | root:Engineered:Biogas plant                  |
+| 3415718    | root:Engineered:Biogas plant:Wet fermentation |
+| 53185035   | root:Engineered:Bioreactor                    |
 
 
 ### mgy_proteins_pfam.parquet
@@ -198,10 +200,10 @@ Observation counts for each MGYP.
 
 | mgyp | mgyp_count |
 |-----:|-----------:|
-| 1    | 281        |
+| 1    | 282        |
 | 2    | 1          |
 | 3    | 10         |
-| 5    | 5236       |
+| 5    | 5261       |
 | 6    | 3          |
 
 
@@ -215,7 +217,7 @@ When querying the MGnify Proteins Parquet files remotely, the speed will be heav
 
 ### Remote URL
 
-The examples use a common URL to access the EMBL-EBI FTP that hosts the MGnify Proteins parquet files. This URL is: `https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06`. 
+The examples use a common URL to access the EMBL-EBI FTP that hosts the MGnify Proteins parquet files. This URL is: `https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07`. 
 
 ### Get MGYP sequences
 
@@ -224,7 +226,7 @@ If you have a particular MGYP accession, let's say `MGYP000000000001`, and you w
 
 ```sql
 SELECT *
-FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_protein_sequences.parquet'
+FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_protein_sequences.parquet'
 WHERE protein_id = 1;
 ```
 Output:
@@ -236,7 +238,7 @@ Output:
 #### Multiple MGYPs
 ```sql
 SELECT * 
-FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_protein_sequences.parquet'
+FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_protein_sequences.parquet'
 WHERE protein_id IN (1,2,3);
 ```
 
@@ -254,8 +256,8 @@ If you have an ENA assembly accession, like `ERZ23872034`, you can find all of i
 
 ```sql
 SELECT protein_id
-FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_proteins_metadata.parquet'
-WHERE assembly_accession = 'ERZ23872034'
+FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_proteins_metadata.parquet'
+WHERE assembly_accession = 'ERZ1022766'
 LIMIT 500; -- This will limit to 500 results, remove if you want all results
 ```
 
@@ -263,18 +265,18 @@ Output:
 
 | protein_id |
 |-----------:|
-| 1          |
-| 17         |
-| 19         |
-| 24         |
-| 33         |
-| 53         |
-| 61         |
-| 64         |
-| 80         |
-| 86         |
-| 100        |
-| 105        |
+| 7099172386 |
+| 7099172390 |
+| 7099172757 |
+| 7099173182 |
+| 7099173275 |
+| 7099173432 |
+| 7099173507 |
+| 7099173723 |
+| 7099173738 |
+| 7099173756 |
+| 7099173897 |
+| 7099174147 |
 
 
 ### Get all biomes and biome counts for a protein
@@ -283,23 +285,23 @@ If you want to get all the biomes `MGYP000000000001` is in,  along with how ofte
 
 ```sql
 SELECT *
-FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_biomes.parquet'
+FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_biomes.parquet'
 WHERE protein_id = 1;
 ```
 
 Output:
 
-| protein_id | lineage_count |                              lineage                              |
+| protein_id | lineage_count |                               biome                               |
 |-----------:|--------------:|-------------------------------------------------------------------|
 | 1          | 2             | root:Engineered:Bioreactor                                        |
 | 1          | 5             | root:Engineered:Bioremediation:Terephthalate:Wastewater           |
 | 1          | 6             | root:Engineered:Built environment                                 |
 | 1          | 3             | root:Engineered:Wastewater                                        |
 | 1          | 6             | root:Host-associated:Fish:Digestive system                        |
-| 1          | 53            | root:Host-associated:Human:Digestive system                       |
+| 1          | 58            | root:Host-associated:Human:Digestive system                       |
 | 1          | 3             | root:Host-associated:Human:Digestive system:Hindgut:Rectum        |
-| 1          | 13            | root:Host-associated:Human:Digestive system:Large intestine       |
-| 1          | 155           | root:Host-associated:Human:Digestive system:Large intestine:Fecal |
+| 1          | 32            | root:Host-associated:Human:Digestive system:Large intestine       |
+| 1          | 132           | root:Host-associated:Human:Digestive system:Large intestine:Fecal |
 | 1          | 7             | root:Host-associated:Human:Digestive system:Oral                  |
 | 1          | 3             | root:Host-associated:Human:Skin                                   |
 | 1          | 15            | root:Host-associated:Insecta:Digestive system                     |
@@ -317,7 +319,7 @@ If you have a MGYP that you know is a cluster representative, and you want to fe
 
 ```sql
 SELECT *
-FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_06/mgy_cluster_seqs.parquet'
+FROM 'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_cluster_seqs.parquet'
 WHERE cluster_rep = 21;
 ```
 
@@ -325,27 +327,27 @@ Output:
 
 | cluster_rep | cluster_member |
 |------------:|---------------:|
-| 21          | 24867089       |
-| 21          | 8799920023     |
-| 21          | 9254161078     |
-| 21          | 10470715852    |
-| 21          | 526152225      |
-| 21          | 342646082      |
 | 21          | 21             |
-| 21          | 7354554132     |
-| 21          | 510538179      |
-| 21          | 1205042829     |
-| 21          | 461035109      |
-| 21          | 1058480184     |
-| 21          | 8315657225     |
+| 21          | 24867089       |
 | 21          | 84453492       |
-| 21          | 8763227604     |
-| 21          | 10629105130    |
-| 21          | 9753012727     |
+| 21          | 342646082      |
 | 21          | 414100226      |
-| 21          | 8096648057     |
+| 21          | 461035109      |
+| 21          | 510538179      |
+| 21          | 526152225      |
+| 21          | 1058480184     |
 | 21          | 1136948538     |
+| 21          | 1205042829     |
+| 21          | 7354554132     |
+| 21          | 8096648057     |
 | 21          | 8164202599     |
-| 21          | 10044486010    |
+| 21          | 8315657225     |
+| 21          | 8763227604     |
+| 21          | 8799920023     |
 | 21          | 8998638882     |
+| 21          | 9254161078     |
+| 21          | 9753012727     |
+| 21          | 10044486010    |
+| 21          | 10470715852    |
+| 21          | 10629105130    |
 
