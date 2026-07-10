@@ -24,7 +24,7 @@ The dataset is accessible via several platforms:
 - **Google Cloud Public Dataset**: Available as a [Big Query public dataset](mgnify-proteins-big-query.qmd) on [Google Cloud](https://cloud.google.com/).
 
 ::: {.callout-warning}
-The latest release (2026_06) is available on the FTP, and is used in the HMMER Sequence Search, MGnify Proteins Portal. The Google Cloud Public (GCP) dataset is still on the 2024-04 release. We are working hard to update the GCP dataset to the newest release as soon as possible.
+The latest release (2026_07) is available on the FTP, and is used in the HMMER Sequence Search, MGnify Proteins Portal. The Google Cloud Public (GCP) dataset is still on the 2024-04 release. We are working hard to update the GCP dataset to the newest release as soon as possible.
 :::
 
 ![Schematic of MGnify Proteins resource](images/proteins/mgnify-proteins-schematic.png)
