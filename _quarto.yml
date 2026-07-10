@@ -52,7 +52,7 @@ website:
               - src/docs/api.md
             - href: src/docs/mgnify-genomes.md
             - section: "MGnify Proteins"
-              href: src/docs/mgnify-proteins.md
+              href: src/docs/mgnify-proteins.qmd
               contents:
                 - src/docs/mgnify-proteins-web.md
                 - src/docs/mgnify-proteins-sequence-search.md
