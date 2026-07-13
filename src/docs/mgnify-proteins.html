@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="MGnify">
-<meta name="dcterms.date" content="2026-07-06">
+<meta name="dcterms.date" content="2026-07-13">
 <meta name="description" content="Description of the MGnify Proteins and related services">
 
 <title>MGnify Proteins Resource – MGnify Resources</title>
@@ -298,7 +298,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/mgnify-proteins.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/mgnify-proteins.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -336,7 +336,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 6, 2026</p>
+      <p class="date">July 13, 2026</p>
     </div>
   </div>
   
@@ -352,7 +352,7 @@ ul.task-list li input[type="checkbox"] {
 <h1>MGnify Proteins Resource</h1>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>The MGnify Protein Database comprises sequences predicted from <a href="../../src/docs/glossary.html#assembly">assemblies</a> generated from publicly available <a href="../../src/docs/glossary.html#metagenomic">metagenomic</a> datasets. Since its initial release in August 2017, which comprised just under 50 million sequences, it has grown to over 2.4 billion sequences. All sequences have stable accessions, prefixed with MGYP, such as <a href="https://www.ebi.ac.uk/metagenomics/proteins/MGYP000261684433/">MGYP000261684433</a>. Due to the dataset’s size, sequences are clustered at 90% identity using <a href="https://github.com/soedinglab/MMseqs2">MMSeq2/Linclust</a>. Despite clustering, the sequences still capture the biological complexity inherent in metagenomic data.</p>
+<p>The MGnify Protein Database comprises sequences predicted from <a href="../../src/docs/glossary.html#assembly">assemblies</a> generated from publicly available <a href="../../src/docs/glossary.html#metagenomic">metagenomic</a> datasets. Since its initial release in August 2017, which comprised just under 50 million sequences, it has grown to over 5.7 billion sequences. All sequences have stable accessions, prefixed with MGYP, such as <a href="https://www.ebi.ac.uk/metagenomics/proteins/MGYP000261684433/">MGYP000261684433</a>. Due to the dataset’s size, sequences are clustered at 90% and 30% identity using <a href="https://github.com/bbuchfink/diamond">DIAMOND/Linclust</a>. Despite clustering, the sequences still capture the biological complexity inherent in metagenomic data.</p>
 <p>The dataset is accessible via several platforms:</p>
 <ul>
 <li><strong>FTP Server</strong>: Available for download from our <a href="http://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/">FTP server</a>.</li>
@@ -360,6 +360,19 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>MGnify Proteins Portal</strong>: Explore the data on the <a href="../../src/docs/mgnify-proteins-web.html">MGnify Proteins web portal</a>.</li>
 <li><strong>Google Cloud Public Dataset</strong>: Available as a <a href="../../src/docs/mgnify-proteins-big-query.html">Big Query public dataset</a> on <a href="https://cloud.google.com/">Google Cloud</a>.</li>
 </ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The latest release (2026_07) is available on the FTP, and is used in the HMMER Sequence Search, MGnify Proteins Portal. The Google Cloud Public (GCP) dataset is still on the 2024-04 release. We are working hard to update the GCP dataset to the newest release as soon as possible.</p>
+</div>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/proteins/mgnify-proteins-schematic.png" class="img-fluid figure-img"></p>
@@ -382,12 +395,12 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{2026,
   author = {, MGnify},
   title = {MGnify {Proteins} {Resource}},
-  date = {2026-07-06},
+  date = {2026-07-13},
   url = {https://docs.mgnify.org/src/docs/mgnify-proteins.html},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
-MGnify. 2026. <span>“MGnify Proteins Resource.”</span> July 6. <a href="https://docs.mgnify.org/src/docs/mgnify-proteins.html">https://docs.mgnify.org/src/docs/mgnify-proteins.html</a>.
+MGnify. 2026. <span>“MGnify Proteins Resource.”</span> July 13. <a href="https://docs.mgnify.org/src/docs/mgnify-proteins.html">https://docs.mgnify.org/src/docs/mgnify-proteins.html</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -806,4 +819,4 @@ MGnify. 2026. <span>“MGnify Proteins Resource.”</span> July 6. <a href="http
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/mgnify-proteins.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/mgnify-proteins.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
