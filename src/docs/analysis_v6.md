@@ -148,7 +148,7 @@ The pipeline uses the following reference databases:
 The v6 raw reads analysis pipeline includes the following key features:
 
 - Long Read Support: Handles both short (e.g. Illumina) and long reads (e.g. Oxford Nanopore, PacBio) with platform-appropriate tools
-- Dual Taxonomic Profiling: Combines rRNA-based (SILVA) and marker gene (mOTUs) approaches
+- Multiple taxonomic profiling methods: 1) mOTUs marker-gene approach, 2) rRNA-based (SILVA) appraoch comparable to Amplicon Analysis Pipeline OTU method
 - Optional subsampling for functional profiling to limit computational expense
 - Automated Database Management: Automatic download and caching of reference databases
 - Chunking: Efficient processing of large datasets through chunking with empirically tuned resource requirements to match
