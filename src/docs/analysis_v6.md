@@ -148,7 +148,6 @@ The pipeline uses the following reference databases:
 The v6 raw reads analysis pipeline includes the following key features:
 
 - Long Read Support: Handles both short (e.g. Illumina) and long reads (e.g. Oxford Nanopore, PacBio) with platform-appropriate tools
-- Decontamination: Removes host (human by default) and phiX contamination using bwa-mem2 (short reads) and minimap2 (long reads)
 - Dual Taxonomic Profiling: Combines rRNA-based (SILVA) and marker gene (mOTUs) approaches
 - Optional subsampling for functional profiling to limit computational expense
 - Automated Database Management: Automatic download and caching of reference databases
