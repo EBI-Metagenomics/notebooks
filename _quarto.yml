@@ -42,6 +42,7 @@ website:
             - section: "Analyses"
               contents:
               - src/docs/analysis.md
+              - src/docs/analysis_v6.md
             - section: "Website & API"
               contents:
               - src/docs/portal.md

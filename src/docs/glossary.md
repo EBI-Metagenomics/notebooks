@@ -7,7 +7,7 @@ author:
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: Dictionary of terms used in MGnify and throughout this documentaiton
+description: Dictionary of terms used in MGnify and throughout this documentation
 order: 11
 ---
 
@@ -18,7 +18,10 @@ Main prokaryotic ribosomal RNA genes used for taxonomic assignments.
 Main eukaryotic ribosomal RNA genes used for taxonomic assignments.
 
 ## Amplicon
-Refers to environmental sample where a marker gene has been amplified and sequenced. On the EMG website, we use the term amplicon when the amplified marker gene is ribosomal RNA gene. Analysis will yield taxonomic information.
+Refers a marker gene that has been amplified and sequenced. On the MGnify website, we use the term amplicon when the amplified marker gene is a ribosomal RNA gene. Analysis will yield taxonomic information.
+
+## Amplicon Sequence Variant (ASV)
+An inferred unique DNA sequence recovered from high-throughput analysis of marker genes after removing errors introduced during PCR and sequencing. ASVs can distinguish sequence variation down to a single nucleotide and provide finer resolution than sequence clusters such as [OTUs](#otu).
 
 ## Analysis result
 The end result of the [pipeline](#pipeline) analysis of a [run](#run).
@@ -66,7 +69,7 @@ Refers to environmental sample where a marker gene, different from ribosomal RNA
 Refers to environmental sample where Whole Genome Shotgun sequencing method has been applied. Analysis will yield taxonomic and functional information.
 
 ## Metatranscriptomic
-Refera to environmental sample where whole transcriptome sequencing method has been applied. Analysis will yield taxonomic and functional information.
+Refers to an environmental sample where whole transcriptome sequencing method has been applied. Analysis will yield taxonomic and functional information.
 
 ## OTU
 Operational Taxonomic Unit representing a group of sequences sharing high similarity with each other.
@@ -94,20 +97,3 @@ A representation of the physical amount of material collected. It represents a s
 
 ## Study
 Represents a collection of [samples](#sample) and experiments applied to these [samples](#sample)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
