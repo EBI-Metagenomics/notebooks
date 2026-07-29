@@ -153,7 +153,7 @@ The v6 raw reads analysis pipeline includes the following key features:
 - Dual Taxonomic Profiling: Combines rRNA-based (SILVA) and marker gene (mOTUs) approaches
 - Optional subsampling for functional profiling to limit computational expense
 - Automated Database Management: Automatic download and caching of reference databases
-- Chunking: Efficient processing of large datasets through chunking of reads for cmsearch and hmmsearch steps
+- Chunking: Efficient processing of large datasets through chunking with empirically tuned resource requirements to match
 
 ### Pipeline Workflow
 
