@@ -60,7 +60,7 @@ Refers to environmental sample where a marker gene, different from ribosomal RNA
 Refers to environmental sample where Whole Genome Shotgun sequencing method has been applied. Analysis will yield taxonomic and functional information.
 
 ## Metatranscriptomic
-Refera to environmental sample where whole transcriptome sequencing method has been applied. Analysis will yield taxonomic and functional information.
+Refers to environmental sample where whole transcriptome sequencing method has been applied. Analysis will yield taxonomic and functional information.
 
 ## OTU
 Operational Taxonomic Unit representing a group of sequences sharing high similarity with each other.
