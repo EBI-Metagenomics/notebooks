@@ -58,6 +58,7 @@ website:
               href: src/docs/mgnify-proteins.qmd
               contents:
                 - src/docs/mgnify-proteins-web.md
+                - src/docs/mgnify-proteins-api.md
                 - src/docs/mgnify-proteins-sequence-search.md
                 - src/docs/mgnify-proteins-big-query.qmd
                 - src/docs/mgnify-proteins-parquet-queries.qmd
