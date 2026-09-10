@@ -55,6 +55,7 @@ website:
               href: src/docs/mgnify-proteins.md
               contents:
                 - src/docs/mgnify-proteins-web.md
+                - src/docs/mgnify-proteins-api.md
                 - src/docs/mgnify-proteins-sequence-search.md
                 - src/docs/mgnify-proteins-big-query.qmd
                 - src/docs/mgnify-proteins-contig-sequences.qmd
