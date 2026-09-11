@@ -1,0 +1,85 @@
+---
+title: "MGnify API v2 with MGnipy"
+description: "Copyable local Python examples using the MGnipy client."
+---
+
+[MGnipy](https://mgnipy.mgnify.org/) wraps API v2 with study and analysis objects,
+pagination, metadata tables and dataset helpers. This page uses **MGnipy 0.3.0**
+in **local Python 3.11 or newer**. Code blocks are copyable but do not run in this
+page. For editable browser code, use the [Python example](python.qmd).
+
+## Install
+
+```bash
+python -m pip install "mgnipy==0.3.0"
+```
+
+## Get a study and a page of its analyses
+
+Change `STUDY` to your accession. The relationship query is explicitly created
+with `fetch=False`, then a single page is fetched. Accessing `study.analyses`
+directly would fetch all pages in this version of MGnipy.
+
+```python
+from mgnipy import MGnipy
+
+STUDY = "MGYS00010393"
+
+with MGnipy() as mg:
+    study = mg.study(STUDY)
+    study.get()
+    print(study.search_results.to_pandas().to_string(index=False))
+
+    analyses = study.get_list("analyses", fetch=False)
+    analyses.get()
+    analyses_df = analyses.search_results.to_pandas()
+    print(analyses_df.head())
+```
+
+Use `analyses.page(2)` to fetch another page or `analyses.get_all()` to retrieve
+the complete list, when you know the study size is manageable. These calls belong
+inside the client context above. A page of metadata is often enough to choose an
+analysis before downloading anything.
+
+## Get analysis detail and a result table
+
+This independent example inspects one known analysis and reads its small
+Pfam domain-count TSV into pandas. For another study, set `ANALYSIS` from an
+accession in `analyses_df` after checking that it is not empty.
+
+```python
+from io import BytesIO
+
+import pandas as pd
+import requests
+from mgnipy import MGnipy
+
+ANALYSIS = "MGYA01022557"
+
+with MGnipy() as mg:
+    analysis = mg.analysis(ANALYSIS)
+    analysis.get()
+    print(analysis.search_results.to_pandas().to_string(index=False))
+    downloads = analysis.downloads or []
+
+print(pd.DataFrame(downloads))
+matches = [
+    d for d in downloads
+    if d.get("file_type") == "tsv"
+    and d.get("short_description") == "Pfam accession counts"
+]
+
+if not matches:
+    print("No Pfam counts for this analysis. Inspect its download catalogue.")
+else:
+    response = requests.get(matches[0]["url"], timeout=30)
+    response.raise_for_status()
+    table = pd.read_csv(BytesIO(response.content), sep="\t", compression="gzip")
+    print(table.head())
+```
+
+MGnipy also provides [`MGazine` dataset helpers](https://mgnipy.mgnify.org/) for
+downloading and streaming supported formats. Here the explicit pandas read shows
+how to read a compressed TSV. Inspect file metadata before reading larger
+results into memory.
+

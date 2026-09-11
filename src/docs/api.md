@@ -149,4 +149,12 @@ We have a Python client, MGnipy, designed to streamline access to the APIv2 from
 
 Documentation for MGnipy can be found at [mgnipy.mgnify.org/](https://mgnipy.mgnify.org/).
 
+See the [copyable MGnipy example](../examples/mgnipy.qmd) for study queries,
+analysis detail and a pandas result table.
+
+### Edit and run API examples in your browser
+
+The [API examples](../examples/index.qmd) include Python with requests and pandas,
+and R with jsonlite and base R. These run in your browser using WebAssembly.
+Both can be opened for a particular study using a `?study=MGYS00010397` link.
 

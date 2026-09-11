@@ -4,12 +4,10 @@ project:
         - src/docs.qmd
         - src/docs/*.md
         - src/docs/*.qmd
+        - src/examples/*.qmd
 
 execute:
     freeze: auto
-
-ipynb-filters:
-    - src/templates/notebook-static-preview.py
 
 website:
     title: MGnify Resources
@@ -56,6 +54,12 @@ website:
               - src/docs/portal.md
               - src/docs/api.md
               - src/docs/ftp.md
+            - section: "API code examples"
+              href: src/examples/index.qmd
+              contents:
+              - src/examples/python.qmd
+              - src/examples/mgnipy.qmd
+              - src/examples/r.qmd
             - href: src/docs/mgnify-genomes.md
             - section: "MGnify Proteins"
               href: src/docs/mgnify-proteins.md
@@ -85,3 +89,4 @@ format:
             - src/static-resources/styles.scss
         toc: true
         code-overflow: wrap
+        code-copy: true
