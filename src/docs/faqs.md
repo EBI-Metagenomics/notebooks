@@ -29,7 +29,10 @@ Although MGnify does not currently provide taxonomic analysis of viral sequences
 
 ## How do I run a sequence search against the metagenomics datasets?
 
-We offer HMMER searches against our metagenomic protein database via the web site [sequence search facility](https://www.ebi.ac.uk/metagenomics/sequence-search/search/phmmer).
+We offer HMMER searches against the MGnify30 protein databases via the
+[HMMER `phmmer` search](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer?database=mgnify30_c2).
+See the [MGnify sequence search guide](mgnify-proteins-sequence-search.md) for
+help choosing an MGnify30 database and interpreting the results.
 
 ## Can I change the release date of my project?
 

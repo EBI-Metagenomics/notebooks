@@ -1,126 +1,75 @@
 ---
 title: Sequence search
-author: 
+author:
   - name: MGnify
     url: https://www.ebi.ac.uk/metagenomics
     affiliation: EMBL-EBI
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: Guide to using MGnify's Protein Database sequence search service
+description: Guide to searching the MGnify30 protein databases with HMMER
 ---
 
-## Landing page
+MGnify protein sequence searches are provided by the EMBL-EBI HMMER web
+service. Use `phmmer` to compare a protein query sequence with the MGnify30
+sequence databases.
 
-The sequence search (accessed by following the ‘Sequence search’ link from the MGnify web page menu bar)
-provides a search against a catalogue of predicted peptides.
+[Open HMMER with MGnify30-C2 selected](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer?database=mgnify30_c2){.btn .btn-primary target="_blank" rel="noopener noreferrer"}
 
-![The landing page of the sequence search tool](images/sequence_search/sequence_search_landing-v5.png){#fig-sequence-search-landing}
+![The HMMER phmmer search page for submitting a protein sequence.](images/sequence_search/hmmer-mgnify30-search.png){#fig-hmmer-mgnify30-search}
 
-These sequences comprise a non-redundant set of proteins predicted from contigs that
-have been assembled from sequencing runs. The HMMER search
-engine has been adapted to provide fast searches against this database.
-The results can be linked back to the sample and run from which the peptide was derived
-and also to sequences with an exact match in the UniProtKB database.
+## Running a search
 
-Owing to the large size of the database we are not able to offer a search against
-the full set of proteins. Instead, we have applied a clustering algorithm which groups
-sequences into clusters based on similarity. The clusters each have a ‘representative sequence’
-and it is these that are offered in the search, though the full set of proteins may be
-obtained from our [FTP server](ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database).
+1. Paste a FASTA-formatted amino acid sequence into the **Protein sequence**
+   field, or upload a sequence file.
+2. Under **Sequence database**, choose one of the MGnify30 databases described
+   below. The link above preselects **MGnify30-C2**.
+3. Optionally adjust the cut-offs and other advanced settings.
+4. Select **Submit** to start the search.
 
-The search takes a FASTA-formatted amino acid sequence.
+`phmmer` returns sequences with statistically significant similarity to the
+query. Results are ordered by significance and include the target protein
+accessions, alignments, scores and E-values.
 
-![Example of a well-formatted input sequence](images/sequence_search/sequence_search_input_seq-v5.png){#fig-sequence-search-input}
+![Example MGnify30-C2 results, showing MGnify protein accessions, associated studies and assemblies, Pfam matches and E-values.](images/sequence_search/hmmer-mgnify30-results.png){#fig-hmmer-mgnify30-results}
 
-You can search against all of the sequences in the database (‘All’),
-or restrict your search to full length sequences, or partial
-sequences only (see Partial and full length peptides).
-Alternatively, you may choose to search from a subset of environments or
-biomes. Sequences observed in multiple runs may be found in more than one biome. ‘Other’
-sequences are those found in none of the other environment or biome categories.
+## Choosing an MGnify30 database
 
-![How to select the peptide database to search against](images/sequence_search/sequence_search_db_select-v5.png){#fig-sequence-search-db-select}
+MGnify30 contains representative sequences from MGnify protein clusters formed
+at 30% sequence identity. HMMER provides three subsets for different search
+goals:
 
-## Result page
+![MGnify30-C2 selected as the HMMER sequence database, with the default search cut-offs.](images/sequence_search/hmmer-mgnify30-database.png){#fig-hmmer-mgnify30-database}
 
-On completion, a list of matching sequences is shown in order of E-value significance.
-All sequences in the database have a stable MGYP accession. Additional columns, such
-as the mapping to UniProtKB identifiers, can be enabled by clicking ‘Customise’
-on the results page and checking the appropriate boxes.
+- **MGnify30-C2 (Non-singletons)** contains representatives of clusters with at
+  least two members. This is the broadest MGnify30 option and is a sensible
+  default for general searches.
+- **MGnify30-C5-FL (Larger non-singletons)** contains representatives of
+  clusters with at least five members, including at least one member predicted
+  to be a full-length protein. Use this smaller subset when stronger cluster
+  support and a full-length member are important.
+- **MGnify30-C5-PPfam (Pfam-poor non-singletons)** contains representatives of
+  clusters with at least five members where at least 90% of members have no Pfam
+  accession. Use this subset to focus on comparatively uncharacterised protein
+  sequence space.
 
-![Different features on the result page after triggering a sequence search](images/sequence_search/sequence_search_result_custom2.png){#fig-sequence-search-result-custom}
+See the HMMER documentation for the current list and definitions of
+[target databases](https://hmmer-web-docs.readthedocs.io/en/development/databases.html).
 
-## Build process
+## Recording and interpreting results
 
-The database is updated periodically and is created as follows:
+The target databases are updated periodically. Open **Search Details** above the
+HMMER results table to find the target database name, release date and other
+search settings. Record these details with the query sequence when a search
+needs to be reproduced or reported.
 
+![The Search Details panel records the phmmer command, MGnify30 database release and query sequence.](images/sequence_search/hmmer-mgnify30-search-details.png){#fig-hmmer-mgnify30-search-details}
 
-* Short reads from runs are assembled into contigs using an assembler, such as metaSPAdes
+HMMER's [results documentation](https://hmmer-web-docs.readthedocs.io/en/latest/results.html)
+explains the results table, domain graphics, alignments, scores and E-values.
 
+## Downloading MGnify protein data
 
-* Contigs are filtered by length (minimum 500 base pairs)
-
-
-* Peptides are predicted using the Prodigal gene caller
-
-
-* Resulting peptides are made non-redundant to produce a set of unique sequences
-
-
-* Sequences are mapped back to MGnify run and sample accessions and annotated with biome(s)
-
-
-* Matching sequences in UniProtKB are identified
-
-
-* Sequences are clustered using MMseqs2/Linclust
-
-<!-- * Domain architectures are identified using the Pfam database -->
-Each update (versioned using the release year/month) is cumulative and
-uses all predicted peptides available at that time.
-
-## Partial and full length peptides
-
-In common with some other protein coding sequence predictors, [Prodigal](https://github.com/hyattpd/prodigal/wiki/introduction) provides an indication
-as to whether a gene is full length or extends beyond the contig. This is recorded as two digits
-(one for each end of
-the sequence), each of which is either 0 (the gene is
-encoded within the contig) or 1 (it extends beyond). Thus a full length
-sequence is described as ‘00’ and a partial as ‘11’. The values
-‘10’ or ‘01’ are used for the cases where the gene
-is truncated only at one end.
-
-```bash
->seq_1 # 3 # 371 # 1 # ID=1_1;partial=10;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.501
-SEGCEYLAAYLDKRIASGETINESSAVMTLSQGYLMKGRNKDAGKKFITTPAITKEIREA
-QT
->seq_2 # 4738 # 5193 # -1 # ID=1_9;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.568
-MSAYWYAVIWGGSFGAVLAAAGPRFRKAIPAIRGRMKNSIKWSTSAKAINGISWAGPFAA
-QT
->seq_3 # 7546 # 8232 # -1 # ID=1_11;partial=00;start_type=TTG;rbs_motif=GGAG/GAGG;rbs_spacer=5-10bp;gc_cont=0.541
-MKKKVLSIQNIACETLGTLEGMFRKDGLEVENVSAQEGGIPIKSSEYSAVVVLGGPMAVY
-QT
->seq_4 # 32 # 103 # -1 # ID=37115_1;partial=01;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.542
-WILDGIDIDAMIRHPVRQYQIAG
-```
-
-## Availability
-
-As well as searches via a web server, we
-provide all data for download from our [FTP server](ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database).
-This includes the sequence database (separate fasta files for the full database and cluster representatives);
-run, sample, biome, Swiss-Prot and TrEMBL mappings;
-the partial status of the sequences
-and counts of the number of times each sequence
-was observed in the database as a whole.
-
-![List of available files on the FTP server](images/sequence_search/sequence_search_ftp.png){#fig-sequence-ftp}
-
-## Further information
-
-[Full documentation](https://hmmer-web-docs.readthedocs.io/en/latest/)
-regarding the HMMER webserver is available. Note that some of the documented
-features (such as the taxonomy view) are not relevant to the peptide search
-and are therefore disabled. If there are additional features or feedback on this
-search service, please get in [contact with us](https://www.ebi.ac.uk/support/metagenomics).
+MGnify protein releases and supporting files are also available from the
+[MGnify FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/).
+For questions or feedback, please [contact the MGnify team](https://www.ebi.ac.uk/support/metagenomics).
