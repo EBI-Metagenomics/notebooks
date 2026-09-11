@@ -1,0 +1,14 @@
+---
+title: "API examples"
+description: "Explore MGnify studies, analyses and results with Python and R."
+---
+
+Find a study, list its analyses, and load a Pfam result into a data frame.
+Choose an example to get started:
+
+- [Python with requests and pandas](python.qmd) — edit and run in your browser.
+- [R with jsonlite](r.qmd) — edit and run in your browser.
+- [Python with MGnipy](mgnipy.qmd) — copy and run in your own Python environment.
+
+The examples start with [an Antarctic soil assembly study](https://www.ebi.ac.uk/metagenomics/studies/MGYS00010393/overview). Enter another study
+accession at the top of either page to explore your own data.

@@ -1,0 +1,119 @@
+---
+title: "MGnify API v2 in R"
+description: "Find a study, explore its analyses, and read a result table."
+format:
+  live-html:
+    theme: [cosmo, ../static-resources/styles.scss]
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+webr:
+  packages: [jsonlite]
+  cell-options:
+    autorun: false
+    edit: true
+---
+
+Edit and run the cells below, in order. The first visit may take a minute to load.
+Copy any code you want to keep before leaving or reloading the page.
+
+```{ojs}
+//| echo: false
+import {readStudyAccession} from "./study-link.js"
+study_accession = readStudyAccession(window.location.search)
+html`<form method="get" class="study-controls">
+  <label>Study accession
+    <input name="study" value=${study_accession} pattern="MGYS[0-9]{8}" required>
+  </label>
+  <button type="submit">Open study</button>
+</form>`
+```
+
+## Set up
+
+The study accession comes from the box above. To use this code in local R,
+set `STUDY` to an accession such as `"MGYS00010393"`.
+
+```{webr}
+#| input: [study_accession]
+library(jsonlite)
+
+API <- "https://www.ebi.ac.uk/metagenomics/api/v2"
+STUDY <- study_accession
+
+get_json <- function(path) {
+  file <- tempfile()
+  on.exit(unlink(file))
+  download.file(paste0(API, "/", path), file, quiet = TRUE)
+  fromJSON(file)
+}
+
+cat(STUDY)
+```
+
+## Get a study
+
+A study groups related samples and analyses. Retrieve its title and biome:
+
+```{webr}
+study <- get_json(paste0("studies/", STUDY))
+cat(study$title, "\n")
+study$biome
+```
+
+## List its analyses
+
+List responses contain `items` and a total `count`. Fetch the first 20 analyses;
+change `page=1` to `page=2` to get the next page.
+
+```{webr}
+batch <- get_json(paste0("studies/", STUDY, "/analyses/?page=1&page_size=20"))
+analyses <- as.data.frame(batch$items)
+cat("Showing", nrow(analyses), "of", batch$count, "analyses\n")
+if (nrow(analyses) > 0) {
+  analyses[c("accession", "experiment_type", "pipeline_version")]
+}
+```
+
+## Inspect an analysis
+
+Choose the first analysis, or replace `ANALYSIS` with another accession from the
+list. Its detail record includes the available result files.
+
+```{webr}
+if (nrow(analyses) == 0) stop("This study has no analyses. Choose another study above.")
+
+ANALYSIS <- analyses$accession[1]
+analysis <- get_json(paste0("analyses/", ANALYSIS))
+downloads <- as.data.frame(analysis$downloads)
+if (nrow(downloads) > 0) {
+  downloads[c("short_description", "file_type", "alias")]
+}
+```
+
+## Read a result table
+
+For this analysis, load the Pfam domain-count summary into a data frame. Other
+analyses may have different files; use the descriptions above to choose a result.
+
+```{webr}
+urls <- downloads$url[downloads$short_description == "Pfam accession counts"]
+if (length(urls) == 0) stop("No Pfam table for this analysis. Choose another analysis.")
+
+file <- tempfile(fileext = ".tsv.gz")
+download.file(urls[1], file, quiet = TRUE, mode = "wb")
+table <- read.delim(file)
+unlink(file)
+head(table)
+```
+
+The download is a gzip-compressed TSV; R reads it directly with `read.delim()`.
+Choose small summaries when working in your browser.
+
+## Explore the counts
+
+Show the ten most frequent Pfam domains. Try changing `10` to `20`.
+
+```{webr}
+head(table[order(table$count, decreasing = TRUE), ], 10)
+```

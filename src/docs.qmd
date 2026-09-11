@@ -15,8 +15,10 @@ The resource provides rich functional and taxonomic analyses of user-submitted s
 
 This is MGnify's documentation resource, providing guides to use the MGnify website, API, and submission services.
 
+Try the [editable Python and R API examples](examples/index.qmd) to explore
+study metadata and result tables in your browser.
+
 
 ## Contents
 :::{#docs}
 :::
-

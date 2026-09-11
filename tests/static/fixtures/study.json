@@ -1,0 +1,104 @@
+{
+  "accession": "MGYS00010393",
+  "ena_accessions": [
+    "PRJEB105754"
+  ],
+  "title": "Metagenome assembly of PRJEB95143 data set (Antarctic Soil Prokaryotic Diversity: A Dataset of 319 Metagenome-Assembled Genomes from Deception and Livingston Islands)",
+  "biome": {
+    "biome_name": "Soil",
+    "lineage": "root:Environmental:Terrestrial:Soil"
+  },
+  "updated_at": "2026-05-06T23:15:40.461Z",
+  "metadata": {},
+  "first_accession": "PRJEB105754",
+  "downloads": [
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "study_summary.v6.assembly.antismash",
+      "short_description": "Summary of the antiSMASH biosynthetic gene clusters.",
+      "long_description": "Summary of the antiSMASH biosynthetic gene clusters across all assemblies in the study.",
+      "alias": "PRJEB105754_antismash_study_summary.tsv",
+      "file_size_bytes": null,
+      "index_files": null,
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/study-summaries/PRJEB105754_antismash_study_summary.tsv"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "study_summary.v6.assembly.ko",
+      "short_description": "Summary of the KEGG Orthology annotations.",
+      "long_description": "Summary of the KEGG Orthology annotations across all assemblies in the study.",
+      "alias": "PRJEB105754_ko_study_summary.tsv",
+      "file_size_bytes": null,
+      "index_files": null,
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/study-summaries/PRJEB105754_ko_study_summary.tsv"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "study_summary.v6.assembly.interpro",
+      "short_description": "Summary of the InterPro matches.",
+      "long_description": "Summary of the InterPro matches across all assemblies in the study.",
+      "alias": "PRJEB105754_interpro_study_summary.tsv",
+      "file_size_bytes": null,
+      "index_files": null,
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/study-summaries/PRJEB105754_interpro_study_summary.tsv"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "study_summary.v6.assembly.kegg_modules",
+      "short_description": "Summary of the KEGG modules.",
+      "long_description": "Summary of the KEGG modules across all assemblies in the study.",
+      "alias": "PRJEB105754_kegg_modules_study_summary.tsv",
+      "file_size_bytes": null,
+      "index_files": null,
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/study-summaries/PRJEB105754_kegg_modules_study_summary.tsv"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "study_summary.v6.assembly.go",
+      "short_description": "Summary of the GO annotations.",
+      "long_description": "Summary of the GO annotations across all assemblies in the study.",
+      "alias": "PRJEB105754_go_study_summary.tsv",
+      "file_size_bytes": null,
+      "index_files": null,
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/study-summaries/PRJEB105754_go_study_summary.tsv"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "study_summary.v6.assembly.pfam",
+      "short_description": "Summary of the Pfam protein families.",
+      "long_description": "Summary of the Pfam protein families across all assemblies in the study.",
+      "alias": "PRJEB105754_pfam_study_summary.tsv",
+      "file_size_bytes": null,
+      "index_files": null,
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/study-summaries/PRJEB105754_pfam_study_summary.tsv"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "study_summary.v6.assembly.goslim",
+      "short_description": "Summary of the GO slim annotations.",
+      "long_description": "Summary of the GO slim annotations across all assemblies in the study.",
+      "alias": "PRJEB105754_goslim_study_summary.tsv",
+      "file_size_bytes": null,
+      "index_files": null,
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/study-summaries/PRJEB105754_goslim_study_summary.tsv"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Taxonomic analysis",
+      "download_group": "study_summary.v6.assembly.taxonomy",
+      "short_description": "Summary of the taxonomic assignments.",
+      "long_description": "Summary of the taxonomic assignments across all assemblies in the study.",
+      "alias": "PRJEB105754_taxonomy_study_summary.tsv",
+      "file_size_bytes": null,
+      "index_files": null,
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/study-summaries/PRJEB105754_taxonomy_study_summary.tsv"
+    }
+  ]
+}

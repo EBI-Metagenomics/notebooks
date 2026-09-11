@@ -1,0 +1,950 @@
+{
+  "count": 45,
+  "items": [
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022557",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775516",
+        "updated_at": "2026-05-05T13:35:13.160Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022566",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873284",
+        "ena_accessions": [
+          "ERS25392197",
+          "SAMEA118873284"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:04.038Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775525",
+        "updated_at": "2026-05-05T13:35:15.363Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022563",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775522",
+        "updated_at": "2026-05-05T13:35:17.096Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022564",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775523",
+        "updated_at": "2026-05-05T13:35:15.145Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022565",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775524",
+        "updated_at": "2026-05-05T13:35:15.260Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022558",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775517",
+        "updated_at": "2026-05-05T13:35:13.277Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022559",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775518",
+        "updated_at": "2026-05-05T13:35:14.908Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022560",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775519",
+        "updated_at": "2026-05-05T13:35:15.023Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022562",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775521",
+        "updated_at": "2026-05-05T13:35:16.979Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022561",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775520",
+        "updated_at": "2026-05-05T13:35:16.862Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022571",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873285",
+        "ena_accessions": [
+          "ERS25392198",
+          "SAMEA118873285"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:05.023Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775530",
+        "updated_at": "2026-05-05T13:35:17.400Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022540",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873285",
+        "ena_accessions": [
+          "ERS25392198",
+          "SAMEA118873285"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:05.023Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775499",
+        "updated_at": "2026-05-05T13:35:12.790Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022550",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775509",
+        "updated_at": "2026-05-05T13:35:14.668Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022545",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775504",
+        "updated_at": "2026-05-05T13:35:16.266Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022569",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873285",
+        "ena_accessions": [
+          "ERS25392198",
+          "SAMEA118873285"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:05.023Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775528",
+        "updated_at": "2026-05-05T13:35:15.462Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022554",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775513",
+        "updated_at": "2026-05-05T13:35:14.782Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022577",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775536",
+        "updated_at": "2026-05-05T13:35:15.808Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022580",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775539",
+        "updated_at": "2026-05-05T13:35:15.923Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022581",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775540",
+        "updated_at": "2026-05-05T13:35:17.757Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022578",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775537",
+        "updated_at": "2026-05-05T13:35:13.765Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022579",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775538",
+        "updated_at": "2026-05-05T13:35:17.639Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022548",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775507",
+        "updated_at": "2026-05-05T13:35:16.382Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022549",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775508",
+        "updated_at": "2026-05-05T13:35:14.550Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022551",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873283",
+        "ena_accessions": [
+          "SAMEA118873283",
+          "ERS25392196"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:00.238Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775510",
+        "updated_at": "2026-05-05T13:35:16.497Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022552",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873283",
+        "ena_accessions": [
+          "SAMEA118873283",
+          "ERS25392196"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:00.238Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775511",
+        "updated_at": "2026-05-05T13:35:16.615Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022553",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873285",
+        "ena_accessions": [
+          "ERS25392198",
+          "SAMEA118873285"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:05.023Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775512",
+        "updated_at": "2026-05-05T13:35:12.915Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022555",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775514",
+        "updated_at": "2026-05-05T13:35:13.041Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022573",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775532",
+        "updated_at": "2026-05-05T13:35:15.579Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022556",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775515",
+        "updated_at": "2026-05-05T13:35:16.733Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022547",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775506",
+        "updated_at": "2026-05-05T13:35:14.434Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022537",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873283",
+        "ena_accessions": [
+          "SAMEA118873283",
+          "ERS25392196"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:00.238Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775496",
+        "updated_at": "2026-05-05T13:35:16.041Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022574",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775533",
+        "updated_at": "2026-05-05T13:35:15.695Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022538",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873284",
+        "ena_accessions": [
+          "ERS25392197",
+          "SAMEA118873284"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:04.038Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775497",
+        "updated_at": "2026-05-05T13:35:12.657Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022539",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873284",
+        "ena_accessions": [
+          "ERS25392197",
+          "SAMEA118873284"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:04.038Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775498",
+        "updated_at": "2026-05-05T13:35:13.869Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022575",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775534",
+        "updated_at": "2026-05-05T13:35:17.520Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022541",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873285",
+        "ena_accessions": [
+          "ERS25392198",
+          "SAMEA118873285"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:05.023Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775500",
+        "updated_at": "2026-05-05T13:35:13.975Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022542",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873285",
+        "ena_accessions": [
+          "ERS25392198",
+          "SAMEA118873285"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:05.023Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775501",
+        "updated_at": "2026-05-05T13:35:16.143Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022543",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873285",
+        "ena_accessions": [
+          "ERS25392198",
+          "SAMEA118873285"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:05.023Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775502",
+        "updated_at": "2026-05-05T13:35:14.084Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022544",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775503",
+        "updated_at": "2026-05-05T13:35:14.200Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022546",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775505",
+        "updated_at": "2026-05-05T13:35:14.318Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022572",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775531",
+        "updated_at": "2026-05-05T13:35:13.518Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022567",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873284",
+        "ena_accessions": [
+          "ERS25392197",
+          "SAMEA118873284"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:04.038Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775526",
+        "updated_at": "2026-05-05T13:35:17.197Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022568",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873285",
+        "ena_accessions": [
+          "ERS25392198",
+          "SAMEA118873285"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:05.023Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775527",
+        "updated_at": "2026-05-05T13:35:17.299Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022570",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873285",
+        "ena_accessions": [
+          "ERS25392198",
+          "SAMEA118873285"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:05.023Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775529",
+        "updated_at": "2026-05-05T13:35:13.389Z"
+      },
+      "pipeline_version": "V6"
+    },
+    {
+      "experiment_type": "Assembly",
+      "study_accession": "MGYS00010393",
+      "accession": "MGYA01022576",
+      "run": null,
+      "sample": {
+        "accession": "SAMEA118873282",
+        "ena_accessions": [
+          "SAMEA118873282",
+          "ERS25392195"
+        ],
+        "sample_title": null,
+        "biome": null,
+        "updated_at": "2026-05-05T13:35:07.533Z"
+      },
+      "assembly": {
+        "accession": "ERZ28775535",
+        "updated_at": "2026-05-05T13:35:13.645Z"
+      },
+      "pipeline_version": "V6"
+    }
+  ]
+}
