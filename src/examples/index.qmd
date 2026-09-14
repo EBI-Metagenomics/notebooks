@@ -8,7 +8,10 @@ Choose an example to get started:
 
 - [Python with requests and pandas](python.qmd) — edit and run in your browser.
 - [R with jsonlite](r.qmd) — edit and run in your browser.
-- [Python with MGnipy](mgnipy.qmd) — copy and run in your own Python environment.
+- [Python with MGnipy](mgnipy.qmd) — a quick introduction and an interactive demo.
 
-The examples start with [an Antarctic soil assembly study](https://www.ebi.ac.uk/metagenomics/studies/MGYS00010393/overview). Enter another study
-accession at the top of either page to explore your own data.
+- [Download analyses as CSV](download-csv.qmd) — save a study’s analyses to your computer.
+- [Map AtlantECO samples](atlanteco.qmd) — explore sample locations in Python.
+
+The introductory Python and R examples start with [an Antarctic soil assembly study](https://www.ebi.ac.uk/metagenomics/studies/MGYS00010393/overview),
+but can be used with any public MGnify study.
