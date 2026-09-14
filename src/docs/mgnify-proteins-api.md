@@ -14,7 +14,7 @@ description: Programmatically accessing MGnify Proteins data via the Proteins We
 
 ## Introduction
 
-The MGnify Proteins API provides programmatic access to the same data presented on the [MGnify Proteins portal](mgnify-proteins-web.md): the metadata held for each cluster representative in the [MGnify Protein Database](mgnify-proteins.md), and a way to search for cluster representatives by [biome](glossary.md#biome) or by [Pfam](https://www.ebi.ac.uk/interpro/entry/pfam/) domain.
+The MGnify Proteins API provides programmatic access to the data presented on the [MGnify Proteins portal](mgnify-proteins-web.md): the metadata held for each cluster representative in the [MGnify Protein Database](mgnify-proteins.md), and a way to search for cluster representatives by [biome](glossary.md#biome) or by [Pfam](https://www.ebi.ac.uk/interpro/entry/pfam/) domain.
 
 This API is **synchronous and read-only**: every request is a single `GET` that returns JSON. No authentication or API key is required.
 
