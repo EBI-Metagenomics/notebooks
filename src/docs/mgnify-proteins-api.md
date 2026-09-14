@@ -63,7 +63,9 @@ There are two endpoints:
 
 | Endpoint | Purpose |
 |---|---|
-| `GET /protein/{mgyp}` | Everything known about one cluster representative |
+| `GET /protein/{mgyp}` | Please see Protein Detail |
+``
+or similar, as "everything known" is too strong
 | `GET /protein/search` | Find cluster representatives by biome or Pfam domain |
 
 ### Errors
