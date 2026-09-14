@@ -22,4 +22,4 @@ MGnify's (public) results are available in the following directories:
 - Genomes (i.e. the files produced when analysing MGYG-accessioned genomes from catalogues) from [https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/](https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/)
   - These files are arranged into the biome-specific catalogues according to the [MGnify Genomes](mgnify-genomes.md) schema
 - Proteins (the [MGnify Protein database](mgnify-proteins.qmd) of proteins found in [metagenome assemblies](glossary.md#Assembly)) from [https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/)
-  - These files are arranged into date-versioned releases. The latest release is always linked from [https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/](current_release/)
+  - These files are arranged into date-versioned releases. The latest release is always linked from [current release/][https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/]

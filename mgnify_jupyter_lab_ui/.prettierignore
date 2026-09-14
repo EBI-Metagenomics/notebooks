@@ -1,5 +1,0 @@
-node_modules
-**/node_modules
-**/lib
-**/package.json
-mgnify_jupyter_lab_ui

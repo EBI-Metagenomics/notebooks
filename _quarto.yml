@@ -22,8 +22,6 @@ website:
         right:
             - href: https://www.ebi.ac.uk/metagenomics
               text: Open MGnify
-            # - href: https://usegalaxy.eu/root?tool_id=interactive_tool_mgnify_notebook
-              # text: Run notebooks on Galaxy
             - href: https://status.mgnify.org
               text: Service status
 
@@ -60,6 +58,8 @@ website:
               - src/examples/python.qmd
               - src/examples/mgnipy.qmd
               - src/examples/r.qmd
+              - src/examples/atlanteco.qmd
+              - src/examples/download-csv.qmd
             - href: src/docs/mgnify-genomes.md
             - section: "MGnify Proteins"
               href: src/docs/mgnify-proteins.md
