@@ -1,5 +1,5 @@
 // Run after `quarto render`, with _site served on http://localhost:9000.
-// Install separately from the legacy Jupyter tests: cd tests/static && npm ci.
+// Install browser test dependencies: cd tests/static && npm ci.
 const assert = require('node:assert/strict');
 const puppeteer = require('puppeteer');
 const http = require('node:http');
@@ -66,7 +66,6 @@ async function runCell(page, index) {
   try {
     for (const language of ['python', 'r']) {
       const page = await browser.newPage();
-      await page.setViewport({width: 1440, height: 1000});
       page.on('pageerror', e => {
         if (!e.message.includes('Invalid study accession')) console.error(`${language}: ${e.message}`);
       });
@@ -96,15 +95,7 @@ async function runCell(page, index) {
       const text = (await Promise.all(page.frames().map(f => f.evaluate(() => document.body?.innerText || '')))).join('\n');
       assert.ok(text.includes('PF00005'), 'live FTP Pfam table must contain the ABC transporter domain');
       assert.ok(!text.includes('Error in '));
-      await page.evaluate(() => window.scrollTo(0, 0));
-      await page.screenshot({path: `/tmp/mgnify-${language}-simplified.png`, fullPage: true});
-
-      // Check normal editing and execution without custom editor integration.
-      const edited = (language === 'python' ? 'print("EDIT_OK")' : 'cat("EDIT_OK")');
-      await editCell(page, 5, edited);
-      await runCell(page, 5);
       const output = () => page.$$eval('.cell-output-container', xs => xs.map(x => x.innerText).join('\n'));
-      assert.ok((await output()).includes('EDIT_OK'));
 
       await editCell(page, 2, (await sourceCode(2)).replace('page=1', 'page=2'));
       await runCell(page, 2);

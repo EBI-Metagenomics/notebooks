@@ -7,7 +7,7 @@
 This repository builds the static site at https://docs.mgnify.org using Quarto.
 Documentation is in `src/docs`; editable Python and R API v2 examples are in
 `src/examples`. Code executes in visitors' browsers using Pyodide and webR via
-Quarto Live. There is no hosted notebook kernel or Jupyter service.
+Quarto Live.
 
 ## Develop and preview
 
@@ -43,8 +43,9 @@ WASM runtime, execution backend, or API proxy is maintained here.
 - `src/examples/python.qmd`: requests, pandas, study detail, bounded analysis
   pagination, analysis detail, a small Pfam TSV, and editable table exploration.
 - `src/examples/r.qmd`: equivalent operations using jsonlite and base R in webR.
-- `src/examples/mgnipy.qmd`: copyable local Python using MGnipy 0.3.0. It is not
-  presented as executable browser code.
+- `src/examples/mgnipy.qmd`: a short introduction linking to MGnipy’s interactive demos.
+- `src/examples/download-csv.qmd`: paginated study analyses and a browser CSV download.
+- `src/examples/atlanteco.qmd`: study sample coordinates and an interactive Folium map.
 
 All examples query the live API. Test fixtures live under `tests/static/fixtures`
 and are not published. Large matrices, comparative metagenomics and MGnifyR are
@@ -77,11 +78,38 @@ then passed as OJS input data into Python/R, never interpolated as executable co
 Invalid values produce a visible input error and do not select a substitute study.
 
 The old `jlvar_MGYS` parameter is accepted as an alias on these **new page URLs**.
-Old ShinyProxy URLs and `jlpath` routes do not redirect automatically; update the
-MGnify website's button targets. There is no environment variable or kernel session.
 The first code cell receives `study_accession`; later cells
 share the language's global environment. Native form submission reloads the page
 when the study changes, avoiding stale results from a previous study.
+
+### Reuse in another example page
+
+This is a shared helper, not an automatic Quarto feature. Currently only
+`python.qmd` and `r.qmd` opt in. Any Quarto Live page can use the same pattern.
+For a new `live-html` page under `src/examples`, add:
+
+````markdown
+```{ojs}
+//| echo: false
+import {readStudyAccession} from "./study-link.js"
+study_accession = readStudyAccession(window.location.search)
+```
+
+```{pyodide}
+#| input: [study_accession]
+STUDY = study_accession
+```
+````
+
+For R, use a `{webr}` cell with the same `input` option and
+`STUDY <- study_accession`. The editable accession form is optional; copy it from
+`python.qmd` if needed. Without a query parameter, the helper defaults to
+`MGYS00010393`.
+
+Pages outside `src/examples` need an adjusted helper import path and must include
+that JavaScript file in their Quarto `resources`. The examples directory already
+configures this in `_metadata.yml`. Other query parameters need their own parsing
+and validation; they are not automatically passed to Python or R.
 
 ## Required API CORS configuration
 
@@ -122,7 +150,6 @@ CI checks the URL contract, renders the site without
 executing notebooks or contacting the API, and uploads `_site` as an artifact.
 The existing publish workflow still deploys only `main`/`docs-only` (or on manual
 invocation); a push to `pyodide` does not automatically publish this work.
-The Jupyter Docker build/test/push and release workflow has been retired.
 
 Before publishing, enable API CORS as described above. The optional browser test
 runs Python and R against a local fixture API, downloads a real FTP result, and
@@ -135,15 +162,13 @@ npm run test:browser
 ```
 
 Serve `_site` at `http://localhost:9000` in a second terminal first. This check downloads the
-runtimes and packages and is separate from the retired Jupyter/Jest suite.
+runtimes and packages.
 
-## Legacy material
+## Notebook archive
 
-`src/notebooks`, `src/templates`, `docker/Dockerfile`, `dependencies`,
-`shiny-proxy`, the Jupyter extensions and the old `tests` suite are retained for
-historical reference. They are excluded from the site's render list and active
-CI. They are not supported launch paths; many use API v1 or MGnifyR. Do not revive
-the old container builds as part of documentation development.
+[notebooks_archive](notebooks_archive/) preserves notebooks with material not yet
+covered by the browser examples. They are non-functional historical references,
+excluded from the site and CI execution; only their `.ipynb` files are retained.
 
 ### Docs authoring guidance
 
