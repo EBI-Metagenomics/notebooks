@@ -1,5 +1,5 @@
 ---
-title: "MGnify API v2 in R"
+title: "MGnify API in R"
 description: "Find a study, explore its analyses, and read a result table."
 format:
   live-html:
@@ -31,8 +31,7 @@ html`<form method="get" class="study-controls">
 
 ## Set up
 
-The study accession comes from the box above. To use this code in local R,
-set `STUDY` to an accession such as `"MGYS00010393"`.
+The study accession comes from the box above.
 
 ```{webr}
 #| input: [study_accession]
@@ -117,3 +116,14 @@ Show the ten most frequent Pfam domains. Try changing `10` to `20`.
 ```{webr}
 head(table[order(table$count, decreasing = TRUE), ], 10)
 ```
+
+## Running this code in your own environment
+
+Install jsonlite from your R console:
+
+```r
+install.packages("jsonlite")
+```
+
+Copy the R cells into RStudio or an R script, replacing `STUDY <- study_accession`
+with `STUDY <- "MGYS00010393"` (or your chosen accession).
