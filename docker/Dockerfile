@@ -1,7 +1,11 @@
 FROM continuumio/miniconda3 as build
 WORKDIR /work
 
-RUN conda config --system --prepend channels bioconda
+RUN conda config --system --remove channels defaults && \
+    conda config --system --add channels bioconda && \
+    conda config --system --add channels conda-forge && \
+    conda config --system --set channel_priority strict
+
 COPY dependencies/r-environment.yml /tmp/r-environment.yml
 RUN conda env create -f /tmp/r-environment.yml
 
