@@ -262,7 +262,7 @@ echo "Wrote $(grep -c '^>' "${OUTPUT}") sequences to ${OUTPUT}"
 ```
 
 ::: {.callout-tip}
-This makes one request per protein, so keep `limit` modest and be considerate of the service. For thousands of sequences, download the release from the [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/) instead.
+This makes one request per protein, so keep `limit` modest and be considerate of the service. This service is rate-limited, so queries are going to be throttled. For thousands of sequences, download the release from the [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/) instead.
 :::
 
 ### Finding proteins that carry a Pfam domain
