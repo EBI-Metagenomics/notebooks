@@ -51,6 +51,7 @@ website:
               - src/examples/r.qmd
               - src/examples/atlanteco.qmd
               - src/examples/download-csv.qmd
+              - src/examples/pathways.qmd
             - href: src/docs/mgnify-genomes.md
             - section: "MGnify Proteins"
               href: src/docs/mgnify-proteins.qmd

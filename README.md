@@ -45,6 +45,7 @@ WASM runtime, execution backend, or API proxy is maintained here.
 - `src/examples/r.qmd`: equivalent operations using jsonlite and base R in webR.
 - `src/examples/mgnipy.qmd`: a short introduction linking to MGnipy’s interactive demos.
 - `src/examples/download-csv.qmd`: paginated study analyses and a browser CSV download.
+- `src/examples/pathways.qmd`: v5 KEGG module completeness, KO exploration and export to KEGG Mapper.
 - `src/examples/atlanteco.qmd`: study sample coordinates and an interactive Folium map.
 
 All examples query the live API. Test fixtures live under `tests/static/fixtures`

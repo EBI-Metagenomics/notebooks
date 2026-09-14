@@ -1,0 +1,190 @@
+---
+title: "Pathways Explorer in R"
+description: "Explore KEGG module completeness and the functions detected in an analysis."
+author:
+  - Alejandra Escobar
+  - Amartya Nambiar
+format:
+  live-html:
+    theme: [cosmo, ../static-resources/styles.scss]
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+webr:
+  packages: [jsonlite]
+  cell-options:
+    autorun: false
+    edit: true
+---
+
+Explore the functional annotations from an MGnify assembly analysis. You will
+find the KEGG orthologues (KOs) detected in the analysis, compare KEGG module
+completeness, and inspect the KOs that make up an individual module.
+
+Start with the example study [MGYS00006180](https://www.ebi.ac.uk/metagenomics/studies/MGYS00006180/overview),
+or replace it with a study accession of your choice. Run the cells in order.
+
+## Choose an analysis
+
+Change `STUDY` to another study with assembly analyses. The first page of
+analyses is loaded below; change `page=1` to retrieve another page.
+
+```{webr}
+library(jsonlite)
+
+API <- "https://www.ebi.ac.uk/metagenomics/api/v2"
+STUDY <- "MGYS00006180"
+
+get_json <- function(path) {
+  file <- tempfile()
+  on.exit(unlink(file))
+  download.file(paste0(API, "/", path), file, quiet = TRUE)
+  fromJSON(file)
+}
+
+batch <- get_json(paste0("studies/", STUDY, "/analyses/?page=1&page_size=1000"))
+analyses <- as.data.frame(batch$items)
+if (!nrow(analyses)) stop("This study has no analyses.")
+analyses <- analyses[analyses$pipeline_version == "V5", ]
+if (!nrow(analyses)) stop("No v5 analyses on this page. Choose another study or page.")
+head(analyses[c("accession", "experiment_type", "pipeline_version")])
+```
+
+## Read the result tables
+
+The first analysis is selected automatically. Replace `ANALYSIS` with an
+accession from the table to explore a different analysis. The analysis record
+provides the KO counts and module-completeness tables.
+
+```{webr}
+ANALYSIS <- analyses$accession[1]
+analysis <- get_json(paste0("analyses/", ANALYSIS))
+downloads <- as.data.frame(analysis$downloads)
+
+read_result <- function(description, ...) {
+  urls <- downloads$url[downloads$short_description == description & downloads$file_type == "csv"]
+  if (!length(urls)) stop(paste("No result file:", description, "— choose another analysis."))
+  file <- tempfile()
+  on.exit(unlink(file))
+  download.file(urls[1], file, quiet = TRUE)
+  read.csv(file, ...)
+}
+
+ko <- read_result("KEGG orthologues annotation", header = FALSE,
+                  col.names = c("count", "accession", "description"))
+modules <- read_result("KEGG pathway annotation")
+cat(ANALYSIS, "—", nrow(ko), "KOs and", nrow(modules), "modules\n")
+head(ko)
+```
+
+## Explore module completeness
+
+A KEGG module describes a functional unit within a pathway. The completeness
+value is the percentage of that module's functions found in the analysis. It
+does not show whether an entire pathway is complete or active.
+
+```{webr}
+modules <- modules[order(modules$completeness, decreasing = TRUE), ]
+cat(sum(modules$completeness == 100), "modules reported as complete\n")
+head(modules[c("module_accession", "pathway_name", "completeness")], 10)
+```
+
+Plot the 15 highest-scoring incomplete modules. Change `15` to show more or fewer.
+
+```{webr}
+incomplete <- modules[modules$completeness < 100, ]
+shown <- head(incomplete, 15)
+if (nrow(shown)) {
+  barplot(rev(shown$completeness), names.arg = rev(shown$module_accession),
+          horiz = TRUE, las = 1, xlim = c(0, 100), col = "#007c80",
+          xlab = "Module completeness (%)", main = "Incomplete modules")
+} else {
+  cat("No incomplete modules in this result table.")
+}
+```
+
+## Inspect a module
+
+Start with glycolysis (`M00001`), or choose an identifier from the tables above.
+The table shows which KOs in the module were found and which were not found in
+the analysis. A missing annotation does not necessarily mean that a function is
+absent from the community.
+
+```{webr}
+#| define: [module_url]
+MODULE <- "M00001"
+selected <- modules[modules$module_accession == MODULE, ]
+if (!nrow(selected)) stop("Module not found. Choose an identifier from the table.")
+cat(selected$pathway_name, "—", selected$completeness, "% complete\n")
+
+matching <- strsplit(selected$matching_ko, ",", fixed = TRUE)[[1]]
+missing <- strsplit(selected$missing_ko, ",", fixed = TRUE)[[1]]
+module_kos <- data.frame(
+  accession = c(matching, missing),
+  status = c(rep("Matching", length(matching)), rep("Missing", length(missing)))
+)
+module_url <- paste0("https://www.kegg.jp/module/", MODULE)
+module_kos
+```
+
+```{ojs}
+//| echo: false
+html`<a href=${module_url} target="_blank" rel="noopener">View this module’s diagram on KEGG</a>`
+```
+
+The KEGG link opens the reference diagram for the selected module. It does not
+colour the diagram with this analysis's results.
+
+## View detected functions in KEGG Mapper
+
+Download the detected KO identifiers below, then:
+
+1. Open [KEGG Mapper Search](https://www.kegg.jp/kegg/mapper/search.html).
+2. Under **Search mode**, select the **Reference** radio button. The default
+   **hsa** mode expects human gene identifiers and gives no matches for this file.
+3. Use **Or upload file** to select the downloaded `-KOs.txt` file, then click **Exec**.
+4. Open a result such as **Glycolysis / Gluconeogenesis** to see the detected KOs
+   highlighted on its pathway map.
+
+The search highlights pathways containing functions detected in your analysis.
+A pathway match does not mean that the entire pathway is complete.
+
+```{webr}
+#| define: [ko_text, ko_filename]
+ko_text <- paste(unique(ko$accession[ko$count > 0]), collapse = "\n")
+ko_filename <- paste0(ANALYSIS, "-KOs.txt")
+cat(length(unique(ko$accession[ko$count > 0])), "detected KO identifiers ready to download")
+```
+
+```{ojs}
+//| echo: false
+DOM.download(new Blob([ko_text], {type: "text/plain;charset=utf-8"}), ko_filename, "Download KO identifiers")
+```
+
+## Running this code in your own environment
+
+Install jsonlite from your R console:
+
+```r
+install.packages("jsonlite")
+```
+
+Run the R cells in RStudio or an R script. To save the KO identifiers locally,
+use `writeLines(ko_text, ko_filename)`.
+
+### Querying KEGG from RStudio
+
+When working in a local R installation, the Bioconductor
+[`KEGGREST`](https://bioconductor.org/packages/release/bioc/html/KEGGREST.html)
+package can be used to query KEGG directly. For example, this retrieves the
+definition of a KEGG module:
+
+```r
+# Run locally in RStudio; this is not executed in the browser page.
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("KEGGREST")
+
+library(KEGGREST)
+keggGet("M00001")
+```
