@@ -48,7 +48,7 @@ The ENA’s documentation includes a listing of
 [ENA data domains](https://ena-docs.readthedocs.io/en/latest/retrieval/general-guide.html#viewing-and-exploring-ena-records).
 
 In MGnify, datasets are listed in tables (which can also be downloaded, or queried programmatically using
-[the API](restapi)).
+[the API](api.md)).
 There is a detail page available for most data types, accessed by clicking it in the table
 (e.g. on its ID, accession, name, or a view button).
 
@@ -91,7 +91,7 @@ This includes the MGnify Studies associated with the Publication, as well as add
 
 Genomes within MGnify are metagenomic-assembled genomes ([MAGs](glossary.md#mags)) organised into biome-specific catalogues
 (in some cases alongside a small number of isolate genomes).
-There is a separate page of [documentation for the Genomes resource](genome-viewer).
+There is a separate page of [documentation for the Genomes resource](mgnify-genomes.md).
 
 ### [API](https://www.ebi.ac.uk/metagenomics/api/v2/)
 This section also includes the API, which is the basis of programmatic access to MGnify’s database.
