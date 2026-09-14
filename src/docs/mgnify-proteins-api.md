@@ -108,7 +108,7 @@ The `{mgyp}` path parameter is an MGYP accession. It is tolerant of formatting: 
 
 * **`mgyp`**: the zero-padded MGYP accession.
 * **`sequence`**: the amino acid sequence of the cluster representative.
-* **`full_length`**: whether the sequence is a full-length ORF (`true`) or a fragment (`false`). May be `null` where unknown.
+* **`full_length`**: whether the sequence is a full-length ORF (`true`) or a fragment (`false`).
 * **`cluster_size`**: the number of protein sequences in this cluster.
 * **`biomes`**: the [biomes](glossary.md#biome) this protein was observed in, each with an `id`, a `name` (the full lineage) and a `count` of occurrences. The `id` is the value to pass to the search endpoint's `biome_id` parameter.
 * **`pfam_annotations`**: Pfam domains matched within the protein — `accession`, `name`, `clan`, `evalue`, `bit_score`, and the `hmm_start`/`hmm_end` and `env_start`/`env_end` coordinates.
