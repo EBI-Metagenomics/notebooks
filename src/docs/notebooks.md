@@ -13,7 +13,7 @@ Edit and run small [API v2 examples](../examples/index.qmd) directly in your bro
 - [Python with requests and pandas](../examples/python.qmd)
 - [R with jsonlite and base R](../examples/r.qmd)
 - [Download analyses as CSV](../examples/download-csv.qmd)
-- [Map AtlantECO samples](../examples/atlanteco.qmd)
+- [Map AtlantECO samples](../examples/atlanteco_samples_map.qmd)
 
 For the MGnipy Python client, see the [introduction and demo](../examples/mgnipy.qmd).
 
