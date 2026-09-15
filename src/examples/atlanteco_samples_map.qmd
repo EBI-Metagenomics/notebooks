@@ -29,6 +29,7 @@ A super-study groups related MGnify studies. Show the first 20 AtlantECO flagshi
 import requests
 import pandas as pd
 import folium
+from html import escape
 
 API = "https://www.ebi.ac.uk/metagenomics/api/v2"
 
@@ -39,6 +40,7 @@ def get_json(path, **params):
 
 atlanteco = get_json("super-studies/atlanteco")
 studies = pd.DataFrame(atlanteco["flagship_studies"])
+study_titles = dict(zip(studies["accession"], studies["title"]))
 studies[["accession", "title"]].head(20)
 ```
 
@@ -50,6 +52,7 @@ are reported and skipped.
 
 ```{pyodide}
 samples_by_accession = {}
+sample_studies = {}
 for study_accession in studies["accession"]:
     page = 1
     while True:
@@ -62,6 +65,7 @@ for study_accession in studies["accession"]:
             break
         for sample in batch["items"]:
             samples_by_accession[sample["accession"]] = sample
+            sample_studies.setdefault(sample["accession"], set()).add(study_accession)
         if not batch["items"] or page * 1000 >= batch["count"]:
             print(f"{study_accession}: {batch['count']} samples")
             break
@@ -88,14 +92,18 @@ locations = locations[
     locations["latitude"].between(-90, 90)
     & locations["longitude"].between(-180, 180)
 ]
+locations["study_accessions"] = locations["accession"].map(
+    lambda accession: sorted(sample_studies.get(accession, []))
+)
 print(f"Mapping {len(locations)} of {len(samples)} samples")
 locations.head()
 ```
 
 ## Draw the map
 
-Zoom in and click a marker to see its sample accession. Samples collected at the
-same location share a marker position.
+Zoom in and click a marker to see the sample accession, the AtlantECO studies it
+belongs to, and its coordinates. Samples collected at the same location share a
+marker position.
 
 ```{pyodide}
 if locations.empty:
@@ -103,10 +111,20 @@ if locations.empty:
 
 sample_map = folium.Map(tiles="OpenStreetMap", prefer_canvas=True)
 for sample in locations.itertuples(index=False):
+    study_lines = "<br>".join(
+        f"{escape(accession)}: {escape(study_titles.get(accession, ''))}"
+        for accession in sample.study_accessions
+    )
+    popup = folium.Popup(
+        "<b>Sample:</b> " + escape(sample.accession)
+        + "<br><b>Studies:</b><br>" + study_lines
+        + f"<br><b>Coordinates:</b> {sample.latitude:.4f}, {sample.longitude:.4f}",
+        max_width=360,
+    )
     folium.CircleMarker(
         location=[sample.latitude, sample.longitude],
-        radius=5,
-        popup=sample.accession,
+        radius=3,
+        popup=popup,
         color="#007c80",
         fill=True,
         fill_opacity=0.7,
