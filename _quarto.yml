@@ -49,6 +49,7 @@ website:
               - src/examples/python.qmd
               - src/examples/mgnipy.qmd
               - src/examples/r.qmd
+              - src/examples/observable-js.qmd
               - src/examples/atlanteco_samples_map.qmd
               - src/examples/download-csv.qmd
               - src/examples/pathways.qmd

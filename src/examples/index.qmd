@@ -8,6 +8,7 @@ Choose an example to get started:
 
 - [Python with requests and pandas](python.qmd) — edit and run in your browser.
 - [R with jsonlite](r.qmd) — edit and run in your browser.
+- [Observable JS with D3](observable-js.qmd) — plot Antismash cluster counts for an analysis.
 - [Python with MGnipy](mgnipy.qmd) — a quick introduction and an interactive demo.
 
 - [Download analyses as CSV](download-csv.qmd) — save a study’s analyses to your computer.
