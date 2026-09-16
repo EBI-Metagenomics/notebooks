@@ -155,6 +155,6 @@ analysis detail and a pandas result table.
 ### Edit and run API examples in your browser
 
 The [API examples](../examples/index.qmd) include Python with requests and pandas,
-and R with jsonlite and base R. These run in your browser using WebAssembly.
+and R with jsonlite and base R. These run in your browser using [WebAssembly](https://en.wikipedia.org/wiki/WebAssembly).
 Both can be opened for a particular study using a `?study=MGYS00010397` link.
 
