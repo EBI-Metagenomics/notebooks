@@ -102,6 +102,16 @@ For each analysed [run](glossary.md#run), MGnify displays and provides downloads
 
 Study-level pages aggregate run-level quality-control and primer-validation information where multiple runs are available.
 
+### Changes through pipeline versions
+
+#### Version 6.1 [April 2026]
+
+Version 6.1 improved completeness, reporting, and configurability. All ASVs are now published, including those without taxonomic assignments, so no detected sequence diversity is excluded. DADA2 reporting now includes selected truncation points and read counts from intermediate filtering stages, improving transparency and troubleshooting. MapSeq database selection and DADA2 execution are also more configurable, allowing the pipeline to support a wider range of datasets and analysis requirements.
+
+#### Version 6.2 [September 2026]
+
+Version 6.2 improved annotation support for ITS, LSU, and 5.8S-containing sequences. The ITS workflow now recognises and masks 5.8S regions, enabling the analysis of 5.8S+ITS datasets, while a bug preventing LSU annotation has been fixed. Reference databases now use a `target` field so that SSU and LSU databases are applied only to matching sequence types, reducing unnecessary searches; ITS databases continue to run across sequence types because ITS amplicons may contain adjacent ribosomal regions. 
+
 ## Raw reads analysis pipeline
 
 The MGnify v6 raw reads analysis pipeline ([GitHub repository](https://github.com/EBI-Metagenomics/raw-reads-analysis-pipeline)) analyses whole genome sequencing (WGS) reads, profiling their taxonomy and functions. It is designed to handle both short (paired- and single-end) and long reads, taking raw reads rather than assembled contigs or genomes as input.
