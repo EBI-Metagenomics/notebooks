@@ -121,7 +121,7 @@ hosting without configuring COOP/COEP headers for this site.
 CI checks the URL contract, renders the site without
 executing notebooks or contacting the API, and uploads `_site` as an artifact.
 The existing publish workflow still deploys only `main`/`docs-only` (or on manual
-invocation); a push to `pyodide` does not automatically publish this work.
+invocation); a push to [`pyodide`](https://pyodide.org/) does not automatically publish this work.
 The Jupyter Docker build/test/push and release workflow has been retired.
 
 Before publishing, enable API CORS as described above. The optional browser test
