@@ -15,3 +15,5 @@ src/*.html
 src/*-listing.json
 .cache-data.db
 .cache-state.db
+
+**/*.quarto_ipynb
