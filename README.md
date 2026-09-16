@@ -4,7 +4,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-This repository builds the static site at https://docs.mgnify.org using Quarto.
+This repository builds the static site at https://docs.mgnify.org using [Quarto](https://quarto.org/).
 Documentation is in `src/docs`; editable Python and R API v2 examples are in
 `src/examples`. Code executes in visitors' browsers using Pyodide and webR via
 Quarto Live. There is no hosted notebook kernel or Jupyter service.
