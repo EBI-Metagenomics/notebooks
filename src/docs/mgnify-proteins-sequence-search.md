@@ -7,14 +7,13 @@ author:
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: Guide to searching the MGnify30 protein databases with HMMER
+description: Guide to searching the MGnify protein databases with HMMER
 ---
 
-MGnify protein sequence searches are provided by the EMBL-EBI HMMER web
-service. Use `phmmer` to compare a protein query sequence with the MGnify30
-sequence databases.
+MGnify protein sequence searches are provided by the EMBL-EBI HMMER web [HMMER web](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer){.btn .btn-primary target="_blank" rel="noopener noreferrer"}
+service. Use `phmmer` to search a protein query sequence in the MGnify Proteins Database.
 
-[Open HMMER with MGnify30-C2 selected](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer?database=mgnify30_c2){.btn .btn-primary target="_blank" rel="noopener noreferrer"}
+[Open HMMER](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer){.btn .btn-primary target="_blank" rel="noopener noreferrer"}
 
 ![The HMMER phmmer search page for submitting a protein sequence.](images/sequence_search/hmmer-mgnify30-search.png){#fig-hmmer-mgnify30-search}
 
@@ -26,10 +25,13 @@ sequence databases.
    below. The link above preselects **MGnify30-C2**.
 3. Optionally adjust the cut-offs and other advanced settings.
 4. Select **Submit** to start the search.
-
+5. 
 `phmmer` returns sequences with statistically significant similarity to the
 query. Results are ordered by significance and include the target protein
 accessions, alignments, scores and E-values.
+
+Note: With the increasing size of MGnify Proteins, downstream tools like [HMMER Web](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer?database=mgnify30_c2) require subsets which are significantly reduced in size. To that end, the "MGnify30" clustering set was created.
+
 
 ![Example MGnify30-C2 results, showing MGnify protein accessions, associated studies and assemblies, Pfam matches and E-values.](images/sequence_search/hmmer-mgnify30-results.png){#fig-hmmer-mgnify30-results}
 

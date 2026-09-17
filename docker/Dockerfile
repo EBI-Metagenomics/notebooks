@@ -1,7 +1,7 @@
 FROM continuumio/miniconda3 as build
 WORKDIR /work
 
-RUN conda config --system --remove channels defaults && \
+RUN conda config --system --prepend channels bioconda && \
     conda config --system --add channels bioconda && \
     conda config --system --add channels conda-forge && \
     conda config --system --set channel_priority strict
