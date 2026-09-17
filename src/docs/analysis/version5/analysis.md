@@ -59,7 +59,7 @@ Amplicon reads are merged with SeqPrep (where appropriate) and filtered with Tri
 
 MGnify can also provide analysis of ITS ([internal transcribed spacer](glossary.md#its)) amplicons. ITS1 and ITS2 reside between the LSU and SSU genes and can be targeted for accurate classification of eukaryotic organisms. ITS taxonomy is assigned by MAPseq using two reference databases: [ITSoneDB](https://academic.oup.com/nar/article/46/D1/D127/4210943)  containing ITS1 sequences and [UNITE](https://academic.oup.com/nar/article/47/D1/D259/5146189) containing ITS1 and ITS2 sequences. The SSU and LSU regions are masked using Rfam, as described above, prior to ITS classification, minimising cross reactivity.
 
-![Overview of the main steps in the amplicon workflow.](images/analysis/pipeline_v5.0_amplicon.png){#fig-amplicon-pipeline-v5 .tall-figure fig-align="left"}
+![Overview of the main steps in the amplicon workflow.](images/analysis/version5/pipeline_v5.0_amplicon.png){#fig-amplicon-pipeline-v5 .tall-figure fig-align="left"}
 
 ## Raw reads analysis pipeline
 
@@ -69,7 +69,7 @@ Supplementary phylogenetic classification based on marker gene profiling, is per
 
 For functional analysis, the sequence regions encoding rRNAs are masked, and [FragGeneScan](https://academic.oup.com/nar/article/38/20/e191/1317565) is used to predict coding sequences (pCDS). Coding sequences are assigned protein annotations with InterProScan, using 5 member databases that are able to process large numbers of potentially fragmented sequences (Gene3D, TIGRFAMs, Pfam, PRINTS and PROSITE patterns). Pfam annotations are provided as separate visualisations and downloads. GO terms are extracted from the InterProScan results and grouped according to category (Biological Process, Molecular Function and Cellular Component). GO terms are also summarized using a specialized [GO Slim](http://www.geneontology.org/ontology/subsets/goslim_metagenomics.obo) developed for metagenomic data. Finally, protein coding sequences undergo KEGG ortholog annotations using HMMER v3.2.1 and a modified version of KOfam 2019-04-06 (based on KEGG 90.0).
 
-![Overview of the main steps in the raw reads workflow.](images/analysis/pipeline_v5.0_raw.png){#fig-raw-pipeline-v5}
+![Overview of the main steps in the raw reads workflow.](images/analysis/version5/pipeline_v5.0_raw.png){#fig-raw-pipeline-v5}
 
 ## Assembly analysis pipeline
 
@@ -82,4 +82,4 @@ Additionally, clusters of orthologous groups ([COGs](glossary.md#cog)) annotatio
 
 KEGG ortholog annotations are further processed to produce KEGG pathway information, including module presence and completeness. Similarly, InterPro annotations for individual protein sequences are amalgamated to generate [Genome Properties](https://academic.oup.com/nar/article/47/D1/D564/5144958) (GP), providing inference of higher level pathways and systems that may be present in the dataset. Finally, [antiSMASH](https://academic.oup.com/nar/article/45/W1/W36/3778252) is used to identify and annotate biosynthetic gene clusters that code for the production of secondary metabolites.
 
-![Overview of the main steps in the assembly workflow.](images/analysis/pipeline_v5.0_assembly.png){#fig-assembly-pipeline-v5}
+![Overview of the main steps in the assembly workflow.](images/analysis/version5/pipeline_v5.0_assembly.png){#fig-assembly-pipeline-v5}
