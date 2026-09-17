@@ -22,7 +22,7 @@ The MGnify Proteins portal features a search form that allows users to submit qu
 
 ## Organization of the Protein Detail Page
 
-Each cluster representative from the [Protein Database](mgnify-proteins.md) has a dedicated detail page. This page includes metadata about the protein and, when available, its 3D structure as predicted by the [ESM Metagenomics Atlas](https://esmatlas.com/) team. Not all clusters have a predicted structure, as the release cycles of MGnify Proteins and the ESM Atlas are independent. The MGnify team is not involved in the protein structure predictions; instead the MGnify Proteins portal links to the ESM Atlas service, which is generously provided for the community by the ESM Atlas team.
+Each cluster representative from the [Protein Database](mgnify-proteins.qmd) has a dedicated detail page. This page includes metadata about the protein and, when available, its 3D structure as predicted by the [ESM Metagenomics Atlas](https://esmatlas.com/) team. Not all clusters have a predicted structure, as the release cycles of MGnify Proteins and the ESM Atlas are independent. The MGnify team is not involved in the protein structure predictions; instead the MGnify Proteins portal links to the ESM Atlas service, which is generously provided for the community by the ESM Atlas team.
 
 ### Protein Information
 

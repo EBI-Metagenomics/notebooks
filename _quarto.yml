@@ -4,15 +4,10 @@ project:
         - src/docs.qmd
         - src/docs/*.md
         - src/docs/*.qmd
-        - src/notebooks_list.qmd
-        - src/notebooks/Python Examples/*.ipynb
-        - src/notebooks/R Examples/*.ipynb
+        - src/examples/*.qmd
 
 execute:
     freeze: auto
-
-ipynb-filters:
-    - src/templates/notebook-static-preview.py
 
 website:
     title: MGnify Resources
@@ -27,8 +22,6 @@ website:
         right:
             - href: https://www.ebi.ac.uk/metagenomics
               text: Open MGnify
-            - href: https://usegalaxy.eu/root?tool_id=interactive_tool_mgnify_notebook
-              text: Run notebooks on Galaxy
             - href: https://status.mgnify.org
               text: Service status
 
@@ -45,27 +38,37 @@ website:
             - section: "Analyses"
               contents:
               - src/docs/analysis.md
-              - src/docs/additional-analyses.md
             - section: "Website & API"
               contents:
               - src/docs/portal.md
               - src/docs/api.md
+              - src/docs/ftp.md
+            - section: "API code examples"
+              href: src/examples/index.qmd
+              contents:
+              - src/examples/python.qmd
+              - src/examples/mgnipy.qmd
+              - src/examples/r.qmd
+              - src/examples/observable-js.qmd
+              - src/examples/atlanteco_samples_map.qmd
+              - src/examples/download-csv.qmd
+              - src/examples/pathways.qmd
             - href: src/docs/mgnify-genomes.md
             - section: "MGnify Proteins"
-              href: src/docs/mgnify-proteins.md
+              href: src/docs/mgnify-proteins.qmd
               contents:
                 - src/docs/mgnify-proteins-web.md
                 - src/docs/mgnify-proteins-sequence-search.md
                 - src/docs/mgnify-proteins-big-query.qmd
+                - src/docs/mgnify-proteins-parquet-queries.qmd
                 - src/docs/mgnify-proteins-contig-sequences.qmd
             - href: src/docs/faqs.md
             - href: src/docs/glossary.md
-            - href: src/notebooks_list.qmd
 
         tools:
             - icon: github
               menu:
-                  - text: Notebooks source
+                  - text: Docs source
                     url: https://github.com/ebi-metagenomics/notebooks
                   - text: MGnify repositories
                     url: https://github.com/ebi-metagenomics
@@ -79,3 +82,4 @@ format:
             - src/static-resources/styles.scss
         toc: true
         code-overflow: wrap
+        code-copy: true

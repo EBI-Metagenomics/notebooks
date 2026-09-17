@@ -1,0 +1,147 @@
+---
+title: "MGnify Antismash clusters in Observable JS"
+description: "Load an MGnify Antismash summary and explore cluster counts with D3."
+author: "Sandy Rogers (MGnify team)"
+format:
+  live-html:
+    theme: [cosmo, ../static-resources/styles.scss]
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+execute:
+  enabled: false
+  freeze: false
+---
+
+Edit and run the cells below in order. The example loads the Antismash summary
+for an MGnify analysis and plots the cluster labels with a minimum-count filter.
+
+```{ojs}
+//| echo: false
+function readAnalysisAccession(search) {
+  const params = new URLSearchParams(search)
+  const analysis = (params.get("analysis") ?? params.get("jlvar_MGYA") ?? "MGYA01022557")
+    .trim().toUpperCase()
+  if (!/^MGYA[0-9]{8}$/.test(analysis)) {
+    throw new Error("Invalid analysis accession. Use MGYA followed by eight digits, e.g. ?analysis=MGYA01022557.")
+  }
+  return analysis
+}
+
+analysis_accession = readAnalysisAccession(window.location.search)
+html`<form method="get" class="study-controls">
+  <label>Analysis accession
+    <input name="analysis" value=${analysis_accession} pattern="MGYA[0-9]{8}" required>
+  </label>
+  <button type="submit">Open analysis</button>
+</form>`
+```
+
+## Load the Antismash summary
+
+The analysis metadata identifies the Antismash summary download. We use `pako`
+to decompress the gzip file before parsing its TSV contents with D3.
+
+```{ojs}
+d3 = require("d3")
+analysis_metadata = await d3.json(
+  `https://www.ebi.ac.uk/metagenomics/api/v2/analyses/${analysis_accession}`
+)
+
+antismash_downloads = analysis_metadata.downloads.filter(
+  d => d.alias?.endsWith("_antismash_summary.tsv.gz")
+)
+antismash_url = antismash_downloads.length
+  ? antismash_downloads[0].url
+  : (() => { throw new Error(`No Antismash summary was found for ${analysis_accession}.`) })()
+```
+
+```{ojs}
+pako = import("https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.esm.mjs")
+
+compressed_tsv = new Uint8Array(await fetch(antismash_url).then(response => {
+  if (!response.ok) throw new Error(`Could not download the Antismash summary (${response.status}).`)
+  return response.arrayBuffer()
+}))
+
+tsv_text = pako.ungzip(compressed_tsv, {to: "string"})
+
+clusters = d3.tsvParse(tsv_text, row => ({
+  label: row.label,
+  description: row.description,
+  count: Number(row.count)
+}))
+```
+
+## Plot cluster counts
+
+Drag the slider to hide labels with smaller counts. The labels are sorted by
+count, matching the chart-style view used for the Antismash pathway system.
+
+```{ojs}
+//| code-fold: true
+//| code-summary: "Show slider and chart code"
+viewof minimum_count = Inputs.range(
+  [0, d3.max(clusters, d => d.count)],
+  {label: "Minimum count", step: 1, value: 0}
+)
+
+visible_clusters = clusters
+  .filter(d => d.count >= minimum_count)
+  .sort((a, b) => d3.descending(a.count, b.count) || d3.ascending(a.label, b.label))
+
+chart = {
+  const margin = {top: 20, right: 55, bottom: 35, left: 230}
+  const rowHeight = 28
+  const width = 900
+  const height = Math.max(170, margin.top + margin.bottom + visible_clusters.length * rowHeight)
+  const x = d3.scaleLinear()
+    .domain([0, d3.max(visible_clusters, d => d.count) || 1])
+    .nice()
+    .range([margin.left, width - margin.right])
+  const y = d3.scaleBand()
+    .domain(visible_clusters.map(d => d.label))
+    .range([margin.top, height - margin.bottom])
+    .padding(0.2)
+
+  const svg = d3.create("svg")
+    .attr("viewBox", [0, 0, width, height])
+    .attr("role", "img")
+    .attr("aria-label", `Antismash cluster counts for ${analysis_accession}`)
+    .style("max-width", "100%")
+    .style("height", "auto")
+
+  svg.append("g")
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .call(d3.axisBottom(x).ticks(Math.min(10, x.ticks().length)).tickFormat(d3.format("d")))
+
+  svg.append("g")
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y).tickSize(0))
+    .call(g => g.select(".domain").remove())
+
+  svg.append("g")
+    .selectAll("rect")
+    .data(visible_clusters)
+    .join("rect")
+      .attr("x", x(0))
+      .attr("y", d => y(d.label))
+      .attr("width", d => x(d.count) - x(0))
+      .attr("height", y.bandwidth())
+      .attr("fill", "#18974c")
+    .append("title")
+      .text(d => `${d.label}: ${d.count}\n${d.description}`)
+
+  svg.append("g")
+    .selectAll("text")
+    .data(visible_clusters)
+    .join("text")
+      .attr("x", d => x(d.count) + 6)
+      .attr("y", d => y(d.label) + y.bandwidth() / 2)
+      .attr("dominant-baseline", "middle")
+      .style("font-size", "12px")
+      .text(d => d.count)
+
+  return svg.node()
+}
+```

@@ -1,0 +1,91 @@
+---
+title: "Download analyses as CSV"
+description: "Fetch a study's analyses, select columns, and download a CSV file."
+format:
+  live-html:
+    theme: [cosmo, ../static-resources/styles.scss]
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+pyodide:
+  packages: [requests, pandas]
+  cell-options:
+    autorun: false
+    edit: true
+---
+
+Fetch all analyses for a study, choose the columns you need, and save the table
+to your computer. Edit and run the cells in order.
+
+## Choose a study
+
+Replace `STUDY` with another MGnify study accession to download its analyses.
+
+```{pyodide}
+import requests
+import pandas as pd
+
+API = "https://www.ebi.ac.uk/metagenomics/api/v2"
+STUDY = "MGYS00010393"
+```
+
+## Collect the analyses
+
+The API returns results in pages. Collect each page, then flatten the nested
+sample and assembly records into dataframe columns.
+
+```{pyodide}
+records = []
+page = 1
+while True:
+    response = requests.get(
+        f"{API}/studies/{STUDY}/analyses/",
+        params={"page": page, "page_size": 1000},
+        timeout=30,
+    )
+    response.raise_for_status()
+    batch = response.json()
+    records.extend(batch["items"])
+    if not batch["items"] or len(records) >= batch["count"]:
+        break
+    page += 1
+
+analyses = pd.json_normalize(records)
+print(f"Fetched {len(analyses)} analyses")
+analyses.head()
+```
+
+## Choose columns and download
+
+Edit the column list below, or use `selected = analyses` to keep every column.
+You can also filter rows before exporting. Run this cell again after making changes
+to update the download.
+
+```{pyodide}
+#| define: [csv_text, csv_filename]
+selected = analyses.reindex(columns=[
+    "accession", "experiment_type", "pipeline_version",
+    "sample.accession", "assembly.accession",
+])
+csv_text = selected.to_csv(index=False)
+csv_filename = f"{STUDY}-analyses.csv"
+selected.head()
+```
+
+```{ojs}
+//| echo: false
+DOM.download(new Blob([csv_text], {type: "text/csv;charset=utf-8"}), csv_filename, "Download CSV")
+```
+
+The CSV contains the selected rows and columns.
+
+## Running this code in your own environment
+
+Install the packages from a terminal:
+
+```bash
+python -m pip install pandas requests
+```
+
+Run the Python cells in a notebook or script. Save the selected dataframe with
+`selected.to_csv("analyses.csv", index=False)`.
