@@ -6,11 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="MGnify">
-<meta name="dcterms.date" content="2026-09-17">
-<meta name="description" content="Guide to using MGnify’s Protein Database sequence search service">
+<meta name="description" content="Find a study, explore its analyses, and read a result table.">
 
-<title>Sequence search – MGnify Resources</title>
+<title>MGnify API in R – MGnify Resources</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -74,8 +72,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../src/docs/mgnify-proteins-big-query.html" rel="next">
-<link href="../../src/docs/mgnify-proteins-web.html" rel="prev">
+<link href="../../src/examples/observable-js.html" rel="next">
+<link href="../../src/examples/mgnipy.html" rel="prev">
 <link href="../../src/static-resources/mgnify_logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -87,6 +85,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-a699ee838fea8ef6c84aa9785613f8c7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -114,6 +114,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
 
 </head>
@@ -154,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../src/docs/mgnify-proteins.html">MGnify Proteins</a></li><li class="breadcrumb-item"><a href="../../src/docs/mgnify-proteins-sequence-search.html">Sequence search</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../src/examples/index.html">API code examples</a></li><li class="breadcrumb-item"><a href="../../src/examples/r.html">MGnify API in R</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -290,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../src/examples/r.html" class="sidebar-item-text sidebar-link">
+  <a href="../../src/examples/r.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">MGnify API in R</span></a>
   </div>
 </li>
@@ -343,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence search</span></a>
   </div>
 </li>
@@ -389,54 +391,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#landing-page" id="toc-landing-page" class="nav-link active" data-scroll-target="#landing-page">Landing page</a></li>
-  <li><a href="#result-page" id="toc-result-page" class="nav-link" data-scroll-target="#result-page">Result page</a></li>
-  <li><a href="#build-process" id="toc-build-process" class="nav-link" data-scroll-target="#build-process">Build process</a></li>
-  <li><a href="#partial-and-full-length-peptides" id="toc-partial-and-full-length-peptides" class="nav-link" data-scroll-target="#partial-and-full-length-peptides">Partial and full length peptides</a></li>
-  <li><a href="#availability" id="toc-availability" class="nav-link" data-scroll-target="#availability">Availability</a></li>
-  <li><a href="#further-information" id="toc-further-information" class="nav-link" data-scroll-target="#further-information">Further information</a></li>
+  <li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up">Set up</a></li>
+  <li><a href="#get-a-study" id="toc-get-a-study" class="nav-link" data-scroll-target="#get-a-study">Get a study</a></li>
+  <li><a href="#list-its-analyses" id="toc-list-its-analyses" class="nav-link" data-scroll-target="#list-its-analyses">List its analyses</a></li>
+  <li><a href="#inspect-an-analysis" id="toc-inspect-an-analysis" class="nav-link" data-scroll-target="#inspect-an-analysis">Inspect an analysis</a></li>
+  <li><a href="#read-a-result-table" id="toc-read-a-result-table" class="nav-link" data-scroll-target="#read-a-result-table">Read a result table</a></li>
+  <li><a href="#explore-the-counts" id="toc-explore-the-counts" class="nav-link" data-scroll-target="#explore-the-counts">Explore the counts</a></li>
+  <li><a href="#running-this-code-in-your-own-environment" id="toc-running-this-code-in-your-own-environment" class="nav-link" data-scroll-target="#running-this-code-in-your-own-environment">Running this code in your own environment</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/mgnify-proteins-sequence-search.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/examples/r.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../src/docs/mgnify-proteins.html">MGnify Proteins</a></li><li class="breadcrumb-item"><a href="../../src/docs/mgnify-proteins-sequence-search.html">Sequence search</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../src/examples/index.html">API code examples</a></li><li class="breadcrumb-item"><a href="../../src/examples/r.html">MGnify API in R</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Sequence search</h1>
+<h1 class="title">MGnify API in R</h1>
 </div>
 
 <div>
   <div class="description">
-    Guide to using MGnify’s Protein Database sequence search service
+    Find a study, explore its analyses, and read a result table.
   </div>
 </div>
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author"><a href="https://www.ebi.ac.uk/metagenomics">MGnify</a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            <a href="https://www.ebi.ac.uk">
-            EMBL-EBI
-            </a>
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">September 17, 2026</p>
-    </div>
-  </div>
+    
   
     
   </div>
@@ -446,119 +428,149 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="landing-page" class="level2">
-<h2 class="anchored" data-anchor-id="landing-page">Landing page</h2>
-<p>The sequence search (accessed by following the ‘Sequence search’ link from the MGnify web page menu bar) provides a search against a catalogue of predicted peptides.</p>
-<div id="fig-sequence-search-landing" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sequence-search-landing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/sequence_search/sequence_search_landing-v5.png" class="img-fluid figure-img">
+<p>Edit and run the cells below, in order. The first visit may take a minute to load. Copy any code you want to keep before leaving or reloading the page.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="22" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 21;"><span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {readStudyAccession} <span class="im">from</span> <span class="st">"./study-link.js"</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>study_accession <span class="op">=</span> <span class="fu">readStudyAccession</span>(<span class="bu">window</span><span class="op">.</span><span class="at">location</span><span class="op">.</span><span class="at">search</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;form method="get" class="study-controls"&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;label&gt;Study accession</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;input name="study" value=</span><span class="sc">${</span>study_accession<span class="sc">}</span><span class="vs"> pattern="MGYS[0-9]{8}" required&gt;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/label&gt;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;button type="submit"&gt;Open study&lt;/button&gt;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/form&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sequence-search-landing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: The landing page of the sequence search tool
-</figcaption>
-</figure>
 </div>
-<p>These sequences comprise a non-redundant set of proteins predicted from contigs that have been assembled from sequencing runs. The HMMER search engine has been adapted to provide fast searches against this database. The results can be linked back to the sample and run from which the peptide was derived and also to sequences with an exact match in the UniProtKB database.</p>
-<p>Owing to the large size of the database we are not able to offer a search against the full set of proteins. Instead, we have applied a clustering algorithm which groups sequences into clusters based on similarity. The clusters each have a ‘representative sequence’ and it is these that are offered in the search, though the full set of proteins may be obtained from our <a href="ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database">FTP server</a>.</p>
-<p>The search takes a FASTA-formatted amino acid sequence.</p>
-<div id="fig-sequence-search-input" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sequence-search-input-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/sequence_search/sequence_search_input_seq-v5.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sequence-search-input-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Example of a well-formatted input sequence
-</figcaption>
-</figure>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
 </div>
-<p>You can search against all of the sequences in the database (‘All’), or restrict your search to full length sequences, or partial sequences only (see Partial and full length peptides). Alternatively, you may choose to search from a subset of environments or biomes. Sequences observed in multiple runs may be found in more than one biome. ‘Other’ sequences are those found in none of the other environment or biome categories.</p>
-<div id="fig-sequence-search-db-select" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sequence-search-db-select-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/sequence_search/sequence_search_db_select-v5.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sequence-search-db-select-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: How to select the peptide database to search against
-</figcaption>
-</figure>
 </div>
-</section>
-<section id="result-page" class="level2">
-<h2 class="anchored" data-anchor-id="result-page">Result page</h2>
-<p>On completion, a list of matching sequences is shown in order of E-value significance. All sequences in the database have a stable MGYP accession. Additional columns, such as the mapping to UniProtKB identifiers, can be enabled by clicking ‘Customise’ on the results page and checking the appropriate boxes.</p>
-<div id="fig-sequence-search-result-custom" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sequence-search-result-custom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/sequence_search/sequence_search_result_custom2.png" class="img-fluid figure-img">
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="expression">
+
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sequence-search-result-custom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Different features on the result page after triggering a sequence search
-</figcaption>
-</figure>
+</div>
+</div>
+</div>
+<section id="set-up" class="level2">
+<h2 class="anchored" data-anchor-id="set-up">Set up</h2>
+<p>The study accession comes from the box above.</p>
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJpbnB1dCI6WyJzdHVkeV9hY2Nlc3Npb24iXX0sImNvZGUiOiJsaWJyYXJ5KGpzb25saXRlKVxuXG5BUEkgPC0gXCJodHRwczovL3d3dy5lYmkuYWMudWsvbWV0YWdlbm9taWNzL2FwaS92MlwiXG5TVFVEWSA8LSBzdHVkeV9hY2Nlc3Npb25cblxuZ2V0X2pzb24gPC0gZnVuY3Rpb24ocGF0aCkge1xuICBmaWxlIDwtIHRlbXBmaWxlKClcbiAgb24uZXhpdCh1bmxpbmsoZmlsZSkpXG4gIGRvd25sb2FkLmZpbGUocGFzdGUwKEFQSSwgXCIvXCIsIHBhdGgpLCBmaWxlLCBxdWlldCA9IFRSVUUpXG4gIGZyb21KU09OKGZpbGUpXG59XG5cbmNhdChTVFVEWSkifQ==
+</script>
 </div>
 </section>
-<section id="build-process" class="level2">
-<h2 class="anchored" data-anchor-id="build-process">Build process</h2>
-<p>The database is updated periodically and is created as follows:</p>
-<ul>
-<li><p>Short reads from runs are assembled into contigs using an assembler, such as metaSPAdes</p></li>
-<li><p>Contigs are filtered by length (minimum 500 base pairs)</p></li>
-<li><p>Peptides are predicted using the Prodigal gene caller</p></li>
-<li><p>Resulting peptides are made non-redundant to produce a set of unique sequences</p></li>
-<li><p>Sequences are mapped back to MGnify run and sample accessions and annotated with biome(s)</p></li>
-<li><p>Matching sequences in UniProtKB are identified</p></li>
-<li><p>Sequences are clustered using MMseqs2/Linclust</p></li>
-</ul>
-<!-- * Domain architectures are identified using the Pfam database -->
-<p>Each update (versioned using the release year/month) is cumulative and uses all predicted peptides available at that time.</p>
-</section>
-<section id="partial-and-full-length-peptides" class="level2">
-<h2 class="anchored" data-anchor-id="partial-and-full-length-peptides">Partial and full length peptides</h2>
-<p>In common with some other protein coding sequence predictors, <a href="https://github.com/hyattpd/prodigal/wiki/introduction">Prodigal</a> provides an indication as to whether a gene is full length or extends beyond the contig. This is recorded as two digits (one for each end of the sequence), each of which is either 0 (the gene is encoded within the contig) or 1 (it extends beyond). Thus a full length sequence is described as ‘00’ and a partial as ‘11’. The values ‘10’ or ‘01’ are used for the cases where the gene is truncated only at one end.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>seq_1 <span class="co"># 3 # 371 # 1 # ID=1_1;partial=10;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.501</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">SEGCEYLAAYLDKRIASGETINESSAVMTLSQGYLMKGRNKDAGKKFITTPAITKEIREA</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">QT</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>seq_2 <span class="co"># 4738 # 5193 # -1 # ID=1_9;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.568</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">MSAYWYAVIWGGSFGAVLAAAGPRFRKAIPAIRGRMKNSIKWSTSAKAINGISWAGPFAA</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">QT</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>seq_3 <span class="co"># 7546 # 8232 # -1 # ID=1_11;partial=00;start_type=TTG;rbs_motif=GGAG/GAGG;rbs_spacer=5-10bp;gc_cont=0.541</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">MKKKVLSIQNIACETLGTLEGMFRKDGLEVENVSAQEGGIPIKSSEYSAVVVLGGPMAVY</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">QT</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>seq_4 <span class="co"># 32 # 103 # -1 # ID=37115_1;partial=01;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.542</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">WILDGIDIDAMIRHPVRQYQIAG</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="availability" class="level2">
-<h2 class="anchored" data-anchor-id="availability">Availability</h2>
-<p>As well as searches via a web server, we provide all data for download from our <a href="ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database">FTP server</a>. This includes the sequence database (separate fasta files for the full database and cluster representatives); run, sample, biome, Swiss-Prot and TrEMBL mappings; the partial status of the sequences and counts of the number of times each sequence was observed in the database as a whole.</p>
-<div id="fig-sequence-ftp" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sequence-ftp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/sequence_search/sequence_search_ftp.png" class="img-fluid figure-img">
+<section id="get-a-study" class="level2">
+<h2 class="anchored" data-anchor-id="get-a-study">Get a study</h2>
+<p>A study groups related samples and analyses. Retrieve its title and biome:</p>
+<div>
+<div id="webr-2" class="exercise-cell">
+
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sequence-ftp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: List of available files on the FTP server
-</figcaption>
-</figure>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6InN0dWR5IDwtIGdldF9qc29uKHBhc3RlMChcInN0dWRpZXMvXCIsIFNUVURZKSlcbmNhdChzdHVkeSR0aXRsZSwgXCJcXG5cIilcbnN0dWR5JGJpb21lIn0=
+</script>
 </div>
 </section>
-<section id="further-information" class="level2">
-<h2 class="anchored" data-anchor-id="further-information">Further information</h2>
-<p><a href="https://hmmer-web-docs.readthedocs.io/en/latest/">Full documentation</a> regarding the HMMER webserver is available. Note that some of the documented features (such as the taxonomy view) are not relevant to the peptide search and are therefore disabled. If there are additional features or feedback on this search service, please get in <a href="https://www.ebi.ac.uk/support/metagenomics">contact with us</a>.</p>
+<section id="list-its-analyses" class="level2">
+<h2 class="anchored" data-anchor-id="list-its-analyses">List its analyses</h2>
+<p>List responses contain <code>items</code> and a total <code>count</code>. Fetch the first 20 analyses; change <code>page=1</code> to <code>page=2</code> to get the next page.</p>
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6ImJhdGNoIDwtIGdldF9qc29uKHBhc3RlMChcInN0dWRpZXMvXCIsIFNUVURZLCBcIi9hbmFseXNlcy8/cGFnZT0xJnBhZ2Vfc2l6ZT0yMFwiKSlcbmFuYWx5c2VzIDwtIGFzLmRhdGEuZnJhbWUoYmF0Y2gkaXRlbXMpXG5jYXQoXCJTaG93aW5nXCIsIG5yb3coYW5hbHlzZXMpLCBcIm9mXCIsIGJhdGNoJGNvdW50LCBcImFuYWx5c2VzXFxuXCIpXG5pZiAobnJvdyhhbmFseXNlcykgPiAwKSB7XG4gIGFuYWx5c2VzW2MoXCJhY2Nlc3Npb25cIiwgXCJleHBlcmltZW50X3R5cGVcIiwgXCJwaXBlbGluZV92ZXJzaW9uXCIpXVxufSJ9
+</script>
+</div>
+</section>
+<section id="inspect-an-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-an-analysis">Inspect an analysis</h2>
+<p>Choose the first analysis, or replace <code>ANALYSIS</code> with another accession from the list. Its detail record includes the available result files.</p>
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6ImlmIChucm93KGFuYWx5c2VzKSA9PSAwKSBzdG9wKFwiVGhpcyBzdHVkeSBoYXMgbm8gYW5hbHlzZXMuIENob29zZSBhbm90aGVyIHN0dWR5IGFib3ZlLlwiKVxuXG5BTkFMWVNJUyA8LSBhbmFseXNlcyRhY2Nlc3Npb25bMV1cbmFuYWx5c2lzIDwtIGdldF9qc29uKHBhc3RlMChcImFuYWx5c2VzL1wiLCBBTkFMWVNJUykpXG5kb3dubG9hZHMgPC0gYXMuZGF0YS5mcmFtZShhbmFseXNpcyRkb3dubG9hZHMpXG5pZiAobnJvdyhkb3dubG9hZHMpID4gMCkge1xuICBkb3dubG9hZHNbYyhcInNob3J0X2Rlc2NyaXB0aW9uXCIsIFwiZmlsZV90eXBlXCIsIFwiYWxpYXNcIildXG59In0=
+</script>
+</div>
+</section>
+<section id="read-a-result-table" class="level2">
+<h2 class="anchored" data-anchor-id="read-a-result-table">Read a result table</h2>
+<p>For this analysis, load the Pfam domain-count summary into a data frame. Other analyses may have different files; use the descriptions above to choose a result.</p>
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6InVybHMgPC0gZG93bmxvYWRzJHVybFtkb3dubG9hZHMkc2hvcnRfZGVzY3JpcHRpb24gPT0gXCJQZmFtIGFjY2Vzc2lvbiBjb3VudHNcIl1cbmlmIChsZW5ndGgodXJscykgPT0gMCkgc3RvcChcIk5vIFBmYW0gdGFibGUgZm9yIHRoaXMgYW5hbHlzaXMuIENob29zZSBhbm90aGVyIGFuYWx5c2lzLlwiKVxuXG5maWxlIDwtIHRlbXBmaWxlKGZpbGVleHQgPSBcIi50c3YuZ3pcIilcbmRvd25sb2FkLmZpbGUodXJsc1sxXSwgZmlsZSwgcXVpZXQgPSBUUlVFLCBtb2RlID0gXCJ3YlwiKVxudGFibGUgPC0gcmVhZC5kZWxpbShmaWxlKVxudW5saW5rKGZpbGUpXG5oZWFkKHRhYmxlKSJ9
+</script>
+</div>
+<p>The download is a gzip-compressed TSV; R reads it directly with <code>read.delim()</code>. Choose small summaries when working in your browser.</p>
+</section>
+<section id="explore-the-counts" class="level2">
+<h2 class="anchored" data-anchor-id="explore-the-counts">Explore the counts</h2>
+<p>Show the ten most frequent Pfam domains. Try changing <code>10</code> to <code>20</code>.</p>
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6ImhlYWQodGFibGVbb3JkZXIodGFibGUkY291bnQsIGRlY3JlYXNpbmcgPSBUUlVFKSwgXSwgMTApIn0=
+</script>
+</div>
+</section>
+<section id="running-this-code-in-your-own-environment" class="level2">
+<h2 class="anchored" data-anchor-id="running-this-code-in-your-own-environment">Running this code in your own environment</h2>
+<p>Install jsonlite from your R console:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"jsonlite"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Copy the R cells into RStudio or an R script, replacing <code>STUDY &lt;- study_accession</code> with <code>STUDY &lt;- "MGYS00010393"</code> (or your chosen accession).</p>
 
 
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImpzb25saXRlIl0sInJlcG9zIjpbXX0sInJlbmRlcl9kZiI6ImRlZmF1bHQifQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMSA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xLWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzEgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzEsIHtzdHVkeV9hY2Nlc3Npb259KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJzdHVkeS1saW5rLmpzIl0=
+</script>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{2026,
-  author = {, MGnify},
-  title = {Sequence Search},
-  date = {2026-09-17},
-  url = {https://docs.mgnify.org/src/docs/mgnify-proteins-sequence-search.html},
-  langid = {en}
-}
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
-MGnify. 2026. <span>“Sequence Search.”</span> September 17. <a href="https://docs.mgnify.org/src/docs/mgnify-proteins-sequence-search.html">https://docs.mgnify.org/src/docs/mgnify-proteins-sequence-search.html</a>.
-</div></div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImltcG9ydCB7cmVhZFN0dWR5QWNjZXNzaW9ufSBmcm9tIFwiLi9zdHVkeS1saW5rLmpzXCJcbnN0dWR5X2FjY2Vzc2lvbiA9IHJlYWRTdHVkeUFjY2Vzc2lvbih3aW5kb3cubG9jYXRpb24uc2VhcmNoKVxuaHRtbGA8Zm9ybSBtZXRob2Q9XCJnZXRcIiBjbGFzcz1cInN0dWR5LWNvbnRyb2xzXCI+XG4gIDxsYWJlbD5TdHVkeSBhY2Nlc3Npb25cbiAgICA8aW5wdXQgbmFtZT1cInN0dWR5XCIgdmFsdWU9JHtzdHVkeV9hY2Nlc3Npb259IHBhdHRlcm49XCJNR1lTWzAtOV17OH1cIiByZXF1aXJlZD5cbiAgPC9sYWJlbD5cbiAgPGJ1dHRvbiB0eXBlPVwic3VibWl0XCI+T3BlbiBzdHVkeTwvYnV0dG9uPlxuPC9mb3JtPmBcbiJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../src/examples";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -961,13 +973,13 @@ MGnify. 2026. <span>“Sequence Search.”</span> September 17. <a href="https:/
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../src/docs/mgnify-proteins-web.html" class="pagination-link" aria-label="Portal">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Portal</span>
+      <a href="../../src/examples/mgnipy.html" class="pagination-link" aria-label="Python with MGnipy">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Python with MGnipy</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../src/docs/mgnify-proteins-big-query.html" class="pagination-link" aria-label="Big Query public dataset">
-        <span class="nav-page-text">Big Query public dataset</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../src/examples/observable-js.html" class="pagination-link" aria-label="MGnify Antismash clusters in Observable JS">
+        <span class="nav-page-text">MGnify Antismash clusters in Observable JS</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -976,4 +988,4 @@ MGnify. 2026. <span>“Sequence Search.”</span> September 17. <a href="https:/
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/mgnify-proteins-sequence-search.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/examples/r.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

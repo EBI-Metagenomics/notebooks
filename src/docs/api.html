@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="MGnify">
-<meta name="dcterms.date" content="2026-09-09">
+<meta name="dcterms.date" content="2026-09-17">
 <meta name="description" content="Programatically accessing MGnify data via the API (Application Programming Interface)">
 
 <title>RESTful API – MGnify Resources</title>
@@ -86,7 +86,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3da984f748224b1e0cd87e13b5fdabc6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-33a6d582de5a678b2fc25f80acdf6d9a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-a699ee838fea8ef6c84aa9785613f8c7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -267,6 +267,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../src/examples/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">API code examples</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify API in Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/mgnipy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python with MGnipy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify API in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/observable-js.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Antismash clusters in Observable JS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/atlanteco_samples_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Map AtlantECO samples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/download-csv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download analyses as CSV</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/pathways.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pathways Explorer in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../src/docs/mgnify-genomes.html" class="sidebar-item-text sidebar-link">
@@ -277,11 +330,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../src/docs/mgnify-proteins.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MGnify Proteins</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../src/docs/mgnify-proteins-web.html" class="sidebar-item-text sidebar-link">
@@ -351,6 +404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#download-all-taxonomy-files-from-a-metagenomic-analyses-mgya" id="toc-download-all-taxonomy-files-from-a-metagenomic-analyses-mgya" class="nav-link" data-scroll-target="#download-all-taxonomy-files-from-a-metagenomic-analyses-mgya">Download all taxonomy files from a metagenomic analyses (MGYA)</a></li>
   <li><a href="#access-mgnify-from-python" id="toc-access-mgnify-from-python" class="nav-link" data-scroll-target="#access-mgnify-from-python">Access MGnify from Python</a></li>
+  <li><a href="#edit-and-run-api-examples-in-your-browser" id="toc-edit-and-run-api-examples-in-your-browser" class="nav-link" data-scroll-target="#edit-and-run-api-examples-in-your-browser">Edit and run API examples in your browser</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/api.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -391,7 +445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 9, 2026</p>
+      <p class="date">September 17, 2026</p>
     </div>
   </div>
   
@@ -498,6 +552,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="access-mgnify-from-python">Access MGnify from Python</h3>
 <p>We have a Python client, MGnipy, designed to streamline access to the APIv2 from Python.</p>
 <p>Documentation for MGnipy can be found at <a href="https://mgnipy.mgnify.org/">mgnipy.mgnify.org/</a>.</p>
+<p>See the <a href="../../src/examples/mgnipy.html">copyable MGnipy example</a> for study queries, analysis detail and a pandas result table.</p>
+</section>
+<section id="edit-and-run-api-examples-in-your-browser" class="level3">
+<h3 class="anchored" data-anchor-id="edit-and-run-api-examples-in-your-browser">Edit and run API examples in your browser</h3>
+<p>The <a href="../../src/examples/index.html">API examples</a> include Python with requests and pandas, and R with jsonlite and base R. These run in your browser using <a href="https://en.wikipedia.org/wiki/WebAssembly">WebAssembly</a>. Both can be opened for a particular study using a <code>?study=MGYS00010397</code> link.</p>
 
 
 </section>
@@ -506,12 +565,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{2026,
   author = {, MGnify},
   title = {RESTful {API}},
-  date = {2026-09-09},
+  date = {2026-09-17},
   url = {https://docs.mgnify.org/src/docs/api.html},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
-MGnify. 2026. <span>“RESTful API.”</span> September 9. <a href="https://docs.mgnify.org/src/docs/api.html">https://docs.mgnify.org/src/docs/api.html</a>.
+MGnify. 2026. <span>“RESTful API.”</span> September 17. <a href="https://docs.mgnify.org/src/docs/api.html">https://docs.mgnify.org/src/docs/api.html</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

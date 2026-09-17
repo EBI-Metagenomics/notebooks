@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Sandy Rogers (MGnify team)">
+<meta name="description" content="Load an MGnify Antismash summary and explore cluster counts with D3.">
+
+<title>MGnify Antismash clusters in Observable JS – MGnify Resources</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../src/examples/atlanteco_samples_map.html" rel="next">
+<link href="../../src/examples/r.html" rel="prev">
+<link href="../../src/static-resources/mgnify_logo.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3da984f748224b1e0cd87e13b5fdabc6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-a699ee838fea8ef6c84aa9785613f8c7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">MGnify Resources</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.ebi.ac.uk/metagenomics"> 
+<span class="menu-text">Open MGnify</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://status.mgnify.org"> 
+<span class="menu-text">Service status</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../src/examples/index.html">API code examples</a></li><li class="breadcrumb-item"><a href="../../src/examples/observable-js.html">MGnify Antismash clusters in Observable JS</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+        <div class="sidebar-tools-collapse">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-collapse-item" href="https://github.com/ebi-metagenomics/notebooks">
+            Docs source
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-collapse-item" href="https://github.com/ebi-metagenomics">
+            MGnify repositories
+            </a>
+          </li>
+      </ul>
+    </div>
+    <a href="mailto:metagenomics-help@ebi.ac.uk" title="Help" class="quarto-navigation-tool px-1" aria-label="Help"><i class="bi bi-question-circle-fill"></i></a>
+</div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About MGnify</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data flow</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/dataflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From submission to results</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/multiomics_submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multi-omics dataset submission</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Analyses</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis pipeline v5.0</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Website &amp; API</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/portal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Website and portal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RESTful API</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/ftp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transfer Services (FTP) file server</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../src/examples/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">API code examples</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify API in Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/mgnipy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python with MGnipy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify API in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/observable-js.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">MGnify Antismash clusters in Observable JS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/atlanteco_samples_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Map AtlantECO samples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/download-csv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download analyses as CSV</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/pathways.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pathways Explorer in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-genomes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Genomes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../src/docs/mgnify-proteins.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Proteins</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-web.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sequence search</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-big-query.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Big Query public dataset</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-parquet-queries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Remote querying of MGnify Proteins using Parquet and DuckDB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-contig-sequences.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Retrieving contig sequences for MGnify proteins</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/faqs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossary</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#load-the-antismash-summary" id="toc-load-the-antismash-summary" class="nav-link active" data-scroll-target="#load-the-antismash-summary">Load the Antismash summary</a></li>
+  <li><a href="#plot-cluster-counts" id="toc-plot-cluster-counts" class="nav-link" data-scroll-target="#plot-cluster-counts">Plot cluster counts</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/examples/observable-js.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../src/examples/index.html">API code examples</a></li><li class="breadcrumb-item"><a href="../../src/examples/observable-js.html">MGnify Antismash clusters in Observable JS</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">MGnify Antismash clusters in Observable JS</h1>
+</div>
+
+<div>
+  <div class="description">
+    Load an MGnify Antismash summary and explore cluster counts with D3.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Sandy Rogers (MGnify team) </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Edit and run the cells below in order. The example loads the Antismash summary for an MGnify analysis and plots the cluster labels with a minimum-count filter.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="21" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 20;"><span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">readAnalysisAccession</span>(search) {</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> params <span class="op">=</span> <span class="kw">new</span> <span class="fu">URLSearchParams</span>(search)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> analysis <span class="op">=</span> (params<span class="op">.</span><span class="fu">get</span>(<span class="st">"analysis"</span>) <span class="op">??</span> params<span class="op">.</span><span class="fu">get</span>(<span class="st">"jlvar_MGYA"</span>) <span class="op">??</span> <span class="st">"MGYA01022557"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">trim</span>()<span class="op">.</span><span class="fu">toUpperCase</span>()</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span><span class="ss">/</span><span class="sc">^</span><span class="ss">MGYA</span><span class="sc">[0-9]{8}$</span><span class="ss">/</span><span class="op">.</span><span class="fu">test</span>(analysis)) {</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Error</span>(<span class="st">"Invalid analysis accession. Use MGYA followed by eight digits, e.g. ?analysis=MGYA01022557."</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> analysis</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>analysis_accession <span class="op">=</span> <span class="fu">readAnalysisAccession</span>(<span class="bu">window</span><span class="op">.</span><span class="at">location</span><span class="op">.</span><span class="at">search</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;form method="get" class="study-controls"&gt;</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;label&gt;Analysis accession</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;input name="analysis" value=</span><span class="sc">${</span>analysis_accession<span class="sc">}</span><span class="vs"> pattern="MGYA[0-9]{8}" required&gt;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/label&gt;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;button type="submit"&gt;Open analysis&lt;/button&gt;</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/form&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<section id="load-the-antismash-summary" class="level2">
+<h2 class="anchored" data-anchor-id="load-the-antismash-summary">Load the Antismash summary</h2>
+<p>The analysis metadata identifies the Antismash summary download. We use <code>pako</code> to decompress the gzip file before parsing its TSV contents with D3.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="46" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 45;"><span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>d3 <span class="op">=</span> <span class="pp">require</span>(<span class="st">"d3"</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>analysis_metadata <span class="op">=</span> <span class="cf">await</span> d3<span class="op">.</span><span class="fu">json</span>(</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="vs">`https://www.ebi.ac.uk/metagenomics/api/v2/analyses/</span><span class="sc">${</span>analysis_accession<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>antismash_downloads <span class="op">=</span> analysis_metadata<span class="op">.</span><span class="at">downloads</span><span class="op">.</span><span class="fu">filter</span>(</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">alias</span><span class="op">?.</span><span class="fu">endsWith</span>(<span class="st">"_antismash_summary.tsv.gz"</span>)</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>antismash_url <span class="op">=</span> antismash_downloads<span class="op">.</span><span class="at">length</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  <span class="op">?</span> antismash_downloads[<span class="dv">0</span>]<span class="op">.</span><span class="at">url</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  <span class="op">:</span> (() <span class="kw">=&gt;</span> { <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Error</span>(<span class="vs">`No Antismash summary was found for </span><span class="sc">${</span>analysis_accession<span class="sc">}</span><span class="vs">.`</span>) })()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="60" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 59;"><span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>pako <span class="op">=</span> <span class="im">import</span>(<span class="st">"https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.esm.mjs"</span>)</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>compressed_tsv <span class="op">=</span> <span class="kw">new</span> <span class="bu">Uint8Array</span>(<span class="cf">await</span> <span class="fu">fetch</span>(antismash_url)<span class="op">.</span><span class="fu">then</span>(response <span class="kw">=&gt;</span> {</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>response<span class="op">.</span><span class="at">ok</span>) <span class="cf">throw</span> <span class="kw">new</span> <span class="bu">Error</span>(<span class="vs">`Could not download the Antismash summary (</span><span class="sc">${</span>response<span class="op">.</span><span class="at">status</span><span class="sc">}</span><span class="vs">).`</span>)</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> response<span class="op">.</span><span class="fu">arrayBuffer</span>()</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>tsv_text <span class="op">=</span> pako<span class="op">.</span><span class="fu">ungzip</span>(compressed_tsv<span class="op">,</span> {<span class="dt">to</span><span class="op">:</span> <span class="st">"string"</span>})</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> d3<span class="op">.</span><span class="fu">tsvParse</span>(tsv_text<span class="op">,</span> row <span class="kw">=&gt;</span> ({</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> row<span class="op">.</span><span class="at">label</span><span class="op">,</span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>  <span class="dt">description</span><span class="op">:</span> row<span class="op">.</span><span class="at">description</span><span class="op">,</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>  <span class="dt">count</span><span class="op">:</span> <span class="bu">Number</span>(row<span class="op">.</span><span class="at">count</span>)</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-cluster-counts" class="level2">
+<h2 class="anchored" data-anchor-id="plot-cluster-counts">Plot cluster counts</h2>
+<p>Drag the slider to hide labels with smaller counts. The labels are sorted by count, matching the chart-style view used for the Antismash pathway system.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show slider and chart code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="84" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 83;"><span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>viewof minimum_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">0</span><span class="op">,</span> d3<span class="op">.</span><span class="fu">max</span>(clusters<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">count</span>)]<span class="op">,</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">label</span><span class="op">:</span> <span class="st">"Minimum count"</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>visible_clusters <span class="op">=</span> clusters</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">count</span> <span class="op">&gt;=</span> minimum_count)</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> d3<span class="op">.</span><span class="fu">descending</span>(a<span class="op">.</span><span class="at">count</span><span class="op">,</span> b<span class="op">.</span><span class="at">count</span>) <span class="op">||</span> d3<span class="op">.</span><span class="fu">ascending</span>(a<span class="op">.</span><span class="at">label</span><span class="op">,</span> b<span class="op">.</span><span class="at">label</span>))</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>chart <span class="op">=</span> {</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> margin <span class="op">=</span> {<span class="dt">top</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">right</span><span class="op">:</span> <span class="dv">55</span><span class="op">,</span> <span class="dt">bottom</span><span class="op">:</span> <span class="dv">35</span><span class="op">,</span> <span class="dt">left</span><span class="op">:</span> <span class="dv">230</span>}</span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rowHeight <span class="op">=</span> <span class="dv">28</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> width <span class="op">=</span> <span class="dv">900</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> height <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">170</span><span class="op">,</span> margin<span class="op">.</span><span class="at">top</span> <span class="op">+</span> margin<span class="op">.</span><span class="at">bottom</span> <span class="op">+</span> visible_clusters<span class="op">.</span><span class="at">length</span> <span class="op">*</span> rowHeight)</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> x <span class="op">=</span> d3<span class="op">.</span><span class="fu">scaleLinear</span>()</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">domain</span>([<span class="dv">0</span><span class="op">,</span> d3<span class="op">.</span><span class="fu">max</span>(visible_clusters<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">count</span>) <span class="op">||</span> <span class="dv">1</span>])</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">nice</span>()</span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">range</span>([margin<span class="op">.</span><span class="at">left</span><span class="op">,</span> width <span class="op">-</span> margin<span class="op">.</span><span class="at">right</span>])</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> y <span class="op">=</span> d3<span class="op">.</span><span class="fu">scaleBand</span>()</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">domain</span>(visible_clusters<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">label</span>))</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">range</span>([margin<span class="op">.</span><span class="at">top</span><span class="op">,</span> height <span class="op">-</span> margin<span class="op">.</span><span class="at">bottom</span>])</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">padding</span>(<span class="fl">0.2</span>)</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> svg <span class="op">=</span> d3<span class="op">.</span><span class="fu">create</span>(<span class="st">"svg"</span>)</span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"viewBox"</span><span class="op">,</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> width<span class="op">,</span> height])</span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"role"</span><span class="op">,</span> <span class="st">"img"</span>)</span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"aria-label"</span><span class="op">,</span> <span class="vs">`Antismash cluster counts for </span><span class="sc">${</span>analysis_accession<span class="sc">}</span><span class="vs">`</span>)</span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">style</span>(<span class="st">"max-width"</span><span class="op">,</span> <span class="st">"100%"</span>)</span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">style</span>(<span class="st">"height"</span><span class="op">,</span> <span class="st">"auto"</span>)</span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">append</span>(<span class="st">"g"</span>)</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"transform"</span><span class="op">,</span> <span class="vs">`translate(0,</span><span class="sc">${</span>height <span class="op">-</span> margin<span class="op">.</span><span class="at">bottom</span><span class="sc">}</span><span class="vs">)`</span>)</span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">call</span>(d3<span class="op">.</span><span class="fu">axisBottom</span>(x)<span class="op">.</span><span class="fu">ticks</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">10</span><span class="op">,</span> x<span class="op">.</span><span class="fu">ticks</span>()<span class="op">.</span><span class="at">length</span>))<span class="op">.</span><span class="fu">tickFormat</span>(d3<span class="op">.</span><span class="fu">format</span>(<span class="st">"d"</span>)))</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">append</span>(<span class="st">"g"</span>)</span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">attr</span>(<span class="st">"transform"</span><span class="op">,</span> <span class="vs">`translate(</span><span class="sc">${</span>margin<span class="op">.</span><span class="at">left</span><span class="sc">}</span><span class="vs">,0)`</span>)</span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">call</span>(d3<span class="op">.</span><span class="fu">axisLeft</span>(y)<span class="op">.</span><span class="fu">tickSize</span>(<span class="dv">0</span>))</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">call</span>(g <span class="kw">=&gt;</span> g<span class="op">.</span><span class="fu">select</span>(<span class="st">".domain"</span>)<span class="op">.</span><span class="fu">remove</span>())</span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">append</span>(<span class="st">"g"</span>)</span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">selectAll</span>(<span class="st">"rect"</span>)</span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">data</span>(visible_clusters)</span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">join</span>(<span class="st">"rect"</span>)</span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"x"</span><span class="op">,</span> <span class="fu">x</span>(<span class="dv">0</span>))</span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"y"</span><span class="op">,</span> d <span class="kw">=&gt;</span> <span class="fu">y</span>(d<span class="op">.</span><span class="at">label</span>))</span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"width"</span><span class="op">,</span> d <span class="kw">=&gt;</span> <span class="fu">x</span>(d<span class="op">.</span><span class="at">count</span>) <span class="op">-</span> <span class="fu">x</span>(<span class="dv">0</span>))</span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"height"</span><span class="op">,</span> y<span class="op">.</span><span class="fu">bandwidth</span>())</span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"fill"</span><span class="op">,</span> <span class="st">"#18974c"</span>)</span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">append</span>(<span class="st">"title"</span>)</span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">text</span>(d <span class="kw">=&gt;</span> <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">label</span><span class="sc">}</span><span class="vs">: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">count</span><span class="sc">}\n${</span>d<span class="op">.</span><span class="at">description</span><span class="sc">}</span><span class="vs">`</span>)</span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">append</span>(<span class="st">"g"</span>)</span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">selectAll</span>(<span class="st">"text"</span>)</span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">data</span>(visible_clusters)</span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">join</span>(<span class="st">"text"</span>)</span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"x"</span><span class="op">,</span> d <span class="kw">=&gt;</span> <span class="fu">x</span>(d<span class="op">.</span><span class="at">count</span>) <span class="op">+</span> <span class="dv">6</span>)</span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"y"</span><span class="op">,</span> d <span class="kw">=&gt;</span> <span class="fu">y</span>(d<span class="op">.</span><span class="at">label</span>) <span class="op">+</span> y<span class="op">.</span><span class="fu">bandwidth</span>() <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">attr</span>(<span class="st">"dominant-baseline"</span><span class="op">,</span> <span class="st">"middle"</span>)</span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">style</span>(<span class="st">"font-size"</span><span class="op">,</span> <span class="st">"12px"</span>)</span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">text</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">count</span>)</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> svg<span class="op">.</span><span class="fu">node</span>()</span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+
+
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJzdHVkeS1saW5rLmpzIl0=
+</script>
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZ1bmN0aW9uIHJlYWRBbmFseXNpc0FjY2Vzc2lvbihzZWFyY2gpIHtcbiAgY29uc3QgcGFyYW1zID0gbmV3IFVSTFNlYXJjaFBhcmFtcyhzZWFyY2gpXG4gIGNvbnN0IGFuYWx5c2lzID0gKHBhcmFtcy5nZXQoXCJhbmFseXNpc1wiKSA/PyBwYXJhbXMuZ2V0KFwiamx2YXJfTUdZQVwiKSA/PyBcIk1HWUEwMTAyMjU1N1wiKVxuICAgIC50cmltKCkudG9VcHBlckNhc2UoKVxuICBpZiAoIS9eTUdZQVswLTldezh9JC8udGVzdChhbmFseXNpcykpIHtcbiAgICB0aHJvdyBuZXcgRXJyb3IoXCJJbnZhbGlkIGFuYWx5c2lzIGFjY2Vzc2lvbi4gVXNlIE1HWUEgZm9sbG93ZWQgYnkgZWlnaHQgZGlnaXRzLCBlLmcuID9hbmFseXNpcz1NR1lBMDEwMjI1NTcuXCIpXG4gIH1cbiAgcmV0dXJuIGFuYWx5c2lzXG59XG5cbmFuYWx5c2lzX2FjY2Vzc2lvbiA9IHJlYWRBbmFseXNpc0FjY2Vzc2lvbih3aW5kb3cubG9jYXRpb24uc2VhcmNoKVxuaHRtbGA8Zm9ybSBtZXRob2Q9XCJnZXRcIiBjbGFzcz1cInN0dWR5LWNvbnRyb2xzXCI+XG4gIDxsYWJlbD5BbmFseXNpcyBhY2Nlc3Npb25cbiAgICA8aW5wdXQgbmFtZT1cImFuYWx5c2lzXCIgdmFsdWU9JHthbmFseXNpc19hY2Nlc3Npb259IHBhdHRlcm49XCJNR1lBWzAtOV17OH1cIiByZXF1aXJlZD5cbiAgPC9sYWJlbD5cbiAgPGJ1dHRvbiB0eXBlPVwic3VibWl0XCI+T3BlbiBhbmFseXNpczwvYnV0dG9uPlxuPC9mb3JtPmBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImQzID0gcmVxdWlyZShcImQzXCIpXG5hbmFseXNpc19tZXRhZGF0YSA9IGF3YWl0IGQzLmpzb24oXG4gIGBodHRwczovL3d3dy5lYmkuYWMudWsvbWV0YWdlbm9taWNzL2FwaS92Mi9hbmFseXNlcy8ke2FuYWx5c2lzX2FjY2Vzc2lvbn1gXG4pXG5cbmFudGlzbWFzaF9kb3dubG9hZHMgPSBhbmFseXNpc19tZXRhZGF0YS5kb3dubG9hZHMuZmlsdGVyKFxuICBkID0+IGQuYWxpYXM/LmVuZHNXaXRoKFwiX2FudGlzbWFzaF9zdW1tYXJ5LnRzdi5nelwiKVxuKVxuYW50aXNtYXNoX3VybCA9IGFudGlzbWFzaF9kb3dubG9hZHMubGVuZ3RoXG4gID8gYW50aXNtYXNoX2Rvd25sb2Fkc1swXS51cmxcbiAgOiAoKCkgPT4geyB0aHJvdyBuZXcgRXJyb3IoYE5vIEFudGlzbWFzaCBzdW1tYXJ5IHdhcyBmb3VuZCBmb3IgJHthbmFseXNpc19hY2Nlc3Npb259LmApIH0pKClcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InBha28gPSBpbXBvcnQoXCJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvbnBtL3Bha29AMi4xLjAvZGlzdC9wYWtvLmVzbS5tanNcIilcblxuY29tcHJlc3NlZF90c3YgPSBuZXcgVWludDhBcnJheShhd2FpdCBmZXRjaChhbnRpc21hc2hfdXJsKS50aGVuKHJlc3BvbnNlID0+IHtcbiAgaWYgKCFyZXNwb25zZS5vaykgdGhyb3cgbmV3IEVycm9yKGBDb3VsZCBub3QgZG93bmxvYWQgdGhlIEFudGlzbWFzaCBzdW1tYXJ5ICgke3Jlc3BvbnNlLnN0YXR1c30pLmApXG4gIHJldHVybiByZXNwb25zZS5hcnJheUJ1ZmZlcigpXG59KSlcblxudHN2X3RleHQgPSBwYWtvLnVuZ3ppcChjb21wcmVzc2VkX3Rzdiwge3RvOiBcInN0cmluZ1wifSlcblxuY2x1c3RlcnMgPSBkMy50c3ZQYXJzZSh0c3ZfdGV4dCwgcm93ID0+ICh7XG4gIGxhYmVsOiByb3cubGFiZWwsXG4gIGRlc2NyaXB0aW9uOiByb3cuZGVzY3JpcHRpb24sXG4gIGNvdW50OiBOdW1iZXIocm93LmNvdW50KVxufSkpXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgbWluaW11bV9jb3VudCA9IElucHV0cy5yYW5nZShcbiAgWzAsIGQzLm1heChjbHVzdGVycywgZCA9PiBkLmNvdW50KV0sXG4gIHtsYWJlbDogXCJNaW5pbXVtIGNvdW50XCIsIHN0ZXA6IDEsIHZhbHVlOiAwfVxuKVxuXG52aXNpYmxlX2NsdXN0ZXJzID0gY2x1c3RlcnNcbiAgLmZpbHRlcihkID0+IGQuY291bnQgPj0gbWluaW11bV9jb3VudClcbiAgLnNvcnQoKGEsIGIpID0+IGQzLmRlc2NlbmRpbmcoYS5jb3VudCwgYi5jb3VudCkgfHwgZDMuYXNjZW5kaW5nKGEubGFiZWwsIGIubGFiZWwpKVxuXG5jaGFydCA9IHtcbiAgY29uc3QgbWFyZ2luID0ge3RvcDogMjAsIHJpZ2h0OiA1NSwgYm90dG9tOiAzNSwgbGVmdDogMjMwfVxuICBjb25zdCByb3dIZWlnaHQgPSAyOFxuICBjb25zdCB3aWR0aCA9IDkwMFxuICBjb25zdCBoZWlnaHQgPSBNYXRoLm1heCgxNzAsIG1hcmdpbi50b3AgKyBtYXJnaW4uYm90dG9tICsgdmlzaWJsZV9jbHVzdGVycy5sZW5ndGggKiByb3dIZWlnaHQpXG4gIGNvbnN0IHggPSBkMy5zY2FsZUxpbmVhcigpXG4gICAgLmRvbWFpbihbMCwgZDMubWF4KHZpc2libGVfY2x1c3RlcnMsIGQgPT4gZC5jb3VudCkgfHwgMV0pXG4gICAgLm5pY2UoKVxuICAgIC5yYW5nZShbbWFyZ2luLmxlZnQsIHdpZHRoIC0gbWFyZ2luLnJpZ2h0XSlcbiAgY29uc3QgeSA9IGQzLnNjYWxlQmFuZCgpXG4gICAgLmRvbWFpbih2aXNpYmxlX2NsdXN0ZXJzLm1hcChkID0+IGQubGFiZWwpKVxuICAgIC5yYW5nZShbbWFyZ2luLnRvcCwgaGVpZ2h0IC0gbWFyZ2luLmJvdHRvbV0pXG4gICAgLnBhZGRpbmcoMC4yKVxuXG4gIGNvbnN0IHN2ZyA9IGQzLmNyZWF0ZShcInN2Z1wiKVxuICAgIC5hdHRyKFwidmlld0JveFwiLCBbMCwgMCwgd2lkdGgsIGhlaWdodF0pXG4gICAgLmF0dHIoXCJyb2xlXCIsIFwiaW1nXCIpXG4gICAgLmF0dHIoXCJhcmlhLWxhYmVsXCIsIGBBbnRpc21hc2ggY2x1c3RlciBjb3VudHMgZm9yICR7YW5hbHlzaXNfYWNjZXNzaW9ufWApXG4gICAgLnN0eWxlKFwibWF4LXdpZHRoXCIsIFwiMTAwJVwiKVxuICAgIC5zdHlsZShcImhlaWdodFwiLCBcImF1dG9cIilcblxuICBzdmcuYXBwZW5kKFwiZ1wiKVxuICAgIC5hdHRyKFwidHJhbnNmb3JtXCIsIGB0cmFuc2xhdGUoMCwke2hlaWdodCAtIG1hcmdpbi5ib3R0b219KWApXG4gICAgLmNhbGwoZDMuYXhpc0JvdHRvbSh4KS50aWNrcyhNYXRoLm1pbigxMCwgeC50aWNrcygpLmxlbmd0aCkpLnRpY2tGb3JtYXQoZDMuZm9ybWF0KFwiZFwiKSkpXG5cbiAgc3ZnLmFwcGVuZChcImdcIilcbiAgICAuYXR0cihcInRyYW5zZm9ybVwiLCBgdHJhbnNsYXRlKCR7bWFyZ2luLmxlZnR9LDApYClcbiAgICAuY2FsbChkMy5heGlzTGVmdCh5KS50aWNrU2l6ZSgwKSlcbiAgICAuY2FsbChnID0+IGcuc2VsZWN0KFwiLmRvbWFpblwiKS5yZW1vdmUoKSlcblxuICBzdmcuYXBwZW5kKFwiZ1wiKVxuICAgIC5zZWxlY3RBbGwoXCJyZWN0XCIpXG4gICAgLmRhdGEodmlzaWJsZV9jbHVzdGVycylcbiAgICAuam9pbihcInJlY3RcIilcbiAgICAgIC5hdHRyKFwieFwiLCB4KDApKVxuICAgICAgLmF0dHIoXCJ5XCIsIGQgPT4geShkLmxhYmVsKSlcbiAgICAgIC5hdHRyKFwid2lkdGhcIiwgZCA9PiB4KGQuY291bnQpIC0geCgwKSlcbiAgICAgIC5hdHRyKFwiaGVpZ2h0XCIsIHkuYmFuZHdpZHRoKCkpXG4gICAgICAuYXR0cihcImZpbGxcIiwgXCIjMTg5NzRjXCIpXG4gICAgLmFwcGVuZChcInRpdGxlXCIpXG4gICAgICAudGV4dChkID0+IGAke2QubGFiZWx9OiAke2QuY291bnR9XFxuJHtkLmRlc2NyaXB0aW9ufWApXG5cbiAgc3ZnLmFwcGVuZChcImdcIilcbiAgICAuc2VsZWN0QWxsKFwidGV4dFwiKVxuICAgIC5kYXRhKHZpc2libGVfY2x1c3RlcnMpXG4gICAgLmpvaW4oXCJ0ZXh0XCIpXG4gICAgICAuYXR0cihcInhcIiwgZCA9PiB4KGQuY291bnQpICsgNilcbiAgICAgIC5hdHRyKFwieVwiLCBkID0+IHkoZC5sYWJlbCkgKyB5LmJhbmR3aWR0aCgpIC8gMilcbiAgICAgIC5hdHRyKFwiZG9taW5hbnQtYmFzZWxpbmVcIiwgXCJtaWRkbGVcIilcbiAgICAgIC5zdHlsZShcImZvbnQtc2l6ZVwiLCBcIjEycHhcIilcbiAgICAgIC50ZXh0KGQgPT4gZC5jb3VudClcblxuICByZXR1cm4gc3ZnLm5vZGUoKVxufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdtaW5pbXVtX2NvdW50JykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../src/examples";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/docs\.mgnify\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../src/examples/r.html" class="pagination-link" aria-label="MGnify API in R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">MGnify API in R</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../src/examples/atlanteco_samples_map.html" class="pagination-link" aria-label="Map AtlantECO samples">
+        <span class="nav-page-text">Map AtlantECO samples</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/examples/observable-js.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

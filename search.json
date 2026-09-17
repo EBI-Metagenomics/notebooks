@@ -1,5 +1,269 @@
 [
   {
+    "objectID": "src/examples/r.html",
+    "href": "src/examples/r.html",
+    "title": "MGnify API in R",
+    "section": "",
+    "text": "Edit and run the cells below, in order. The first visit may take a minute to load. Copy any code you want to keep before leaving or reloading the page.\nimport {readStudyAccession} from \"./study-link.js\"\nstudy_accession = readStudyAccession(window.location.search)\nhtml`&lt;form method=\"get\" class=\"study-controls\"&gt;\n  &lt;label&gt;Study accession\n    &lt;input name=\"study\" value=${study_accession} pattern=\"MGYS[0-9]{8}\" required&gt;\n  &lt;/label&gt;\n  &lt;button type=\"submit\"&gt;Open study&lt;/button&gt;\n&lt;/form&gt;`",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/r.html#set-up",
+    "href": "src/examples/r.html#set-up",
+    "title": "MGnify API in R",
+    "section": "Set up",
+    "text": "Set up\nThe study accession comes from the box above.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/r.html#get-a-study",
+    "href": "src/examples/r.html#get-a-study",
+    "title": "MGnify API in R",
+    "section": "Get a study",
+    "text": "Get a study\nA study groups related samples and analyses. Retrieve its title and biome:",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/r.html#list-its-analyses",
+    "href": "src/examples/r.html#list-its-analyses",
+    "title": "MGnify API in R",
+    "section": "List its analyses",
+    "text": "List its analyses\nList responses contain items and a total count. Fetch the first 20 analyses; change page=1 to page=2 to get the next page.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/r.html#inspect-an-analysis",
+    "href": "src/examples/r.html#inspect-an-analysis",
+    "title": "MGnify API in R",
+    "section": "Inspect an analysis",
+    "text": "Inspect an analysis\nChoose the first analysis, or replace ANALYSIS with another accession from the list. Its detail record includes the available result files.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/r.html#read-a-result-table",
+    "href": "src/examples/r.html#read-a-result-table",
+    "title": "MGnify API in R",
+    "section": "Read a result table",
+    "text": "Read a result table\nFor this analysis, load the Pfam domain-count summary into a data frame. Other analyses may have different files; use the descriptions above to choose a result.\n\n\n\n\n\n\nThe download is a gzip-compressed TSV; R reads it directly with read.delim(). Choose small summaries when working in your browser.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/r.html#explore-the-counts",
+    "href": "src/examples/r.html#explore-the-counts",
+    "title": "MGnify API in R",
+    "section": "Explore the counts",
+    "text": "Explore the counts\nShow the ten most frequent Pfam domains. Try changing 10 to 20.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/r.html#running-this-code-in-your-own-environment",
+    "href": "src/examples/r.html#running-this-code-in-your-own-environment",
+    "title": "MGnify API in R",
+    "section": "Running this code in your own environment",
+    "text": "Running this code in your own environment\nInstall jsonlite from your R console:\ninstall.packages(\"jsonlite\")\nCopy the R cells into RStudio or an R script, replacing STUDY &lt;- study_accession with STUDY &lt;- \"MGYS00010393\" (or your chosen accession).",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/pathways.html",
+    "href": "src/examples/pathways.html",
+    "title": "Pathways Explorer in R",
+    "section": "",
+    "text": "Explore the functional annotations from an MGnify assembly analysis. You will find the KEGG orthologues (KOs) detected in the analysis, compare KEGG module completeness, and inspect the KOs that make up an individual module.\nStart with the example study MGYS00006180, or replace it with a study accession of your choice. Run the cells in order.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Pathways Explorer in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/pathways.html#choose-an-analysis",
+    "href": "src/examples/pathways.html#choose-an-analysis",
+    "title": "Pathways Explorer in R",
+    "section": "Choose an analysis",
+    "text": "Choose an analysis\nChange STUDY to another study with assembly analyses. The first page of analyses is loaded below; change page=1 to retrieve another page.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Pathways Explorer in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/pathways.html#read-the-result-tables",
+    "href": "src/examples/pathways.html#read-the-result-tables",
+    "title": "Pathways Explorer in R",
+    "section": "Read the result tables",
+    "text": "Read the result tables\nThe first analysis is selected automatically. Replace ANALYSIS with an accession from the table to explore a different analysis. The analysis record provides the KO counts and module-completeness tables.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Pathways Explorer in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/pathways.html#explore-module-completeness",
+    "href": "src/examples/pathways.html#explore-module-completeness",
+    "title": "Pathways Explorer in R",
+    "section": "Explore module completeness",
+    "text": "Explore module completeness\nA KEGG module describes a functional unit within a pathway. The completeness value is the percentage of that module’s functions found in the analysis. It does not show whether an entire pathway is complete or active.\n\n\n\n\n\n\nPlot the 15 highest-scoring incomplete modules. Change 15 to show more or fewer.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Pathways Explorer in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/pathways.html#inspect-a-module",
+    "href": "src/examples/pathways.html#inspect-a-module",
+    "title": "Pathways Explorer in R",
+    "section": "Inspect a module",
+    "text": "Inspect a module\nStart with glycolysis (M00001), or choose an identifier from the tables above. The table shows which KOs in the module were found and which were not found in the analysis. A missing annotation does not necessarily mean that a function is absent from the community.\n\n\n\n\n\n\n\nhtml`&lt;a href=${module_url} target=\"_blank\" rel=\"noopener\"&gt;View this module’s diagram on KEGG&lt;/a&gt;`\n\n\n\n\n\n\nThe KEGG link opens the reference diagram for the selected module. It does not colour the diagram with this analysis’s results.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Pathways Explorer in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/pathways.html#view-detected-functions-in-kegg-mapper",
+    "href": "src/examples/pathways.html#view-detected-functions-in-kegg-mapper",
+    "title": "Pathways Explorer in R",
+    "section": "View detected functions in KEGG Mapper",
+    "text": "View detected functions in KEGG Mapper\nDownload the detected KO identifiers below, then:\n\nOpen KEGG Mapper Search.\nUnder Search mode, select the Reference radio button. The default hsa mode expects human gene identifiers and gives no matches for this file.\nUse Or upload file to select the downloaded -KOs.txt file, then click Exec.\nOpen a result such as Glycolysis / Gluconeogenesis to see the detected KOs highlighted on its pathway map.\n\nThe search highlights pathways containing functions detected in your analysis. A pathway match does not mean that the entire pathway is complete.\n\n\n\n\n\n\n\nDOM.download(new Blob([ko_text], {type: \"text/plain;charset=utf-8\"}), ko_filename, \"Download KO identifiers\")",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Pathways Explorer in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/pathways.html#running-this-code-in-your-own-environment",
+    "href": "src/examples/pathways.html#running-this-code-in-your-own-environment",
+    "title": "Pathways Explorer in R",
+    "section": "Running this code in your own environment",
+    "text": "Running this code in your own environment\nInstall jsonlite from your R console:\ninstall.packages(\"jsonlite\")\nRun the R cells in RStudio or an R script. To save the KO identifiers locally, use writeLines(ko_text, ko_filename).\n\nQuerying KEGG from RStudio\nWhen working in a local R installation, the Bioconductor KEGGREST package can be used to query KEGG directly. For example, this retrieves the definition of a KEGG module:\n# Run locally in RStudio; this is not executed in the browser page.\nif (!requireNamespace(\"BiocManager\", quietly = TRUE))\n    install.packages(\"BiocManager\")\nBiocManager::install(\"KEGGREST\")\n\nlibrary(KEGGREST)\nkeggGet(\"M00001\")",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Pathways Explorer in R"
+    ]
+  },
+  {
+    "objectID": "src/examples/mgnipy.html",
+    "href": "src/examples/mgnipy.html",
+    "title": "Python with MGnipy",
+    "section": "",
+    "text": "MGnipy provides Python objects for MGnify studies, analyses and samples, with pagination, metadata tables and result-download helpers.\nTry the interactive MGnipy demo: list biomes. Choose Activate Notebook on that page to run the examples using Binder.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Python with MGnipy"
+    ]
+  },
+  {
+    "objectID": "src/examples/mgnipy.html#running-this-code-in-your-own-environment",
+    "href": "src/examples/mgnipy.html#running-this-code-in-your-own-environment",
+    "title": "Python with MGnipy",
+    "section": "Running this code in your own environment",
+    "text": "Running this code in your own environment\nUsing Python 3.11 or newer, install MGnipy from a terminal:\npython -m pip install mgnipy\nThen run the Python example above in a notebook or script.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Python with MGnipy"
+    ]
+  },
+  {
+    "objectID": "src/examples/download-csv.html",
+    "href": "src/examples/download-csv.html",
+    "title": "Download analyses as CSV",
+    "section": "",
+    "text": "Fetch all analyses for a study, choose the columns you need, and save the table to your computer. Edit and run the cells in order.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Download analyses as CSV"
+    ]
+  },
+  {
+    "objectID": "src/examples/download-csv.html#choose-a-study",
+    "href": "src/examples/download-csv.html#choose-a-study",
+    "title": "Download analyses as CSV",
+    "section": "Choose a study",
+    "text": "Choose a study\nReplace STUDY with another MGnify study accession to download its analyses.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Download analyses as CSV"
+    ]
+  },
+  {
+    "objectID": "src/examples/download-csv.html#collect-the-analyses",
+    "href": "src/examples/download-csv.html#collect-the-analyses",
+    "title": "Download analyses as CSV",
+    "section": "Collect the analyses",
+    "text": "Collect the analyses\nThe API returns results in pages. Collect each page, then flatten the nested sample and assembly records into dataframe columns.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Download analyses as CSV"
+    ]
+  },
+  {
+    "objectID": "src/examples/download-csv.html#choose-columns-and-download",
+    "href": "src/examples/download-csv.html#choose-columns-and-download",
+    "title": "Download analyses as CSV",
+    "section": "Choose columns and download",
+    "text": "Choose columns and download\nEdit the column list below, or use selected = analyses to keep every column. You can also filter rows before exporting. Run this cell again after making changes to update the download.\n\n\n\n\n\n\n\nDOM.download(new Blob([csv_text], {type: \"text/csv;charset=utf-8\"}), csv_filename, \"Download CSV\")\n\n\n\n\n\n\nThe CSV contains the selected rows and columns.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Download analyses as CSV"
+    ]
+  },
+  {
+    "objectID": "src/examples/download-csv.html#running-this-code-in-your-own-environment",
+    "href": "src/examples/download-csv.html#running-this-code-in-your-own-environment",
+    "title": "Download analyses as CSV",
+    "section": "Running this code in your own environment",
+    "text": "Running this code in your own environment\nInstall the packages from a terminal:\npython -m pip install pandas requests\nRun the Python cells in a notebook or script. Save the selected dataframe with selected.to_csv(\"analyses.csv\", index=False).",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Download analyses as CSV"
+    ]
+  },
+  {
     "objectID": "src/docs/mgnify-proteins.html",
     "href": "src/docs/mgnify-proteins.html",
     "title": "MGnify Proteins Resource",
@@ -92,58 +356,9 @@
   {
     "objectID": "src/docs/notebooks.html",
     "href": "src/docs/notebooks.html",
-    "title": "MGnify notebooks servers",
+    "title": "MGnify code examples",
     "section": "",
-    "text": "View on YouTube.\n\n\n\n\n\n\nTipAvailable notebooks\n\n\n\nThis website contains previews of the available notebooks. There are examples in both Python and R."
-  },
-  {
-    "objectID": "src/docs/notebooks.html#a-jupyter-lab-environment-for-the-mgnify-api",
-    "href": "src/docs/notebooks.html#a-jupyter-lab-environment-for-the-mgnify-api",
-    "title": "MGnify notebooks servers",
-    "section": "",
-    "text": "View on YouTube.\n\n\n\n\n\n\nTipAvailable notebooks\n\n\n\nThis website contains previews of the available notebooks. There are examples in both Python and R."
-  },
-  {
-    "objectID": "src/docs/notebooks.html#where-to-run-the-notebooks",
-    "href": "src/docs/notebooks.html#where-to-run-the-notebooks",
-    "title": "MGnify notebooks servers",
-    "section": "Where to run the notebooks",
-    "text": "Where to run the notebooks\nThe notebooks can be run on notebooks.mgnify.org (hosted by EMBL; no login required) or on Galaxy Europe (login required).\n\nThe notebooks.mgnify.org resource\nThe MGnify Notebooks Server is a Jupyter Lab environment for doing data analysis online.\nYou don’t need to install anything – it is hosted by EMBL’s Cell Biology & Biophysics Unit and you use it in your web browser.\nNo account is required, but your data and the state of your notebooks will be erased after a short period of inactivity.\n\n\n\n\n\n\nFigure 1: The default “Home” notebook of the MGnify Notebooks Server\n\n\n\n\n\nThe Galaxy Europe server\nGalaxy is a platform for FAIR data analysis. The MGnify notebooks are available on the Galaxy Europe server as an “interactive tool”. You need an account (free) and to login to be allocated the compute resources to use the tool there. Because of this, the notebooks hosted on Galaxy Europe are not directly linked from data objects on the MGnify website.\nYour data and notebook state is persistent on Galaxy – you can save and resume your work later."
-  },
-  {
-    "objectID": "src/docs/notebooks.html#use-cases-for-the-notebooks-server",
-    "href": "src/docs/notebooks.html#use-cases-for-the-notebooks-server",
-    "title": "MGnify notebooks servers",
-    "section": "Use cases for the Notebooks Server",
-    "text": "Use cases for the Notebooks Server\nProgrammatic access to MGnify data resources is done via the the API.\nThe Notebooks are useful if you’re just starting to explore the API and are looking for code examples to get started.\nThey are also useful if you only need to access a few pieces of data and so don’t want to install anything to get what you need.\nThere are examples in Python and in the R language."
-  },
-  {
-    "objectID": "src/docs/notebooks.html#mgnifyr-an-r-package-for-accessing-mgnify",
-    "href": "src/docs/notebooks.html#mgnifyr-an-r-package-for-accessing-mgnify",
-    "title": "MGnify notebooks servers",
-    "section": "MGnifyR: an R package for accessing MGnify",
-    "text": "MGnifyR: an R package for accessing MGnify\nThe Notebooks include code examples written using MGnifyR, an R package with convenience wrappers around the MGnify API, as well as recipes for cross-study analysis.\nMGnifyR is already installed on the Notebook Server, so you can try it out straight away.\nTake a look at this cross-study analysis example."
-  },
-  {
-    "objectID": "src/docs/notebooks.html#using-a-jupyter-notebook",
-    "href": "src/docs/notebooks.html#using-a-jupyter-notebook",
-    "title": "MGnify notebooks servers",
-    "section": "Using a Jupyter Notebook",
-    "text": "Using a Jupyter Notebook\nA Jupyter Notebook is an interactive coding document. It is based on cells (as in blocks of content). Some cells are just text, and some contain code.\nIn our examples, there are text cells to explain what we’re doing, and code cells with example code that you can run.\nAny output from the code will be printed directly below the code cell.\nOnly one cells runs at a time, so you can step through a notebook to step through a workflow.\nEach example notebook we provide should run without any changes needed. You are free to change these as you wish – you’re working on a copy of the examples.\n\n\n\n\n\n\nWarning\n\n\n\nUnless you’re using the notebooks on Galaxy, when you leave your computer for a while or close the website your Jupyter Lab instance will end. Your work usually won’t be saved so make sure you download anything you need to keep before finishing."
-  },
-  {
-    "objectID": "src/docs/notebooks.html#jumping-to-a-notebook-from-the-mgnify-website",
-    "href": "src/docs/notebooks.html#jumping-to-a-notebook-from-the-mgnify-website",
-    "title": "MGnify notebooks servers",
-    "section": "Jumping to a Notebook from the MGnify website",
-    "text": "Jumping to a Notebook from the MGnify website\n\n\n\n\n\n\nFigure 2: There are deep-links to some Notebooks from the MGnify website\n\n\n\nSome resource views on the MGnify website show a “Programmatic access” banner. This lists the API URL for the resource, as well as links to any Notebooks that help you consume that API endpoint.\nFor example, opening a Study in R or Python means opening a Notebook on our server with example code to read in that study.\nThese are deep links, in that following them means the Notebook will already know the Study Accession (ID) you are interested in."
-  },
-  {
-    "objectID": "src/docs/notebooks.html#using-the-notebooks-on-your-own-computer-instead",
-    "href": "src/docs/notebooks.html#using-the-notebooks-on-your-own-computer-instead",
-    "title": "MGnify notebooks servers",
-    "section": "Using the notebooks on your own computer instead",
-    "text": "Using the notebooks on your own computer instead\nThe code for our notebooks is open source and available on GitHub.\nThe notebook server is containerised with Docker, making installation fairly simple.\nYou can also simply copy the notebooks themselves from GitHub, but you will have to install the dependencies using e.g. Conda."
+    "text": "Edit and run small API v2 examples directly in your browser:\n\nPython with requests and pandas\nR with jsonlite and base R\nDownload analyses as CSV\nMap AtlantECO samples\n\nFor the MGnipy Python client, see the introduction and demo.\nThe browser pages use WebAssembly and do not start a server-side notebook kernel. They support study metadata, paginated analyses, analysis detail and a small result table. Open the introductory Python or R page with ?study=MGYS00010393 to initialise a specific study. Browser edits and variables disappear when you reload the page.\nThe historical notebooks are retained in the source repository as non-functional historical material. For larger analyses, use local Python and the MGnipy documentation."
   },
   {
     "objectID": "src/docs/mgnify-proteins-web.html",
@@ -255,7 +470,7 @@
     "href": "src/docs/mgnify-genomes.html#searching-across-catalogues",
     "title": "MGnify Genomes",
     "section": "Searching across catalogues",
-    "text": "Searching across catalogues\nThere are three ways to search for species across all of the catalogues.\n\nBy accession or taxonomy\n\n\n\n\n\n\nFigure 3: Searching for “Prevotella” genomes from all catalogues.\n\n\n\nThe Browse &gt; Genomes &gt; All Genomes tab lists genomes from all catalogues. The genome accessions and taxonomic lineages are indexed for full-text search. This is helpful to find a specific genome where the biome is irrelevant, or to find the set of biomes (catalogues) which a certain taxonomic classification is present in.\n\n\nBy gene fragment\nThe ‘Gene search’ tab is a COmpact Bitsliced Signature index (COBS) based search engine. COBS queries short sequence fragments against the species representatives of some or all genome catalogues.\nOne or more catalogues can be selected to search against. By default, your query is compared to all current catalogues.\nThe table of results provides the user with direct links to the matching genomes. Match statistics are shown as a count and percentage of kmers found. A score of 100% means that all of the 31-length kmers in the query were found in the indexed Genome.\nThe minimum kmer proportion is set at a default of 0.4 and can be increased or decreased within a range of 0.1-1 with the available toggle.\n\n\n\n\n\n\nFigure 4: COBS search example with table of results.\n\n\n\n\n\nBy whole genome / MAG\nThe ‘MAG search’ tab is a Sourmash based search engine. Sourmash queries complete MAGs for similarity against the species representatives of some or all genome catalogues.\nOne or more catalogues can be selected to search against. By default, your query is compared to all current catalogues.\nThe query genome must be a nucleotide sequence file.\nUse the browse button to upload either a single FastA file, or multiple files by holding [ctrl] or [shift] while clicking in the file explorer. Alternatively you can select a whole directory of files using the directory mode (select this option below the Browse button). In this mode, the tool will process all FastA files in the selected directory, however it will not descend into subdirectories. Files are not uploaded onto MGnify servers. Rather, Sourmash generates a signature of your file(s) in your browser, and compares this signature against our MAG catalogue on the server. Successful searches create a CSV result file for each signature submitted. These are compiled into a TGZ allowing you to fetch all your results in one click. These result files are only stored in our servers for 30 days, so please be sure to download them before they expire.\n\n\n\n\n\n\nFigure 5: Sourmash search example with file selected\n\n\n\n\nSourmash details\nSpecifically, the MAG search runs the sourmash gather command. In this mode, sourmash finds the minimum set of MAGs in the database that collectively contain as much of the query (meta)genome as possible. The “Best Match” MAG from each catalogue is the MAG that contains the largest content from the query (if any). To use this search programmatically (by submitting sourmash sketches of your own query MAGs to the MGnify API), the sourmash parameters must match those used by MGnify. MGnify use the default parameters for kmer size (-k 31) and sketch scaling (--scaled 1000).\nSee the “Search MGnify Genomes” notebook in MGnify’s notebooks repository for an example of how to query this API programmatically.",
+    "text": "Searching across catalogues\nThere are three ways to search for species across all of the catalogues.\n\nBy accession or taxonomy\n\n\n\n\n\n\nFigure 3: Searching for “Prevotella” genomes from all catalogues.\n\n\n\nThe Browse &gt; Genomes &gt; All Genomes tab lists genomes from all catalogues. The genome accessions and taxonomic lineages are indexed for full-text search. This is helpful to find a specific genome where the biome is irrelevant, or to find the set of biomes (catalogues) which a certain taxonomic classification is present in.\n\n\nBy gene fragment\nThe ‘Gene search’ tab is a COmpact Bitsliced Signature index (COBS) based search engine. COBS queries short sequence fragments against the species representatives of some or all genome catalogues.\nOne or more catalogues can be selected to search against. By default, your query is compared to all current catalogues.\nThe table of results provides the user with direct links to the matching genomes. Match statistics are shown as a count and percentage of kmers found. A score of 100% means that all of the 31-length kmers in the query were found in the indexed Genome.\nThe minimum kmer proportion is set at a default of 0.4 and can be increased or decreased within a range of 0.1-1 with the available toggle.\n\n\n\n\n\n\nFigure 4: COBS search example with table of results.\n\n\n\n\n\nBy whole genome / MAG\nThe ‘MAG search’ tab is a Sourmash based search engine. Sourmash queries complete MAGs for similarity against the species representatives of some or all genome catalogues.\nOne or more catalogues can be selected to search against. By default, your query is compared to all current catalogues.\nThe query genome must be a nucleotide sequence file.\nUse the browse button to upload either a single FastA file, or multiple files by holding [ctrl] or [shift] while clicking in the file explorer. Alternatively you can select a whole directory of files using the directory mode (select this option below the Browse button). In this mode, the tool will process all FastA files in the selected directory, however it will not descend into subdirectories. Files are not uploaded onto MGnify servers. Rather, Sourmash generates a signature of your file(s) in your browser, and compares this signature against our MAG catalogue on the server. Successful searches create a CSV result file for each signature submitted. These are compiled into a TGZ allowing you to fetch all your results in one click. These result files are only stored in our servers for 30 days, so please be sure to download them before they expire.\n\n\n\n\n\n\nFigure 5: Sourmash search example with file selected\n\n\n\n\nSourmash details\nSpecifically, the MAG search runs the sourmash gather command. In this mode, sourmash finds the minimum set of MAGs in the database that collectively contain as much of the query (meta)genome as possible. The “Best Match” MAG from each catalogue is the MAG that contains the largest content from the query (if any). To use this search programmatically (by submitting sourmash sketches of your own query MAGs to the MGnify API), the sourmash parameters must match those used by MGnify. MGnify use the default parameters for kmer size (-k 31) and sketch scaling (--scaled 1000).\nThe historical Search MGnify Genomes notebook is archived for reference and is no longer runnable. See MGnipy for current Python examples.",
     "crumbs": [
       "Open MGnify",
       "MGnify Genomes"
@@ -299,7 +514,7 @@
     "href": "src/docs/ftp.html",
     "title": "Transfer Services (FTP) file server",
     "section": "",
-    "text": "EMBL-EBI operates a Transfer Services file server, providing high-bandwidth access to datasets from EMBL-EBI services including MGnify.\nMGnify’s (public) results are available in the following directories:\n\nMetagenomic analyses (i.e. the files produced when analysing MGYA-accessioned analyses) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/\n\nThese files are arranged into directories using the studies’ INSDC acccessions, with substring-prefixed folder names, and then their MGnify Pipeline version number. E.g. the version 5.0 analysis of ERP003408 is found in ERP003/ERP003408/version_5.0.\n\nGenomes (i.e. the files produced when analysing MGYG-accessioned genomes from catalogues) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/\n\nThese files are arranged into the biome-specific catalogues according to the MGnify Genomes schema\n\nProteins (the MGnify Protein database of proteins found in metagenome assemblies) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/\n\nThese files are arranged into date-versioned releases. The latest release is always linked from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/",
+    "text": "EMBL-EBI operates a Transfer Services file server, providing high-bandwidth access to datasets from EMBL-EBI services including MGnify.\nMGnify’s (public) results are available in the following directories:\n\nMetagenomic analyses (i.e. the files produced when analysing MGYA-accessioned analyses) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/\n\nThese files are arranged into directories using the studies’ INSDC acccessions, with substring-prefixed folder names, and then their MGnify Pipeline version number. E.g. the version 5.0 analysis of ERP003408 is found in ERP003/ERP003408/version_5.0.\n\nGenomes (i.e. the files produced when analysing MGYG-accessioned genomes from catalogues) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/\n\nThese files are arranged into the biome-specific catalogues according to the MGnify Genomes schema\n\nProteins (the MGnify Protein database of proteins found in metagenome assemblies) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/\n\nThese files are arranged into date-versioned releases. The latest release is always linked from [current release/][https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/]",
     "crumbs": [
       "Open MGnify",
       "Website & API",
@@ -311,7 +526,7 @@
     "href": "src/docs/ftp.html#transfer-services",
     "title": "Transfer Services (FTP) file server",
     "section": "",
-    "text": "EMBL-EBI operates a Transfer Services file server, providing high-bandwidth access to datasets from EMBL-EBI services including MGnify.\nMGnify’s (public) results are available in the following directories:\n\nMetagenomic analyses (i.e. the files produced when analysing MGYA-accessioned analyses) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/\n\nThese files are arranged into directories using the studies’ INSDC acccessions, with substring-prefixed folder names, and then their MGnify Pipeline version number. E.g. the version 5.0 analysis of ERP003408 is found in ERP003/ERP003408/version_5.0.\n\nGenomes (i.e. the files produced when analysing MGYG-accessioned genomes from catalogues) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/\n\nThese files are arranged into the biome-specific catalogues according to the MGnify Genomes schema\n\nProteins (the MGnify Protein database of proteins found in metagenome assemblies) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/\n\nThese files are arranged into date-versioned releases. The latest release is always linked from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/",
+    "text": "EMBL-EBI operates a Transfer Services file server, providing high-bandwidth access to datasets from EMBL-EBI services including MGnify.\nMGnify’s (public) results are available in the following directories:\n\nMetagenomic analyses (i.e. the files produced when analysing MGYA-accessioned analyses) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/\n\nThese files are arranged into directories using the studies’ INSDC acccessions, with substring-prefixed folder names, and then their MGnify Pipeline version number. E.g. the version 5.0 analysis of ERP003408 is found in ERP003/ERP003408/version_5.0.\n\nGenomes (i.e. the files produced when analysing MGYG-accessioned genomes from catalogues) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/\n\nThese files are arranged into the biome-specific catalogues according to the MGnify Genomes schema\n\nProteins (the MGnify Protein database of proteins found in metagenome assemblies) from https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/\n\nThese files are arranged into date-versioned releases. The latest release is always linked from [current release/][https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/]",
     "crumbs": [
       "Open MGnify",
       "Website & API",
@@ -323,7 +538,7 @@
     "href": "src/docs/dataflow.html",
     "title": "From submission to results",
     "section": "",
-    "text": "Figure 1: MGnify data flow from submission to analysis results.\n\n\n\n\nRegister\n\n: Submissions are handled by the** European Nucleotide Archive (ENA) and therefore users must have an ENA Webin account. In addition, users submitting private data must provide an expressed agreement that MGnify can access their private data for analysis, by filling this form. Otherwise, MGnify will not be able to access their data. MGnify will, of course, handle this data confidentially.\n\nLogin\n\n: Access to the** ENA submission page requires a login using a registered email address or a Webin identifier (Webin-XXXX).\n\nUpload, and 4. Submission\n\n: These steps are described in detail in the ENA online guides. The MGnify and EMBL-EBI online tutorials provide a step by step guide to submission. Please also check our FAQs.\n\n\n\n\n\n\nNote\n\n\n\nAll queries concerning data submission should be directed to ENA dedicated help desk\n\n\nThe following ENA submission criteria must be fulfilled. Please note, MGnify will not have access to retrieve data for analyses until these criteria are met.\n\nAssemblies: The associated sample taxonomy must be in the metagenomic tax tree 408169. Please see the environmental taxonomy guidelines for further details.\nRaw metagenomic or metatranscriptomic reads: Same taxonomy guidelines as assemblies apply AND/OR the library source should be either ‘METAGENOMIC’ or ‘METATRANSCRIPTOMIC’. Please see the library source guidelines for further details.\n\nAfter validation by ENA, if the above criteria are met we will be able to access the submitted data.\nTo request private analysis with MGnify, navigate to the home page, click ‘Submit and/or Request’ and complete the form. You will need to login to request analysis of private data. To request analysis of a public dataset in ENA click ‘Request’ and complete the form. Once we have received the requests, they will be queued for analysis (more details about our Analysis pipeline).\nThe length of time required for analysis varies according to the number of projects in the queue and the nature and number of runs in the submission. However, we aim to have most analyses completed in less than a week once validated by ENA.\n\nAccessing analysed data\n\n: Upon completion of analysis, data will be uploaded on the website. MGnify pipeline will generate a number of charts and downloadable files (Files available to download on the MGnify website).\n\nPrivate access\n\n: For private data, users will have to login to the MGnify website to access their data, until they become public\n\nPublic access to private data\n\n: Private data will become public after an initial confidential period of two years. Submitters will receive an email from ENA prior to the public release of their data, giving them the opportunity to extend the confidential period which is set to two years as default (as indicated at Can I change the release date of my project?).\n\n\n\nCitationBibTeX citation:@online{team2026,\n  author = {Team, MGnify},\n  title = {From Submission to Results},\n  date = {2026-09-09},\n  url = {https://docs.mgnify.org/src/docs/dataflow.html},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nTeam, MGnify. 2026. “From Submission to Results.” September\n9. https://docs.mgnify.org/src/docs/dataflow.html.",
+    "text": "Figure 1: MGnify data flow from submission to analysis results.\n\n\n\n\nRegister\n\n: Submissions are handled by the** European Nucleotide Archive (ENA) and therefore users must have an ENA Webin account. In addition, users submitting private data must provide an expressed agreement that MGnify can access their private data for analysis, by filling this form. Otherwise, MGnify will not be able to access their data. MGnify will, of course, handle this data confidentially.\n\nLogin\n\n: Access to the** ENA submission page requires a login using a registered email address or a Webin identifier (Webin-XXXX).\n\nUpload, and 4. Submission\n\n: These steps are described in detail in the ENA online guides. The MGnify and EMBL-EBI online tutorials provide a step by step guide to submission. Please also check our FAQs.\n\n\n\n\n\n\nNote\n\n\n\nAll queries concerning data submission should be directed to ENA dedicated help desk\n\n\nThe following ENA submission criteria must be fulfilled. Please note, MGnify will not have access to retrieve data for analyses until these criteria are met.\n\nAssemblies: The associated sample taxonomy must be in the metagenomic tax tree 408169. Please see the environmental taxonomy guidelines for further details.\nRaw metagenomic or metatranscriptomic reads: Same taxonomy guidelines as assemblies apply AND/OR the library source should be either ‘METAGENOMIC’ or ‘METATRANSCRIPTOMIC’. Please see the library source guidelines for further details.\n\nAfter validation by ENA, if the above criteria are met we will be able to access the submitted data.\nTo request private analysis with MGnify, navigate to the home page, click ‘Submit and/or Request’ and complete the form. You will need to login to request analysis of private data. To request analysis of a public dataset in ENA click ‘Request’ and complete the form. Once we have received the requests, they will be queued for analysis (more details about our Analysis pipeline).\nThe length of time required for analysis varies according to the number of projects in the queue and the nature and number of runs in the submission. However, we aim to have most analyses completed in less than a week once validated by ENA.\n\nAccessing analysed data\n\n: Upon completion of analysis, data will be uploaded on the website. MGnify pipeline will generate a number of charts and downloadable files (Files available to download on the MGnify website).\n\nPrivate access\n\n: For private data, users will have to login to the MGnify website to access their data, until they become public\n\nPublic access to private data\n\n: Private data will become public after an initial confidential period of two years. Submitters will receive an email from ENA prior to the public release of their data, giving them the opportunity to extend the confidential period which is set to two years as default (as indicated at Can I change the release date of my project?).\n\n\n\nCitationBibTeX citation:@online{team2026,\n  author = {Team, MGnify},\n  title = {From Submission to Results},\n  date = {2026-09-17},\n  url = {https://docs.mgnify.org/src/docs/dataflow.html},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nTeam, MGnify. 2026. “From Submission to Results.” September\n17. https://docs.mgnify.org/src/docs/dataflow.html.",
     "crumbs": [
       "Open MGnify",
       "Data flow",
@@ -407,21 +622,21 @@
     "href": "src/docs.html",
     "title": "MGnify Documentation",
     "section": "",
-    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data.\nThe resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA).\nThis is MGnify’s documentation resource, providing guides to use the MGnify website, API, and submission services."
+    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data.\nThe resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA).\nThis is MGnify’s documentation resource, providing guides to use the MGnify website, API, and submission services.\nTry the editable Python and R API examples to explore study metadata and result tables in your browser."
   },
   {
     "objectID": "src/docs.html#mgnify-documentation",
     "href": "src/docs.html#mgnify-documentation",
     "title": "MGnify Documentation",
     "section": "",
-    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data.\nThe resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA).\nThis is MGnify’s documentation resource, providing guides to use the MGnify website, API, and submission services."
+    "text": "MGnify is a freely available hub for the analysis and exploration of metagenomic, metatranscriptomic, amplicon and assembly data.\nThe resource provides rich functional and taxonomic analyses of user-submitted sequences, as well as analysis of publicly available metagenomic datasets held within the European Nucleotide Archive (ENA).\nThis is MGnify’s documentation resource, providing guides to use the MGnify website, API, and submission services.\nTry the editable Python and R API examples to explore study metadata and result tables in your browser."
   },
   {
     "objectID": "src/docs.html#contents",
     "href": "src/docs.html#contents",
     "title": "MGnify Documentation",
     "section": "Contents",
-    "text": "Contents\n\n\n\n\n\nAbout MGnify\n\n\nBackground to the MGnify service, our funding and citation info, and how to contact us.\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify Team\n\n\n\n\n\n\n\nFrom submission to results\n\n\nHow MGnify data moves from submission to analysis\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify Team\n\n\n\n\n\n\n\nMulti-omics dataset submission\n\n\nBest practices for multi-omics dataset submission\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nAnalysis pipeline v5.0\n\n\nDescription of the previous MGnify analysis pipeline and the tools it used.\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nWebsite and portal\n\n\nUser guide to the MGnify website\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify Genomes\n\n\nDescription of the MGnify genomes pipelines and web resource\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nRESTful API\n\n\nProgramatically accessing MGnify data via the API (Application Programming Interface)\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify notebooks servers\n\n\nUsing MGnify’s Jupyter Notebooks to explore and access data programatically\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nTransfer Services (FTP) file server\n\n\nHow to download data from MGnify’s file server\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nFAQs\n\n\nFrequently asked questions about MGnify\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nGlossary\n\n\nDictionary of terms used in MGnify and throughout this documentaiton\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nGuides and tutorials\n\n\nList of online tutorials relevant to MGnify and ENA\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nBig Query public dataset\n\n\nDescription of the MGnify Proteins BigQuery public dataset\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify Proteins Resource\n\n\nDescription of the MGnify Proteins and related services\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nPortal\n\n\nGuide to using MGnify’s Proteins website\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nRemote querying of MGnify Proteins using Parquet and DuckDB\n\n\nDescription of the MGnify Proteins and related services\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nRetrieving contig sequences for MGnify proteins\n\n\nA guide to retrieving contig sequences for MGnify proteins (MGYPs)\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nSequence search\n\n\nGuide to using MGnify’s Protein Database sequence search service\n\n\n\n\n\nSep 9, 2026\n\n\nMGnify\n\n\n\n\n\nNo matching items"
+    "text": "Contents\n\n\n\n\n\nAbout MGnify\n\n\nBackground to the MGnify service, our funding and citation info, and how to contact us.\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify Team\n\n\n\n\n\n\n\nFrom submission to results\n\n\nHow MGnify data moves from submission to analysis\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify Team\n\n\n\n\n\n\n\nMulti-omics dataset submission\n\n\nBest practices for multi-omics dataset submission\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nAnalysis pipeline v5.0\n\n\nDescription of the previous MGnify analysis pipeline and the tools it used.\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nWebsite and portal\n\n\nUser guide to the MGnify website\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify Genomes\n\n\nDescription of the MGnify genomes pipelines and web resource\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nRESTful API\n\n\nProgramatically accessing MGnify data via the API (Application Programming Interface)\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify code examples\n\n\nPython and R examples for MGnify API v2, replacing the hosted notebooks.\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nTransfer Services (FTP) file server\n\n\nHow to download data from MGnify’s file server\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nFAQs\n\n\nFrequently asked questions about MGnify\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nGlossary\n\n\nDictionary of terms used in MGnify and throughout this documentaiton\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nGuides and tutorials\n\n\nList of online tutorials relevant to MGnify and ENA\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nBig Query public dataset\n\n\nDescription of the MGnify Proteins BigQuery public dataset\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nMGnify Proteins Resource\n\n\nDescription of the MGnify Proteins and related services\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nPortal\n\n\nGuide to using MGnify’s Proteins website\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nRemote querying of MGnify Proteins using Parquet and DuckDB\n\n\nDescription of the MGnify Proteins and related services\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nRetrieving contig sequences for MGnify proteins\n\n\nA guide to retrieving contig sequences for MGnify proteins (MGYPs)\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\n\n\nSequence search\n\n\nGuide to using MGnify’s Protein Database sequence search service\n\n\n\n\n\nSep 17, 2026\n\n\nMGnify\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "src/docs/about.html",
@@ -540,7 +755,7 @@
     "href": "src/docs/api.html#examples",
     "title": "RESTful API",
     "section": "Examples",
-    "text": "Examples\n\nDownload all taxonomy files from a metagenomic analyses (MGYA)\nThis example uses common command-line tools curl and jq\ncurl \"https://www.ebi.ac.uk/metagenomics/api/v2/analyses/MGYA01020362\" | jq '.downloads[] | select(.download_group | startswith(\"taxonomies.\")) | .url' | xargs -n1 curl -O\n\n\nAccess MGnify from Python\nWe have a Python client, MGnipy, designed to streamline access to the APIv2 from Python.\nDocumentation for MGnipy can be found at mgnipy.mgnify.org/.",
+    "text": "Examples\n\nDownload all taxonomy files from a metagenomic analyses (MGYA)\nThis example uses common command-line tools curl and jq\ncurl \"https://www.ebi.ac.uk/metagenomics/api/v2/analyses/MGYA01020362\" | jq '.downloads[] | select(.download_group | startswith(\"taxonomies.\")) | .url' | xargs -n1 curl -O\n\n\nAccess MGnify from Python\nWe have a Python client, MGnipy, designed to streamline access to the APIv2 from Python.\nDocumentation for MGnipy can be found at mgnipy.mgnify.org/.\nSee the copyable MGnipy example for study queries, analysis detail and a pandas result table.\n\n\nEdit and run API examples in your browser\nThe API examples include Python with requests and pandas, and R with jsonlite and base R. These run in your browser using WebAssembly. Both can be opened for a particular study using a ?study=MGYS00010397 link.",
     "crumbs": [
       "Open MGnify",
       "Website & API",
@@ -1387,6 +1602,221 @@
       "Open MGnify",
       "MGnify Proteins",
       "Remote querying of MGnify Proteins using Parquet and DuckDB"
+    ]
+  },
+  {
+    "objectID": "src/examples/atlanteco_samples_map.html",
+    "href": "src/examples/atlanteco_samples_map.html",
+    "title": "Map AtlantECO samples",
+    "section": "",
+    "text": "AtlantECO brings together studies of the Atlantic Ocean and its ecosystems. Fetch samples from all its flagship studies and explore their locations on a map.\nEdit and run the cells in order. The first visit may take a minute to load.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Map AtlantECO samples"
+    ]
+  },
+  {
+    "objectID": "src/examples/atlanteco_samples_map.html#find-the-studies",
+    "href": "src/examples/atlanteco_samples_map.html#find-the-studies",
+    "title": "Map AtlantECO samples",
+    "section": "Find the studies",
+    "text": "Find the studies\nA super-study groups related MGnify studies. Show the first 20 AtlantECO flagship studies. Change 20 to see more:",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Map AtlantECO samples"
+    ]
+  },
+  {
+    "objectID": "src/examples/atlanteco_samples_map.html#get-the-samples",
+    "href": "src/examples/atlanteco_samples_map.html#get-the-samples",
+    "title": "Map AtlantECO samples",
+    "section": "Get the samples",
+    "text": "Get the samples\nCollect every page of samples for each flagship study. A sample can belong to several studies, so keep one record per sample accession. Unavailable studies are reported and skipped.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Map AtlantECO samples"
+    ]
+  },
+  {
+    "objectID": "src/examples/atlanteco_samples_map.html#prepare-the-coordinates",
+    "href": "src/examples/atlanteco_samples_map.html#prepare-the-coordinates",
+    "title": "Map AtlantECO samples",
+    "section": "Prepare the coordinates",
+    "text": "Prepare the coordinates\nLatitude and longitude are stored in the sample metadata as text. Convert them to numbers and omit samples with missing or out-of-range coordinates.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Map AtlantECO samples"
+    ]
+  },
+  {
+    "objectID": "src/examples/atlanteco_samples_map.html#draw-the-map",
+    "href": "src/examples/atlanteco_samples_map.html#draw-the-map",
+    "title": "Map AtlantECO samples",
+    "section": "Draw the map",
+    "text": "Draw the map\nZoom in and click a marker to see the sample accession, the AtlantECO studies it belongs to, and its coordinates. Samples collected at the same location share a marker position.\n\n\n\n\n\n\nTry changing the marker colour or radius, then run the map cell again.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Map AtlantECO samples"
+    ]
+  },
+  {
+    "objectID": "src/examples/atlanteco_samples_map.html#running-this-code-in-your-own-environment",
+    "href": "src/examples/atlanteco_samples_map.html#running-this-code-in-your-own-environment",
+    "title": "Map AtlantECO samples",
+    "section": "Running this code in your own environment",
+    "text": "Running this code in your own environment\nInstall the packages from a terminal:\npython -m pip install pandas requests folium\nRun the Python cells in a notebook to display the map. In a Python script, use sample_map.save(\"atlanteco.html\") and open that file in your browser.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "Map AtlantECO samples"
+    ]
+  },
+  {
+    "objectID": "src/examples/index.html",
+    "href": "src/examples/index.html",
+    "title": "API examples",
+    "section": "",
+    "text": "Find a study, list its analyses, and load a Pfam result into a data frame. Choose an example to get started:\n\nPython with requests and pandas — edit and run in your browser.\nR with jsonlite — edit and run in your browser.\nObservable JS with D3 — plot Antismash cluster counts for an analysis.\nPython with MGnipy — a quick introduction and an interactive demo.\nDownload analyses as CSV — save a study’s analyses to your computer.\nMap AtlantECO samples — explore sample locations in Python.\nPathways Explorer in R — explore module completeness and detected functions.\n\nThe introductory Python and R examples start with an Antarctic soil assembly study, but can be used with any public MGnify study.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples"
+    ]
+  },
+  {
+    "objectID": "src/examples/observable-js.html",
+    "href": "src/examples/observable-js.html",
+    "title": "MGnify Antismash clusters in Observable JS",
+    "section": "",
+    "text": "Edit and run the cells below in order. The example loads the Antismash summary for an MGnify analysis and plots the cluster labels with a minimum-count filter.\nfunction readAnalysisAccession(search) {\n  const params = new URLSearchParams(search)\n  const analysis = (params.get(\"analysis\") ?? params.get(\"jlvar_MGYA\") ?? \"MGYA01022557\")\n    .trim().toUpperCase()\n  if (!/^MGYA[0-9]{8}$/.test(analysis)) {\n    throw new Error(\"Invalid analysis accession. Use MGYA followed by eight digits, e.g. ?analysis=MGYA01022557.\")\n  }\n  return analysis\n}\n\nanalysis_accession = readAnalysisAccession(window.location.search)\nhtml`&lt;form method=\"get\" class=\"study-controls\"&gt;\n  &lt;label&gt;Analysis accession\n    &lt;input name=\"analysis\" value=${analysis_accession} pattern=\"MGYA[0-9]{8}\" required&gt;\n  &lt;/label&gt;\n  &lt;button type=\"submit\"&gt;Open analysis&lt;/button&gt;\n&lt;/form&gt;`",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify Antismash clusters in Observable JS"
+    ]
+  },
+  {
+    "objectID": "src/examples/observable-js.html#load-the-antismash-summary",
+    "href": "src/examples/observable-js.html#load-the-antismash-summary",
+    "title": "MGnify Antismash clusters in Observable JS",
+    "section": "Load the Antismash summary",
+    "text": "Load the Antismash summary\nThe analysis metadata identifies the Antismash summary download. We use pako to decompress the gzip file before parsing its TSV contents with D3.\n\nd3 = require(\"d3\")\nanalysis_metadata = await d3.json(\n  `https://www.ebi.ac.uk/metagenomics/api/v2/analyses/${analysis_accession}`\n)\n\nantismash_downloads = analysis_metadata.downloads.filter(\n  d =&gt; d.alias?.endsWith(\"_antismash_summary.tsv.gz\")\n)\nantismash_url = antismash_downloads.length\n  ? antismash_downloads[0].url\n  : (() =&gt; { throw new Error(`No Antismash summary was found for ${analysis_accession}.`) })()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\npako = import(\"https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.esm.mjs\")\n\ncompressed_tsv = new Uint8Array(await fetch(antismash_url).then(response =&gt; {\n  if (!response.ok) throw new Error(`Could not download the Antismash summary (${response.status}).`)\n  return response.arrayBuffer()\n}))\n\ntsv_text = pako.ungzip(compressed_tsv, {to: \"string\"})\n\nclusters = d3.tsvParse(tsv_text, row =&gt; ({\n  label: row.label,\n  description: row.description,\n  count: Number(row.count)\n}))",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify Antismash clusters in Observable JS"
+    ]
+  },
+  {
+    "objectID": "src/examples/observable-js.html#plot-cluster-counts",
+    "href": "src/examples/observable-js.html#plot-cluster-counts",
+    "title": "MGnify Antismash clusters in Observable JS",
+    "section": "Plot cluster counts",
+    "text": "Plot cluster counts\nDrag the slider to hide labels with smaller counts. The labels are sorted by count, matching the chart-style view used for the Antismash pathway system.\n\n\nShow slider and chart code\nviewof minimum_count = Inputs.range(\n  [0, d3.max(clusters, d =&gt; d.count)],\n  {label: \"Minimum count\", step: 1, value: 0}\n)\n\nvisible_clusters = clusters\n  .filter(d =&gt; d.count &gt;= minimum_count)\n  .sort((a, b) =&gt; d3.descending(a.count, b.count) || d3.ascending(a.label, b.label))\n\nchart = {\n  const margin = {top: 20, right: 55, bottom: 35, left: 230}\n  const rowHeight = 28\n  const width = 900\n  const height = Math.max(170, margin.top + margin.bottom + visible_clusters.length * rowHeight)\n  const x = d3.scaleLinear()\n    .domain([0, d3.max(visible_clusters, d =&gt; d.count) || 1])\n    .nice()\n    .range([margin.left, width - margin.right])\n  const y = d3.scaleBand()\n    .domain(visible_clusters.map(d =&gt; d.label))\n    .range([margin.top, height - margin.bottom])\n    .padding(0.2)\n\n  const svg = d3.create(\"svg\")\n    .attr(\"viewBox\", [0, 0, width, height])\n    .attr(\"role\", \"img\")\n    .attr(\"aria-label\", `Antismash cluster counts for ${analysis_accession}`)\n    .style(\"max-width\", \"100%\")\n    .style(\"height\", \"auto\")\n\n  svg.append(\"g\")\n    .attr(\"transform\", `translate(0,${height - margin.bottom})`)\n    .call(d3.axisBottom(x).ticks(Math.min(10, x.ticks().length)).tickFormat(d3.format(\"d\")))\n\n  svg.append(\"g\")\n    .attr(\"transform\", `translate(${margin.left},0)`)\n    .call(d3.axisLeft(y).tickSize(0))\n    .call(g =&gt; g.select(\".domain\").remove())\n\n  svg.append(\"g\")\n    .selectAll(\"rect\")\n    .data(visible_clusters)\n    .join(\"rect\")\n      .attr(\"x\", x(0))\n      .attr(\"y\", d =&gt; y(d.label))\n      .attr(\"width\", d =&gt; x(d.count) - x(0))\n      .attr(\"height\", y.bandwidth())\n      .attr(\"fill\", \"#18974c\")\n    .append(\"title\")\n      .text(d =&gt; `${d.label}: ${d.count}\\n${d.description}`)\n\n  svg.append(\"g\")\n    .selectAll(\"text\")\n    .data(visible_clusters)\n    .join(\"text\")\n      .attr(\"x\", d =&gt; x(d.count) + 6)\n      .attr(\"y\", d =&gt; y(d.label) + y.bandwidth() / 2)\n      .attr(\"dominant-baseline\", \"middle\")\n      .style(\"font-size\", \"12px\")\n      .text(d =&gt; d.count)\n\n  return svg.node()\n}",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify Antismash clusters in Observable JS"
+    ]
+  },
+  {
+    "objectID": "src/examples/python.html",
+    "href": "src/examples/python.html",
+    "title": "MGnify API in Python",
+    "section": "",
+    "text": "Edit and run the cells below, in order. The first visit may take a minute to load. Copy any code you want to keep before leaving or reloading the page.\nimport {readStudyAccession} from \"./study-link.js\"\nstudy_accession = readStudyAccession(window.location.search)\nhtml`&lt;form method=\"get\" class=\"study-controls\"&gt;\n  &lt;label&gt;Study accession\n    &lt;input name=\"study\" value=${study_accession} pattern=\"MGYS[0-9]{8}\" required&gt;\n  &lt;/label&gt;\n  &lt;button type=\"submit\"&gt;Open study&lt;/button&gt;\n&lt;/form&gt;`",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in Python"
+    ]
+  },
+  {
+    "objectID": "src/examples/python.html#set-up",
+    "href": "src/examples/python.html#set-up",
+    "title": "MGnify API in Python",
+    "section": "Set up",
+    "text": "Set up\nThe study accession comes from the box above.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in Python"
+    ]
+  },
+  {
+    "objectID": "src/examples/python.html#get-a-study",
+    "href": "src/examples/python.html#get-a-study",
+    "title": "MGnify API in Python",
+    "section": "Get a study",
+    "text": "Get a study\nA study groups related samples and analyses. Retrieve its title and biome:",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in Python"
+    ]
+  },
+  {
+    "objectID": "src/examples/python.html#list-its-analyses",
+    "href": "src/examples/python.html#list-its-analyses",
+    "title": "MGnify API in Python",
+    "section": "List its analyses",
+    "text": "List its analyses\nList responses contain items and a total count. Fetch the first 20 analyses; change page=1 to page=2 to get the next page.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in Python"
+    ]
+  },
+  {
+    "objectID": "src/examples/python.html#inspect-an-analysis",
+    "href": "src/examples/python.html#inspect-an-analysis",
+    "title": "MGnify API in Python",
+    "section": "Inspect an analysis",
+    "text": "Inspect an analysis\nChoose the first analysis, or replace ANALYSIS with another accession from the list. Its detail record includes the available result files.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in Python"
+    ]
+  },
+  {
+    "objectID": "src/examples/python.html#read-a-result-table",
+    "href": "src/examples/python.html#read-a-result-table",
+    "title": "MGnify API in Python",
+    "section": "Read a result table",
+    "text": "Read a result table\nFor this analysis, load the Pfam domain-count summary into pandas. Other analyses may have different files; use the descriptions above to choose a result.\n\n\n\n\n\n\nThe download is a gzip-compressed TSV. compression=\"gzip\" decompresses it before pandas reads the columns. Choose small summaries when working in your browser.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in Python"
+    ]
+  },
+  {
+    "objectID": "src/examples/python.html#explore-the-counts",
+    "href": "src/examples/python.html#explore-the-counts",
+    "title": "MGnify API in Python",
+    "section": "Explore the counts",
+    "text": "Explore the counts\nShow the ten most frequent Pfam domains. Try changing 10 to 20.",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in Python"
+    ]
+  },
+  {
+    "objectID": "src/examples/python.html#running-this-code-in-your-own-environment",
+    "href": "src/examples/python.html#running-this-code-in-your-own-environment",
+    "title": "MGnify API in Python",
+    "section": "Running this code in your own environment",
+    "text": "Running this code in your own environment\nInstall the packages from a terminal:\npython -m pip install pandas requests\nCopy the Python cells into a notebook or script, replacing STUDY = study_accession with STUDY = \"MGYS00010393\" (or your chosen accession).",
+    "crumbs": [
+      "Open MGnify",
+      "API code examples",
+      "MGnify API in Python"
     ]
   }
 ]

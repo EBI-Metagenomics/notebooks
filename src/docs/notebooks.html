@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="MGnify">
-<meta name="dcterms.date" content="2026-09-09">
-<meta name="description" content="Using MGnify’s Jupyter Notebooks to explore and access data programatically">
+<meta name="dcterms.date" content="2026-09-17">
+<meta name="description" content="Python and R examples for MGnify API v2, replacing the hosted notebooks.">
 
-<title>MGnify notebooks servers – MGnify Resources</title>
+<title>MGnify code examples – MGnify Resources</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -49,7 +49,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3da984f748224b1e0cd87e13b5fdabc6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-33a6d582de5a678b2fc25f80acdf6d9a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-a699ee838fea8ef6c84aa9785613f8c7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -117,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">MGnify notebooks servers</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">MGnify code examples</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -230,6 +230,59 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../src/examples/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">API code examples</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify API in Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/mgnipy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python with MGnipy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify API in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/observable-js.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Antismash clusters in Observable JS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/atlanteco_samples_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Map AtlantECO samples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/download-csv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download analyses as CSV</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/examples/pathways.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pathways Explorer in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../src/docs/mgnify-genomes.html" class="sidebar-item-text sidebar-link">
@@ -240,11 +293,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="../../src/docs/mgnify-proteins.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MGnify Proteins</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../src/docs/mgnify-proteins-web.html" class="sidebar-item-text sidebar-link">
@@ -294,65 +347,37 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#a-jupyter-lab-environment-for-the-mgnify-api" id="toc-a-jupyter-lab-environment-for-the-mgnify-api" class="nav-link active" data-scroll-target="#a-jupyter-lab-environment-for-the-mgnify-api">A Jupyter Lab environment for the MGnify API</a>
-  <ul class="collapse">
-  <li><a href="#short-video-tutorial" id="toc-short-video-tutorial" class="nav-link" data-scroll-target="#short-video-tutorial">Short video tutorial</a></li>
-  </ul></li>
-  <li><a href="#where-to-run-the-notebooks" id="toc-where-to-run-the-notebooks" class="nav-link" data-scroll-target="#where-to-run-the-notebooks">Where to run the notebooks</a>
-  <ul class="collapse">
-  <li><a href="#the-notebooks.mgnify.org-resource" id="toc-the-notebooks.mgnify.org-resource" class="nav-link" data-scroll-target="#the-notebooks.mgnify.org-resource">The notebooks.mgnify.org resource</a></li>
-  <li><a href="#the-galaxy-europe-server" id="toc-the-galaxy-europe-server" class="nav-link" data-scroll-target="#the-galaxy-europe-server">The Galaxy Europe server</a></li>
-  </ul></li>
-  <li><a href="#use-cases-for-the-notebooks-server" id="toc-use-cases-for-the-notebooks-server" class="nav-link" data-scroll-target="#use-cases-for-the-notebooks-server">Use cases for the Notebooks Server</a></li>
-  <li><a href="#mgnifyr-an-r-package-for-accessing-mgnify" id="toc-mgnifyr-an-r-package-for-accessing-mgnify" class="nav-link" data-scroll-target="#mgnifyr-an-r-package-for-accessing-mgnify">MGnifyR: an R package for accessing MGnify</a></li>
-  <li><a href="#using-a-jupyter-notebook" id="toc-using-a-jupyter-notebook" class="nav-link" data-scroll-target="#using-a-jupyter-notebook">Using a Jupyter Notebook</a></li>
-  <li><a href="#jumping-to-a-notebook-from-the-mgnify-website" id="toc-jumping-to-a-notebook-from-the-mgnify-website" class="nav-link" data-scroll-target="#jumping-to-a-notebook-from-the-mgnify-website">Jumping to a Notebook from the MGnify website</a></li>
-  <li><a href="#using-the-notebooks-on-your-own-computer-instead" id="toc-using-the-notebooks-on-your-own-computer-instead" class="nav-link" data-scroll-target="#using-the-notebooks-on-your-own-computer-instead">Using the notebooks on your own computer instead</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/notebooks.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">MGnify notebooks servers</h1>
+<h1 class="title">MGnify code examples</h1>
 </div>
 
 <div>
   <div class="description">
-    Using MGnify’s Jupyter Notebooks to explore and access data programatically
+    Python and R examples for MGnify API v2, replacing the hosted notebooks.
   </div>
 </div>
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author"><a href="https://www.ebi.ac.uk/metagenomics">MGnify</a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            <a href="https://www.ebi.ac.uk">
-            EMBL-EBI
-            </a>
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p><a href="https://www.ebi.ac.uk/metagenomics">MGnify</a> </p>
+          </div>
+  </div>
+    
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 9, 2026</p>
+      <p class="date">September 17, 2026</p>
     </div>
   </div>
   
@@ -364,122 +389,20 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="a-jupyter-lab-environment-for-the-mgnify-api" class="level2">
-<h2 class="anchored" data-anchor-id="a-jupyter-lab-environment-for-the-mgnify-api">A Jupyter Lab environment for the MGnify API</h2>
-<section id="short-video-tutorial" class="level3">
-<h3 class="anchored" data-anchor-id="short-video-tutorial">Short video tutorial</h3>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/B8rw7GTX9GQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
-</iframe>
-<p><a href="https://youtu.be/B8rw7GTX9GQ">View on YouTube</a>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Available notebooks
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This website contains <a href="../notebooks_list.qmd">previews of the available notebooks</a>. There are examples in both Python and R.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="where-to-run-the-notebooks" class="level2">
-<h2 class="anchored" data-anchor-id="where-to-run-the-notebooks">Where to run the notebooks</h2>
-<p>The notebooks can be run on <a href="http://notebooks.mgnify.org">notebooks.mgnify.org</a> (hosted by EMBL; no login required) or on <a href="https://usegalaxy.eu/root?tool_id=interactive_tool_mgnify_notebook">Galaxy Europe</a> (login required).</p>
-<section id="the-notebooks.mgnify.org-resource" class="level3">
-<h3 class="anchored" data-anchor-id="the-notebooks.mgnify.org-resource">The notebooks.mgnify.org resource</h3>
-<p>The <a href="https://shiny-portal.embl.de/shinyapps/app/06_mgnify-notebook-lab?jlpath=mgnify-examples/home.ipynb">MGnify Notebooks Server</a> is a <a href="https://jupyter.org">Jupyter Lab</a> environment for doing data analysis online.</p>
-<p>You don’t need to install anything – it is hosted by <a href="https://www.embl.org/research/units/cell-biology-biophysics/cbbcs/">EMBL’s Cell Biology &amp; Biophysics Unit</a> and you use it in your web browser.</p>
-<p>No account is required, but your data and the state of your notebooks will be erased after a short period of inactivity.</p>
-<div id="fig-notebooks-home" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-notebooks-home-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/notebooks/notebooks-home.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-notebooks-home-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: The default “Home” notebook of the <a href="https://shiny-portal.embl.de/shinyapps/app/06_mgnify-notebook-lab?jlpath=mgnify-examples/home.ipynb">MGnify Notebooks Server</a>
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="the-galaxy-europe-server" class="level3">
-<h3 class="anchored" data-anchor-id="the-galaxy-europe-server">The Galaxy Europe server</h3>
-<p>Galaxy is a platform for FAIR data analysis. The MGnify notebooks are <a href="https://usegalaxy.eu/root?tool_id=interactive_tool_mgnify_notebook">available on the Galaxy Europe server as an “interactive tool”</a>. You need an account (free) and to login to be allocated the compute resources to use the tool there. Because of this, the notebooks hosted on Galaxy Europe are not directly linked from data objects on the MGnify website.</p>
-<p>Your data and notebook state is persistent on Galaxy – you can save and resume your work later.</p>
-</section>
-</section>
-<section id="use-cases-for-the-notebooks-server" class="level2">
-<h2 class="anchored" data-anchor-id="use-cases-for-the-notebooks-server">Use cases for the Notebooks Server</h2>
-<p>Programmatic access to MGnify data resources is done via the <a href="../../src/docs/api.html">the API</a>.</p>
-<p>The Notebooks are useful if you’re just <strong>starting to explore the API</strong> and are looking for code examples to get started.</p>
-<p>They are also useful if you only need to access a few pieces of data and so <strong>don’t want to install anything</strong> to get what you need.</p>
-<p>There are examples in <a href="https://shiny-portal.embl.de/shinyapps/app/06_mgnify-notebook-lab?jlpath=mgnify-examples/Python%20Examples">Python</a> and in the <a href="https://shiny-portal.embl.de/shinyapps/app/06_mgnify-notebook-lab?jlpath=mgnify-examples/R%20Examples">R language</a>.</p>
-</section>
-<section id="mgnifyr-an-r-package-for-accessing-mgnify" class="level2">
-<h2 class="anchored" data-anchor-id="mgnifyr-an-r-package-for-accessing-mgnify">MGnifyR: an R package for accessing MGnify</h2>
-<p>The Notebooks include code examples written using <a href="https://github.com/beadyallen/MGnifyR/">MGnifyR</a>, an R package with convenience wrappers around the MGnify API, as well as recipes for cross-study analysis.</p>
-<p>MGnifyR is already installed on the Notebook Server, so you can try it out straight away.</p>
-<p>Take a look at <a href="https://shiny-portal.embl.de/shinyapps/app/06_mgnify-notebook-lab?jlpath=mgnify-examples/R%20Examples/Cross-study%20analysis.ipynb">this cross-study analysis example</a>.</p>
-</section>
-<section id="using-a-jupyter-notebook" class="level2">
-<h2 class="anchored" data-anchor-id="using-a-jupyter-notebook">Using a Jupyter Notebook</h2>
-<p>A Jupyter Notebook is an interactive coding document. It is based on cells (as in blocks of content). Some cells are just text, and some contain code.</p>
-<p>In our examples, there are text cells to explain what we’re doing, and code cells with example code that you can run.</p>
-<p>Any output from the code will be printed directly below the code cell.</p>
-<p>Only one cells runs at a time, so you can step through a notebook to step through a workflow.</p>
-<p><strong>Each example notebook we provide should run without any changes needed.</strong> You are free to change these as you wish – you’re working on a copy of the examples.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Unless you’re using the notebooks on Galaxy, when you leave your computer for a while or close the website your Jupyter Lab instance will end. Your work usually won’t be saved so make sure you download anything you need to keep before finishing.</p>
-</div>
-</div>
-</section>
-<section id="jumping-to-a-notebook-from-the-mgnify-website" class="level2">
-<h2 class="anchored" data-anchor-id="jumping-to-a-notebook-from-the-mgnify-website">Jumping to a Notebook from the MGnify website</h2>
-<div id="fig-notebooks-deeplink" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-notebooks-deeplink-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/notebooks/website-programmatic-access-box.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-notebooks-deeplink-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: There are deep-links to some Notebooks from the <a href="../../src/docs/portal.html">MGnify website</a>
-</figcaption>
-</figure>
-</div>
-<p>Some resource views on the MGnify website show a “Programmatic access” banner. This lists the <a href="../../src/docs/api.html">API</a> URL for the resource, as well as links to any Notebooks that help you consume that API endpoint.</p>
-<p>For example, opening a <a href="../../src/docs/glossary.html#study">Study</a> in R or Python means opening a Notebook on our server with example code to read in that study.</p>
-<p>These are <a href="https://en.wikipedia.org/wiki/Deep_linking">deep links</a>, in that following them means the Notebook will already know the Study Accession (ID) you are interested in.</p>
-</section>
-<section id="using-the-notebooks-on-your-own-computer-instead" class="level2">
-<h2 class="anchored" data-anchor-id="using-the-notebooks-on-your-own-computer-instead">Using the notebooks on your own computer instead</h2>
-<p>The <a href="https://github.com/ebi-Metagenomics/notebooks/">code for our notebooks</a> is open source and available on GitHub.</p>
-<p>The notebook server is <a href="https://www.docker.com/resources/what-container">containerised with Docker</a>, making <a href="https://github.com/EBI-Metagenomics/notebooks#running-shinyproxy">installation</a> fairly simple.</p>
-<p>You can also simply copy <a href="https://github.com/EBI-Metagenomics/notebooks/tree/main/notebooks-src/notebooks">the notebooks themselves</a> from GitHub, but you will have to <a href="https://github.com/EBI-Metagenomics/notebooks/tree/main/dependencies">install the dependencies</a> using e.g.&nbsp;<a href="https://docs.conda.io/en/latest/miniconda.html">Conda</a>.</p>
+<p>Edit and run small <a href="../../src/examples/index.html">API v2 examples</a> directly in your browser:</p>
+<ul>
+<li><a href="../../src/examples/python.html">Python with requests and pandas</a></li>
+<li><a href="../../src/examples/r.html">R with jsonlite and base R</a></li>
+<li><a href="../../src/examples/download-csv.html">Download analyses as CSV</a></li>
+<li><a href="../../src/examples/atlanteco_samples_map.html">Map AtlantECO samples</a></li>
+</ul>
+<p>For the MGnipy Python client, see the <a href="../../src/examples/mgnipy.html">introduction and demo</a>.</p>
+<p>The browser pages use WebAssembly and do not start a server-side notebook kernel. They support study metadata, paginated analyses, analysis detail and a small result table. Open the introductory Python or R page with <code>?study=MGYS00010393</code> to initialise a specific study. Browser edits and variables disappear when you reload the page.</p>
+<p>The historical notebooks are retained in the <a href="https://github.com/EBI-Metagenomics/notebooks/tree/main/notebooks_archive">source repository</a> as non-functional historical material. For larger analyses, use local Python and the <a href="https://mgnipy.mgnify.org/">MGnipy documentation</a>.</p>
 
 
-</section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{2026,
-  author = {, MGnify},
-  title = {MGnify Notebooks Servers},
-  date = {2026-09-09},
-  url = {https://docs.mgnify.org/src/docs/notebooks.html},
-  langid = {en}
-}
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
-MGnify. 2026. <span>“MGnify Notebooks Servers.”</span> September 9. <a href="https://docs.mgnify.org/src/docs/notebooks.html">https://docs.mgnify.org/src/docs/notebooks.html</a>.
-</div></div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -885,4 +808,4 @@ MGnify. 2026. <span>“MGnify Notebooks Servers.”</span> September 9. <a href=
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/notebooks.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/notebooks.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

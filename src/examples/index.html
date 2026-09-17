@@ -6,11 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="MGnify">
-<meta name="dcterms.date" content="2026-09-17">
-<meta name="description" content="Guide to using MGnify’s Protein Database sequence search service">
+<meta name="description" content="Explore MGnify studies, analyses and results with Python and R.">
 
-<title>Sequence search – MGnify Resources</title>
+<title>API examples – MGnify Resources</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,41 +27,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -74,8 +37,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../src/docs/mgnify-proteins-big-query.html" rel="next">
-<link href="../../src/docs/mgnify-proteins-web.html" rel="prev">
+<link href="../../src/examples/python.html" rel="next">
+<link href="../../src/docs/ftp.html" rel="prev">
 <link href="../../src/static-resources/mgnify_logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -154,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../src/docs/mgnify-proteins.html">MGnify Proteins</a></li><li class="breadcrumb-item"><a href="../../src/docs/mgnify-proteins-sequence-search.html">Sequence search</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../src/examples/index.html">API code examples</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -269,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../src/examples/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../src/examples/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">API code examples</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -343,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence search</span></a>
   </div>
 </li>
@@ -384,59 +347,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#landing-page" id="toc-landing-page" class="nav-link active" data-scroll-target="#landing-page">Landing page</a></li>
-  <li><a href="#result-page" id="toc-result-page" class="nav-link" data-scroll-target="#result-page">Result page</a></li>
-  <li><a href="#build-process" id="toc-build-process" class="nav-link" data-scroll-target="#build-process">Build process</a></li>
-  <li><a href="#partial-and-full-length-peptides" id="toc-partial-and-full-length-peptides" class="nav-link" data-scroll-target="#partial-and-full-length-peptides">Partial and full length peptides</a></li>
-  <li><a href="#availability" id="toc-availability" class="nav-link" data-scroll-target="#availability">Availability</a></li>
-  <li><a href="#further-information" id="toc-further-information" class="nav-link" data-scroll-target="#further-information">Further information</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/mgnify-proteins-sequence-search.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../src/docs/mgnify-proteins.html">MGnify Proteins</a></li><li class="breadcrumb-item"><a href="../../src/docs/mgnify-proteins-sequence-search.html">Sequence search</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Sequence search</h1>
+<h1 class="title">API examples</h1>
 </div>
 
 <div>
   <div class="description">
-    Guide to using MGnify’s Protein Database sequence search service
+    Explore MGnify studies, analyses and results with Python and R.
   </div>
 </div>
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author"><a href="https://www.ebi.ac.uk/metagenomics">MGnify</a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            <a href="https://www.ebi.ac.uk">
-            EMBL-EBI
-            </a>
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">September 17, 2026</p>
-    </div>
-  </div>
+    
   
     
   </div>
@@ -446,119 +377,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="landing-page" class="level2">
-<h2 class="anchored" data-anchor-id="landing-page">Landing page</h2>
-<p>The sequence search (accessed by following the ‘Sequence search’ link from the MGnify web page menu bar) provides a search against a catalogue of predicted peptides.</p>
-<div id="fig-sequence-search-landing" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sequence-search-landing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/sequence_search/sequence_search_landing-v5.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sequence-search-landing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: The landing page of the sequence search tool
-</figcaption>
-</figure>
-</div>
-<p>These sequences comprise a non-redundant set of proteins predicted from contigs that have been assembled from sequencing runs. The HMMER search engine has been adapted to provide fast searches against this database. The results can be linked back to the sample and run from which the peptide was derived and also to sequences with an exact match in the UniProtKB database.</p>
-<p>Owing to the large size of the database we are not able to offer a search against the full set of proteins. Instead, we have applied a clustering algorithm which groups sequences into clusters based on similarity. The clusters each have a ‘representative sequence’ and it is these that are offered in the search, though the full set of proteins may be obtained from our <a href="ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database">FTP server</a>.</p>
-<p>The search takes a FASTA-formatted amino acid sequence.</p>
-<div id="fig-sequence-search-input" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sequence-search-input-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/sequence_search/sequence_search_input_seq-v5.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sequence-search-input-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Example of a well-formatted input sequence
-</figcaption>
-</figure>
-</div>
-<p>You can search against all of the sequences in the database (‘All’), or restrict your search to full length sequences, or partial sequences only (see Partial and full length peptides). Alternatively, you may choose to search from a subset of environments or biomes. Sequences observed in multiple runs may be found in more than one biome. ‘Other’ sequences are those found in none of the other environment or biome categories.</p>
-<div id="fig-sequence-search-db-select" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sequence-search-db-select-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/sequence_search/sequence_search_db_select-v5.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sequence-search-db-select-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: How to select the peptide database to search against
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="result-page" class="level2">
-<h2 class="anchored" data-anchor-id="result-page">Result page</h2>
-<p>On completion, a list of matching sequences is shown in order of E-value significance. All sequences in the database have a stable MGYP accession. Additional columns, such as the mapping to UniProtKB identifiers, can be enabled by clicking ‘Customise’ on the results page and checking the appropriate boxes.</p>
-<div id="fig-sequence-search-result-custom" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sequence-search-result-custom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/sequence_search/sequence_search_result_custom2.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sequence-search-result-custom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Different features on the result page after triggering a sequence search
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="build-process" class="level2">
-<h2 class="anchored" data-anchor-id="build-process">Build process</h2>
-<p>The database is updated periodically and is created as follows:</p>
+<p>Find a study, list its analyses, and load a Pfam result into a data frame. Choose an example to get started:</p>
 <ul>
-<li><p>Short reads from runs are assembled into contigs using an assembler, such as metaSPAdes</p></li>
-<li><p>Contigs are filtered by length (minimum 500 base pairs)</p></li>
-<li><p>Peptides are predicted using the Prodigal gene caller</p></li>
-<li><p>Resulting peptides are made non-redundant to produce a set of unique sequences</p></li>
-<li><p>Sequences are mapped back to MGnify run and sample accessions and annotated with biome(s)</p></li>
-<li><p>Matching sequences in UniProtKB are identified</p></li>
-<li><p>Sequences are clustered using MMseqs2/Linclust</p></li>
+<li><p><a href="../../src/examples/python.html">Python with requests and pandas</a> — edit and run in your browser.</p></li>
+<li><p><a href="../../src/examples/r.html">R with jsonlite</a> — edit and run in your browser.</p></li>
+<li><p><a href="../../src/examples/observable-js.html">Observable JS with D3</a> — plot Antismash cluster counts for an analysis.</p></li>
+<li><p><a href="../../src/examples/mgnipy.html">Python with MGnipy</a> — a quick introduction and an interactive demo.</p></li>
+<li><p><a href="../../src/examples/download-csv.html">Download analyses as CSV</a> — save a study’s analyses to your computer.</p></li>
+<li><p><a href="../../src/examples/atlanteco_samples_map.html">Map AtlantECO samples</a> — explore sample locations in Python.</p></li>
+<li><p><a href="../../src/examples/pathways.html">Pathways Explorer in R</a> — explore module completeness and detected functions.</p></li>
 </ul>
-<!-- * Domain architectures are identified using the Pfam database -->
-<p>Each update (versioned using the release year/month) is cumulative and uses all predicted peptides available at that time.</p>
-</section>
-<section id="partial-and-full-length-peptides" class="level2">
-<h2 class="anchored" data-anchor-id="partial-and-full-length-peptides">Partial and full length peptides</h2>
-<p>In common with some other protein coding sequence predictors, <a href="https://github.com/hyattpd/prodigal/wiki/introduction">Prodigal</a> provides an indication as to whether a gene is full length or extends beyond the contig. This is recorded as two digits (one for each end of the sequence), each of which is either 0 (the gene is encoded within the contig) or 1 (it extends beyond). Thus a full length sequence is described as ‘00’ and a partial as ‘11’. The values ‘10’ or ‘01’ are used for the cases where the gene is truncated only at one end.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>seq_1 <span class="co"># 3 # 371 # 1 # ID=1_1;partial=10;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.501</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">SEGCEYLAAYLDKRIASGETINESSAVMTLSQGYLMKGRNKDAGKKFITTPAITKEIREA</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">QT</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>seq_2 <span class="co"># 4738 # 5193 # -1 # ID=1_9;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.568</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">MSAYWYAVIWGGSFGAVLAAAGPRFRKAIPAIRGRMKNSIKWSTSAKAINGISWAGPFAA</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">QT</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>seq_3 <span class="co"># 7546 # 8232 # -1 # ID=1_11;partial=00;start_type=TTG;rbs_motif=GGAG/GAGG;rbs_spacer=5-10bp;gc_cont=0.541</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">MKKKVLSIQNIACETLGTLEGMFRKDGLEVENVSAQEGGIPIKSSEYSAVVVLGGPMAVY</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">QT</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>seq_4 <span class="co"># 32 # 103 # -1 # ID=37115_1;partial=01;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.542</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">WILDGIDIDAMIRHPVRQYQIAG</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="availability" class="level2">
-<h2 class="anchored" data-anchor-id="availability">Availability</h2>
-<p>As well as searches via a web server, we provide all data for download from our <a href="ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database">FTP server</a>. This includes the sequence database (separate fasta files for the full database and cluster representatives); run, sample, biome, Swiss-Prot and TrEMBL mappings; the partial status of the sequences and counts of the number of times each sequence was observed in the database as a whole.</p>
-<div id="fig-sequence-ftp" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-sequence-ftp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/sequence_search/sequence_search_ftp.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sequence-ftp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: List of available files on the FTP server
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="further-information" class="level2">
-<h2 class="anchored" data-anchor-id="further-information">Further information</h2>
-<p><a href="https://hmmer-web-docs.readthedocs.io/en/latest/">Full documentation</a> regarding the HMMER webserver is available. Note that some of the documented features (such as the taxonomy view) are not relevant to the peptide search and are therefore disabled. If there are additional features or feedback on this search service, please get in <a href="https://www.ebi.ac.uk/support/metagenomics">contact with us</a>.</p>
+<p>The introductory Python and R examples start with <a href="https://www.ebi.ac.uk/metagenomics/studies/MGYS00010393/overview">an Antarctic soil assembly study</a>, but can be used with any public MGnify study.</p>
 
 
-</section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{2026,
-  author = {, MGnify},
-  title = {Sequence Search},
-  date = {2026-09-17},
-  url = {https://docs.mgnify.org/src/docs/mgnify-proteins-sequence-search.html},
-  langid = {en}
-}
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
-MGnify. 2026. <span>“Sequence Search.”</span> September 17. <a href="https://docs.mgnify.org/src/docs/mgnify-proteins-sequence-search.html">https://docs.mgnify.org/src/docs/mgnify-proteins-sequence-search.html</a>.
-</div></div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -961,13 +794,13 @@ MGnify. 2026. <span>“Sequence Search.”</span> September 17. <a href="https:/
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../src/docs/mgnify-proteins-web.html" class="pagination-link" aria-label="Portal">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Portal</span>
+      <a href="../../src/docs/ftp.html" class="pagination-link" aria-label="Transfer Services (FTP) file server">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Transfer Services (FTP) file server</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../src/docs/mgnify-proteins-big-query.html" class="pagination-link" aria-label="Big Query public dataset">
-        <span class="nav-page-text">Big Query public dataset</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../src/examples/python.html" class="pagination-link" aria-label="MGnify API in Python">
+        <span class="nav-page-text">MGnify API in Python</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -976,4 +809,4 @@ MGnify. 2026. <span>“Sequence Search.”</span> September 17. <a href="https:/
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/mgnify-proteins-sequence-search.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/examples/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
