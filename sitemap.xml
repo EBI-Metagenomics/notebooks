@@ -2,110 +2,110 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://docs.mgnify.org/src/examples/r.html</loc>
-    <lastmod>2026-09-17T12:48:37.118Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.684Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/examples/pathways.html</loc>
-    <lastmod>2026-09-17T12:48:37.118Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.684Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/examples/mgnipy.html</loc>
-    <lastmod>2026-09-17T12:48:37.118Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.684Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/examples/download-csv.html</loc>
-    <lastmod>2026-09-17T12:48:37.118Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.684Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/mgnify-proteins.html</loc>
-    <lastmod>2026-09-17T12:48:37.117Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.683Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/mgnify-proteins-contig-sequences.html</loc>
-    <lastmod>2026-09-17T12:48:37.116Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.683Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/tutorials.html</loc>
-    <lastmod>2026-09-17T12:48:37.117Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.683Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/notebooks.html</loc>
-    <lastmod>2026-09-17T12:48:37.117Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.683Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/mgnify-proteins-web.html</loc>
-    <lastmod>2026-09-17T12:48:37.117Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.683Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/mgnify-genomes.html</loc>
-    <lastmod>2026-09-17T12:48:37.116Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.683Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/ftp.html</loc>
-    <lastmod>2026-09-17T12:48:37.066Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.643Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/dataflow.html</loc>
-    <lastmod>2026-09-17T12:48:37.066Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.643Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/analysis.html</loc>
-    <lastmod>2026-09-17T12:48:37.066Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.643Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs.html</loc>
-    <lastmod>2026-09-17T12:48:37.065Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.642Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/about.html</loc>
-    <lastmod>2026-09-17T12:48:37.065Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.643Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/api.html</loc>
-    <lastmod>2026-09-17T12:48:37.066Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.643Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/faqs.html</loc>
-    <lastmod>2026-09-17T12:48:37.066Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.643Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/glossary.html</loc>
-    <lastmod>2026-09-17T12:48:37.066Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.643Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/mgnify-proteins-sequence-search.html</loc>
-    <lastmod>2026-09-17T12:48:37.117Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.683Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/multiomics_submission.html</loc>
-    <lastmod>2026-09-17T12:48:37.117Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.683Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/portal.html</loc>
-    <lastmod>2026-09-17T12:48:37.117Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.683Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/mgnify-proteins-big-query.html</loc>
-    <lastmod>2026-09-17T12:48:37.116Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.683Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/docs/mgnify-proteins-parquet-queries.html</loc>
-    <lastmod>2026-09-17T12:48:37.116Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.683Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/examples/atlanteco_samples_map.html</loc>
-    <lastmod>2026-09-17T12:48:37.118Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.684Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/examples/index.html</loc>
-    <lastmod>2026-09-17T12:48:37.118Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.684Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/examples/observable-js.html</loc>
-    <lastmod>2026-09-17T12:48:37.118Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.684Z</lastmod>
   </url>
   <url>
     <loc>https://docs.mgnify.org/src/examples/python.html</loc>
-    <lastmod>2026-09-17T12:48:37.118Z</lastmod>
+    <lastmod>2026-09-17T12:50:20.684Z</lastmod>
   </url>
 </urlset>
