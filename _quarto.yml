@@ -4,12 +4,10 @@ project:
         - src/docs.qmd
         - src/docs/*.md
         - src/docs/*.qmd
+        - src/examples/*.qmd
 
 execute:
     freeze: auto
-
-ipynb-filters:
-    - src/templates/notebook-static-preview.py
 
 website:
     title: MGnify Resources
@@ -24,8 +22,6 @@ website:
         right:
             - href: https://www.ebi.ac.uk/metagenomics
               text: Open MGnify
-            # - href: https://usegalaxy.eu/root?tool_id=interactive_tool_mgnify_notebook
-              # text: Run notebooks on Galaxy
             - href: https://status.mgnify.org
               text: Service status
 
@@ -47,6 +43,16 @@ website:
               - src/docs/portal.md
               - src/docs/api.md
               - src/docs/ftp.md
+            - section: "API code examples"
+              href: src/examples/index.qmd
+              contents:
+              - src/examples/python.qmd
+              - src/examples/mgnipy.qmd
+              - src/examples/r.qmd
+              - src/examples/observable-js.qmd
+              - src/examples/atlanteco_samples_map.qmd
+              - src/examples/download-csv.qmd
+              - src/examples/pathways.qmd
             - href: src/docs/mgnify-genomes.md
             - section: "MGnify Proteins"
               href: src/docs/mgnify-proteins.qmd
@@ -76,3 +82,4 @@ format:
             - src/static-resources/styles.scss
         toc: true
         code-overflow: wrap
+        code-copy: true

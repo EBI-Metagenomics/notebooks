@@ -1,0 +1,5 @@
+execute:
+  enabled: false
+  freeze: false
+resources:
+  - study-link.js

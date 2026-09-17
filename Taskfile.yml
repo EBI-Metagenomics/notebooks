@@ -1,111 +1,23 @@
 version: '3'
 
-env:
-  NB_DOCKER_EXE: "docker"
-
 tasks:
-  add-py-notebook:
-    summary: |
-      Creates a new Python-language notebook stub from a template.
-
-      Set the TITLE and AUTHOR variables, which are used to name
-      the notebook file and set them in the notebook front matter.
-
-      Usage: TITLE='Notebook Name' AUTHOR='Your Name' task add-py-notebook
-    cmds:
-      - cp src/templates/python.ipynb "src/notebooks/Python Examples/{{.TITLE}}.ipynb"
-      - sed -i '' 's/::NBTITLE::/{{.TITLE}}/g' "src/notebooks/Python Examples/{{.TITLE}}.ipynb"
-      - sed -i '' 's/::NBAUTHOR::/{{.AUTHOR}}/g' "src/notebooks/Python Examples/{{.TITLE}}.ipynb"
-    preconditions:
-      - sh: test -n "{{.TITLE}}"
-        msg: "TITLE parameter missing. Set: TITLE='Notebook Name' AUTHOR='Your Name' task add-py-notebook"
-      - sh: test -n "{{.AUTHOR}}"
-        msg: "AUTHOR parameter missing. Set: TITLE='Notebook Name' AUTHOR='Your Name' task add-py-notebook"
-
-  add-r-notebook:
-    summary: |
-      Creates a new R-language notebook stub from a template.
-
-      Set the TITLE and AUTHOR variables, which are used to name
-      the notebook file and set them in the notebook front matter.
-
-      Usage: TITLE='Notebook Name' AUTHOR='Your Name' task add-r-notebook
-    cmds:
-      - cp src/templates/r.ipynb "src/notebooks/R Examples/{{.TITLE}}.ipynb"
-      - sed -i '' 's/::NBTITLE::/{{.TITLE}}/g' "src/notebooks/R Examples/{{.TITLE}}.ipynb"
-      - sed -i '' 's/::NBAUTHOR::/{{.AUTHOR}}/g' "src/notebooks/R Examples/{{.TITLE}}.ipynb"
-    preconditions:
-      - sh: test -n "{{.TITLE}}"
-        msg: "TITLE parameter missing. Set: TITLE='Notebook Name' AUTHOR='Your Name' task add-r-notebook"
-      - sh: test -n "{{.AUTHOR}}"
-        msg: "AUTHOR parameter missing. Set: TITLE='Notebook Name' AUTHOR='Your Name' task add-r-notebook"
-
-  edit-notebooks:
-    summary: |
-      Opens Jupyter Lab (via Docker) in edit mode – with the notebooks source bound to this repository
-
-      The files in src/notebooks are mounted as editable, and served on port 8888.
-    cmds:
-      - $NB_DOCKER_EXE run -it -v $PWD/src/notebooks:/home/jovyan/mgnify-examples -p 8888:8888 quay.io/microbiome-informatics/emg-notebooks.dev:latest
-
-  build-notebook-docker:
-    summary: |
-      Builds a docker image with the Notebooks Server, locally.
-
-      Useful if you're developing the Jupyter extensions, installing new R/Python packages to the conda envs etc.
-
-      NOT needed if you're just editing/adding notebooks with no additional dependencies.
-    cmds:
-      - $NB_DOCKER_EXE build --load -f docker/Dockerfile -t quay.io/microbiome-informatics/emg-notebooks.dev:latest .
-
-  build-static-docker:
-    summary: |
-      Builds a docker image with Quarto included, for statically rendering the notebook outputs.
-
-      The built image is tagged as `notebooks-static`.
-    cmds:
-      - $NB_DOCKER_EXE build --load -f docker/docs.Dockerfile -t notebooks-static .
-    sources:
-      - docker/docs.Dockerfile
-      - docker/Dockerfile
-
   render-static:
-    summary: |
-      Runs and renders the notebooks as a static website
-
-      The site is built to ./_site
+    desc: Render documentation and WASM examples without executing Python or R
     cmds:
-      - $NB_DOCKER_EXE run -it -v $PWD:/opt/repo -w /opt/repo notebooks-static render --execute
-    deps: [build-static-docker]
-    sources:
-      - src/**/*
-
-  serve-static:
-    summary: |
-      Serves the rendered notebooks and documentation as a static website
-
-      This serves the contents of ./_site
-    cmds:
-      - echo "Browse to http://127.0.0.1:4444"
-      - $NB_DOCKER_EXE run -it -v $PWD:/opt/repo -w /opt/repo/_site -p 4444:4444 --entrypoint python notebooks-static -m http.server 4444
-    deps: [render-static]
+      - quarto render
 
   preview-static:
-    summary: |
-      Runs, renders, and serves the notebooks as a static website, watching for changes
+    desc: Preview the static site and watch for changes
     cmds:
-      - echo 'When the rendering is finished, the static preview of notebooks will be at http://127.0.0.1:4444 ...'
-      - $NB_DOCKER_EXE run -it -v $PWD:/opt/repo -w /opt/repo -p 4444:4444 notebooks-static preview --no-browser --port 4444 --host 0.0.0.0
-    deps: [build-static-docker]
+      - quarto preview --no-browser --port 9000 --host localhost
 
-  update-mgnifyr-cache:
-    summary: |
-      Copies the MgnifyR Cache directory from the docker image into the host repository.
-
-      Run this if you change the populate-mgnifyr-cache.R file.
-
-      This cache zip is just used to speed up subsequent docker builds by not calling the MGnify API so much.
-
-      It writes a zip of the cache to dependencies/mgnify-cache.tgz
+  serve-static:
+    desc: Serve the rendered site locally
     cmds:
-      - $NB_DOCKER_EXE run -it -v $PWD/dependencies:/opt/dependencies -w /opt/dependencies quay.io/microbiome-informatics/emg-notebooks.dev:latest /bin/bash zip-mgnifyr-cache.sh
+      - python3 -m http.server 9000 --bind localhost --directory _site
+
+  test-static:
+    desc: Check study links, then render
+    cmds:
+      - node --test tests/static/*.test.mjs
+      - quarto render

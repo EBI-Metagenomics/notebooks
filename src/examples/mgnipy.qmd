@@ -1,0 +1,29 @@
+---
+title: "Python with MGnipy"
+description: "Explore MGnify with its Python client."
+---
+
+[MGnipy](https://mgnipy.mgnify.org/) provides Python objects for MGnify studies,
+analyses and samples, with pagination, metadata tables and result-download helpers.
+
+```python
+from mgnipy import MGnipy
+
+with MGnipy() as mg:
+    study = mg.study("MGYS00010393")
+    study.get()
+    print(study.search_results.to_pandas())
+```
+
+[Try the interactive MGnipy demo: list biomes](https://mgnipy.mgnify.org/notebooks/demos/1_mgnify_list_biomes.html).
+Choose **Activate Notebook** on that page to run the examples using Binder.
+
+## Running this code in your own environment
+
+Using Python 3.11 or newer, install MGnipy from a terminal:
+
+```bash
+python -m pip install mgnipy
+```
+
+Then run the Python example above in a notebook or script.

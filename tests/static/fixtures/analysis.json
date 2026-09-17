@@ -1,0 +1,543 @@
+{
+  "experiment_type": "Assembly",
+  "study_accession": "MGYS00010393",
+  "accession": "MGYA01022557",
+  "run": null,
+  "sample": {
+    "accession": "SAMEA118873282",
+    "ena_accessions": [
+      "SAMEA118873282",
+      "ERS25392195"
+    ],
+    "sample_title": null,
+    "biome": null,
+    "updated_at": "2026-05-05T13:35:07.533Z"
+  },
+  "assembly": {
+    "accession": "ERZ28775516",
+    "updated_at": "2026-05-05T13:35:13.160Z"
+  },
+  "pipeline_version": "V6",
+  "downloads": [
+    {
+      "file_type": "fasta",
+      "download_type": "Quality control",
+      "download_group": "quality_control",
+      "short_description": "Filtered contigs FASTA file",
+      "long_description": "Filtered contigs FASTA file used in downstream pipelines",
+      "alias": "ERZ28775516_filtered_contigs.fasta.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "fai",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/qc/ERZ28775516_filtered_contigs.fasta.gz.fai"
+        },
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/qc/ERZ28775516_filtered_contigs.fasta.gz.gzi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/qc/ERZ28775516_filtered_contigs.fasta.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Quality control",
+      "download_group": "quality_control",
+      "short_description": "Assembly QC metrics",
+      "long_description": "Quality control metrics for the assembly",
+      "alias": "ERZ28775516_quast_stats.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/qc/ERZ28775516_quast_stats.tsv.gz"
+    },
+    {
+      "file_type": "html",
+      "download_type": "Quality control",
+      "download_group": "quality_control",
+      "short_description": "MultiQC quality control report",
+      "long_description": "MultiQC webpage showing quality control steps and metrics",
+      "alias": "multiqc_report.html",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/qc/multiqc_report.html"
+    },
+    {
+      "file_type": "fasta",
+      "download_type": "Coding Sequences",
+      "download_group": "coding_sequences",
+      "short_description": "Predicted ORF nucleotide sequences",
+      "long_description": "Predicted ORF nucleotide sequences",
+      "alias": "ERZ28775516_predicted_orf.ffn.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/cds/ERZ28775516_predicted_orf.ffn.gz"
+    },
+    {
+      "file_type": "fasta",
+      "download_type": "Coding Sequences",
+      "download_group": "coding_sequences",
+      "short_description": "Predicted CDS proteins",
+      "long_description": "Predicted CDS proteins",
+      "alias": "ERZ28775516_predicted_cds.faa.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/cds/ERZ28775516_predicted_cds.faa.gz"
+    },
+    {
+      "file_type": "gff",
+      "download_type": "Coding Sequences",
+      "download_group": "coding_sequences",
+      "short_description": "Predicted CDS",
+      "long_description": "Predicted CDS annotations",
+      "alias": "ERZ28775516_predicted_cds.gff.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/cds/ERZ28775516_predicted_cds.gff.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Taxonomic analysis",
+      "download_group": "taxonomy",
+      "short_description": "Contig taxonomy table",
+      "long_description": "Taxonomic assignments for contigs",
+      "alias": "ERZ28775516_contigs_taxonomy.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/taxonomy/ERZ28775516_contigs_taxonomy.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Taxonomic analysis",
+      "download_group": "taxonomy",
+      "short_description": "Krona taxonomy table",
+      "long_description": "Taxonomy table for Krona visualization",
+      "alias": "ERZ28775516.krona.txt.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/taxonomy/ERZ28775516.krona.txt.gz"
+    },
+    {
+      "file_type": "html",
+      "download_type": "Taxonomic analysis",
+      "download_group": "taxonomy",
+      "short_description": "Krona taxonomy visualization",
+      "long_description": "Interactive Krona taxonomy chart",
+      "alias": "ERZ28775516.html",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/taxonomy/ERZ28775516.html"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.interpro",
+      "short_description": "InterProScan results",
+      "long_description": "InterProScan functional annotation results",
+      "alias": "ERZ28775516_interproscan.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/interpro/ERZ28775516_interproscan.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.interpro",
+      "short_description": "InterPro Identifier counts",
+      "long_description": "Table with counts for each InterPro identifier found",
+      "alias": "ERZ28775516_interpro_summary.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/interpro/ERZ28775516_interpro_summary.tsv.gz.gzi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/interpro/ERZ28775516_interpro_summary.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.pfams",
+      "short_description": "Pfam accession counts",
+      "long_description": "Table with counts for each Pfam accession found",
+      "alias": "ERZ28775516_pfam_summary.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/pfam/ERZ28775516_pfam_summary.tsv.gz.gzi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/pfam/ERZ28775516_pfam_summary.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.go_slims",
+      "short_description": "GO Term counts",
+      "long_description": "Table with counts for each Gene Ontology (GO) Term found",
+      "alias": "ERZ28775516_go_summary.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/go/ERZ28775516_go_summary.tsv.gz.gzi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/go/ERZ28775516_go_summary.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.go_slims",
+      "short_description": "GO-Slim Term counts",
+      "long_description": "Table with counts for each Gene Ontology (GO)-Slim Term found",
+      "alias": "ERZ28775516_goslim_summary.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/go/ERZ28775516_goslim_summary.tsv.gz.gzi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/go/ERZ28775516_goslim_summary.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.rhea_reactions",
+      "short_description": "Rhea reaction counts",
+      "long_description": "Table with counts of each Rhea reaction found",
+      "alias": "ERZ28775516_proteins2rhea.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/rhea-reactions/ERZ28775516_proteins2rhea.tsv.gz.gzi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/rhea-reactions/ERZ28775516_proteins2rhea.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.eggnog",
+      "short_description": "EggNOG seed orthologs",
+      "long_description": "EggNOG seed ortholog assignments",
+      "alias": "ERZ28775516_emapper_seed_orthologs.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/eggnog/ERZ28775516_emapper_seed_orthologs.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.eggnog",
+      "short_description": "EggNOG annotations",
+      "long_description": "EggNOG functional annotations",
+      "alias": "ERZ28775516_emapper_annotations.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/eggnog/ERZ28775516_emapper_annotations.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.kegg",
+      "short_description": "KEGG KO summary",
+      "long_description": "KEGG Orthology assignments summary",
+      "alias": "ERZ28775516_ko_summary.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/kegg/ERZ28775516_ko_summary.tsv.gz.gzi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/kegg/ERZ28775516_ko_summary.tsv.gz"
+    },
+    {
+      "file_type": "gff",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.dbcan",
+      "short_description": "dbCAN CGC annotations",
+      "long_description": "dbCAN carbohydrate-active enzyme gene cluster annotations",
+      "alias": "ERZ28775516_dbcan_cgc.gff.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/dbcan/ERZ28775516_dbcan_cgc.gff.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.dbcan",
+      "short_description": "dbCAN standard output",
+      "long_description": "dbCAN standard analysis output",
+      "alias": "ERZ28775516_dbcan_standard_out.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/dbcan/ERZ28775516_dbcan_standard_out.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.dbcan",
+      "short_description": "dbCAN overview",
+      "long_description": "dbCAN analysis overview",
+      "alias": "ERZ28775516_dbcan_overview.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/dbcan/ERZ28775516_dbcan_overview.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.dbcan",
+      "short_description": "dbCAN sub-HMM results",
+      "long_description": "dbCAN sub-HMM analysis results",
+      "alias": "ERZ28775516_dbcan_sub_hmm.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/dbcan/ERZ28775516_dbcan_sub_hmm.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "functional_annotation.dbcan",
+      "short_description": "dbCAN substrates",
+      "long_description": "dbCAN predicted substrates",
+      "alias": "ERZ28775516_dbcan_substrates.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/functional-annotation/dbcan/ERZ28775516_dbcan_substrates.tsv.gz"
+    },
+    {
+      "file_type": "other",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.antismash",
+      "short_description": "antiSMASH GenBank output",
+      "long_description": "antiSMASH biosynthetic gene cluster predictions in GenBank format",
+      "alias": "ERZ28775516_antismash.gbk.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/antismash/ERZ28775516_antismash.gbk.gz"
+    },
+    {
+      "file_type": "gff",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.antismash",
+      "short_description": "antiSMASH GFF output",
+      "long_description": "antiSMASH biosynthetic gene cluster predictions in GFF format",
+      "alias": "ERZ28775516_antismash.gff.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/antismash/ERZ28775516_antismash.gff.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.antismash",
+      "short_description": "antiSMASH BGC counts",
+      "long_description": "Table with counts for each BGC found",
+      "alias": "ERZ28775516_antismash_summary.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/antismash/ERZ28775516_antismash_summary.tsv.gz.gzi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/antismash/ERZ28775516_antismash_summary.tsv.gz"
+    },
+    {
+      "file_type": "other",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.genome_properties",
+      "short_description": "Genome Properties JSON",
+      "long_description": "Genome Properties results in JSON format",
+      "alias": "ERZ28775516_gp.json.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/genome-properties/ERZ28775516_gp.json.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.genome_properties",
+      "short_description": "Genome Properties counts",
+      "long_description": "Table with counts for each Genome Property found",
+      "alias": "ERZ28775516_gp.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/genome-properties/ERZ28775516_gp.tsv.gz"
+    },
+    {
+      "file_type": "other",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.genome_properties",
+      "short_description": "Genome Properties text output",
+      "long_description": "Genome Properties results in text format",
+      "alias": "ERZ28775516_gp.txt.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/genome-properties/ERZ28775516_gp.txt.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.kegg_modules",
+      "short_description": "KEGG Modules per contig",
+      "long_description": "KEGG Modules found per contig",
+      "alias": "ERZ28775516_kegg_modules_per_contigs.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/kegg-modules/ERZ28775516_kegg_modules_per_contigs.tsv.gz.gzi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/kegg-modules/ERZ28775516_kegg_modules_per_contigs.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.kegg_modules",
+      "short_description": "KEGG Modules counts",
+      "long_description": "Table with counts for each KEGG Module found",
+      "alias": "ERZ28775516_kegg_modules_summary.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/kegg-modules/ERZ28775516_kegg_modules_summary.tsv.gz.gzi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/kegg-modules/ERZ28775516_kegg_modules_summary.tsv.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.dram_distill",
+      "short_description": "DRAM Distill results",
+      "long_description": "Table with DRAM Distill results",
+      "alias": "ERZ28775516_dram.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/dram-distill/ERZ28775516_dram.tsv.gz"
+    },
+    {
+      "file_type": "html",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.dram_distill",
+      "short_description": "DRAM Distill HTML report",
+      "long_description": "DRAM Distill HTML visualization",
+      "alias": "ERZ28775516_dram.html.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/dram-distill/ERZ28775516_dram.html.gz"
+    },
+    {
+      "file_type": "tsv",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.dram_distill",
+      "short_description": "DRAM genome statistics",
+      "long_description": "DRAM genome statistics table",
+      "alias": "ERZ28775516_genome_stats.tsv.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/dram-distill/ERZ28775516_genome_stats.tsv.gz"
+    },
+    {
+      "file_type": "other",
+      "download_type": "Functional analysis",
+      "download_group": "pathways_and_systems.dram_distill",
+      "short_description": "DRAM metabolism summary",
+      "long_description": "DRAM metabolism summary spreadsheet",
+      "alias": "ERZ28775516_metabolism_summary.xlsx.gz",
+      "file_size_bytes": null,
+      "index_files": [],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/pathways-and-systems/dram-distill/ERZ28775516_metabolism_summary.xlsx.gz"
+    },
+    {
+      "file_type": "gff",
+      "download_type": "Functional analysis",
+      "download_group": "annotation_summary",
+      "short_description": "Annotation summary GFF",
+      "long_description": "Comprehensive annotation summary in GFF format",
+      "alias": "ERZ28775516_annotation_summary.gff.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/annotation-summary/ERZ28775516_annotation_summary.gff.gz.gzi"
+        },
+        {
+          "index_type": "csi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/annotation-summary/ERZ28775516_annotation_summary.gff.gz.csi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/annotation-summary/ERZ28775516_annotation_summary.gff.gz"
+    },
+    {
+      "file_type": "gff",
+      "download_type": "Functional analysis",
+      "download_group": "virify",
+      "short_description": "Viral annotations",
+      "long_description": "VIRify viral annotation in GFF format",
+      "alias": "ERZ28775516_virify.gff.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/08-final/gff/ERZ28775516_virify.gff.gz.gzi"
+        },
+        {
+          "index_type": "csi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/08-final/gff/ERZ28775516_virify.gff.gz.csi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/08-final/gff/ERZ28775516_virify.gff.gz"
+    },
+    {
+      "file_type": "gff",
+      "download_type": "Functional analysis",
+      "download_group": "mobilome_annotation_pipeline",
+      "short_description": "Mobilome annotations",
+      "long_description": "Mobilome annotations along with any features present in the user's protein input",
+      "alias": "ERZ28775516_user_mobilome_full.gff.gz",
+      "file_size_bytes": null,
+      "index_files": [
+        {
+          "index_type": "gzi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/mobilome-annotation/gff/ERZ28775516_user_mobilome_full.gff.gz.gzi"
+        },
+        {
+          "index_type": "csi",
+          "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/mobilome-annotation/gff/ERZ28775516_user_mobilome_full.gff.gz.csi"
+        }
+      ],
+      "url": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly/mobilome-annotation/gff/ERZ28775516_user_mobilome_full.gff.gz"
+    }
+  ],
+  "read_run": [
+    {
+      "experiment_type": "Metagenomic",
+      "accession": "ERR15419884",
+      "sample_accession": "SAMEA118873282",
+      "study_accession": "MGYS00010370",
+      "instrument_model": "Illumina NovaSeq 6000",
+      "instrument_platform": "ILLUMINA"
+    },
+    {
+      "experiment_type": "Metagenomic",
+      "accession": "ERR15419883",
+      "sample_accession": "SAMEA118873282",
+      "study_accession": "MGYS00010370",
+      "instrument_model": "Illumina NovaSeq 6000",
+      "instrument_platform": "ILLUMINA"
+    }
+  ],
+  "quality_control_summary": {},
+  "results_dir": "https://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_results/PRJEB105/PRJEB105754/ERZ28775/ERZ28775516/V6/assembly",
+  "metadata": {}
+}

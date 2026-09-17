@@ -24,10 +24,10 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Context**
-Where the notebooks are running (e.g. Galaxy; EMBL; on my computer)
+Page URL, browser and operating system
 
-**White notebook, if any**
-E.g. fetch_analyses.ipynb
+**Example page, if any**
+E.g. src/examples/python.qmd
 
 **Anything else**
 Add any other context about the problem here.

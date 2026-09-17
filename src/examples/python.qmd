@@ -1,0 +1,129 @@
+---
+title: "MGnify API in Python"
+description: "Find a study, explore its analyses, and read a result table."
+format:
+  live-html:
+    theme: [cosmo, ../static-resources/styles.scss]
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+pyodide:
+  packages: [requests, pandas]
+  cell-options:
+    autorun: false
+    edit: true
+---
+
+Edit and run the cells below, in order. The first visit may take a minute to load.
+Copy any code you want to keep before leaving or reloading the page.
+
+```{ojs}
+//| echo: false
+import {readStudyAccession} from "./study-link.js"
+study_accession = readStudyAccession(window.location.search)
+html`<form method="get" class="study-controls">
+  <label>Study accession
+    <input name="study" value=${study_accession} pattern="MGYS[0-9]{8}" required>
+  </label>
+  <button type="submit">Open study</button>
+</form>`
+```
+
+## Set up
+
+The study accession comes from the box above.
+
+```{pyodide}
+#| input: [study_accession]
+from io import BytesIO
+import requests
+import pandas as pd
+
+API = "https://www.ebi.ac.uk/metagenomics/api/v2"
+STUDY = study_accession
+
+def get_json(path, **params):
+    response = requests.get(f"{API}/{path}", params=params, timeout=30)
+    response.raise_for_status()
+    return response.json()
+
+print(STUDY)
+```
+
+## Get a study
+
+A study groups related samples and analyses. Retrieve its title and biome:
+
+```{pyodide}
+study = get_json(f"studies/{STUDY}")
+print(study["title"])
+study["biome"]
+```
+
+## List its analyses
+
+List responses contain `items` and a total `count`. Fetch the first 20 analyses;
+change `page=1` to `page=2` to get the next page.
+
+```{pyodide}
+batch = get_json(f"studies/{STUDY}/analyses/", page=1, page_size=20)
+analyses = batch["items"]
+print(f"Showing {len(analyses)} of {batch['count']} analyses")
+pd.DataFrame(analyses).reindex(
+    columns=["accession", "experiment_type", "pipeline_version"]
+)
+```
+
+## Inspect an analysis
+
+Choose the first analysis, or replace `ANALYSIS` with another accession from the
+list. Its detail record includes the available result files.
+
+```{pyodide}
+if not analyses:
+    raise ValueError("This study has no analyses. Choose another study above.")
+
+ANALYSIS = analyses[0]["accession"]
+analysis = get_json(f"analyses/{ANALYSIS}")
+downloads = pd.DataFrame(analysis["downloads"])
+downloads.reindex(columns=["short_description", "file_type", "alias"])
+```
+
+## Read a result table
+
+For this analysis, load the Pfam domain-count summary into pandas. Other analyses
+may have different files; use the descriptions above to choose a result.
+
+```{pyodide}
+matches = [d for d in analysis["downloads"]
+           if d["short_description"] == "Pfam accession counts"]
+if not matches:
+    raise ValueError("No Pfam table for this analysis. Choose another analysis.")
+
+response = requests.get(matches[0]["url"], timeout=30)
+response.raise_for_status()
+table = pd.read_csv(BytesIO(response.content), sep="\t", compression="gzip")
+table.head()
+```
+
+The download is a gzip-compressed TSV. `compression="gzip"` decompresses it
+before pandas reads the columns. Choose small summaries when working in your browser.
+
+## Explore the counts
+
+Show the ten most frequent Pfam domains. Try changing `10` to `20`.
+
+```{pyodide}
+table.sort_values("count", ascending=False).head(10)
+```
+
+## Running this code in your own environment
+
+Install the packages from a terminal:
+
+```bash
+python -m pip install pandas requests
+```
+
+Copy the Python cells into a notebook or script, replacing `STUDY = study_accession`
+with `STUDY = "MGYS00010393"` (or your chosen accession).
