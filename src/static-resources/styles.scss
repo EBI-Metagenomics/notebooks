@@ -27,3 +27,18 @@ $link-hover-decoration: underline !default;
 .cell-output {
 	background: #fbfbfb ;
   }
+.study-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  label { display: grid; gap: 0.3rem; }
+  input, select, button { padding: 0.4rem 0.6rem; max-width: 100%; }
+}
+
+.exercise-cell {
+  min-width: 0;
+  .cell-output-container { max-width: 100%; overflow-x: auto; }
+  .cell-output-container pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+}

@@ -48,7 +48,7 @@ First, clicking on the Assembly (in this case `ERZ534239`) will take you to a pa
 
 From the `Studies - Assemblies - Contigs` section, you can also take note of the first contig accession (in this case `MGYC000564781877`), as we can use it to retrieve a contig name. The next step entails downloading the different `mgy_contig_map_$.tsv.gz` files from the [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/). These files contain two columns; the first column contains the MGYC for a contig, and the second the contig name. It might be necessary to search all the contig map files to find the specific MGYC you want to look for. Running this `zgrep` command in the directory that you downloaded the contig map files to performs a search in all the files - there should only be one match.
 
-```{bash}
+```bash
 zgrep 'MGYC000564781877' mgy_contig_map_*.tsv.gz
 ```
 
@@ -58,17 +58,17 @@ In this case, the resulting contig name is `ENA-OSOD01046483-OSOD01046483.1-mari
 
 Now that we have both the MGYA accession and the contig name of interest, we can perform this API call to retrieve the contig sequence:
 
-```{bash}
+```bash
 curl -s 'https://www.ebi.ac.uk/metagenomics/api/v1/analyses/$MGYAXXXXXX/contigs/$contig_name'
 ```
 
 For the example we've been working with so far, the query would look like this:
-```{bash}
+```bash
 curl -s 'https://www.ebi.ac.uk/metagenomics/api/v1/analyses/MGYA00237890/contigs/ENA-OSOD01046483-OSOD01046483.1-marine-metagenome-genome-assembly--contig:-NODE-46483-length-2198-cov-1.824140'
 ```
 
 Unfortunately, this analysis is not from a v5.0 pipeline run, so a contig will not be found with this method. Here is working example:
-```{bash}
+```bash
 # MGYP: 'MGYP005806982657'
 # Contig name: 'ERZ2641806.86530-NODE-86530-length-1467-cov-4.165722'
 # MGYA: 'MGYA00606085'
@@ -88,7 +88,7 @@ The processed contigs file you need to download is located in the download secti
 
 Once you have the file (which in this case is called `ERZ534239_FASTA.fasta.gz`), you can run the following `zgrep` command to retrieve the specific contig sequence of interest:
 
-```{bash}
+```bash
 zgrep -A 1 'ENA-OSOD01046483-OSOD01046483.1-marine-metagenome-genome-assembly--contig:-NODE-46483-length-2198-cov-1.824140' ERZ534239_FASTA.fasta.gz
 ```
 
@@ -103,7 +103,7 @@ Which will output something like this:
 
 If your MGYP is not a cluster representative, you will need to parse a few more of database flat files from the [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/). Specifically, you will first need to download the `mgy_seq_metadata_*.tsv.gz` files, similarly to the `mgy_contig_map_*.tsv.gz` files. Searching for the MGYP accession in these files with `zgrep` will reveal the MGYC contig accession:
 
-```{bash}
+```bash
 zgrep 'MGYP000261684433' mgy_seq_metadata_*.tsv.gz
 ```
 

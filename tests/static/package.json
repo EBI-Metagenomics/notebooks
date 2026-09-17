@@ -1,0 +1,11 @@
+{
+  "name": "mgnify-browser-example-tests",
+  "private": true,
+  "scripts": {
+    "test": "node --test *.test.mjs",
+    "test:browser": "node browser-smoke.cjs"
+  },
+  "devDependencies": {
+    "puppeteer": "25.10.0"
+  }
+}

@@ -1,0 +1,148 @@
+---
+title: "Map AtlantECO samples"
+description: "Plot sample locations from all AtlantECO flagship studies."
+author: "Ekaterina Sakharova (MGnify team)"
+format:
+  live-html:
+    theme: [cosmo, ../static-resources/styles.scss]
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+pyodide:
+  packages: [requests, pandas, folium]
+  cell-options:
+    autorun: false
+    edit: true
+---
+
+[AtlantECO](https://www.ebi.ac.uk/metagenomics/super-studies/atlanteco) brings
+together studies of the Atlantic Ocean and its ecosystems. Fetch samples from
+all its flagship studies and explore their locations on a map.
+
+Edit and run the cells in order. The first visit may take a minute to load.
+
+## Find the studies
+
+A super-study groups related MGnify studies. Show the first 20 AtlantECO flagship studies. Change `20` to see more:
+
+```{pyodide}
+import requests
+import pandas as pd
+import folium
+from html import escape
+
+API = "https://www.ebi.ac.uk/metagenomics/api/v2"
+
+def get_json(path, **params):
+    response = requests.get(f"{API}/{path}", params=params, timeout=30)
+    response.raise_for_status()
+    return response.json()
+
+atlanteco = get_json("super-studies/atlanteco")
+studies = pd.DataFrame(atlanteco["flagship_studies"])
+study_titles = dict(zip(studies["accession"], studies["title"]))
+studies[["accession", "title"]].head(20)
+```
+
+## Get the samples
+
+Collect every page of samples for each flagship study. A sample can belong to
+several studies, so keep one record per sample accession. Unavailable studies
+are reported and skipped.
+
+```{pyodide}
+samples_by_accession = {}
+sample_studies = {}
+for study_accession in studies["accession"]:
+    page = 1
+    while True:
+        try:
+            batch = get_json(f"studies/{study_accession}/samples/", page=page, page_size=1000)
+        except requests.HTTPError as error:
+            if error.response.status_code != 404:
+                raise
+            print(f"{study_accession}: samples unavailable; skipped")
+            break
+        for sample in batch["items"]:
+            samples_by_accession[sample["accession"]] = sample
+            sample_studies.setdefault(sample["accession"], set()).add(study_accession)
+        if not batch["items"] or page * 1000 >= batch["count"]:
+            print(f"{study_accession}: {batch['count']} samples")
+            break
+        page += 1
+
+samples = list(samples_by_accession.values())
+print(f"Fetched {len(samples)} unique samples from {len(studies)} listed studies")
+```
+
+## Prepare the coordinates
+
+Latitude and longitude are stored in the sample metadata as text. Convert them
+to numbers and omit samples with missing or out-of-range coordinates.
+
+```{pyodide}
+locations = pd.json_normalize(samples).reindex(
+    columns=["accession", "metadata.lat", "metadata.lon"]
+).rename(columns={"metadata.lat": "latitude", "metadata.lon": "longitude"})
+
+for column in ["latitude", "longitude"]:
+    locations[column] = pd.to_numeric(locations[column], errors="coerce")
+
+locations = locations[
+    locations["latitude"].between(-90, 90)
+    & locations["longitude"].between(-180, 180)
+]
+locations["study_accessions"] = locations["accession"].map(
+    lambda accession: sorted(sample_studies.get(accession, []))
+)
+print(f"Mapping {len(locations)} of {len(samples)} samples")
+locations.head()
+```
+
+## Draw the map
+
+Zoom in and click a marker to see the sample accession, the AtlantECO studies it
+belongs to, and its coordinates. Samples collected at the same location share a
+marker position.
+
+```{pyodide}
+if locations.empty:
+    raise ValueError("No samples have usable coordinates.")
+
+sample_map = folium.Map(tiles="OpenStreetMap", prefer_canvas=True)
+for sample in locations.itertuples(index=False):
+    study_lines = "<br>".join(
+        f"{escape(accession)}: {escape(study_titles.get(accession, ''))}"
+        for accession in sample.study_accessions
+    )
+    popup = folium.Popup(
+        "<b>Sample:</b> " + escape(sample.accession)
+        + "<br><b>Studies:</b><br>" + study_lines
+        + f"<br><b>Coordinates:</b> {sample.latitude:.4f}, {sample.longitude:.4f}",
+        max_width=360,
+    )
+    folium.CircleMarker(
+        location=[sample.latitude, sample.longitude],
+        radius=3,
+        popup=popup,
+        color="#007c80",
+        fill=True,
+        fill_opacity=0.7,
+    ).add_to(sample_map)
+
+sample_map.fit_bounds(locations[["latitude", "longitude"]].values.tolist(), max_zoom=10)
+sample_map
+```
+
+Try changing the marker colour or radius, then run the map cell again.
+
+## Running this code in your own environment
+
+Install the packages from a terminal:
+
+```bash
+python -m pip install pandas requests folium
+```
+
+Run the Python cells in a notebook to display the map. In a Python script,
+use `sample_map.save("atlanteco.html")` and open that file in your browser.

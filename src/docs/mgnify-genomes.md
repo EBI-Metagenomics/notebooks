@@ -122,7 +122,7 @@ The "Best Match" MAG from each catalogue is the MAG that contains the largest co
 To use this search programmatically (by submitting sourmash sketches of your own query MAGs to the MGnify API), the sourmash parameters must match those used by MGnify.
 MGnify use the default parameters for kmer size (`-k 31`) and sketch scaling (`--scaled 1000`).
 
-See the "Search MGnify Genomes" notebook in [MGnify's notebooks repository](../notebooks_list.qmd) for an example of how to query this API programmatically.
+The historical [Search MGnify Genomes notebook](https://github.com/EBI-Metagenomics/notebooks/blob/main/notebooks_archive/Python%20Examples/Search%20MGnify%20Genomes.ipynb) is archived for reference and is no longer runnable. See [MGnipy](https://mgnipy.mgnify.org/) for current Python examples.
 
 
 ## Browsing a catalogue

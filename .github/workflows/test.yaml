@@ -1,81 +1,28 @@
-name: Test
+name: Static site checks
 
 on:
   push:
-    branches: '*'
   pull_request:
-    branches: '*'
+
+permissions:
+  contents: read
 
 jobs:
-  build:
+  render:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    - name: Free up disk space
-      uses: jlumbroso/free-disk-space@main
-      with:
-        tool-cache: false
-        android: true
-        dotnet: true
-        haskell: true
-        large-packages: false
-        docker-images: true
-        swap-storage: false
-
-    - uses: actions/setup-java@v4
-      with:
-        distribution: 'zulu'
-        java-version: '17'
-
-    - name: Download Shiny Proxy
-      run: wget -O shiny-proxy/shinyproxy-2.6.1.jar https://www.shinyproxy.io/downloads/shinyproxy-2.6.1.jar
-
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '16'
-    
-    - name: Install test suite dependencies
-      working-directory: ./tests
-      run: npm install
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
-    - name: Build Dockerfile
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        file: ./docker/Dockerfile
-        load: true
-        push: false
-        tags: quay.io/microbiome-informatics/emg-notebooks.dev:latest
-
-    - name: Run tests
-      working-directory: ./tests
-      run: npm test
-
-    - uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: launching-jupyter-lab-screenshot
-        path: |
-          tests/launching_jl.png
-          tests/shiny_proxy_launched.png
-          tests/jl_launched.png
-
-    - name: Login to Quay.io
-      uses: docker/login-action@v3
-      with:
-        registry: quay.io
-        username: ${{ secrets.QUAY_USERNAME }}
-        password: ${{ secrets.QUAY_PASSWORD }}
-
-    - id: docker-tag
-      uses: yuya-takeyama/docker-tag-from-github-ref-action@v1
-
-    - name: Push
-      run: |
-        docker tag quay.io/microbiome-informatics/emg-notebooks.dev:latest quay.io/microbiome-informatics/emg-notebooks.dev:${{ steps.docker-tag.outputs.tag }}
-        docker push quay.io/microbiome-informatics/emg-notebooks.dev:${{ steps.docker-tag.outputs.tag }}
+      - uses: actions/checkout@v4
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: '1.10.18'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check study links
+        run: node --test tests/static/*.test.mjs
+      - name: Render documentation and browser examples
+        run: quarto render
+      - uses: actions/upload-artifact@v4
+        with:
+          name: static-site
+          path: _site
