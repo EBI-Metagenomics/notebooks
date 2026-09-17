@@ -41,6 +41,18 @@ MGnify therefore describes the amplicon pipeline as analysis version `v6.1`, whi
 
 Pipeline-specific change logs provide details about differences between patch releases.
 
+### Changes through pipeline versions
+
+#### Amplicon Analysis Pipeline
+
+##### Version 6.1 [April 2026]
+
+Version 6.1 improved completeness, reporting, and configurability. All ASVs are now published, including those without taxonomic assignments, so no detected sequence diversity is excluded. DADA2 reporting now includes selected truncation points and read counts from intermediate filtering stages, improving transparency and troubleshooting. MapSeq database selection and DADA2 execution are also more configurable, allowing the pipeline to support a wider range of datasets and analysis requirements.
+
+##### Version 6.2 [September 2026]
+
+Version 6.2 improved annotation support for ITS, LSU, and 5.8S-containing sequences. The ITS workflow now recognises and masks 5.8S regions, enabling the analysis of 5.8S+ITS datasets, while a bug preventing LSU annotation has been fixed. Reference databases now use a `target` field so that SSU and LSU databases are applied only to matching sequence types, reducing unnecessary searches; ITS databases continue to run across sequence types because ITS amplicons may contain adjacent ribosomal regions. 
+
 ## Analysis pipeline pages
 
 The MGnify analysis service provides three pipelines, selected according to the type of sequence data being analysed.
