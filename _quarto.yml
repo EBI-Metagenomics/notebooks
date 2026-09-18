@@ -47,7 +47,6 @@ website:
                 - src/docs/analysis/version6/assembly-annotation.md
                 - src/docs/analysis/version6/virify.md
                 - src/docs/analysis/version6/mobilome.md
-              - src/docs/analysis.md
             - section: "Website & API"
               contents:
               - src/docs/portal.md
