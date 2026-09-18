@@ -72,6 +72,9 @@ Refers to environmental sample where Whole Genome Shotgun sequencing method has 
 ## Metatranscriptomic
 Refers to an environmental sample where whole transcriptome sequencing method has been applied. Analysis will yield taxonomic and functional information.
 
+## Mobile genetic element (MGE)
+A DNA element that can move within or between genomes. Examples include plasmids, phages, insertion sequences, integrons, and integrative conjugative elements.
+
 ## OTU
 Operational Taxonomic Unit representing a group of sequences sharing high similarity with each other.
 

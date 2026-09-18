@@ -1,5 +1,5 @@
 ---
-title: Raw reads analysis pipeline v6.0
+title: Raw reads analysis pipeline
 author:
   - name: MGnify
     url: https://www.ebi.ac.uk/metagenomics

@@ -12,12 +12,12 @@ order: 3
 ---
 ## Overview
 
-The previous MGnify analysis service (version 5.0) offered specialised workflows for three different data types: [amplicon](glossary.md#amplicon), raw [metagenomic](glossary.md#metagenomic)/[metatranscriptomic](glossary.md#metatranscriptomic) reads, and [assembly](glossary.md#assembly). Each workflow was defined in common workflow language ([CWL](https://figshare.com/articles/Common_Workflow_Language_draft_3/3115156/2)). ([MGnify v5.0 CWL repository](https://github.com/EBI-Metagenomics/pipeline-v5))
+The previous MGnify analysis service (version 5.0) offered specialised workflows for three different data types: [amplicon](../../glossary.md#amplicon), raw [metagenomic](../../glossary.md#metagenomic)/[metatranscriptomic](../../glossary.md#metatranscriptomic) reads, and [assembly](../../glossary.md#assembly). Each workflow was defined in common workflow language ([CWL](https://figshare.com/articles/Common_Workflow_Language_draft_3/3115156/2)). ([MGnify v5.0 CWL repository](https://github.com/EBI-Metagenomics/pipeline-v5))
 All databases are available from an [FTP link](ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/pipeline-5.0/ref-dbs)
 
 The software and databases used for the various processing steps and analyses are listed in the following table.
 
-Pipeline version 5.0 was superceeded by version 6.0, but previously-run version 5.0 analyses continue to be available via MGnify's [API](api.md), [Website](portal.md) and downloadable from the [Transfer Services](ftp.md) area.
+Pipeline version 5.0 was superceeded by version 6.0, but previously-run version 5.0 analyses continue to be available via MGnify's [API](../../api.md), [Website](../../portal.md) and downloadable from the [Transfer Services](../../ftp.md) area.
 
 ## Software, Databases and Versions used by MGnify:
 
@@ -55,11 +55,11 @@ Pipeline version 5.0 was superceeded by version 6.0, but previously-run version 
 ## Amplicon analysis pipeline
 
 Amplicon reads are merged with SeqPrep (where appropriate) and filtered with Trimmomatic to trim sequence regions with an average Phred 33 quality score of less than 15 in a sliding window of 4 base pairs. This is followed by removal of reads less than 100bp in length. An additional Biopython filtering step removes reads with more than 10% ambiguous bases.
-[Infernal](http://europepmc.org/abstract/MED/24008419) (running in hmm-only mode) using a library of ribosomal RNA hidden Markov models from [Rfam](http://europepmc.org/articles/PMC4383904) is run to identify large and small subunit ribosomal ribonucleic acid ([LSU and SSU rRNA](glossary.md#lsu-ssu)) genes, using families found in the following clans: CL00111 (SSU) and CL00112 (LSU). Theses undergo taxonomic classification using the [SILVA](https://academic.oup.com/nar/article/41/D1/D590/1069277) database in conjunction with [MAPSeq](https://academic.oup.com/bioinformatics/article/33/23/3808/4082276)  which offers fast and accurate classification of reads, and provides corresponding confidence scores for assignment at each taxonomic level.
+[Infernal](http://europepmc.org/abstract/MED/24008419) (running in hmm-only mode) using a library of ribosomal RNA hidden Markov models from [Rfam](http://europepmc.org/articles/PMC4383904) is run to identify large and small subunit ribosomal ribonucleic acid ([LSU and SSU rRNA](../../glossary.md#lsu-ssu)) genes, using families found in the following clans: CL00111 (SSU) and CL00112 (LSU). Theses undergo taxonomic classification using the [SILVA](https://academic.oup.com/nar/article/41/D1/D590/1069277) database in conjunction with [MAPSeq](https://academic.oup.com/bioinformatics/article/33/23/3808/4082276)  which offers fast and accurate classification of reads, and provides corresponding confidence scores for assignment at each taxonomic level.
 
-MGnify can also provide analysis of ITS ([internal transcribed spacer](glossary.md#its)) amplicons. ITS1 and ITS2 reside between the LSU and SSU genes and can be targeted for accurate classification of eukaryotic organisms. ITS taxonomy is assigned by MAPseq using two reference databases: [ITSoneDB](https://academic.oup.com/nar/article/46/D1/D127/4210943)  containing ITS1 sequences and [UNITE](https://academic.oup.com/nar/article/47/D1/D259/5146189) containing ITS1 and ITS2 sequences. The SSU and LSU regions are masked using Rfam, as described above, prior to ITS classification, minimising cross reactivity.
+MGnify can also provide analysis of ITS ([internal transcribed spacer](../../glossary.md#its)) amplicons. ITS1 and ITS2 reside between the LSU and SSU genes and can be targeted for accurate classification of eukaryotic organisms. ITS taxonomy is assigned by MAPseq using two reference databases: [ITSoneDB](https://academic.oup.com/nar/article/46/D1/D127/4210943)  containing ITS1 sequences and [UNITE](https://academic.oup.com/nar/article/47/D1/D259/5146189) containing ITS1 and ITS2 sequences. The SSU and LSU regions are masked using Rfam, as described above, prior to ITS classification, minimising cross reactivity.
 
-![Overview of the main steps in the amplicon workflow.](images/analysis/version5/pipeline_v5.0_amplicon.png){#fig-amplicon-pipeline-v5 .tall-figure fig-align="left"}
+![Overview of the main steps in the amplicon workflow.](../../images/analysis/version5/pipeline_v5.0_amplicon.png){#fig-amplicon-pipeline-v5 .tall-figure fig-align="left"}
 
 ## Raw reads analysis pipeline
 
@@ -69,7 +69,7 @@ Supplementary phylogenetic classification based on marker gene profiling, is per
 
 For functional analysis, the sequence regions encoding rRNAs are masked, and [FragGeneScan](https://academic.oup.com/nar/article/38/20/e191/1317565) is used to predict coding sequences (pCDS). Coding sequences are assigned protein annotations with InterProScan, using 5 member databases that are able to process large numbers of potentially fragmented sequences (Gene3D, TIGRFAMs, Pfam, PRINTS and PROSITE patterns). Pfam annotations are provided as separate visualisations and downloads. GO terms are extracted from the InterProScan results and grouped according to category (Biological Process, Molecular Function and Cellular Component). GO terms are also summarized using a specialized [GO Slim](http://www.geneontology.org/ontology/subsets/goslim_metagenomics.obo) developed for metagenomic data. Finally, protein coding sequences undergo KEGG ortholog annotations using HMMER v3.2.1 and a modified version of KOfam 2019-04-06 (based on KEGG 90.0).
 
-![Overview of the main steps in the raw reads workflow.](images/analysis/version5/pipeline_v5.0_raw.png){#fig-raw-pipeline-v5}
+![Overview of the main steps in the raw reads workflow.](../../images/analysis/version5/pipeline_v5.0_raw.png){#fig-raw-pipeline-v5}
 
 ## Assembly analysis pipeline
 
@@ -77,9 +77,9 @@ Users can request assembly of their own raw sequencing reads, or publicly availa
 
 rRNAs are identified and undergo taxonomic analysis as for raw reads above. Sequence regions encoding rRNAs are masked and protein coding sequences are predicted using a combined gene caller that utilises both [Prodigal](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-119) and FragGeneScan. In addition to rRNA-based taxonomic analyses, [DIAMOND](https://www.nature.com/articles/nmeth.3176) is used to assign taxonomy to protein sequences, based on the top hit to the [UniRef90](https://academic.oup.com/bioinformatics/article/31./6/926/214968) database.
 
-Protein function is assigned in the form of InterProScan annotations, GO terms, and [KEGG](glossary.md#kegg) ortholog predictions, as described for the raw reads analysis pipeline above.
-Additionally, clusters of orthologous groups ([COGs](glossary.md#cog)) annotations and eggNOG functional descriptions are provided by the [eggNOG-mapper tool](https://www.biorxiv.org/content/10.1101/076331v1.full).
+Protein function is assigned in the form of InterProScan annotations, GO terms, and [KEGG](../../glossary.md#kegg) ortholog predictions, as described for the raw reads analysis pipeline above.
+Additionally, clusters of orthologous groups ([COGs](../../glossary.md#cog)) annotations and eggNOG functional descriptions are provided by the [eggNOG-mapper tool](https://www.biorxiv.org/content/10.1101/076331v1.full).
 
 KEGG ortholog annotations are further processed to produce KEGG pathway information, including module presence and completeness. Similarly, InterPro annotations for individual protein sequences are amalgamated to generate [Genome Properties](https://academic.oup.com/nar/article/47/D1/D564/5144958) (GP), providing inference of higher level pathways and systems that may be present in the dataset. Finally, [antiSMASH](https://academic.oup.com/nar/article/45/W1/W36/3778252) is used to identify and annotate biosynthetic gene clusters that code for the production of secondary metabolites.
 
-![Overview of the main steps in the assembly workflow.](images/analysis/version5/pipeline_v5.0_assembly.png){#fig-assembly-pipeline-v5}
+![Overview of the main steps in the assembly workflow.](../../images/analysis/version5/pipeline_v5.0_assembly.png){#fig-assembly-pipeline-v5}

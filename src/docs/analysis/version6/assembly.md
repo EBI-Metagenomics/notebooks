@@ -1,5 +1,5 @@
 ---
-title: Assembly analysis bundle
+title: Assembly analysis
 author:
   - name: MGnify
     url: https://www.ebi.ac.uk/metagenomics
@@ -7,19 +7,19 @@ author:
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: Overview of the MGnify assembly analysis bundle.
+description: Overview of MGnify assembly analysis.
 order: 3
 ---
 
-MGnify assembly analysis is a bundle of three pipelines, MGnify Assembly Annotation Pipeline, VIRIfy and the Mobilome Annotation Pipeline. Their results are presented together on MGnify, but each pipeline has its own purpose and version.
+MGnify assembly analysis consists of three pipelines: the assembly annotation pipeline, VIRify, and the mobilome annotation pipeline (MAP). Their results are presented together on MGnify, but each pipeline has its own purpose and version.
 
-The bundle accepts assembled [metagenomic](../../glossary.md#metagenomic) and [metatranscriptomic](../../glossary.md#metatranscriptomic) datasets.
+Assembly analysis accepts assembled [metagenomic](../../glossary.md#metagenomic) and [metatranscriptomic](../../glossary.md#metatranscriptomic) datasets.
 
-## Analyses in the bundle
+## Analyses
 
 1. [Assembly annotation pipeline](assembly-annotation.md) provides quality-control, taxonomic, functional, pathway, and systems annotations for assembled metagenomic contigs.
 2. [VIRify](virify.md) detects, annotates, and classifies viral sequences in the metagenomic assembly.
-3. [Mobilome annotation pipeline](mobilome.md) identifies mobile genetic elements and incorporates results from VIRify.
+3. [Mobilome annotation pipeline (MAP)](mobilome.md) identifies mobile genetic elements and incorporates results from VIRify.
 
 These pipelines run as connected analyses, and their results are accessible from the same MGnify website and FTP server.
 

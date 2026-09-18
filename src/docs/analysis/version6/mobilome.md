@@ -1,5 +1,5 @@
 ---
-title: Mobilome annotation pipeline v4.2.3
+title: Mobilome annotation pipeline (MAP)
 author:
   - name: MGnify
     url: https://www.ebi.ac.uk/metagenomics
@@ -7,15 +7,17 @@ author:
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: Description of mobilome annotation in the MGnify assembly analysis bundle.
+description: Description of mobilome annotation in the MGnify assembly analysis.
 ---
 
-The [Mobilome annotation pipeline](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline) is a separate pipeline run after [VIRify](virify.md) as part of the [assembly analysis bundle](assembly.md). It predicts and annotates mobile genetic elements (MGEs) — including plasmids, phages, insertion sequences, and integrative conjugative elements — in prokaryotic genomes and metagenomes, outputting results in GFF3 format. VIRify results are incorporated into the mobilome annotation.
+The [Mobilome annotation pipeline (MAP)](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline) is a separate pipeline run after [VIRify](virify.md) as part of the [assembly analysis](assembly.md). It predicts and annotates mobile genetic elements ([MGE](../../glossary.md#mge)), outputting results in GFF3 format. VIRify results are incorporated into the mobilome annotation.
 
 ## Results available on MGnify
 
-- `mobilome.gff.gz`: Integrated MGE annotations in GFF3 format
-- `mobilome.fasta`: Sequence records for all predicted mobile genetic elements
+For each analysed [assembly](../../glossary.md#assembly), MGnify displays and provides downloads for:
+
+- The integrated [MGE](../../glossary.md#mge) annotations in GFF3 format.
+- A FASTA file with the sequence records for all predicted mobile genetic elements.
 
 ## Technical and download reference
 
@@ -43,4 +45,4 @@ The [Mobilome annotation pipeline](https://github.com/EBI-Metagenomics/mobilome-
 3. Integration: Results parsing and incorporation of VIRify output; fragments <500 bp and elements lacking genes are filtered out
 4. Postprocessing: GFF validation and output compression
 
-See the [Mobilome annotation pipeline repository](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline) for detailed documentation. <!-- TODO(review): Confirm the repository link and whether additional user-facing explanation is needed. -->
+See the [Mobilome annotation pipeline repository](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline) for detailed documentation.

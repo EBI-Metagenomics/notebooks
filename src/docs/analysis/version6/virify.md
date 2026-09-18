@@ -1,5 +1,5 @@
 ---
-title: Viral analysis with VIRify v3.3.2
+title: VIRify
 author:
   - name: MGnify
     url: https://www.ebi.ac.uk/metagenomics
@@ -7,18 +7,18 @@ author:
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: Description of viral analysis with VIRify in the MGnify assembly analysis bundle.
+description: Description of viral analysis with VIRify in the MGnify assembly analysis.
 ---
 
-[VIRify](https://github.com/EBI-Metagenomics/emg-viral-pipeline) is a separate pipeline run on assembled contigs after the [assembly annotation pipeline](assembly-annotation.md) and accessible in the same web view. It detects, annotates, and taxonomically classifies viral sequences in [metagenomic](../../glossary.md#metagenomic) and [metatranscriptomic](../../glossary.md#metatranscriptomic) assemblies. Taxonomy assignment uses a curated collection of viral orthologous protein domains (ViPhOGs). <!-- TODO(review): Confirm whether “separate pipeline” and this level of detail are the preferred framing. -->
+[VIRify](https://github.com/EBI-Metagenomics/emg-viral-pipeline) is a separate pipeline run on assembled contigs after the [assembly annotation pipeline](assembly-annotation.md) and accessible in the same web view. It detects, annotates, and taxonomically classifies viral sequences in [metagenomic](../../glossary.md#metagenomic). Taxonomy assignment uses a curated collection of viral orthologous protein domains (ViPhOGs).
 
 ## Results available on MGnify
 
-- Annotated viral contigs in FASTA format
-- GFF files with sequence ontology-compliant annotations
-- Taxonomic assignments
-- Krona and Sankey interactive visualisations
-- Quality metrics from CheckV
+- Annotated viral contigs in FASTA format.
+- GFF files with sequence ontology-compliant annotations.
+- Taxonomic assignments.
+- Krona and Sankey interactive visualisations.
+- Quality metrics from CheckV.
 
 ## Technical and download reference
 
@@ -42,4 +42,4 @@ description: Description of viral analysis with VIRify in the MGnify assembly an
 5. Quality evaluation using CheckV
 6. Visualisation using Krona and Sankey plots
 
-See the [VIRify repository](https://github.com/EBI-Metagenomics/emg-viral-pipeline) for detailed pipeline documentation. <!-- TODO(review): Confirm the repository link and whether additional user-facing explanation is needed. -->
+See the [VIRify repository](https://github.com/EBI-Metagenomics/emg-viral-pipeline) for detailed pipeline documentation.

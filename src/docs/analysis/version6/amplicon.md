@@ -1,5 +1,5 @@
 ---
-title: Amplicon analysis pipeline v6
+title: Amplicon analysis pipeline
 author:
   - name: MGnify
     url: https://www.ebi.ac.uk/metagenomics

@@ -4,6 +4,14 @@ project:
         - src/docs.qmd
         - src/docs/*.md
         - src/docs/*.qmd
+        - src/docs/analysis/version5/analysis.md
+        - src/docs/analysis/version6/analysis.md
+        - src/docs/analysis/version6/amplicon.md
+        - src/docs/analysis/version6/raw-reads.md
+        - src/docs/analysis/version6/assembly.md
+        - src/docs/analysis/version6/assembly-annotation.md
+        - src/docs/analysis/version6/virify.md
+        - src/docs/analysis/version6/mobilome.md
         - src/examples/*.qmd
 
 execute:
@@ -37,16 +45,15 @@ website:
               - src/docs/multiomics_submission.md
             - section: "Analyses"
               contents:
-              - src/docs/analysis/version5/analysis_v5.0.md
               - src/docs/analysis/version6/analysis.md
               - src/docs/analysis/version6/amplicon.md
               - src/docs/analysis/version6/raw-reads.md
-              - section: "Assembly analysis"
-                href: src/docs/analysis/version6/assembly.md
+              - href: src/docs/analysis/version6/assembly.md
                 contents:
-                - src/docs/analysis/version6/assembly-annotation.md
-                - src/docs/analysis/version6/virify.md
-                - src/docs/analysis/version6/mobilome.md
+                  - src/docs/analysis/version6/assembly-annotation.md
+                  - src/docs/analysis/version6/virify.md
+                  - src/docs/analysis/version6/mobilome.md
+              - src/docs/analysis/version5/analysis.md
             - section: "Website & API"
               contents:
               - src/docs/portal.md
