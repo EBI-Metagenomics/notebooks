@@ -18,6 +18,7 @@ Main prokaryotic ribosomal RNA genes used for taxonomic assignments.
 Main eukaryotic ribosomal RNA genes used for taxonomic assignments.
 
 ## Amplicon
+
 Refers a marker gene that has been amplified and sequenced. On the MGnify website, we use the term amplicon when the amplified marker gene is a ribosomal RNA gene. Analysis will yield taxonomic information.
 
 ## Amplicon Sequence Variant (ASV)
