@@ -42,7 +42,7 @@ The MGnify assembly analysis pipeline v6.0 provides the following key features:
 
 ### Schema
 
-TODO
+![Schema of the MGnify Assembly Analysis pipeline version 6.1](../../images/analysis/version6/pipeline_v6_assembly.png)
 
 ### Tools
 
