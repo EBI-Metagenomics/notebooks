@@ -19,7 +19,7 @@ For each analysed [assembly](../../glossary.md#assembly), MGnify displays and pr
 - The integrated [MGE](../../glossary.md#mge) annotations in GFF3 format.
 - A FASTA file with the sequence records for all predicted mobile genetic elements.
 
-## Technical and download reference
+## Technical details and results reference
 
 ### Tools used
 

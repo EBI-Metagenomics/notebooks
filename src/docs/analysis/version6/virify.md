@@ -20,7 +20,7 @@ description: Description of viral analysis with VIRify in the MGnify assembly an
 - Krona and Sankey interactive visualisations.
 - Quality metrics from CheckV.
 
-## Technical and download reference
+## Technical details and results reference
 
 ### Tools used
 

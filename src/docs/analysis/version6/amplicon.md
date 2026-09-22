@@ -7,11 +7,11 @@ author:
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: Description of the MGnify v6 amplicon analysis pipeline.
+description: Description of the MGnify v6.2 amplicon analysis pipeline.
 order: 1
 ---
 
-The MGnify amplicon analysis pipeline v6.1 ([GitHub repository](https://github.com/EBI-Metagenomics/amplicon-analysis-pipeline)) analyses [amplicon](../../glossary.md#amplicon) sequencing reads to provide taxonomic profiles from closed-reference databases. For supported [16S](../../glossary.md#16s-rrna-genes) and [18S](../../glossary.md#18s-rrna-genes) datasets, it also infers amplified regions, identifies and trims primers, calls [Amplicon Sequence Variants (ASVs)](../../glossary.md#amplicon-sequence-variant-asv), and assigns taxonomy to those ASVs.
+The MGnify amplicon analysis pipeline v6.2 ([GitHub repository](https://github.com/EBI-Metagenomics/amplicon-analysis-pipeline)) analyses [amplicon](../../glossary.md#amplicon) sequencing reads to provide taxonomic profiles from closed-reference databases. For supported [16S](../../glossary.md#16s-rrna-genes) and [18S](../../glossary.md#18s-rrna-genes) datasets, it also infers amplified regions, identifies and trims primers, calls [Amplicon Sequence Variants (ASVs)](../../glossary.md#amplicon-sequence-variant-asv), and assigns taxonomy to those ASVs.
 
 ## Results available on MGnify
 
@@ -21,18 +21,21 @@ For each analysed run, MGnify provides:
 - Taxonomic profiles and interactive visualisations.
 - ASV sequences, abundances, and taxonomic assignments for supported 16S and 18S datasets.
 
+::: {.callout-note}
 ASV results are not produced for LSU or ITS datasets.
+:::
 
 ## Features
 
-The amplicon analysis pipeline v6.1 has the following features:
+The amplicon analysis pipeline v6.2 has the following features:
 
+- Amplicon analysis of short reads, including paired-end and single-end data
 - Read quality control
 - rRNA sequence extraction using [Infernal/cmsearch](https://github.com/EddyRivasLab/infernal/tree/master)
 - Automatic amplified region inference for 16S and 18S rRNA
 - Automatic primer identification, trimming, and validation
 - Amplicon Sequence Variant (ASV) calling using [DADA2](https://benjjneb.github.io/dada2/index.html)
-- Taxonomic classification and visualisation of ASVs using [MAPseq](https://github.com/meringlab/MAPseq) and [Krona](https://github.com/marbl/Krona) to complement the existing closed-reference analysis
+- Taxonomic classification and visualisation of ASVs using [MAPseq](https://github.com/meringlab/MAPseq) and [Krona](https://github.com/marbl/Krona)
 - Closed-reference-based taxonomic classification and visualisation of rRNA using [MAPseq](https://github.com/meringlab/MAPseq) and [Krona](https://github.com/marbl/Krona)
 - Taxonomic reference databases ([SILVA](https://www.arb-silva.de/), [UNITE](https://unite.ut.ee/), [ITSoneDB](https://itsonedb.cloud.ba.infn.it), [PR2](https://pr2-database.org/), [Rfam](https://rfam.org/))
 
@@ -47,13 +50,13 @@ At this stage, the only sequence amplicons that this pipeline is built for are:
 |   LSU    |             ✓             |      ✗       |
 |   ITS    |             ✓             |      ✗       |
 
-## Technical and download reference
+## Technical details and results reference
 
 The following sections describe the pipeline implementation and its downloadable output files. You do not need to run Nextflow or use these files to view results on MGnify.
 
 ### Schema
 
-![Schema of the MGnify Amplicon Analysis pipeline version 6.1](../../images/analysis/version6/pipeline_v6.1_amplicon.png)
+![Schema of the MGnify Amplicon Analysis pipeline version 6.2](../../images/analysis/version6/pipeline_v6_amplicon.png)
 
 ### Tools
 

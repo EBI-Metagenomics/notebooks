@@ -7,7 +7,7 @@ author:
     affiliation-url: https://www.ebi.ac.uk
 date: last-modified
 citation: true
-description: Description of the MGnify v6 assembly annotation pipeline.
+description: Description of the MGnify v6.0 assembly annotation pipeline.
 order: 3
 ---
 
@@ -38,11 +38,11 @@ The MGnify assembly analysis pipeline v6.0 provides the following key features:
 - KEGG module completeness analysis from KEGG Ortholog annotations
 - Consolidation of generated annotations into a single GFF file
 
-## Technical and download reference
+## Technical details and results reference
 
 ### Schema
 
-![Schema of the MGnify Assembly Analysis pipeline version 6.1](../../images/analysis/version6/pipeline_v6_assembly.png)
+![Schema of the MGnify Assembly Analysis pipeline version 6.0](../../images/analysis/version6/pipeline_v6_assembly.png)
 
 ### Tools
 
@@ -88,7 +88,7 @@ This pipeline uses several reference databases, you can find the list of them in
 | ------------------------------------------------------------------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Rfam covariance models](https://rfam.org/)                                                                  | 15         | rRNA covariance models                                                                           | [ftp://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.cm.gz ](https://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.cm.gz)                                                                                                    |
 | [Rfam clan info](https://rfam.org/)                                                                          | 15         | rRNA clan information                                                                            | [ftp://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.clanin](https://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.clanin)                                                                                                   |
-| [InterProScan](https://www.ebi.ac.uk/interpro/download/InterProScan/)                                        | 5.73-104.0 | InterProScan reference database                                                                  | [ftp://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.73-104.0/](httpd://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.73-104.0/)                                                                                           |
+| [InterProScan](https://www.ebi.ac.uk/interpro/download/InterProScan/)                                        | 5.73-104.0 | InterProScan reference database                                                                  | [ftp://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.73-104.0/](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.73-104.0/)                                                                                           |
 | [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#requirements) | 5.0.2      | eggNOG-mapper annotation databases and Diamond                                                   | https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#requirements                                                                                                                            |
 | [antiSMASH](https://rfam.org/)                                                                               | 8.0.1      | The antiSMASH reference database                                                                 | https://docs.antismash.secondarymetabolites.org/install/#antismash-standalone-lite                                                                                                                                     |
 | [KOFAM](https://www.genome.jp/tools/kofamkoala/)<sup>\*</sup>                                                | 2025-04    | KOfam - HMM profiles for KEGG/KO. Our reference generation pipeline generates the required files | https://github.com/EBI-Metagenomics/reference-databases-preprocessing-pipeline                                                                                                                                         |
