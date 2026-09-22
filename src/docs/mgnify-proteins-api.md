@@ -18,7 +18,7 @@ The MGnify Proteins API provides programmatic access to the data presented on th
 
 This API is **synchronous and read-only**: every request is a single `GET` that returns JSON. No authentication or API key is required.
 
-The API is intended for looking up and exploring *individual* proteins and *small* result sets, if you need to fetch more data bulk downloads are available from the protein database release [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/).
+The API is intended for looking up and exploring *individual* proteins and *small* result sets. If you need to fetch more data, bulk downloads are available from the [Transfer Services file server](ftp.md), and the whole database can be queried remotely, without downloading it, using [Parquet and DuckDB](mgnify-proteins-parquet-queries.qmd).
 
 ::: {.callout-note}
 Note that detailed records exist only for **cluster representatives**, not for every protein sequence in the database. See [MGnify Proteins Resource](mgnify-proteins.qmd) for an explanation of the clustering.
@@ -167,7 +167,7 @@ Finds cluster representatives matching a single filter. Provide **exactly one** 
 | `pfam_accession` | string or integer | Match proteins carrying a Pfam domain. Accepts `PF00005` or `5`. |
 | `limit` | integer | Maximum number of proteins to return. Defaults to `50`, maximum `1000`. |
 
-Results are returned as a single page ordered by MGYP accession, capped at `limit`. There is no pagination or offset: the search is designed for exploration, and larger result sets should be obtained from the [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/).
+Results are returned as a single page ordered by MGYP accession, capped at `limit`. There is no pagination or offset: the search is designed for exploration. Larger result sets are better served by [remote Parquet queries with DuckDB](mgnify-proteins-parquet-queries.qmd), or by a [bulk download](ftp.md) of the complete release.
 
 Each result carries only `mgyp`, `full_length` and `cluster_size`. To obtain sequences and annotations, request each `mgyp` from the detail endpoint — see [Building a FASTA file for a biome](#uc-fasta).
 
@@ -349,7 +349,8 @@ MGYP000000001467
 * [MGnify Proteins portal](mgnify-proteins-web.md) — the web interface backed by this API.
 * [Sequence Search](mgnify-proteins-sequence-search.md) — search the database *by sequence* using HMMER.
 * [BigQuery public dataset](mgnify-proteins-big-query.qmd) — large-scale analytical queries.
-* [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/) — bulk downloads of complete releases.
+* [Remote Parquet queries](mgnify-proteins-parquet-queries.qmd) — query the database with DuckDB over HTTPS, without downloading it.
+* [Transfer Services (FTP) file server](ftp.md) — bulk downloads of complete releases.
 * [MGnify RESTful API](api.md) — the main MGnify API, covering studies, samples, runs and analyses.
 
 ## License
