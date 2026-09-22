@@ -13,7 +13,7 @@ order: 3
 
 ## Overview
 
-The latest MGnify analysis service (version 6) offers pipelines for three different data types: [amplicon](../../glossary.md#amplicon), raw [metagenomic](../../glossary.md#metagenomic)/[metatranscriptomic](../../glossary.md#metatranscriptomic) reads, and [assembly](../../glossary.md#assembly).
+The latest MGnify analysis service (version 6) offers pipelines for three different data types: [amplicon](../../glossary.md#amplicon), raw [metagenomic](../../glossary.md#metagenomic)/[metatranscriptomic](../../glossary.md#metatranscriptomic) reads, and [assemblies](../../glossary.md#assembly).
 
 For assembled datasets, the assembly analysis pipeline is complemented by [VIRify](virify.md) for viral sequence detection and the [Mobilome annotation pipeline](mobilome.md), both accessible in the same web view.
 
