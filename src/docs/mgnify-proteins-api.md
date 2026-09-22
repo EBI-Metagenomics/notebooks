@@ -14,14 +14,14 @@ description: Programmatically accessing MGnify Proteins data via the Proteins We
 
 ## Introduction
 
-The MGnify Proteins API provides programmatic access to the data presented on the [MGnify Proteins portal](mgnify-proteins-web.md): the metadata held for each cluster representative in the [MGnify Protein Database](mgnify-proteins.md), and a way to search for cluster representatives by [biome](glossary.md#biome) or by [Pfam](https://www.ebi.ac.uk/interpro/entry/pfam/) domain.
+The MGnify Proteins API provides programmatic access to the data presented on the [MGnify Proteins portal](mgnify-proteins-web.md): the metadata held for each cluster representative in the [MGnify Protein Database](mgnify-proteins.qmd), and a way to search for cluster representatives by [biome](glossary.md#biome) or by [Pfam](https://www.ebi.ac.uk/interpro/entry/pfam/) domain.
 
 This API is **synchronous and read-only**: every request is a single `GET` that returns JSON. No authentication or API key is required.
 
 The API is intended for looking up and exploring *individual* proteins and *small* result sets, if you need to fetch more data bulk downloads are available from the protein database release [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/).
 
 ::: {.callout-note}
-Note that detailed records exist only for **cluster representatives**, not for every protein sequence in the database. See [MGnify Proteins Resource](mgnify-proteins.md) for an explanation of the clustering.
+Note that detailed records exist only for **cluster representatives**, not for every protein sequence in the database. See [MGnify Proteins Resource](mgnify-proteins.qmd) for an explanation of the clustering.
 :::
 
 ## API Overview
@@ -38,12 +38,6 @@ The base address for the API is:
 https://www.ebi.ac.uk/metagenomics/proteins/api/v1
 ```
 
-Throughout this page examples use the shell variable `$API` to stand for that address:
-
-```bash
-API="https://www.ebi.ac.uk/metagenomics/proteins/api/v1"
-```
-
 ### Interactive documentation
 
 An interactive Swagger UI is served alongside the API, listing every endpoint, parameter and response schema, and allowing requests to be issued from the browser:
@@ -51,7 +45,7 @@ An interactive Swagger UI is served alongside the API, listing every endpoint, p
 * Interactive docs: [`/api/v1/docs`](https://www.ebi.ac.uk/metagenomics/proteins/api/v1/docs)
 * OpenAPI schema: [`/api/v1/openapi.json`](https://www.ebi.ac.uk/metagenomics/proteins/api/v1/openapi.json)
 
-The OpenAPI schema can be used to generate a client in your language of choice.
+The OpenAPI schema can be used to generate a client in your language of choice, with a tool such as [OpenAPI Generator](https://openapi-generator.tech/).
 
 ### HTTP methods
 
@@ -63,10 +57,8 @@ There are two endpoints:
 
 | Endpoint | Purpose |
 |---|---|
-| `GET /protein/{mgyp}` | Please see Protein Detail |
-``
-or similar, as "everything known" is too strong
-| `GET /protein/search` | Find cluster representatives by biome or Pfam domain |
+| `GET /protein/{mgyp}` | The record held for one cluster representative — see [Protein detail](#protein-detail) |
+| `GET /protein/search` | Find cluster representatives by biome or Pfam domain — see [Protein search](#protein-search) |
 
 ### Errors
 
@@ -106,7 +98,7 @@ The `{mgyp}` path parameter is an MGYP accession. It is tolerant of formatting: 
 
 ### Response fields
 
-* **`mgyp`**: the zero-padded MGYP accession.
+* **`mgyp`**: the MGYP accession, e.g. `MGYP000261684433`.
 * **`sequence`**: the amino acid sequence of the cluster representative.
 * **`full_length`**: whether the sequence is a full-length ORF (`true`) or a fragment (`false`).
 * **`cluster_size`**: the number of protein sequences in this cluster.
@@ -117,7 +109,7 @@ The `{mgyp}` path parameter is an MGYP accession. It is tolerant of formatting: 
 ### Example
 
 ```bash
-curl "${API}/protein/MGYP000261684433"
+curl "https://www.ebi.ac.uk/metagenomics/proteins/api/v1/protein/MGYP000261684433"
 ```
 
 ```json
@@ -181,12 +173,14 @@ Each result carries only `mgyp`, `full_length` and `cluster_size`. To obtain seq
 
 ::: {.callout-important}
 `biome_lineage` must be a **full lineage**, not a fragment. `root:Engineered` or `root:Engineered:Wastewater` works, but `Wastewater` on its own matches no biome and returns `422` with an explanatory message. A valid lineage that simply has no cluster representatives returns `200` with an empty list.
+
+The full list of biomes can be retrieved from the MGnify API's [biomes endpoint](https://www.ebi.ac.uk/metagenomics/api/v1/biomes).
 :::
 
 ### Example
 
 ```bash
-curl "${API}/protein/search?biome_lineage=root:Engineered:Wastewater&limit=3"
+curl "https://www.ebi.ac.uk/metagenomics/proteins/api/v1/protein/search?biome_lineage=root:Engineered:Wastewater&limit=3"
 ```
 
 ```json
@@ -201,7 +195,7 @@ curl "${API}/protein/search?biome_lineage=root:Engineered:Wastewater&limit=3"
 Biome lineages contain colons, which are safe to send unencoded. Some biome names contain spaces (for example `root:Host-associated:Human:Digestive system`); let `curl` encode those for you:
 
 ```bash
-curl -G "${API}/protein/search" \
+curl -G "https://www.ebi.ac.uk/metagenomics/proteins/api/v1/protein/search" \
   --data-urlencode "biome_lineage=root:Host-associated:Human:Digestive system" \
   --data-urlencode "limit=10"
 ```
@@ -211,21 +205,29 @@ curl -G "${API}/protein/search" \
 
 ## Use cases
 
+The examples below use Python and the [`requests`](https://requests.readthedocs.io/) library. Each one
+reuses the `BASE` address defined in the first example.
+
 ### Look up a protein and extract its sequence
 
-Fetch one record and pull out a single field with [`jq`](https://jqlang.github.io/jq/):
+```python
+import requests
 
-```bash
-curl -s "${API}/protein/MGYP000261684433" | jq -r '.sequence'
+BASE = "https://www.ebi.ac.uk/metagenomics/proteins/api/v1"
+
+protein = requests.get(f"{BASE}/protein/MGYP000261684433").json()
+
+print(protein["sequence"])
 ```
 
-The `-s` flag silences `curl`'s progress meter, which is otherwise printed alongside the output whenever the response is piped into another command.
+```
+EESGVTRAVQGAGDEVPGEVFFEKGVVEETLRGGPAGEAAAGDTEAATAETDDGHLGSVGRNEKTSFAELKAEYESGDLEWVDDEDRETGPDTGESEHSKTSFADLKAEYESGDLEWVDDEGPDEAAARTTGSGDERTAASVETATTEVVPGEEERTAGEADEGEWDEGEWDGGEGDEETGDLADELDELELFEDEIEWDGDDNTPEESLARAGEEAGEREAERAAEDERTVEDERAAEDERGVSRDATGADTATAEEDSSADAPTADQRPDDAAGSRGQEGEAPSPEAASTSAGESPSADREGVEPEAASGGATKRRPPGESGEGKPYLETLPQGHWADLLVMEWLEFLVEEGGTQAATRALEYYERIGWIDGGVTEELERYLAGFEGDGDGALSIDHHRRSLSYVDQLGDGDVSVERLL
+```
 
-Or write it straight out as FASTA:
+The same record written out as FASTA:
 
-```bash
-curl -s "${API}/protein/MGYP000261684433" |
-  jq -r '">" + .mgyp + "\n" + .sequence'
+```python
+print(f">{protein['mgyp']}\n{protein['sequence']}")
 ```
 
 ```
@@ -235,42 +237,53 @@ EESGVTRAVQGAGDEVPGEVFFEKGVVEETLRGGPAGEAAAGDTEAATAETDDGHLGSVGRNEKTSFAELKAEYESGDLE
 
 ### Building a FASTA file for a biome {#uc-fasta}
 
-A common workflow: find the cluster representatives observed in a biome, then retrieve each sequence. The search endpoint returns accessions, and the detail endpoint turns each one into a sequence.
+A common workflow: find the cluster representatives observed in a biome, then retrieve each sequence.
+The search endpoint returns the accessions, and the detail endpoint turns each one into a sequence.
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
+```python
+import requests
 
-API="https://www.ebi.ac.uk/metagenomics/proteins/api/v1"
-LINEAGE="root:Engineered:Wastewater"
-OUTPUT="wastewater.fasta"
+BASE = "https://www.ebi.ac.uk/metagenomics/proteins/api/v1"
 
 # 1. Find cluster representatives from this biome and all of its sub-biomes.
-curl -s -G "${API}/protein/search" \
-  --data-urlencode "biome_lineage=${LINEAGE}" \
-  --data-urlencode "limit=100" > hits.json
+hits = requests.get(
+    f"{BASE}/protein/search",
+    params={"biome_lineage": "root:Engineered:Wastewater", "limit": 10},
+).json()
 
-# 2. Fetch each protein and append it to a FASTA file.
-: > "${OUTPUT}"
-jq -r '.[].mgyp' hits.json | while read -r MGYP; do
-  curl -s "${API}/protein/${MGYP}" |
-    jq -r '">" + .mgyp + " cluster_size=" + (.cluster_size|tostring) + "\n" + .sequence' \
-    >> "${OUTPUT}"
-done
+# 2. Fetch each protein, and write it out as FASTA.
+with open("wastewater.fasta", "w") as fasta_file:
+    for hit in hits:
+        protein = requests.get(f"{BASE}/protein/{hit['mgyp']}").json()
+        fasta_file.write(f">{protein['mgyp']}\n{protein['sequence']}\n")
 
-echo "Wrote $(grep -c '^>' "${OUTPUT}") sequences to ${OUTPUT}"
+print(f"Wrote {len(hits)} sequences to wastewater.fasta")
 ```
 
+::: {.callout-note}
+`requests` encodes the query parameters, so biome names that contain spaces — for example
+`root:Host-associated:Human:Digestive system` — need no special handling.
+:::
+
 ::: {.callout-tip}
-This makes one request per protein, so keep `limit` modest and be considerate of the service. This service is rate-limited, so queries are going to be throttled. For thousands of sequences, download the release from the [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/) instead.
+This makes one request per protein, so keep `limit` modest and be considerate of the service. This
+service is rate-limited, so queries are going to be throttled. For thousands of sequences, download the
+release from the [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/)
+instead.
 :::
 
 ### Finding proteins that carry a Pfam domain
 
-Search by Pfam accession, then inspect the domain coordinates on each hit:
+Search by Pfam accession to get the matching accessions:
 
-```bash
-curl -s "${API}/protein/search?pfam_accession=PF00005&limit=5" | jq -r '.[].mgyp'
+```python
+hits = requests.get(
+    f"{BASE}/protein/search",
+    params={"pfam_accession": "PF00005", "limit": 5},
+).json()
+
+for hit in hits:
+    print(hit["mgyp"])
 ```
 
 ```
@@ -281,45 +294,40 @@ MGYP000000005958
 MGYP000000006630
 ```
 
-The same workflow in Python, reporting which of the returned proteins are full-length ORFs:
+Fetching each hit from the detail endpoint adds the sequence length and the domains it carries:
 
 ```python
-import requests
-
-API = "https://www.ebi.ac.uk/metagenomics/proteins/api/v1"
-
-hits = requests.get(
-    f"{API}/protein/search",
-    params={"pfam_accession": "PF00005", "limit": 20},
-).json()
-
 for hit in hits:
-    protein = requests.get(f"{API}/protein/{hit['mgyp']}").json()
+    protein = requests.get(f"{BASE}/protein/{hit['mgyp']}").json()
     domains = ", ".join(p["accession"] for p in protein["pfam_annotations"])
-    print(
-        f"{protein['mgyp']}\t"
-        f"{'full-length' if protein['full_length'] else 'fragment'}\t"
-        f"{len(protein['sequence'])} aa\t{domains}"
-    )
+    length = "full-length" if protein["full_length"] else "fragment"
+    print(f"{protein['mgyp']}\t{length}\t{len(protein['sequence'])} aa\t{domains}")
 ```
 
 ### Exploring outwards from one protein
 
-Because biome ids in a detail response are the same ids the search endpoint accepts, you can start from a protein of interest and find others sharing its biome:
+The biome ids in a detail response are the same ids the search endpoint accepts, so you can start from a
+protein of interest and find others sharing its biome:
 
-```bash
-# Which biomes was this protein seen in?
-curl -s "${API}/protein/MGYP000261684433" | jq -r '.biomes[] | "\(.id)\t\(.name)"'
+```python
+protein = requests.get(f"{BASE}/protein/MGYP000261684433").json()
+
+for biome in protein["biomes"]:
+    print(biome["id"], biome["name"])
 ```
 
 ```
-132     root:Environmental:Aquatic:Marine
+132 root:Environmental:Aquatic:Marine
 ```
 
-```bash
-# Take the first biome id, and find other representatives from it.
-BIOME_ID=$(curl -s "${API}/protein/MGYP000261684433" | jq -r '.biomes[0].id')
-curl -s "${API}/protein/search?biome_id=${BIOME_ID}&limit=10" | jq -r '.[].mgyp'
+```python
+neighbours = requests.get(
+    f"{BASE}/protein/search",
+    params={"biome_id": protein["biomes"][0]["id"], "limit": 10},
+).json()
+
+for hit in neighbours:
+    print(hit["mgyp"])
 ```
 
 ```
@@ -334,6 +342,7 @@ MGYP000000000872
 MGYP000000001138
 MGYP000000001467
 ```
+
 
 ## Related resources
 
