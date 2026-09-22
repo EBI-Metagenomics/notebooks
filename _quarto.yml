@@ -48,6 +48,7 @@ website:
               contents:
               - src/examples/python.qmd
               - src/examples/mgnipy.qmd
+              - src/examples/proteins-api.qmd
               - src/examples/r.qmd
               - src/examples/observable-js.qmd
               - src/examples/atlanteco_samples_map.qmd

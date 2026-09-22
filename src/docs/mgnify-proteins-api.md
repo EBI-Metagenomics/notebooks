@@ -208,6 +208,11 @@ curl -G "https://www.ebi.ac.uk/metagenomics/proteins/api/v1/protein/search" \
 The examples below use Python and the [`requests`](https://requests.readthedocs.io/) library. Each one
 reuses the `BASE` address defined in the first example.
 
+::: {.callout-tip}
+These examples can be edited and run in your browser, without installing anything, on the
+[MGnify Proteins API in Python](../examples/proteins-api.qmd) page.
+:::
+
 ### Look up a protein and extract its sequence
 
 ```python
