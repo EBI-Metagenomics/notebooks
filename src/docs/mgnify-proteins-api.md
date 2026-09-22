@@ -174,7 +174,7 @@ Each result carries only `mgyp`, `full_length` and `cluster_size`. To obtain seq
 ::: {.callout-important}
 `biome_lineage` must be a **full lineage**, not a fragment. `root:Engineered` or `root:Engineered:Wastewater` works, but `Wastewater` on its own matches no biome and returns `422` with an explanatory message. A valid lineage that simply has no cluster representatives returns `200` with an empty list.
 
-The full list of biomes can be retrieved from the MGnify API's [biomes endpoint](https://www.ebi.ac.uk/metagenomics/api/v1/biomes).
+The full list of biomes can be retrieved from the MGnify API's [biomes endpoint](https://www.ebi.ac.uk/metagenomics/api/v2/biomes/).
 :::
 
 ### Example
