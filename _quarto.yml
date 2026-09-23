@@ -48,6 +48,7 @@ website:
               contents:
               - src/examples/python.qmd
               - src/examples/mgnipy.qmd
+              - src/examples/proteins-api.qmd
               - src/examples/r.qmd
               - src/examples/observable-js.qmd
               - src/examples/atlanteco_samples_map.qmd
@@ -58,6 +59,7 @@ website:
               href: src/docs/mgnify-proteins.qmd
               contents:
                 - src/docs/mgnify-proteins-web.md
+                - src/docs/mgnify-proteins-api.md
                 - src/docs/mgnify-proteins-sequence-search.md
                 - src/docs/mgnify-proteins-big-query.qmd
                 - src/docs/mgnify-proteins-parquet-queries.qmd
