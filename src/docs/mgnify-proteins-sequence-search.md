@@ -35,7 +35,7 @@ Note: With the increasing size of MGnify Proteins, downstream tools like [HMMER 
 
 ![Example MGnify30-C2 results, showing MGnify protein accessions, associated studies and assemblies, Pfam matches and E-values.](images/sequence_search/hmmer-mgnify30-results.png){#fig-hmmer-mgnify30-results}
 
-## Choosing an MGnify30 database
+## Choosing a MGnify30 database
 
 MGnify30 contains representative sequences from MGnify protein clusters formed
 at 30% sequence identity. HMMER provides three subsets for different search
@@ -43,17 +43,14 @@ goals:
 
 ![MGnify30-C2 selected as the HMMER sequence database, with the default search cut-offs.](images/sequence_search/hmmer-mgnify30-database.png){#fig-hmmer-mgnify30-database}
 
-- **MGnify30-C2 (Non-singletons)** contains representatives of clusters with at
-  least two members. This is the broadest MGnify30 option and is a sensible
-  default for general searches.
-- **MGnify30-C5-FL (Larger non-singletons)** contains representatives of
-  clusters with at least five members, including at least one member predicted
-  to be a full-length protein. Use this smaller subset when stronger cluster
-  support and a full-length member are important.
-- **MGnify30-C5-PPfam (Pfam-poor non-singletons)** contains representatives of
-  clusters with at least five members where at least 90% of members have no Pfam
-  accession. Use this subset to focus on comparatively uncharacterised protein
-  sequence space.
+### Non-singletons (MGnify30-C2)
+The non-singletons subset was created by extracting clusters that have **at least two members**, thereby excluding a majority of the representatives. This subset contains **128,674,267 cluster representatives**.
+
+### Larger non-singletons (MGnify30-C5-FL)
+The larger non-singletons subset was created by extracting clusters that have **at least five members, including at least one member that is predicted to be a full-length sequence**. This subset therefore reduces the space even further, and guarantees at least one full-length sequence for increased confidence. This subset contains **20,911,652  cluster representatives**.
+
+### Pfam-poor non-singletons (MGnify30-C5-PPfam)
+The Pfam-poor non-singletons subset was created by extracting clusters that have **at least five members, and where at least 90% of the cluster members do not have a Pfam accession**. This subset similarly reduces the space significantly, and contains clusters for which function is relatively unknown. This subset contains **18,155,509  cluster representatives**.
 
 See the HMMER documentation for the current list and definitions of
 [target databases](https://hmmer-web-docs.readthedocs.io/en/development/databases.html).
