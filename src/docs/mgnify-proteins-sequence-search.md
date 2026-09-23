@@ -10,7 +10,7 @@ citation: true
 description: Guide to searching the MGnify protein databases with HMMER
 ---
 
-MGnify protein sequence searches are provided by the EMBL-EBI HMMER web [HMMER web](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer){.btn .btn-primary target="_blank" rel="noopener noreferrer"}
+MGnify protein sequence searches are provided by the EMBL-EBI HMMER web [HMMER web](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer){.vf-link .external target="_blank" rel="noopener noreferrer"}
 service. Use `phmmer` to search a protein query sequence in the MGnify Proteins Database.
 
 [Open HMMER](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer){.btn .btn-primary target="_blank" rel="noopener noreferrer"}

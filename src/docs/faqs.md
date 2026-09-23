@@ -1,5 +1,5 @@
 ---
-****title: FAQs
+title: FAQs
 author: 
   - name: MGnify
     url: https://www.ebi.ac.uk/metagenomics
