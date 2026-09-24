@@ -98,7 +98,7 @@ The preprocessed databases are generated with the [Microbiome Informatics refere
 
 ### Output files
 
-There are six general categories of results, which are separated into six different output directories by the pipeline, and each successful run/sample should have all six of these directories:
+There are six general categories of results, which are separated into six different output directories by the pipeline, and each successful run/sample should have up to six of these directories:
 
 ```bash
 ├── qc
