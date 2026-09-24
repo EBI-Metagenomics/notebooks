@@ -15,5 +15,6 @@ src/*.html
 src/*-listing.json
 .cache-data.db
 .cache-state.db
+.serena/
 
 **/*.quarto_ipynb
