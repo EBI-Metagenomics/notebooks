@@ -86,8 +86,8 @@ This pipeline uses five different reference databases. The files the pipeline us
 
 | Reference Database                            | Version | Purpose                               |
 | --------------------------------------------- | ------- | ------------------------------------- |
-| [SILVA](https://www.arb-silva.de/)            | 138.1   | 16S+18S+LSU rRNA database             |
-| [PR2](https://pr2-database.org/)              | 5.0     | Protist-focused 18S+16S rRNA database |
+| [SILVA](https://www.arb-silva.de/)            | 138.1   | SSU+LSU rRNA database             |
+| [PR2](https://pr2-database.org/)              | 5.0     | Protist-focused SSU rRNA database |
 | [UNITE](https://unite.ut.ee/)                 | 9.0     | ITS database                          |
 | [ITSoneDB](https://itsonedb.cloud.ba.infn.it) | 1.141   | ITS database                          |
 | [Rfam](https://rfam.org/)                     | 14.10   | rRNA covariance models                |
