@@ -45,7 +45,7 @@ When comparing results, use the first two numbers of the pipeline version. For e
 
 MGnify therefore describes the amplicon pipeline as analysis version `v6.2`, while recording the full three-part software version for reproducibility.
 
-Pipeline-specific change logs provide details about differences between patch releases.
+Pipeline-specific changelogs provide details about software releases: [amplicon analysis](https://github.com/EBI-Metagenomics/amplicon-analysis-pipeline/blob/main/CHANGELOG.md), [assembly analysis](https://github.com/EBI-Metagenomics/assembly-analysis-pipeline/blob/main/CHANGELOG.md), [VIRify](https://github.com/EBI-Metagenomics/emg-viral-pipeline/blob/master/CHANGELOG.md), and [mobilome annotation](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline/blob/dev/CHANGELOG.md). Raw reads release information is available in its [repository](https://github.com/EBI-Metagenomics/raw-reads-analysis-pipeline).
 
 ## Analysis pipelines documentation
 
