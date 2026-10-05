@@ -198,7 +198,7 @@ The `amplified-region-inference` directory contains output files related to the 
 The output files of this directory are also dynamic for similar reasons as `sequence-categorisation` - it depends on which, and how many, amplified regions were found. The pipeline allows for at most two amplified regions, which are made up of two parts:
 
 - The gene: either 16S or 18S.
-- The hypervariable region: any region from V1 to V9, and any logical pair of regions e.g. V3-V4.
+- The hypervariable region: any region from V1 to V9, and any logical interval of regions e.g. V3-V4.
 
 ##### Output files
 
