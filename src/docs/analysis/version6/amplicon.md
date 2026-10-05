@@ -309,7 +309,7 @@ All of the different possible subdirectories have the same four files. Taking PR
 - **ERR4334351_PR2.mseq**: This `mseq` file contains the raw MAPseq output for every `Infernal/cmsearch` match, i.e. each match's taxonomic assignment.
 - **ERR4334351_PR2.txt**: This `txt` file contains the Krona text input that is used to generate the Krona HTML file. It contains the distribution of the different taxonomic assignments.
 - **ERR4334351.html**: This `html` file contains the Krona HTML file that interactively displays the distribution of the different taxonomic assignments.
-- **ERR4334351_UNITE.tsv**: This `tsv` file contains the read count of every taxonomic assignment similar to the Krona txt file, but in a different easier-to-parse format.
+- **ERR4334351_PR2.tsv**: This `tsv` file contains the read count of every taxonomic assignment similar to the Krona txt file, but in a different easier-to-parse format.
 
 ##### Output files - ASVs
 
