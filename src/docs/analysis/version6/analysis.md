@@ -25,15 +25,15 @@ Analysed assembled datasets are complemented by [VIRify](virify.md) for viral se
 - Raw-reads analysis - [v6.0](raw-reads.md)
 - Assembly Analysis - [v6.0](assembly.md)
 
-## Pipeline versions
+## Pipeline repositories
 
-Each of the pipelines that constitute the service is versioned independently. The current versions are:
+Each of the pipelines that constitute the service is versioned independently. Their repositories provide software releases and pipeline documentation; the latest software release may differ from the version deployed on MGnify.
 
-- Amplicon analysis pipeline: [v6.2.0](https://github.com/EBI-Metagenomics/amplicon-analysis-pipeline/releases/tag/v6.2.0)
-- Raw reads analysis pipeline: [v6.0.0](https://github.com/EBI-Metagenomics/raw-reads-analysis-pipeline/releases/tag/v6.0.0)
-- Assembly analysis pipeline: [v6.0.5](https://github.com/EBI-Metagenomics/assembly-analysis-pipeline/releases/tag/6.0.5)
-- VIRify: [v3.3.2](https://github.com/EBI-Metagenomics/emg-viral-pipeline/releases/tag/v3.3.2)
-- Mobilome annotation pipeline: [v4.2.3](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline/releases/tag/v4.2.3)
+- [Amplicon analysis pipeline](https://github.com/EBI-Metagenomics/amplicon-analysis-pipeline)
+- [Raw reads analysis pipeline](https://github.com/EBI-Metagenomics/raw-reads-analysis-pipeline)
+- [Assembly analysis pipeline](https://github.com/EBI-Metagenomics/assembly-analysis-pipeline)
+- [VIRify](https://github.com/EBI-Metagenomics/emg-viral-pipeline)
+- [Mobilome annotation pipeline](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline)
 
 ### Comparability between pipeline versions
 
