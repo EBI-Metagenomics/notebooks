@@ -15,7 +15,7 @@ The MGnify v6.0 [assembly](../../glossary.md#assembly) analysis pipeline ([GitHu
 
 Here, `v6.0` identifies the analysis version. See the [pipeline repositories](analysis.md#pipeline-repositories) for software releases and pipeline documentation.
 
-Users can request assembly of their own raw sequencing reads or publicly available datasets using the “Request analysis” section of the [MGnify home page](https://www.ebi.ac.uk/metagenomics/). User-owned raw reads, with host sequences removed, must be archived in ENA before an assembly request can be submitted. Alternatively, pre-assembled datasets, including those produced using other assembly algorithms, can be analysed.
+MGnify uses [miassembler](https://github.com/EBI-Metagenomics/miassembler) to assemble sequencing reads. Users can request assembly of their own raw sequencing reads or publicly available datasets using the “Request analysis” section of the [MGnify home page](https://www.ebi.ac.uk/metagenomics/). User-owned raw reads, with host sequences removed, must be archived in ENA before an assembly request can be submitted. Alternatively, pre-assembled datasets, including those produced using other assembly algorithms, can be analysed.
 
 ## Results available on MGnify
 
