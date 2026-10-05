@@ -13,6 +13,8 @@ order: 3
 
 The MGnify v6.0 [assembly](../../glossary.md#assembly) analysis pipeline ([GitHub repository](https://github.com/EBI-Metagenomics/assembly-analysis-pipeline)) analyses assembled [metagenomic](../../glossary.md#metagenomic) and [metatranscriptomic](../../glossary.md#metatranscriptomic) datasets, providing functional, taxonomic, pathway, and systems annotation for assembled contigs. Additional analyses, including [VIRify](virify.md) and the [Mobilome annotation pipeline](mobilome.md), are run as separate pipelines on assemblies and are presented in the same web view. 
 
+Here, `v6.0` identifies the analysis version. See the [pipeline repositories](analysis.md#pipeline-repositories) for software releases and pipeline documentation.
+
 Users can request assembly of their own raw sequencing reads or publicly available datasets using the “Request analysis” section of the [MGnify home page](https://www.ebi.ac.uk/metagenomics/). User-owned raw reads, with host sequences removed, must be archived in ENA before an assembly request can be submitted. Alternatively, pre-assembled datasets, including those produced using other assembly algorithms, can be analysed.
 
 ## Results available on MGnify
