@@ -30,7 +30,7 @@ The raw reads analysis pipeline v6.0 provides the following key features:
 - Whole-genome sequencing (WGS) read analysis for short paired-end and single-end reads, as well as long reads from Oxford Nanopore and PacBio platforms
 - Read quality control using [BBMap](https://sourceforge.net/projects/bbmap) for paired-end standardisation and [fastp](https://github.com/OpenGene/fastp) for trimming, filtering, and paired-end read merging
 - Host and phiX decontamination using [bwa-mem2](https://github.com/bwa-mem2/bwa-mem2) for short reads and [minimap2](https://github.com/lh3/minimap2) for long reads
-- rRNA-based taxonomic profiling with [Infernal](https://github.com/EddyRivasLab/infernal), [MAPseq](https://github.com/jfmrod/MAPseq), and [SILVA](https://www.arb-silva.de/) reference databases
+- rRNA-based taxonomic profiling using [Infernal](https://github.com/EddyRivasLab/infernal), [MAPseq](https://github.com/jfmrod/MAPseq) to map to [SILVA](https://www.arb-silva.de/) reference databases
 - Marker-gene taxonomic profiling with [mOTUs](https://motu-tool.org/)
 - Optional functional profiling by mapping reads to [Pfam-A](https://www.ebi.ac.uk/interpro/entry/pfam) Hidden Markov Models with [HMMER](https://github.com/EddyRivasLab/hmmer)
 - Chunked processing and optional subsampling for efficient analysis of large datasets
