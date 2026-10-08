@@ -1,0 +1,162 @@
+---
+title: "MGnify Proteins API in Python"
+description: "Look up cluster representatives, search by biome or Pfam domain, and build a FASTA file."
+format:
+  live-html:
+    theme: [cosmo, ../static-resources/styles.scss]
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+pyodide:
+  packages: [requests]
+  cell-options:
+    autorun: false
+    edit: true
+---
+
+Edit and run the cells below, in order. The first visit may take a minute to load.
+Copy any code you want to keep before leaving or reloading the page.
+
+The endpoints, parameters and response fields used here are described in the
+[Proteins API reference](../docs/mgnify-proteins-api.md).
+
+## Set up
+
+Every example reuses this base address and helper.
+
+```{pyodide}
+import requests
+
+API = "https://www.ebi.ac.uk/metagenomics/proteins/api/v1"
+
+def get_json(path, **params):
+    response = requests.get(f"{API}/{path}", params=params, timeout=30)
+    response.raise_for_status()
+    return response.json()
+
+print(API)
+```
+
+## Look up a protein
+
+Fetch one cluster representative and read its sequence. Replace the accession to
+look up a different protein.
+
+```{pyodide}
+protein = get_json("protein/MGYP000261684433")
+
+print(protein["mgyp"])
+print(f"{len(protein['sequence'])} aa")
+print("full-length" if protein["full_length"] else "fragment")
+```
+
+The same record written out as FASTA:
+
+```{pyodide}
+print(f">{protein['mgyp']}\n{protein['sequence']}")
+```
+
+## Find proteins carrying a Pfam domain
+
+The search endpoint takes **exactly one** filter. Searching by Pfam accession
+returns the matching cluster representatives:
+
+```{pyodide}
+hits = get_json("protein/search", pfam_accession="PF00005", limit=5)
+
+for hit in hits:
+    print(hit["mgyp"])
+```
+
+Search results carry only `mgyp`, `full_length` and `cluster_size`. Fetching each
+hit from the detail endpoint adds the sequence length and the domains it carries:
+
+```{pyodide}
+for hit in hits:
+    protein = get_json(f"protein/{hit['mgyp']}")
+    domains = ", ".join(p["accession"] for p in protein["pfam_annotations"])
+    length = "full-length" if protein["full_length"] else "fragment"
+    print(f"{protein['mgyp']}\t{length}\t{len(protein['sequence'])} aa\t{domains}")
+```
+
+## Build a FASTA file for a biome
+
+A common workflow: find the cluster representatives observed in a biome, then
+retrieve each sequence. Searching by `biome_lineage` covers the biome **and all of
+its sub-biomes**. Edit the lineage or the limit, then run the cell again to rebuild
+the download.
+
+```{pyodide}
+#| define: [fasta_text, fasta_filename]
+LINEAGE = "root:Engineered:Wastewater"
+LIMIT = 10
+
+hits = get_json("protein/search", biome_lineage=LINEAGE, limit=LIMIT)
+
+records = []
+for hit in hits:
+    protein = get_json(f"protein/{hit['mgyp']}")
+    records.append(f">{protein['mgyp']}\n{protein['sequence']}")
+
+fasta_text = "\n".join(records) + "\n"
+fasta_filename = LINEAGE.replace(":", "-") + ".fasta"
+
+print(f"Collected {len(records)} sequences")
+print(fasta_text[:240] + "...")
+```
+
+```{ojs}
+//| echo: false
+DOM.download(new Blob([fasta_text], {type: "text/plain;charset=utf-8"}), fasta_filename, "Download FASTA")
+```
+
+::: {.callout-note}
+`requests` encodes the query parameters, so biome names that contain spaces — for
+example `root:Host-associated:Human:Digestive system` — need no special handling.
+:::
+
+::: {.callout-tip}
+This makes one request per protein, so keep `LIMIT` modest and be considerate of the
+service, which is rate-limited. For thousands of sequences, query the release
+remotely with [Parquet and DuckDB](../docs/mgnify-proteins-parquet-queries.qmd), or
+take a [bulk download](../docs/ftp.md) instead.
+:::
+
+## Explore outwards from one protein
+
+The biome ids in a detail response are the same ids the search endpoint accepts, so
+you can start from a protein of interest and find others sharing its biome:
+
+```{pyodide}
+protein = get_json("protein/MGYP000261684433")
+
+for biome in protein["biomes"]:
+    print(biome["id"], biome["name"])
+```
+
+```{pyodide}
+neighbours = get_json(
+    "protein/search",
+    biome_id=protein["biomes"][0]["id"],
+    limit=10,
+)
+
+for hit in neighbours:
+    print(hit["mgyp"])
+```
+
+## Running this code in your own environment
+
+Install the package from a terminal:
+
+```bash
+python -m pip install requests
+```
+
+Run the Python cells in a notebook or script. To save the FASTA to a file instead of
+downloading it from the browser, replace the download cell with:
+
+```python
+with open(fasta_filename, "w") as fasta_file:
+    fasta_file.write(fasta_text)
+```
