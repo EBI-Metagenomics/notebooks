@@ -188,3 +188,29 @@ The ‘Downloads’ tab comprises summary files for all described analyses.
 A set of assemblies, annotations, [pan-genome](glossary.md#pan-genome) results and protein catalogues are available in our [FTP server](http://ftp.ebi.ac.uk/pub/databases/metagenomics/mgnify_genomes/).
 Note that the GFF (`.gff.gz`) file for each cluster member genome on the FTP site includes both annotations in GFF tabular form, as well as the FASTA sequence of the genome at the end.
 The FASTA sequence can be obtained from the GFF file, for example with common unix tools: `gunzip -c MGYG000290000.gff.gz | awk '/##FASTA/ {found=1; next} found' > MGYG000290000.fna`
+
+## Pathogenicity (Pathofact2) combined report
+
+`MGYG00000XXXX_pathofact2_combined_report.tsv.gz` is produced by the PathFact2 integrator step by the [Mobilome Annotation pipeline](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline/blob/dev/docs/outputs.md), which merges PathoFact2, AMR, mobilome, biosynthetic gene cluster (BGC), and InterProScan (IPS) annotations.
+
+**Seed proteins** — rows in the report — come from PathoFact2 and/or AMR results. If both inputs are absent or empty, no report is generated. BGC annotations are only resolved for seed proteins. Proteins in BGC-only or MGE-only are not included as rows. MGE assignment requires ≥90% CDS overlap with a mobilome feature on the same contig. SignalP entries are extracted from the InterProScan annotation. Missing values are reported as `-`.
+
+Each protein's `summary_string` observed in column 3 is also carried into the final `MGYG00000XXXX.gff.gz` files as a `pathofact2=<summary_string>` attribute on the corresponding CDS.
+
+| Column | Description |
+|---|---|
+| `protein_id` | Protein identifier from Prodigal or the user-provided GFF |
+| `contig_id` | Contig the protein is located on |
+| `summary_string` | Condensed annotation tags for the gene, comma-joined in fixed order `vf,arg,mge,bgc`: `vf` (virulence — VFDB hit or PATHOFACT2 toxin/VF), `arg` (AMR), `mge` (within a mobile element), `bgc` (within a BGC). Every row carries at least `vf` or `arg` |
+| `vfdb_hit` | Best VFDB hit accession (DIAMOND blastp) |
+| `vfdb_blastp_eval` | E-value of the VFDB hit |
+| `pathofact2_tox_prob` | PATHOFACT2 toxin probability (0–1) |
+| `pathofact2_vf_prob` | PATHOFACT2 virulence factor probability (0–1) |
+| `cdd_annotation` | CDD domain annotation from local CDsearch or InterProScan |
+| `amr_drug_class` | Drug class of the AMR hit (e.g. `beta-lactam`, `tetracycline`) |
+| `amr_tool` | Tool reporting the AMR hit (`amrfinderplus`, `deeparg`, or `rgi`; comma-separated if multiple) |
+| `amr_tool_ident` | Percent identity to the AMR reference sequence; comma separated when a hit on multiple tools |
+| `mge_type` | MGE type when the protein has ≥90% overlap with a mobilome feature (e.g. `prophage`, `insertion_sequence`); comma separated if in a nested MGE |
+| `bgc_type` | BGC class (e.g. `T3PKS`, `Saccharide`, `RiPP-like`) |
+| `bgc_tools` | Tool(s) that called the BGC (`antismash`, `sanntis`, `gecco`; comma-separated if multiple) |
+| `signalp` | SignalP annotation from InterProScan |
