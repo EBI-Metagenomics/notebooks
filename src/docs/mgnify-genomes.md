@@ -199,7 +199,7 @@ Each protein's `summary_string` observed in column 3 is also carried into the fi
 
 | Column | Description |
 |---|---|
-| `protein_id` | Protein identifier from Prodigal or the user-provided GFF |
+| `protein_id` | Protein identifier from Prokka |
 | `contig_id` | Contig the protein is located on |
 | `summary_string` | Condensed annotation tags for the gene, comma-joined in fixed order `vf,arg,mge,bgc`: `vf` (virulence — VFDB hit or PATHOFACT2 toxin/VF), `arg` (AMR), `mge` (within a mobile element), `bgc` (within a BGC). Every row carries at least `vf` or `arg` |
 | `vfdb_hit` | Best VFDB hit accession (DIAMOND blastp) |
