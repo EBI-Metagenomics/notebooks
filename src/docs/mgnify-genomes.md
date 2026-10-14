@@ -209,7 +209,7 @@ Each protein's `summary_string` observed in column 3 is also carried into the fi
 | `cdd_annotation` | CDD domain annotation from local CDsearch or InterProScan |
 | `amr_drug_class` | Drug class of the AMR hit (e.g. `beta-lactam`, `tetracycline`) |
 | `amr_tool` | Tool reporting the AMR hit (`amrfinderplus`, `deeparg`, or `rgi`; comma-separated if multiple) |
-| `amr_tool_ident` | Percent identity to the AMR reference sequence; comma separated when a hit on multiple tools |
+| `amr_tool_ident` | Percent identity to the AMR reference sequence; comma separated when there are hits from multiple tools |
 | `mge_type` | MGE type when the protein has ≥90% overlap with a mobilome feature (e.g. `prophage`, `insertion_sequence`); comma separated if in a nested MGE |
 | `bgc_type` | BGC class (e.g. `T3PKS`, `Saccharide`, `RiPP-like`) |
 | `bgc_tools` | Tool(s) that called the BGC (`antismash`, `sanntis`, `gecco`; comma-separated if multiple) |
