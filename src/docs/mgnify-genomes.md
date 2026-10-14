@@ -189,7 +189,7 @@ A set of assemblies, annotations, [pan-genome](glossary.md#pan-genome) results a
 Note that the GFF (`.gff.gz`) file for each cluster member genome on the FTP site includes both annotations in GFF tabular form, as well as the FASTA sequence of the genome at the end.
 The FASTA sequence can be obtained from the GFF file, for example with common unix tools: `gunzip -c MGYG000290000.gff.gz | awk '/##FASTA/ {found=1; next} found' > MGYG000290000.fna`
 
-## Pathogenicity (Pathofact2) combined report
+## Pathogenicity (PathoFact2) combined report
 
 `MGYG00000XXXX_pathofact2_combined_report.tsv.gz` is produced by the PathFact2 integrator step by the [Mobilome Annotation pipeline](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline/blob/dev/docs/outputs.md), which merges PathoFact2, AMR, mobilome, biosynthetic gene cluster (BGC), and InterProScan (IPS) annotations.
 
