@@ -191,26 +191,26 @@ The FASTA sequence can be obtained from the GFF file, for example with common un
 
 ## Pathogenicity (PathoFact2) combined report
 
-`MGYGXXXXXXXXX_pathofact2_combined_report.tsv.gz` is produced by the PathFact2 integrator step of the [Mobilome Annotation Pipeline](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline/blob/dev/docs/outputs.md), which merges PathoFact2, AMR, mobilome, biosynthetic gene cluster (BGC), and InterProScan (IPS) annotations.
+`MGYGXXXXXXXXX_pathofact2_combined_report.tsv.gz` is produced by the integrator step of the [Mobilome Annotation Pipeline](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline/blob/dev/docs/outputs.md), which merges [PathFact2](https://gitlab.com/uniluxembourg/lcsb/systems-ecology/pathofact2), AMR, mobilome, biosynthetic gene cluster (BGC), and [InterProScan](https://github.com/ebi-pf-team/interproscan) annotations.
 
-**Seed proteins** — rows in the report — come from PathoFact2 and/or AMR results. If both inputs are absent or empty, no report is generated. BGC annotations are only resolved for seed proteins. Proteins in BGC-only or MGE-only are not included as rows. MGE assignment requires ≥90% CDS overlap with a mobilome feature on the same contig. SignalP entries are extracted from the InterProScan annotation. Missing values are reported as `-`.
+Proteins with pathogenicity-associated annotation (virulence factors, toxins or antimicrobial reistance) are included in the combined report. BGC and MGE annotations are only resolved for pathogenicity-associated proteins. MGE assignment requires ≥90% CDS overlap with a mobilome feature on the same contig. [SignalP](https://services.healthtech.dtu.dk/services/SignalP-6.0/) entries are extracted from the InterProScan annotation table. Missing values are reported as `-`.
 
 Each protein's `summary_string` observed in column 3 is also carried into the final `MGYGXXXXXXXXX.gff.gz` files as a `pathofact2=<summary_string>` attribute on the corresponding CDS.
 
 | Column | Description |
 |---|---|
-| `protein_id` | Protein identifier from Prokka |
+| `protein_id` | Protein identifier from [Prokka](https://github.com/tseemann/prokka) |
 | `contig_id` | Contig the protein is located on |
-| `summary_string` | Condensed annotation tags for the gene, comma-joined in fixed order `vf,arg,mge,bgc`: `vf` (virulence — VFDB hit or PATHOFACT2 toxin/VF), `arg` (AMR), `mge` (within a mobile element), `bgc` (within a BGC). Every row carries at least `vf` or `arg` |
-| `vfdb_hit` | Best VFDB hit accession (DIAMOND blastp) |
+| `summary_string` | Condensed annotation tags for the gene, comma-joined in fixed order `vf,arg,mge,bgc`: `vf` (virulence — [VFDB](https://www.mgc.ac.cn/VFs/Down/VFDB_setB_pro.fas.gz) hit or PathoFact2 toxin/VF), `arg` (AMR), `mge` (within a mobile element), `bgc` (within a BGC). Every row carries at least `vf` or `arg` |
+| `vfdb_hit` | Best VFDB hit accession ([DIAMOND blastp](https://github.com/bbuchfink/diamond)) |
 | `vfdb_blastp_eval` | E-value of the VFDB hit |
-| `pathofact2_tox_prob` | PATHOFACT2 toxin probability (0–1) |
-| `pathofact2_vf_prob` | PATHOFACT2 virulence factor probability (0–1) |
-| `cdd_annotation` | CDD domain annotation from local CDsearch or InterProScan |
+| `pathofact2_tox_prob` | PathoFact2 toxin probability prediction (0–1) |
+| `pathofact2_vf_prob` | PathoFact2 virulence factor probability prediction (0–1) |
+| `cdd_annotation` | CDD domain annotation from [local-cd-search](https://github.com/apcamargo/local-cd-search) or InterProScan |
 | `amr_drug_class` | Drug class of the AMR hit (e.g. `beta-lactam`, `tetracycline`) |
-| `amr_tool` | Tool reporting the AMR hit (`amrfinderplus`, `deeparg`, or `rgi`; comma-separated if multiple) |
+| `amr_tool` | Tool reporting the AMR hit ([amrfinderplus](https://github.com/ncbi/amr), [deeparg](https://github.com/gaarangoa/deeparg), or [rgi](https://github.com/arpcard/rgi); comma-separated if multiple) |
 | `amr_tool_ident` | Percent identity to the AMR reference sequence; comma separated when there are hits from multiple tools |
 | `mge_type` | MGE type when the protein has ≥90% overlap with a mobilome feature (e.g. `prophage`, `insertion_sequence`); comma separated if in a nested MGE |
 | `bgc_type` | BGC class (e.g. `T3PKS`, `Saccharide`, `RiPP-like`) |
-| `bgc_tools` | Tool(s) that called the BGC (`antismash`, `sanntis`, `gecco`; comma-separated if multiple) |
+| `bgc_tools` | Tool(s) that called the BGC ([antismash](https://github.com/antismash/antismash), [sanntis](https://github.com/Finn-Lab/SanntiS), [gecco](https://github.com/zellerlab/GECCO); comma-separated if multiple) |
 | `signalp` | SignalP annotation from InterProScan |
