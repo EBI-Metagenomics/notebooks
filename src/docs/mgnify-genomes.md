@@ -195,7 +195,7 @@ The FASTA sequence can be obtained from the GFF file, for example with common un
 
 **Seed proteins** — rows in the report — come from PathoFact2 and/or AMR results. If both inputs are absent or empty, no report is generated. BGC annotations are only resolved for seed proteins. Proteins in BGC-only or MGE-only are not included as rows. MGE assignment requires ≥90% CDS overlap with a mobilome feature on the same contig. SignalP entries are extracted from the InterProScan annotation. Missing values are reported as `-`.
 
-Each protein's `summary_string` observed in column 3 is also carried into the final `MGYG00000XXXX.gff.gz` files as a `pathofact2=<summary_string>` attribute on the corresponding CDS.
+Each protein's `summary_string` observed in column 3 is also carried into the final `MGYGXXXXXXXXX.gff.gz` files as a `pathofact2=<summary_string>` attribute on the corresponding CDS.
 
 | Column | Description |
 |---|---|
