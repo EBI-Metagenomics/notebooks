@@ -26,7 +26,7 @@ For each analysed [assembly](../../glossary.md#assembly), MGnify displays and pr
 | Tool | Version | Purpose |
 |---|---|---|
 | [geNomad](https://github.com/apcamargo/genomad) | 1.11.1 | Plasmid and phage prediction |
-| [ICEfinder](https://bioinfo-mml.sjtu.edu.cn/ICEfinder/) | 2.0 | Integrative conjugative element detection |
+| ICEfinder2-lite refactored from [ICEfinder2](https://tool2-mml.sjtu.edu.cn/ICEberg3/ICEfinder.php) | 2.0 | Detection of integrative conjugative and mobilisable elements |
 | [IntegronFinder2](https://github.com/gem-pasteur/Integron_Finder) | 2.0.6 | Integron identification |
 | [ISEScan](https://github.com/xiezhq/ISEScan) | 1.7.3 | Insertion sequence detection |
 | [Prodigal](https://github.com/hyattpd/Prodigal) | 2.6.3 | Protein-coding sequence prediction |
