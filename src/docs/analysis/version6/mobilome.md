@@ -10,7 +10,7 @@ citation: true
 description: Description of mobilome annotation in the MGnify assembly analysis.
 ---
 
-The [Mobilome annotation pipeline (MAP)](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline) is a separate pipeline run after [VIRify](virify.md) as part of the [assembly analysis](assembly.md). It predicts and annotates mobile genetic elements ([MGE](../../glossary.md#mge)), outputting results in GFF3 format. VIRify results are incorporated into the mobilome annotation.
+The [Mobilome Annotation Pipeline (MAP)](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline) is a separate pipeline run after the [assembly analysis](assembly.md). It integrates the prediction and annotation of mobile genetic elements ([MGE](../../glossary.md#mge)) and generates final results in GFF3 format. [VIRify](virify.md) results are incorporated into the mobilome annotation.
 
 ## Results available on MGnify
 
