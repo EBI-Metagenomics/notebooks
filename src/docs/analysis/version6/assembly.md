@@ -17,7 +17,7 @@ Assembly analysis accepts assembled [metagenomic](../../glossary.md#metagenomic)
 
 ## Analyses
 
-1. [Assembly annotation pipeline](assembly-annotation.md) provides quality-control, taxonomic, functional, pathway, and systems annotations for assembled metagenomic contigs.
+1. [Assembly annotation pipeline](assembly-annotation.md) provides quality-control, taxonomic, functional, pathways, and systems annotations for assembled reads into contigs.
 2. [VIRify](virify.md) detects, annotates, and classifies viral sequences in the metagenomic assembly.
 3. [Mobilome annotation pipeline (MAP)](mobilome.md) identifies mobile genetic elements and incorporates results from VIRify.
 
