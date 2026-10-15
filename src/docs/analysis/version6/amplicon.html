@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="MGnify">
+<meta name="dcterms.date" content="2026-10-15">
+<meta name="description" content="Description of the MGnify v6.2 amplicon analysis pipeline.">
+
+<title>Amplicon analysis pipeline – MGnify Resources</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../src/docs/analysis/version6/raw-reads.html" rel="next">
+<link href="../../../../src/docs/analysis/version6/analysis.html" rel="prev">
+<link href="../../../../src/static-resources/mgnify_logo.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-3da984f748224b1e0cd87e13b5fdabc6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-73b4a7dee446426be7670d01551222e5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">MGnify Resources</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.ebi.ac.uk/metagenomics"> 
+<span class="menu-text">Open MGnify</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://status.mgnify.org"> 
+<span class="menu-text">Service status</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../src/docs/analysis/version6/analysis.html">Analyses</a></li><li class="breadcrumb-item"><a href="../../../../src/docs/analysis/version6/amplicon.html">Amplicon analysis pipeline</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+        <div class="sidebar-tools-collapse">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-collapse-item" href="https://github.com/ebi-metagenomics/notebooks">
+            Docs source
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-collapse-item" href="https://github.com/ebi-metagenomics">
+            MGnify repositories
+            </a>
+          </li>
+      </ul>
+    </div>
+    <a href="mailto:metagenomics-help@ebi.ac.uk" title="Help" class="quarto-navigation-tool px-1" aria-label="Help"><i class="bi bi-question-circle-fill"></i></a>
+</div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About MGnify</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data flow</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/dataflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From submission to results</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/multiomics_submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multi-omics dataset submission</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Analyses</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis pipeline v6</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/amplicon.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Amplicon analysis pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/raw-reads.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Raw reads analysis pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../../src/docs/analysis/version6/assembly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assembly analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/assembly-annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assembly annotation pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/virify.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VIRify</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/mobilome.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mobilome annotation pipeline (MAP)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version5/analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis pipeline v5.0</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Website &amp; API</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/portal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Website and portal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RESTful API</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/ftp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transfer Services (FTP) file server</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../../src/examples/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">API code examples</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify API in Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/mgnipy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python with MGnipy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/proteins-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Proteins API in Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify API in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/observable-js.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Antismash clusters in Observable JS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/atlanteco_samples_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Map AtlantECO samples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/download-csv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download analyses as CSV</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/pathways.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pathways Explorer in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-genomes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Genomes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../../src/docs/mgnify-proteins.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Proteins</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-web.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Proteins API</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sequence search</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-big-query.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Big Query public dataset</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-parquet-queries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Remote querying of MGnify Proteins using Parquet and DuckDB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-contig-sequences.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Retrieving contig sequences for MGnify proteins</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/faqs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossary</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#results-available-on-mgnify" id="toc-results-available-on-mgnify" class="nav-link active" data-scroll-target="#results-available-on-mgnify">Results available on MGnify</a></li>
+  <li><a href="#features" id="toc-features" class="nav-link" data-scroll-target="#features">Features</a></li>
+  <li><a href="#valid-amplicons" id="toc-valid-amplicons" class="nav-link" data-scroll-target="#valid-amplicons">Valid amplicons</a></li>
+  <li><a href="#technical-details-and-results-reference" id="toc-technical-details-and-results-reference" class="nav-link" data-scroll-target="#technical-details-and-results-reference">Technical details and results reference</a>
+  <ul class="collapse">
+  <li><a href="#schema" id="toc-schema" class="nav-link" data-scroll-target="#schema">Schema</a></li>
+  <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">Tools</a></li>
+  <li><a href="#reference-databases" id="toc-reference-databases" class="nav-link" data-scroll-target="#reference-databases">Reference databases</a></li>
+  <li><a href="#output-files" id="toc-output-files" class="nav-link" data-scroll-target="#output-files">Output files</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/analysis/version6/amplicon.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../src/docs/analysis/version6/analysis.html">Analyses</a></li><li class="breadcrumb-item"><a href="../../../../src/docs/analysis/version6/amplicon.html">Amplicon analysis pipeline</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Amplicon analysis pipeline</h1>
+</div>
+
+<div>
+  <div class="description">
+    Description of the MGnify v6.2 amplicon analysis pipeline.
+  </div>
+</div>
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://www.ebi.ac.uk/metagenomics">MGnify</a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://www.ebi.ac.uk">
+            EMBL-EBI
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 15, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The MGnify amplicon analysis pipeline v6.2 (<a href="https://github.com/EBI-Metagenomics/amplicon-analysis-pipeline">GitHub repository</a>) analyses <a href="../../../../src/docs/glossary.html#amplicon">amplicon</a> sequencing reads to provide taxonomic profiles from closed-reference databases. For supported <a href="../../../../src/docs/glossary.html#16s-rrna-genes">16S</a> and <a href="../../../../src/docs/glossary.html#18s-rrna-genes">18S</a> datasets, it also infers amplified regions, identifies and trims primers, calls <a href="../../../../src/docs/glossary.html#amplicon-sequence-variant-asv">Amplicon Sequence Variants (ASVs)</a>, and assigns taxonomy to those ASVs.</p>
+<section id="results-available-on-mgnify" class="level2">
+<h2 class="anchored" data-anchor-id="results-available-on-mgnify">Results available on MGnify</h2>
+<p>For each analysed run, MGnify provides:</p>
+<ul>
+<li>Quality-control summaries.</li>
+<li>Taxonomic profiles and interactive visualisations.</li>
+<li>ASV sequences, abundances, and taxonomic assignments for supported 16S and 18S datasets.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ASV results are not produced for LSU or ITS datasets.</p>
+</div>
+</div>
+</section>
+<section id="features" class="level2">
+<h2 class="anchored" data-anchor-id="features">Features</h2>
+<p>The amplicon analysis pipeline v6.2 has the following features:</p>
+<ul>
+<li>Amplicon analysis of short reads, including paired-end and single-end data</li>
+<li>Read quality control</li>
+<li>rRNA sequence extraction using <a href="https://github.com/EddyRivasLab/infernal/tree/master">Infernal/cmsearch</a></li>
+<li>Automatic amplified region inference for 16S and 18S rRNA</li>
+<li>Automatic primer identification, trimming, and validation</li>
+<li>Amplicon Sequence Variant (ASV) calling using <a href="https://benjjneb.github.io/dada2/index.html">DADA2</a></li>
+<li>Taxonomic classification and visualisation of ASVs using <a href="https://github.com/meringlab/MAPseq">MAPseq</a> and <a href="https://github.com/marbl/Krona">Krona</a></li>
+<li>Closed-reference-based taxonomic classification and visualisation of rRNA using <a href="https://github.com/meringlab/MAPseq">MAPseq</a> and <a href="https://github.com/marbl/Krona">Krona</a></li>
+<li>Taxonomic reference databases (<a href="https://www.arb-silva.de/">SILVA</a>, <a href="https://unite.ut.ee/">UNITE</a>, <a href="https://itsonedb.cloud.ba.infn.it">ITSoneDB</a>, <a href="https://pr2-database.org/">PR2</a>, <a href="https://rfam.org/">Rfam</a>)</li>
+</ul>
+</section>
+<section id="valid-amplicons" class="level2">
+<h2 class="anchored" data-anchor-id="valid-amplicons">Valid amplicons</h2>
+<p>At this stage, the only sequence amplicons that this pipeline is built for are:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Amplicon</th>
+<th style="text-align: center;">Closed-reference analysis</th>
+<th style="text-align: center;">ASV analysis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">16S</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">18S</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">LSU</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ITS</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✗</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="technical-details-and-results-reference" class="level2">
+<h2 class="anchored" data-anchor-id="technical-details-and-results-reference">Technical details and results reference</h2>
+<p>The following sections describe the pipeline implementation and its downloadable output files. You do not need to run Nextflow or use these files to view results on MGnify.</p>
+<section id="schema" class="level3">
+<h3 class="anchored" data-anchor-id="schema">Schema</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/analysis/version6/pipeline_v6_amplicon.png" class="img-fluid figure-img"></p>
+<figcaption>Schema of the MGnify Amplicon Analysis pipeline version 6.2</figcaption>
+</figure>
+</div>
+</section>
+<section id="tools" class="level3">
+<h3 class="anchored" data-anchor-id="tools">Tools</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://sourceforge.net/projects/bbmap">BBMap</a></td>
+<td>39.18</td>
+<td>Standardise reads FASTQ files</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/OpenGene/fastp">fastp</a></td>
+<td>1.0.1</td>
+<td>Read quality control</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/telatin/seqfu2">SeqFu</a></td>
+<td>1.20.3</td>
+<td>FASTQ sanity checking</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/lh3/seqtk">seqtk</a></td>
+<td>1.4</td>
+<td>FASTQ file manipulation</td>
+</tr>
+<tr class="odd">
+<td><a href="https://bioinf.shenwei.me/seqkit/">SeqKit</a></td>
+<td>2.9.0</td>
+<td>FASTQ file manipulation</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/EddyRivasLab/easel">easel</a></td>
+<td>0.49</td>
+<td>FASTA file manipulation</td>
+</tr>
+<tr class="odd">
+<td><a href="https://bedtools.readthedocs.io/en/latest/">bedtools</a></td>
+<td>2.30.0</td>
+<td>FASTA sequence masking</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/EddyRivasLab/infernal/tree/master">Infernal/cmsearch</a></td>
+<td>1.1.5</td>
+<td>rRNA sequence searching</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/nawrockie/cmsearch_tblout_deoverlap/tree/master">cmsearch_tblout_deoverlap</a></td>
+<td>0.09</td>
+<td>Deoverlapping of cmsearch results</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/meringlab/MAPseq">MAPseq</a></td>
+<td>2.1.1b</td>
+<td>Reference-based taxonomic classification of rRNA</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/marbl/Krona">Krona</a></td>
+<td>2.8.1</td>
+<td>Krona chart visualisation</td>
+</tr>
+<tr class="even">
+<td><a href="https://cutadapt.readthedocs.io/en/stable/">cutadapt</a></td>
+<td>4.6</td>
+<td>Primer trimming</td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.r-project.org/">R</a></td>
+<td>4.3.3</td>
+<td>R programming language (runs DADA2)</td>
+</tr>
+<tr class="even">
+<td><a href="https://benjjneb.github.io/dada2/index.html">DADA2</a></td>
+<td>1.30.0</td>
+<td>ASV calling</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/MultiQC/MultiQC">MultiQC</a></td>
+<td>1.24.1</td>
+<td>Result aggregation into HTML reports</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit">mgnify-pipelines-toolkit</a></td>
+<td>0.1.8</td>
+<td>Toolkit containing various in-house processing scripts</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/EBI-Metagenomics/PIMENTO">PIMENTO</a></td>
+<td>1.0.2</td>
+<td>Primer inference toolkit used in the pipeline</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reference-databases" class="level3">
+<h3 class="anchored" data-anchor-id="reference-databases">Reference databases</h3>
+<p>This pipeline uses five different reference databases. The files the pipeline uses are processed from the raw files available on each database’s website, for use by MAPseq and cmsearch.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Reference Database</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.arb-silva.de/">SILVA</a></td>
+<td>138.1</td>
+<td>SSU+LSU rRNA database</td>
+</tr>
+<tr class="even">
+<td><a href="https://pr2-database.org/">PR2</a></td>
+<td>5.0</td>
+<td>Protist-focused SSU rRNA database</td>
+</tr>
+<tr class="odd">
+<td><a href="https://unite.ut.ee/">UNITE</a></td>
+<td>9.0</td>
+<td>ITS database</td>
+</tr>
+<tr class="even">
+<td><a href="https://itsonedb.cloud.ba.infn.it">ITSoneDB</a></td>
+<td>1.141</td>
+<td>ITS database</td>
+</tr>
+<tr class="odd">
+<td><a href="https://rfam.org/">Rfam</a></td>
+<td>14.10</td>
+<td>rRNA covariance models</td>
+</tr>
+</tbody>
+</table>
+<p>The preprocessed databases are generated with the <a href="https://github.com/EBI-Metagenomics/reference-databases-preprocessing-pipeline">Microbiome Informatics reference-databases-preprocessing-pipeline</a>.</p>
+</section>
+<section id="output-files" class="level3">
+<h3 class="anchored" data-anchor-id="output-files">Output files</h3>
+<p>There are six general categories of results, which are separated into six different output directories by the pipeline, and each successful run/sample should have up to six of these directories:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> sequence-categorisation</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> amplified-region-inference</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> primer-identification</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> asv</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> taxonomy-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>As these results are per-run, many of the outputs use a run ID as a prefix. For the purposes of this documentation, we are using the run ID <code>ERR4334351</code>, which is a paired-end sequencing run. There are some slight differences in outputs when a run is single-end, which will be <em>emphasised in italics, and use the run ID <code>ERR1718805</code> instead</em>.</p>
+<section id="qc" class="level4">
+<h4 class="anchored" data-anchor-id="qc">qc</h4>
+<p>The <code>qc</code> directory contains output files related to the quality control steps of the pipeline, from the sanity checking performed by <code>SeqFu</code>, to the quality filtering done by <code>fastp</code>. The <code>qc</code> directory can contain these output files:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERR4334351.fastp.json</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERR4334351.merged.fastq.gz</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERR4334351_dada2_errors.txt</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERR4334351_dada2_stats.tsv</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERR4334351_multiqc_report.html</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERR4334351_seqfu.tsv</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> ERR4334351_suffix_header_err.json</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> sequence-categorisation</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> amplified-region-inference</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> primer-identification</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> asv</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> taxonomy-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="result-files" class="level5">
+<h5 class="anchored" data-anchor-id="result-files">Result files</h5>
+<ul>
+<li><strong>ERR4334351.fastp.json</strong>: This <code>json</code> file contains summary output of the <code>fastp</code> run, including how many reads and/or bases were filtered for various reasons. This <code>json</code> file is also used later by <code>MultiQC</code> to generate its report files.</li>
+<li><strong>ERR4334351.merged.fastq.gz</strong>: This compressed <code>fastq</code> file contains the cleaned and merged reads from the <code>fastp</code> run. <em>Note: if the run is single-end, this file won’t exist.</em></li>
+<li><strong>ERR1718805.fastp.fastq.gz</strong>: This compressed <code>fastq</code> file contains the cleaned reads from the <code>fastp</code> run. This file can be seen as the equivalent of the previous merged file for single-end runs.</li>
+<li><strong>ERR4334351_dada2_errors.txt</strong>: This <code>txt</code> file contains the DADA2 error log, generated if the process fails. This can be used to help diagnose issues with your data (e.g.&nbsp;lack of valid ASV sequences) and causes of failure in the script. <em>Note: if the process succeeded, or if the run doesn’t contain SSU sequences, this file won’t exist.</em></li>
+<li><strong>ERR4334351_dada2_stats.tsv</strong>: This <code>tsv</code> file is used by <code>MultiQC</code> to generate its report files. As it comes from the ASV identification subworkflow, it will only exist for SSU sequences where ASVs were detected. It provides multiple data points to help determine the reliability of the analysis (usually limited by the quality of input data), in particular:
+<ul>
+<li><em>read counts</em> are reported at multiple stages, in particular after the filter, trim, de-replication, merge, and ASV computation steps. We recommend reconsidering the reliability of this analysis if less than 90% of the initial reads contain ASV sequences, as these spurious results may indicate low quality input raw reads.</li>
+<li><em>truncation points</em> for forward and reverse paired-ends (if appropriate). DADA2 truncates all reads to the same length to keep error modeling consistent across positions and ensure sequences are directly comparable during variant inference. This avoids biases from variable read quality and prevents shorter reads from being misinterpreted as biological variants rather than sequencing artifacts. A detected truncation point too far ahead in the read may explain a lack of ASVs in the analysis.</li>
+<li><em>chimeric reads</em> are likely artifacts that do not mirror real biological sequences. We recommend reconsidering the reliability of this analysis if dada2_stats reports more than 25% of chimeric reads.</li>
+</ul></li>
+<li><strong>ERR4334351_multiqc_report.html</strong>: This <code>html</code> file contains the <code>MultiQC</code> report for that run. It will combine outputs from three different tools into the report; <code>fastp</code>, <code>cutadapt</code>, and <code>DADA2</code>.</li>
+<li><strong>ERR4334351_seqfu.tsv</strong>: This <code>tsv</code> file contains the output from the sanity checking performed by <code>SeqFu</code>. <code>SeqFu</code> makes a few checks of whether the given fastq files are correctly structured, and if this QC step fails, the contents of this file will indicate the reasons why. The contents of the tsv file are described in <a href="https://telatin.github.io/seqfu2/tools/check.html#output">seqfu’s documentation</a>.</li>
+<li><strong>ERR4334351_suffix_header_err.json</strong>: This <code>json</code> file contains the output from the sanity checking performed on the suffixes and headers of fastq files. It is expected that the fastq files ending with the suffix <code>_1</code> should contain the <code>/1</code> tag in the headers inside the file, and vice versa for the suffix <code>_2</code> and tag <code>/2</code>. <em>Note: if the run is single-end, the header check should be to have no suffix, but still contain the <code>/1</code> tag as is standard.</em></li>
+</ul>
+</section>
+</section>
+<section id="sequence-categorisation" class="level4">
+<h4 class="anchored" data-anchor-id="sequence-categorisation">sequence-categorisation</h4>
+<p>The <code>sequence-categorisation</code> directory contains output files related to the extraction of rRNA reads using <code>Infernal/cmsearch</code> and the specific rRNA clans from the <code>Rfam</code> reference database. The structure of the <code>sequence-categorisation</code> directory contains three different categories of files:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> sequence-categorisation</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERR4334351.tblout.deoverlapped</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERR4334351_SSU.fasta</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERR4334351_SSU_rRNA_bacteria.RF00177.fa</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> ERR4334351_SSU_rRNA_archaea.RF01959.fa</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> amplified-region-inference</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> primer-identification</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> asv</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> taxonomy-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The output files of this directory are dynamic depending on the output, as the names and number of files will be different depending on what the reads matched to. To be specific, it depends on the matched rRNA amplicon type, which is usually one of:</p>
+<ul>
+<li>SSU</li>
+<li>LSU</li>
+<li>ITS</li>
+</ul>
+<p>And it also depends on which Rfam clan the reads matched to, which can be one (or more) of:</p>
+<ul>
+<li>Bacteria, with Rfam ID RF00177</li>
+<li>Archaea, with Rfam ID RF01959</li>
+<li>Eukarya, with Rfam ID RF01960</li>
+</ul>
+<section id="output-files-1" class="level5">
+<h5 class="anchored" data-anchor-id="output-files-1">Output files</h5>
+<ul>
+<li><strong>ERR4334351.tblout.deoverlapped</strong>: This <code>tblout</code> file contains the deoverlapped output from running <code>Infernal/cmsearch</code>, which describes the matching reads, including matching coordinates, confidence scores, and matching Rfam clan ID.</li>
+<li><strong>ERR4334351_SSU.fasta</strong>: This <code>fasta</code> file contains all of the matching sequences to a particular rRNA amplicon type, being in this case the SSU. As described previously, this file name would be different if a different amplicon was matched.</li>
+<li><strong>ERR4334351_SSU_rRNA_bacteria.RF00177.fa</strong> This <code>fasta</code> file contains the matching sequences of both a particular amplicon <strong>and</strong> a particular Rfam clan, in being in this case the bacterial SSU. This run has a similar file for archaeal SSU, <strong>ERR4334351_SSU_rRNA_archaea.RF01959.fa</strong>, which is a common combination. While this is the third and final output type in the <code>sequence-categorisation</code> directory, as shown here you can have more than one file of this kind.</li>
+</ul>
+</section>
+</section>
+<section id="amplified-region-inference" class="level4">
+<h4 class="anchored" data-anchor-id="amplified-region-inference">amplified-region-inference</h4>
+<p>The <code>amplified-region-inference</code> directory contains output files related to the inference of the amplified region. The structure of the <code>amplified-region-inference</code> directory contains two different categories of files:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> sequence-categorisation</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> amplified-region-inference</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERR4334351.16S.V3-V4.txt</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> ERR4334351.tsv</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> primer-identification</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> asv</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> taxonomy-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The output files of this directory are also dynamic for similar reasons as <code>sequence-categorisation</code> - it depends on which, and how many, amplified regions were found. The pipeline allows for at most two amplified regions, which are made up of two parts:</p>
+<ul>
+<li>The gene: either 16S or 18S.</li>
+<li>The hypervariable region: any region from V1 to V9, and any logical interval of regions e.g.&nbsp;V3-V4.</li>
+</ul>
+<section id="output-files-2" class="level5">
+<h5 class="anchored" data-anchor-id="output-files-2">Output files</h5>
+<ul>
+<li><strong>ERR4334351.16S.V3-V4.txt</strong>: This <code>txt</code> file contains the headers of reads that were found to match a particular amplified region, being in this case the V3-V4 region of the 16S gene. As described previously, the pipeline allows for at most two amplified regions, and therefore up to two files of this type, with the naming being dynamic.</li>
+<li><strong>ERR4334351.tsv</strong>: This <code>tsv</code> file contains a summary of the output of the amplified region inference module. From zero to two regions, this file summarises the findings.</li>
+</ul>
+</section>
+</section>
+<section id="primer-identification" class="level4">
+<h4 class="anchored" data-anchor-id="primer-identification">primer-identification</h4>
+<p>The <code>primer-identification</code> directory contains output files related to the automatic identification and trimming of primer sequences from reads, which is a crucial QC step for ASV calling. The structure of the <code>primer-identification</code> directory contains three different files:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> sequence-categorisation</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> amplified-region-inference</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> primer-identification</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> fwd_primers.fasta</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> rev_primers.fasta</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERR4334351.cutadapt.json</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> ERR4334351_primer_validation.tsv</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> asv</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> taxonomy-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="output-files-3" class="level5">
+<h5 class="anchored" data-anchor-id="output-files-3">Output files</h5>
+<ul>
+<li><strong>fwd_primers.fasta</strong>: This <code>fasta</code> file contains the sequences of any forward (5’-3’) identified primers that were then trimmed off using <code>cutadapt</code>.</li>
+<li><strong>rev_primers.fasta</strong>: This <code>fasta</code> file contains the sequences of any reverse (3’-5’) identified primers that were then trimmed off using <code>cutadapt</code>.</li>
+<li><strong>ERR4334351.cutadapt.json</strong>: This <code>json</code> file contains the summary output of the <code>cutadapt</code> run, including which primers were trimmed off, how many bases were trimmed off in the process, etc. This <code>json</code> file is also used later by <code>MultiQC</code> to generate its report files.</li>
+<li><strong>ERR4334351_primer_validation.tsv</strong>: This <code>tsv</code> file contains the summary output of the primer validation module. Any primers that were trimmed off will have successfully been validated as primers using <code>Infernal/cmsearch</code>, and this output file summarises these findings.</li>
+</ul>
+</section>
+</section>
+<section id="asv" class="level4">
+<h4 class="anchored" data-anchor-id="asv">asv</h4>
+<p>The <code>asv</code> directory contains output files related to the calling of ASVs and their abundances, which is mainly performed by <code>DADA2</code>. The <code>asv</code> directory contains three files and at least one subdirectory with one extra file:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> sequence-categorisation</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> amplified-region-inference</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> primer-identification</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> asv</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERR4334351_asv_seqs.fasta</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERR4334351_DADA2-SILVA_asv_tax.tsv</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERR4334351_DADA2-PR2_asv_tax.tsv</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── 16S-V3-V4</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └── ERR4334351_16S-V3-V4_asv_read_counts.tsv</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> taxonomy-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The subdirectories are dynamic based on the inferred amplified region. As the pipeline allows for up to two different amplified regions, there are two potential scenarios and subdirectory output structures:</p>
+<ul>
+<li>One amplified region, which will give just one subdirectory as in the example above</li>
+<li>Two amplified regions, which will contain three subdirectories - one for each region, and a <code>concat</code> subdirectory that will contain the concatenation of both amplified regions</li>
+</ul>
+<section id="output-files-4" class="level5">
+<h5 class="anchored" data-anchor-id="output-files-4">Output files</h5>
+<ul>
+<li><strong>ERR4334351_asv_seqs.fasta</strong>: This <code>fasta</code> file contains the sequences of the ASVs found by <code>DADA2</code>.</li>
+<li><strong>ERR4334351_DADA2-SILVA_asv_tax.tsv</strong>: This <code>tsv</code> file contains the assigned taxonomy of every ASV, performed by <code>MAPseq</code>, using the SILVA reference database.</li>
+<li><strong>ERR4334351_DADA2-PR2_asv_tax.tsv</strong>: This <code>tsv</code> file contains the assigned taxonomy of every ASV, performed by <code>MAPseq</code>, using the PR2 reference database.</li>
+<li><strong>16S-V3-V4/ERR4334351_16S-V3-V4_asv_read_counts.tsv</strong>: This <code>tsv</code> file contains the read counts for each ASV, and is specific to the inferred amplified region. As described previously, the naming of this output is dynamic based on the amount and identity of the inferred amplified region(s).</li>
+</ul>
+</section>
+</section>
+<section id="taxonomy-summary" class="level4">
+<h4 class="anchored" data-anchor-id="taxonomy-summary">taxonomy-summary</h4>
+<p>The <code>taxonomy-summary</code> directory contains output files summarising the various taxonomic assignment results using tools like <code>MAPseq</code> and <code>Krona</code>. The pipeline uses four different reference databases to assign taxonomy, and the outputs in <code>taxonomy-summary</code> are split based on the different reference databases:</p>
+<ul>
+<li>SILVA</li>
+<li>PR2</li>
+<li>UNITE</li>
+<li>ITSoneDB</li>
+</ul>
+<p>However, there is added complexity in the output structure for two reasons:</p>
+<ul>
+<li>SILVA is actually split into two output directories: SILVA-SSU and SILVA-LSU.</li>
+<li>There are two kinds of taxonomic results for both SILVA-SSU and PR2: one for the hit matches and one for ASVs, with the latter being named as DADA2-SILVA and DADA2-PR2.</li>
+</ul>
+<section id="output-files---hit-matches" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---hit-matches">Output files - hit matches</h5>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> sequence-categorisation</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> amplified-region-inference</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> primer-identification</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> asv</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> taxonomy-summary</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> SILVA-SSU</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── ERR4334351.html</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── ERR4334351_SILVA-SSU.mseq</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── ERR4334351_SILVA-SSU.tsv</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   └── ERR4334351_SILVA-SSU.txt</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> PR2</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── ERR4334351.html</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── ERR4334351_PR2.mseq</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── ERR4334351_PR2.tsv</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   └── ERR4334351_PR2.txt</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> UNITE</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── ERR4334351.html</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── ERR4334351_UNITE.mseq</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── ERR4334351_UNITE.tsv</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   └── ERR4334351_UNITE.txt</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> ITSoneDB</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> ERR4334351.html</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> ERR4334351_ITSoneDB.mseq</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> ERR4334351_ITSoneDB.tsv</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> ERR4334351_ITSoneDB.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>All of the different possible subdirectories have the same four files. Taking PR2 as an example:</p>
+<ul>
+<li><strong>ERR4334351_PR2.mseq</strong>: This <code>mseq</code> file contains the raw MAPseq output for every <code>Infernal/cmsearch</code> match, i.e.&nbsp;each match’s taxonomic assignment.</li>
+<li><strong>ERR4334351_PR2.txt</strong>: This <code>txt</code> file contains the Krona text input that is used to generate the Krona HTML file. It contains the distribution of the different taxonomic assignments.</li>
+<li><strong>ERR4334351.html</strong>: This <code>html</code> file contains the Krona HTML file that interactively displays the distribution of the different taxonomic assignments.</li>
+<li><strong>ERR4334351_PR2.tsv</strong>: This <code>tsv</code> file contains the read count of every taxonomic assignment similar to the Krona txt file, but in a different easier-to-parse format.</li>
+</ul>
+</section>
+<section id="output-files---asvs" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---asvs">Output files - ASVs</h5>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> sequence-categorisation</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> amplified-region-inference</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> primer-identification</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> asv</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> taxonomy-summary</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> DADA2-SILVA</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── ERR4334351_16S-V3-V4_DADA2-SILVA_asv_krona_counts.txt</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   ├── ERR4334351_16S-V3-V4.html</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">│</span>   └── ERR4334351_DADA2-SILVA.mseq</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> DADA2-PR2</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> ERR4334351_16S-V3-V4_DADA2-PR2_asv_krona_counts.txt</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> ERR4334351_16S-V3-V4.html</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> ERR4334351_DADA2-PR2.mseq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The two different subdirectories have the same three categories of files, two of which are dynamic in naming. Using DADA2-PR2 as an example:</p>
+<ul>
+<li><strong>ERR4334351_DADA2-PR2.mseq</strong>: This contains the raw MAPseq output for every ASV, i.e.&nbsp;each ASV’s taxonomic assignment. This file is not dynamic.</li>
+<li><strong>ERR4334351_16S-V3-V4_DADA2-PR2_asv_krona_counts.txt</strong>: This file contains the Krona text input that is used to generate the Krona HTML file for ASV results. This file is dynamic, as it will generate it on a per amplified region-basis. This means that in cases where there are two amplified regions, you will have three of these files - one for each amplified region, and one for the concatenation of the two.</li>
+<li><strong>ERR4334351_16S-V3-V4.html</strong>: This file contains the Krona HTML file that interactively displays the distribution of the different taxonomic assignments for ASV results. This file is dynamic in the exact same way as the Krona text input file, i.e.&nbsp;based on the inferred amplified region(s).</li>
+</ul>
+</section>
+</section>
+<section id="primer-validation-summary" class="level4">
+<h4 class="anchored" data-anchor-id="primer-validation-summary">Primer validation summary</h4>
+<p>The pipeline infers primer presence and sequence using <a href="https://github.com/EBI-Metagenomics/PIMENTO/tree/dev">PIMENTO</a>. For any runs where a primer was detected, metadata about it will be aggregated into a top-level primer validation summary file (<code>primer_validation_summary.json</code>), including its sequence, region, and identification strategy. For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"SRR17062740"</span><span class="fu">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"primers"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"F_auto"</span><span class="fu">,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"region"</span><span class="fu">:</span> <span class="st">"V4"</span><span class="fu">,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"strand"</span><span class="fu">:</span> <span class="st">"fwd"</span><span class="fu">,</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"sequence"</span><span class="fu">:</span> <span class="st">"ATTCCAGCTCCAATAG"</span><span class="fu">,</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"identification_strategy"</span><span class="fu">:</span> <span class="st">"auto"</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"R_auto"</span><span class="fu">,</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"region"</span><span class="fu">:</span> <span class="st">"V4"</span><span class="fu">,</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"strand"</span><span class="fu">:</span> <span class="st">"rev"</span><span class="fu">,</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"sequence"</span><span class="fu">:</span> <span class="st">"GACTACGATGGTATNTAATC"</span><span class="fu">,</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"identification_strategy"</span><span class="fu">:</span> <span class="st">"auto"</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"ERR4334351"</span><span class="fu">,</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"primers"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"341F"</span><span class="fu">,</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"region"</span><span class="fu">:</span> <span class="st">"V3"</span><span class="fu">,</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"strand"</span><span class="fu">:</span> <span class="st">"fwd"</span><span class="fu">,</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"sequence"</span><span class="fu">:</span> <span class="st">"CCTACGGGNGGCWGCAG"</span><span class="fu">,</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"identification_strategy"</span><span class="fu">:</span> <span class="st">"std"</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"name"</span><span class="fu">:</span> <span class="st">"805R"</span><span class="fu">,</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"region"</span><span class="fu">:</span> <span class="st">"V4"</span><span class="fu">,</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"strand"</span><span class="fu">:</span> <span class="st">"rev"</span><span class="fu">,</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"sequence"</span><span class="fu">:</span> <span class="st">"GACTACHVGGGTATCTAATCC"</span><span class="fu">,</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"identification_strategy"</span><span class="fu">:</span> <span class="st">"std"</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The value of the <code>identification_strategy</code> key can either be:</p>
+<ul>
+<li><code>std</code> - Meaning the primer was matched to one of the standard library primers (more reliable)</li>
+<li><code>auto</code> - Meaning the primer was automatically predicted (less reliable)</li>
+</ul>
+<p>See the <a href="https://github.com/EBI-Metagenomics/amplicon-analysis-pipeline">amplicon analysis pipeline repository</a> for detailed pipeline documentation.</p>
+
+
+</section>
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{2026,
+  author = {, MGnify},
+  title = {Amplicon Analysis Pipeline},
+  date = {2026-10-15},
+  url = {https://docs.mgnify.org/src/docs/analysis/version6/amplicon.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+MGnify. 2026. <span>“Amplicon Analysis Pipeline.”</span> October 15. <a href="https://docs.mgnify.org/src/docs/analysis/version6/amplicon.html">https://docs.mgnify.org/src/docs/analysis/version6/amplicon.html</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/docs\.mgnify\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../../src/docs/analysis/version6/analysis.html" class="pagination-link" aria-label="Analysis pipeline v6">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Analysis pipeline v6</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../../src/docs/analysis/version6/raw-reads.html" class="pagination-link" aria-label="Raw reads analysis pipeline">
+        <span class="nav-page-text">Raw reads analysis pipeline</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/analysis/version6/amplicon.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

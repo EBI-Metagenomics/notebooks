@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="MGnify">
+<meta name="dcterms.date" content="2026-10-15">
+<meta name="description" content="Description of the MGnify v6.0 assembly annotation pipeline.">
+
+<title>Assembly annotation pipeline – MGnify Resources</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../src/docs/analysis/version6/virify.html" rel="next">
+<link href="../../../../src/docs/analysis/version6/assembly.html" rel="prev">
+<link href="../../../../src/static-resources/mgnify_logo.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-3da984f748224b1e0cd87e13b5fdabc6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-73b4a7dee446426be7670d01551222e5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">MGnify Resources</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.ebi.ac.uk/metagenomics"> 
+<span class="menu-text">Open MGnify</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://status.mgnify.org"> 
+<span class="menu-text">Service status</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../src/docs/analysis/version6/analysis.html">Analyses</a></li><li class="breadcrumb-item"><a href="../../../../src/docs/analysis/version6/assembly.html">Assembly analysis</a></li><li class="breadcrumb-item"><a href="../../../../src/docs/analysis/version6/assembly-annotation.html">Assembly annotation pipeline</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+        <div class="sidebar-tools-collapse">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-collapse-item" href="https://github.com/ebi-metagenomics/notebooks">
+            Docs source
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-collapse-item" href="https://github.com/ebi-metagenomics">
+            MGnify repositories
+            </a>
+          </li>
+      </ul>
+    </div>
+    <a href="mailto:metagenomics-help@ebi.ac.uk" title="Help" class="quarto-navigation-tool px-1" aria-label="Help"><i class="bi bi-question-circle-fill"></i></a>
+</div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About MGnify</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data flow</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/dataflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">From submission to results</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/multiomics_submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multi-omics dataset submission</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Analyses</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis pipeline v6</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/amplicon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Amplicon analysis pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/raw-reads.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Raw reads analysis pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../../src/docs/analysis/version6/assembly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assembly analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/assembly-annotation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Assembly annotation pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/virify.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VIRify</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version6/mobilome.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mobilome annotation pipeline (MAP)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/analysis/version5/analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis pipeline v5.0</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Website &amp; API</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/portal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Website and portal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RESTful API</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/ftp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transfer Services (FTP) file server</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../../src/examples/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">API code examples</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify API in Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/mgnipy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python with MGnipy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/proteins-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Proteins API in Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify API in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/observable-js.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Antismash clusters in Observable JS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/atlanteco_samples_map.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Map AtlantECO samples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/download-csv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download analyses as CSV</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/examples/pathways.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pathways Explorer in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-genomes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Genomes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../../src/docs/mgnify-proteins.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MGnify Proteins</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-web.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Portal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Proteins API</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sequence search</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-big-query.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Big Query public dataset</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-parquet-queries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Remote querying of MGnify Proteins using Parquet and DuckDB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/mgnify-proteins-contig-sequences.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Retrieving contig sequences for MGnify proteins</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/faqs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../src/docs/glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossary</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#results-available-on-mgnify" id="toc-results-available-on-mgnify" class="nav-link active" data-scroll-target="#results-available-on-mgnify">Results available on MGnify</a></li>
+  <li><a href="#features" id="toc-features" class="nav-link" data-scroll-target="#features">Features</a></li>
+  <li><a href="#technical-details-and-results-reference" id="toc-technical-details-and-results-reference" class="nav-link" data-scroll-target="#technical-details-and-results-reference">Technical details and results reference</a>
+  <ul class="collapse">
+  <li><a href="#schema" id="toc-schema" class="nav-link" data-scroll-target="#schema">Schema</a></li>
+  <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">Tools</a></li>
+  <li><a href="#reference-databases" id="toc-reference-databases" class="nav-link" data-scroll-target="#reference-databases">Reference databases</a></li>
+  <li><a href="#output-files" id="toc-output-files" class="nav-link" data-scroll-target="#output-files">Output files</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/analysis/version6/assembly-annotation.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../src/docs/analysis/version6/analysis.html">Analyses</a></li><li class="breadcrumb-item"><a href="../../../../src/docs/analysis/version6/assembly.html">Assembly analysis</a></li><li class="breadcrumb-item"><a href="../../../../src/docs/analysis/version6/assembly-annotation.html">Assembly annotation pipeline</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Assembly annotation pipeline</h1>
+</div>
+
+<div>
+  <div class="description">
+    Description of the MGnify v6.0 assembly annotation pipeline.
+  </div>
+</div>
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://www.ebi.ac.uk/metagenomics">MGnify</a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://www.ebi.ac.uk">
+            EMBL-EBI
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 15, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The MGnify v6.0 <a href="../../../../src/docs/glossary.html#assembly">assembly</a> annotation pipeline (<a href="https://github.com/EBI-Metagenomics/assembly-analysis-pipeline">GitHub repository: assembly-analysis-pipeline</a>) analyses assembled <a href="../../../../src/docs/glossary.html#metagenomic">metagenomic</a> and <a href="../../../../src/docs/glossary.html#metatranscriptomic">metatranscriptomic</a> datasets, providing functional, taxonomic, pathway, and systems annotation for assembled contigs. It is one of the three pipelines of the <a href="../../../../src/docs/analysis/version6/assembly.html">assembly analysis</a>. The other two, <a href="../../../../src/docs/analysis/version6/virify.html">VIRify</a> and the <a href="../../../../src/docs/analysis/version6/mobilome.html">Mobilome annotation pipeline</a>, are run as separate pipelines on assemblies and are presented in the same web view.</p>
+<p>Here, <code>v6.0</code> identifies the analysis version. See the <a href="../../../../src/docs/analysis/version6/analysis.html#pipeline-repositories">pipeline repositories</a> for software releases and pipeline documentation.</p>
+<p>MGnify uses <a href="https://github.com/EBI-Metagenomics/miassembler">miassembler</a> to assemble sequencing reads. See <a href="../../../../src/docs/analysis/version6/assembly.html#submitting-data-to-be-assembled">Submitting data to be assembled</a> for how to request an assembly.</p>
+<section id="results-available-on-mgnify" class="level2">
+<h2 class="anchored" data-anchor-id="results-available-on-mgnify">Results available on MGnify</h2>
+<p>For each analysed <a href="../../../../src/docs/glossary.html#assembly">assembly</a>, MGnify displays and provides downloads for:</p>
+<ul>
+<li>Assembly quality-control summaries and the filtered contig sequences.</li>
+<li>Predicted coding sequences and extracted ribosomal and other non-coding RNA sequences.</li>
+<li>Contig-level taxonomic assignments and interactive Krona visualisations.</li>
+<li>Functional annotations for predicted proteins, including InterPro, eggNOG, Gene Ontology, KEGG Orthology, Rhea reactions, and run_dbCAN annotations.</li>
+<li>Pathway and systems annotations, including biosynthetic gene clusters, Genome Properties, KEGG modules, and DRAM summaries.</li>
+<li>An integrated GFF3 annotation summary combining most of the annotations generated by the pipeline.</li>
+</ul>
+</section>
+<section id="features" class="level2">
+<h2 class="anchored" data-anchor-id="features">Features</h2>
+<p>The MGnify assembly analysis pipeline v6.0 provides the following key features:</p>
+<ul>
+<li>Assembly quality control, including optional decontamination of human, PhiX, and custom contaminant sequences</li>
+<li>CDS prediction with the <a href="https://ebi-metagenomics.github.io/nf-modules/modules/ebi-metagenomics/combinedgenecaller/merge/">MGnify Combined Gene Caller</a></li>
+<li>Taxonomic assignment of assembled contigs with <a href="https://github.com/MGXlab/CAT_pack">Contig Annotation Tool (CAT)</a></li>
+<li>Functional annotation with <a href="https://www.ebi.ac.uk/interpro/interproscan.html">InterProScan</a>, <a href="https://eggnog-mapper.embl.de/">eggNOG Mapper</a>, <a href="http://www.geneontology.org/ontology/subsets/goslim_metagenomics.obo">GO Slims</a>, <a href="https://github.com/bcb-unl/run_dbcan">run_dbCAN</a>, KEGG Orthologs, and <a href="https://www.rhea-db.org/">RHEA</a></li>
+<li>Biosynthetic gene-cluster annotation with <a href="https://antismash.secondarymetabolites.org/">antiSMASH</a> and <a href="https://github.com/Finn-Lab/SanntiS">SanntiS</a></li>
+<li>KEGG module completeness analysis from KEGG Ortholog annotations</li>
+<li>Consolidation of generated annotations into a single GFF file</li>
+</ul>
+</section>
+<section id="technical-details-and-results-reference" class="level2">
+<h2 class="anchored" data-anchor-id="technical-details-and-results-reference">Technical details and results reference</h2>
+<section id="schema" class="level3">
+<h3 class="anchored" data-anchor-id="schema">Schema</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../images/analysis/version6/pipeline_v6_assembly.png" class="img-fluid figure-img"></p>
+<figcaption>Schema of the MGnify Assembly Analysis pipeline version 6.0</figcaption>
+</figure>
+</div>
+</section>
+<section id="tools" class="level3">
+<h3 class="anchored" data-anchor-id="tools">Tools</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://antismash.secondarymetabolites.org/#!/start">antiSMASH</a></td>
+<td>8.0.1</td>
+<td>Tool for the identification and annotation of secondary metabolite biosynthesis gene clusters</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/boto/boto3">boto3</a></td>
+<td>1.35.37</td>
+<td>AWS SDK for Python used to access EBI FIRE S3 storage for assembly file downloads</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/MGXlab/CAT_pack">CAT_pack</a></td>
+<td>6.0</td>
+<td>Taxonomic classification of the contigs in the assembly</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/nawrockie/cmsearch_tblout_deoverlap/">cmsearchtbloutdeoverlap</a></td>
+<td>0.09</td>
+<td>Deoverlapping of cmsearch results</td>
+</tr>
+<tr class="odd">
+<td><a href="http://bioinf.shenwei.me/csvtk">csvtk</a></td>
+<td>0.31.0</td>
+<td>A cross-platform, efficient, and practical CSV/TSV toolkit</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit">Combined Gene Caller - Merge</a></td>
+<td>1.4.17</td>
+<td>Combined gene caller merge script used to combine predictions of Pyrodigal and FragGeneScanRS (this tool is part of the mgnify-pipelines-toolkit)</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/bbuchfink/diamond">Diamond</a></td>
+<td>2.1.11</td>
+<td>Used to match predicted CDS against the CAT reference database for the taxonomic classification of the contigs</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/WrightonLabCSU/DRAM">DRAM</a></td>
+<td>1.3.5</td>
+<td>Summarizes annotations from multiple tools like KEGG, Pfam, and CAZy</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/EddyRivasLab/easel">easel</a></td>
+<td>0.49</td>
+<td>Extracts FASTA sequences by name from a cmsearch deoverlap result</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit">extractcoords</a></td>
+<td>1.2.11</td>
+<td>Processes output from easel-sfetch to extract SSU and LSU sequences (this tool is part of the mgnify-pipelines-toolkit).</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/unipept/FragGeneScanRs">FragGeneScanRs</a></td>
+<td>1.1.0</td>
+<td>CDS calling; this tool specializes in calling fragmented CDS</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit">generategaf</a></td>
+<td>1.2.0</td>
+<td>Script that generates a GO Annotation File (GAF) from an InterProScan result TSV file (this tool is part of the mgnify-pipelines-toolkit).</td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.ebi.ac.uk/interpro/genomeproperties/">Genome Properties</a></td>
+<td>2.0</td>
+<td>Uses protein signatures as evidence to determine the presence of each step within a property</td>
+</tr>
+<tr class="even">
+<td><a href="http://eddylab.org/infernal/">Infernal - cmscan</a></td>
+<td>1.1.5</td>
+<td>RNA sequence searching</td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.ebi.ac.uk/interpro/download/InterProScan/">InterProScan</a></td>
+<td>5.76-107.0</td>
+<td>Functionally characterizes nucleotide or protein sequences by scanning them against the InterPro database.</td>
+</tr>
+<tr class="even">
+<td><a href="http://hmmer.org/">HMMER</a></td>
+<td>3.4</td>
+<td>Used to annotate CDS with KO</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/marbl/Krona/wiki/KronaTools">Krona</a></td>
+<td>2.8.1</td>
+<td>Krona chart visualisation</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/EBI-Metagenomics/kegg-pathways-completeness-tool">kegg-pathways-completeness</a></td>
+<td>1.3.0</td>
+<td>Computes the completeness of each KEGG pathway module based on KEGG orthologue (KO) annotations.</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit">MGnify pipelines toolkit</a></td>
+<td>1.2.0 to 1.4.24</td>
+<td>Collection of tools and scripts used in MGnify pipelines. Each step uses a fixed release; the default release is 1.2.0.</td>
+</tr>
+<tr class="even">
+<td><a href="https://lh3.github.io/minimap2/">minimap2</a></td>
+<td>2.29-r1283</td>
+<td>A versatile pairwise aligner for genomic and spliced nucleotide sequences. Used in the assembly decontamination subworkflow</td>
+</tr>
+<tr class="odd">
+<td><a href="http://multiqc.info/">MultiQC</a></td>
+<td>1.29</td>
+<td>Tool to aggregate bioinformatic analysis results.</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/owlcollab/owltools">Owltools</a></td>
+<td>2024-06-12T00:00:00Z</td>
+<td>Tool utilized to map GO terms to GO-slims</td>
+</tr>
+<tr class="odd">
+<td><a href="https://pyrodigal.readthedocs.org/">Pyrodigal</a></td>
+<td>3.6.3</td>
+<td>CDS calling</td>
+</tr>
+<tr class="even">
+<td><a href="https://zlib.net/pigz/">pigz</a></td>
+<td>2.3.4</td>
+<td>A parallel implementation of gzip for modern multi-processor, multi-core systems</td>
+</tr>
+<tr class="odd">
+<td><a href="http://quast.sourceforge.net/quast">QUAST</a></td>
+<td>5.2.0</td>
+<td>Tool used evaluates genome assemblies, it’s part of the pipeline QC module.</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/bcb-unl/run_dbcan">run_dbCAN</a></td>
+<td>5.1.2</td>
+<td>Annotation tool for the Carbohydrate-Active enZYmes Database (CAZy)</td>
+</tr>
+<tr class="odd">
+<td><a href="https://bioinf.shenwei.me/seqkit/">SeqKit</a></td>
+<td>2.8.0</td>
+<td>Used to manipulate FASTA files</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/Finn-Lab/SanntiS">SanntiS</a></td>
+<td>0.9.4.1</td>
+<td>Tool used to identify biosynthetic gene clusters</td>
+</tr>
+<tr class="odd">
+<td><a href="http://www.htslib.org/doc/tabix.html">tabix</a></td>
+<td>1.21</td>
+<td>Generic indexer for TAB-delimited genome position files</td>
+</tr>
+<tr class="even">
+<td><a href="https://genometools.org/tools/gt_gff3validator.html">Genome Tools - gff3validator</a></td>
+<td>1.6.5</td>
+<td>Used to validate the analysis summary GFF file</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/jqlang/jq">jq</a></td>
+<td>1.5</td>
+<td>Used to concatenate the chunked antiSMASH json results</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reference-databases" class="level3">
+<h3 class="anchored" data-anchor-id="reference-databases">Reference databases</h3>
+<p>This pipeline uses several reference databases, you can find the list of them in the follow table. The databases marked with <sup>*</sup> are downloaded and post-processed by the <a href="https://github.com/EBI-Metagenomics/reference-databases-preprocessing-pipeline">Microbiome Informatics reference-databases-preprocessing-pipeline</a>. Our team also stores ready to use version of these databases in EBI’s FTP server.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Reference Database</th>
+<th>Version</th>
+<th>Purpose</th>
+<th>Download</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://rfam.org/">Rfam covariance models</a></td>
+<td>15</td>
+<td>rRNA covariance models</td>
+<td><a href="https://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.cm.gz">ftp://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.cm.gz</a></td>
+</tr>
+<tr class="even">
+<td><a href="https://rfam.org/">Rfam clan info</a></td>
+<td>15</td>
+<td>rRNA clan information</td>
+<td><a href="https://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.clanin">ftp://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.clanin</a></td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.ebi.ac.uk/interpro/download/InterProScan/">InterProScan</a></td>
+<td>5.76-107.0</td>
+<td>InterProScan reference database</td>
+<td><a href="https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.76-107.0/">ftp://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.76-107.0/</a></td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#requirements">eggNOG-mapper</a></td>
+<td>5.0.2</td>
+<td>eggNOG-mapper annotation databases and Diamond</td>
+<td>https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#requirements</td>
+</tr>
+<tr class="odd">
+<td><a href="https://antismash.secondarymetabolites.org/">antiSMASH</a></td>
+<td>8.0.1</td>
+<td>The antiSMASH reference database</td>
+<td>https://docs.antismash.secondarymetabolites.org/install/#antismash-standalone-lite</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.genome.jp/tools/kofamkoala/">KOFAM</a><sup>*</sup></td>
+<td>2025-04</td>
+<td>KOfam - HMM profiles for KEGG/KO. Our reference generation pipeline generates the required files</td>
+<td>https://github.com/EBI-Metagenomics/reference-databases-preprocessing-pipeline</td>
+</tr>
+<tr class="odd">
+<td><a href="https://geneontology.org/docs/go-subset-guide/">GO Slims</a><sup>*</sup></td>
+<td>20160705</td>
+<td>Metagenomics GO Slims</td>
+<td><a href="https://ftp.ebi.ac.uk/pub/databases/metagenomics/pipelines/tool-dbs/goslim/20160705/goslim_20160705.tar.gz">ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/pipelines/tool-dbs/goslim/20160705/goslim_20160705.tar.gz</a></td>
+</tr>
+<tr class="even">
+<td><a href="https://dbcan.readthedocs.io/en/latest/installation.html#build-database">run_dbCAN</a></td>
+<td>4.1.4-V13</td>
+<td>Pre-built run_dbCAN reference database</td>
+<td><a href="http://ftp.ebi.ac.uk/pub/databases/metagenomics/pipelines/tool-dbs/dbcan/dbcan_4.1.4_V13.tar.gz">ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/pipelines/tool-dbs/dbcan/dbcan_4.1.4_V13.tar.gz</a></td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/MGXlab/CAT_pack">CAT_Pack</a></td>
+<td>2025_01</td>
+<td>CAT/BAT/RAT NCBI taxonomy pre-made reference database</td>
+<td>https://github.com/MGXlab/CAT_pack?tab=readme-ov-file#downloading-preconstructed-database-files</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/WrightonLabCSU/DRAM">DRAM</a></td>
+<td>1.3.0</td>
+<td>DRAM databases</td>
+<td>https://github.com/WrightonLabCSU/DRAM/wiki#dram-setup</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="output-files" class="level3">
+<h3 class="anchored" data-anchor-id="output-files">Output files</h3>
+<section id="qc" class="level4">
+<h4 class="anchored" data-anchor-id="qc">qc</h4>
+<p>The <code>qc</code> directory contains output files related to the quality control steps of the pipeline, from the contig length filtering by <a href="https://bioinf.shenwei.me/seqkit">seqkit</a>, to the quality assessment done by <a href="https://github.com/ablab/quast">QUAST</a>. The <code>qc</code> directory contains these files and directories:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_filtered_contigs.fasta.gz</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_filtered_contigs.fasta.gz.gzi</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_filtered_contigs.fasta.gz.fai</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_quast_stats.tsv.gz</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── multiqc_report.html</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── multiqc_data/</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── decontamination/</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> cds</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> taxonomy</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> rnas</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> functional-annotation</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> pathways-and-systems</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> annotation-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="output-files-1" class="level5">
+<h5 class="anchored" data-anchor-id="output-files-1">Output files</h5>
+<ul>
+<li><strong>ERZ12345_filtered_contigs.fasta.gz</strong>: This <code>FASTA</code> file contains the final processed contigs. Contigs shorter than 500 bases and those with a proportion of ambiguous bases higher than 10% are removed first. If decontamination is enabled, contigs aligning to the PhiX, human, or host reference genomes are also removed. It is bgzip-compressed to allow random access via the accompanying index files.</li>
+<li><strong>ERZ12345_filtered_contigs.fasta.gz.gzi</strong>: This file is a compression index for the bgzip-compressed filtered contigs FASTA file.</li>
+<li><strong>ERZ12345_filtered_contigs.fasta.gz.fai</strong>: This file is a FASTA index for the bgzip-compressed filtered contigs FASTA file.</li>
+<li><strong>ERZ12345_quast_stats.tsv.gz</strong>: This compressed <code>tsv</code> file contains the QUAST summary output, giving an assessment of the quality of the contigs of this assembly.</li>
+<li><strong>multiqc_report.html</strong>: This <code>html</code> file contains the <code>MultiQC</code> report for that assembly. It combines outputs from multiple tools, including <code>QUAST</code> (run both before and after quality control during assembly preprocessing), decontamination summary tables (if contaminated contigs were detected), and records of the software versions used by the pipeline.</li>
+<li><strong>multiqc_data/</strong>: This <code>directory</code> contains the input files used by MultiQC to generate its report.</li>
+<li><strong>decontamination/</strong>: This <code>directory</code> contains TSV files with details of contigs that were removed during decontamination steps (only created if contaminated contigs are found).</li>
+</ul>
+</section>
+<section id="decontamination-output-files" class="level5">
+<h5 class="anchored" data-anchor-id="decontamination-output-files">Decontamination output files</h5>
+<p>When the decontamination step is enabled and contaminated contigs are detected, TSV files are created in the <code>decontamination/</code> subdirectory. Each TSV file contains three columns: <code>sequence_id</code> (contig identifier), <code>query_coverage</code> (coverage of the alignment), and <code>identity</code> (percentage identity of the alignment). Contigs are classified as contaminated if they have query coverage ≥ 0.3 (30%) and identity ≥ 0.4 (40%) when aligned to the respective reference genome. These are the default values of the <code>min_qcov</code> and <code>min_pid</code> parameters.</p>
+<p>The following files may be created:</p>
+<ul>
+<li><strong>ERZ12345_aligned_to_human.tsv.gz</strong>: Contigs identified as contaminated with human DNA.</li>
+<li><strong>ERZ12345_aligned_to_phix.tsv.gz</strong>: Contigs identified as contaminated with PhiX DNA.</li>
+<li><strong>ERZ12345_aligned_to_contaminant.tsv.gz</strong>: Contigs identified as contaminated with custom host/contaminant DNA.</li>
+</ul>
+<p>These files are integrated into the MultiQC report as interactive tables under the “Decontamination Summary” section.</p>
+</section>
+</section>
+<section id="cds" class="level4">
+<h4 class="anchored" data-anchor-id="cds">cds</h4>
+<p>The <code>cds</code> directory contains output files related to the combined gene caller subworkflow, which calls genes using both <a href="https://github.com/althonos/pyrodigal/">Pyrodigal</a> and <a href="https://github.com/unipept/FragGeneScanRs">FragGeneScanRs</a>, which are a Python interface to Prodigal and a Rust re-implementation of FragGeneScan, respectively. The identified genes are then merged, and the resulting outputs are saved in this directory in three different formats.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> cds</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_predicted_orf.ffn.gz</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_predicted_cds.faa.gz</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── ERZ12345_predicted_cds.gff.gz</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> taxonomy</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> rnas</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> functional-annotation</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> pathways-and-systems</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> annotation-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="output-files-2" class="level5">
+<h5 class="anchored" data-anchor-id="output-files-2">Output files</h5>
+<ul>
+<li><strong>ERZ12345_predicted_orf.ffn.gz</strong>: This <code>FASTA</code> file contains the nucleotide sequences of each predicted Open Reading Frame (ORF) by the combined gene caller, making up the collection of genes detected in the assembly.</li>
+<li><strong>ERZ12345_predicted_cds.faa.gz</strong>: This <code>FASTA</code> file contains the amino acid sequences of each predicted ORF, making up the collection of proteins detected in the assembly.</li>
+<li><strong>ERZ12345_predicted_cds.gff.gz</strong>: This <code>gff</code> file contains the Coding DNA Sequences regions in the GFF3 format.</li>
+</ul>
+</section>
+</section>
+<section id="taxonomy" class="level4">
+<h4 class="anchored" data-anchor-id="taxonomy">taxonomy</h4>
+<p>The <code>taxonomy</code> directory contains the contig taxonomy assignments from <a href="https://github.com/MGXlab/CAT_pack">CAT_pack</a>, as well as visualisations generated with <a href="https://github.com/marbl/Krona/wiki/KronaTools">Krona</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> cds</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> taxonomy</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_contigs_taxonomy.tsv.gz</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345.krona.txt.gz</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── ERZ12345.html</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> rnas</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> functional-annotation</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> pathways-and-systems</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> annotation-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="output-files-3" class="level5">
+<h5 class="anchored" data-anchor-id="output-files-3">Output files</h5>
+<ul>
+<li><strong>ERZ12345_contigs_taxonomy.tsv.gz</strong>: This <code>tsv</code> file contains the output from <a href="https://github.com/MGXlab/CAT_pack">CAT_pack</a> that describes taxonomy assignments to contigs in the assembly.</li>
+<li><strong>ERZ12345.krona.txt.gz</strong>: This compressed <code>txt</code> file contains the Krona text input that is used to generate the Krona HTML file. It contains the distribution of the different taxonomic assignments from the <a href="https://github.com/MGXlab/CAT_pack">CAT_pack</a> output.</li>
+<li><strong>ERZ12345.html</strong>: This <code>html</code> file contains the Krona HTML file that interactively displays the distribution of the different taxonomic assignments from <a href="https://github.com/MGXlab/CAT_pack">CAT_pack</a>.</li>
+</ul>
+</section>
+</section>
+<section id="rnas" class="level4">
+<h4 class="anchored" data-anchor-id="rnas">rnas</h4>
+<p>The <code>rnas</code> directory contains FASTA files produced by <code>EXTRACTCOORDS</code>, including SSU, LSU, bacterial, archaeal, eukaryotic, 5S, 5.8S, and other ncRNA sequences. Each file is optional and is only created when the corresponding RNA category is detected.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> cds</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> taxonomy</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> rnas</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_SSU.fasta.gz</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_LSU.fasta.gz</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_<span class="pp">*</span>rRNA_bacteria<span class="pp">*</span>.fasta.gz</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_<span class="pp">*</span>rRNA_archaea<span class="pp">*</span>.fasta.gz</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_<span class="pp">*</span>rRNA_eukarya<span class="pp">*</span>.fasta.gz</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_<span class="pp">*</span>5S.fasta.gz</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── ERZ12345_<span class="pp">*</span>5_8S.fasta.gz</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── ERZ12345_<span class="pp">*</span>other_ncRNA.fasta.gz</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> functional-annotation</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> pathways-and-systems</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> annotation-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="output-files-4" class="level5">
+<h5 class="anchored" data-anchor-id="output-files-4">Output files</h5>
+<ul>
+<li><strong>ERZ12345_SSU.fasta.gz</strong>: This <code>fasta</code> file contains all sequences from the assembly’s contigs that matched the <code>SSU</code> (Small Subunit) rRNA marker gene. This file may be absent if no marker genes of this type were detected in the assembly.</li>
+<li><strong>ERZ12345_LSU.fasta.gz</strong>: This <code>fasta</code> file contains sequences matching the <code>LSU</code> (Large Subunit) rRNA marker gene. This file may be absent if no marker genes of this type were detected in the assembly.</li>
+<li><strong><code>*rRNA_bacteria*.fasta.gz</code></strong>: This <code>fasta</code> file contains extracted bacterial rRNA sequences. It may be absent if no bacterial rRNA sequences were detected in the assembly.</li>
+<li><strong><code>*rRNA_archaea*.fasta.gz</code></strong>: This <code>fasta</code> file contains extracted archaeal rRNA sequences. It may be absent if no archaeal rRNA sequences were detected in the assembly.</li>
+<li><strong><code>*rRNA_eukarya*.fasta.gz</code></strong>: This <code>fasta</code> file contains extracted eukaryotic rRNA sequences. It may be absent if no eukaryotic rRNA sequences were detected in the assembly.</li>
+<li><strong><code>*5S.fasta.gz</code></strong>: This <code>fasta</code> file contains extracted 5S rRNA sequences. It may be absent if no 5S rRNA sequences were detected in the assembly.</li>
+<li><strong><code>*5_8S.fasta.gz</code></strong>: This <code>fasta</code> file contains extracted 5.8S rRNA sequences. It may be absent if no 5.8S rRNA sequences were detected in the assembly.</li>
+<li><strong><code>*other_ncRNA.fasta.gz</code></strong>: This <code>fasta</code> file contains extracted non-coding RNA sequences that do not belong to the categories above. It may be absent if no matching ncRNA sequences were detected in the assembly.</li>
+</ul>
+<p>These sequences should be interpreted with caution: rRNA genes can be difficult to assemble, for example because of repeats and their high copy number. Their presence, absence, or apparent taxonomic signal should therefore not be used alone to draw definitive conclusions about the assembly or its organisms.</p>
+</section>
+</section>
+<section id="functional-annotation" class="level4">
+<h4 class="anchored" data-anchor-id="functional-annotation">functional-annotation</h4>
+<p>The <code>functional-annotation</code> directory contains seven subdirectories of results, one for each functional annotation tool used in the pipeline. Specifically, the functional annotations in this directory are assigned on a per-protein basis, and range from tools like <a href="https://github.com/ebi-pf-team/interproscan">InterProScan</a> to <a href="https://github.com/bcb-unl/run_dbcan">run_dbCAN</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> cds</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> taxonomy</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> rnas</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> functional-annotation</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── interpro</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_interproscan.tsv.gz</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_interpro_summary.tsv.gz</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── ERZ12345_interpro_summary.tsv.gz.gzi</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── pfam</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_pfam_summary.tsv.gz</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── ERZ12345_pfam_summary.tsv.gz.gzi</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── go</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_go_summary.tsv.gz</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_go_summary.tsv.gz.gzi</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_goslim_summary.tsv.gz</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── ERZ12345_goslim_summary.tsv.gz.gzi</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── eggnog</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_emapper_seed_orthologs.tsv.gz</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── ERZ12345_emapper_annotations.tsv.gz</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── kegg</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_ko_summary.tsv.gz</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── ERZ12345_ko_summary.tsv.gz.gzi</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── rhea-reactions</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_proteins2rhea.tsv.gz</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── ERZ12345_proteins2rhea.tsv.gz.gzi</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── dbcan</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       ├── ERZ12345_dbcan_cgc.gff.gz</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       ├── ERZ12345_dbcan_standard_out.tsv.gz</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       ├── ERZ12345_dbcan_overview.tsv.gz</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       ├── ERZ12345_dbcan_sub_hmm.tsv.gz</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └── ERZ12345_dbcan_substrates.tsv.gz</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> pathways-and-systems</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> annotation-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="output-files---interproscan" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---interproscan">Output files - interproscan</h5>
+<p>This subdirectory contains the output generated by running <a href="https://github.com/ebi-pf-team/interproscan">InterProScan</a> on the protein sequences of the assembly.</p>
+<ul>
+<li><p><strong>ERZ12345_interproscan.tsv.gz</strong>: This <code>tsv</code> file contains the detailed results from <a href="https://github.com/ebi-pf-team/interproscan">InterProScan</a>, including the InterPro identifiers, descriptions of the functional domains or protein families detected, and the specific proteins from the assembly that match each signature. Each entry links a protein to its associated functional features, such as protein families, motifs, domains, pathway annotations, and Gene Ontology (GO) terms. In this pipeline, InterProScan is run with <code>--iprlookup --goterms --pathways</code>, so the TSV output includes the following columns:</p>
+<ol type="1">
+<li>Protein accession</li>
+<li>Sequence MD5 digest</li>
+<li>Sequence length</li>
+<li>Analysis. In this pipeline the values come from the configured InterProScan applications: <code>TIGRFAM</code>, <code>SFLD</code>, <code>SUPERFAMILY</code>, <code>GENE3D</code>, <code>HAMAP</code>, <code>COILS</code>, <code>CDD</code>, <code>PRINTS</code>, <code>PIRSF</code>, <code>PROSITEPROFILES</code>, <code>PROSITEPATTERNS</code>, <code>PFAM</code>, <code>MOBIDBLITE</code>, and <code>SMART</code>. <code>SIGNALP</code> is also included when <code>params.interpro_licensed_software</code> is enabled.</li>
+<li>Signature accession</li>
+<li>Signature description</li>
+<li>Start location</li>
+<li>Stop location</li>
+<li>Score, which is the e-value or score reported by the member database method</li>
+<li>Status, indicating the match status</li>
+<li>Date, indicating the date of the run</li>
+<li>InterPro annotations accession</li>
+<li>InterPro annotations description</li>
+<li>GO annotations with their source(s)</li>
+<li>Pathway annotations</li>
+</ol>
+<p>Further details are available in the <a href="https://interproscan-docs.readthedocs.io/en/v5/OutputFormats.html#tab-separated-values-format-tsv">InterProScan TSV output format documentation</a>.</p></li>
+<li><p><strong>ERZ12345_interpro_summary.tsv.gz</strong>: This <code>tsv</code> file provides a summary of the count of different InterPro signatures that were detected across all proteins in the assembly. The summary includes the total number of proteins annotated with each InterPro signature, offering a high-level overview of the functional diversity present in the assembly.</p></li>
+<li><p><strong>ERZ12345_interpro_summary.tsv.gz.gzi</strong>: This file is an index for the InterPro count summary file.</p></li>
+</ul>
+</section>
+<section id="output-files---pfam" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---pfam">Output files - pfam</h5>
+<p>This subdirectory contains summaries of Pfam domain matches extracted from the <a href="https://github.com/ebi-pf-team/interproscan">InterProScan</a> results.</p>
+<ul>
+<li><strong>ERZ12345_pfam_summary.tsv.gz</strong>: This <code>tsv</code> file contains a summary of the counts of the different Pfam signatures identified across all proteins in the assembly. Each entry represents a specific Pfam family or domain, with associated counts indicating how many proteins in the assembly match the signature.</li>
+<li><strong>ERZ12345_pfam_summary.tsv.gz.gzi</strong>: This file is an index for the Pfam count summary file.</li>
+</ul>
+</section>
+<section id="output-files---go" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---go">Output files - go</h5>
+<p>This subdirectory contains output files summarising Gene Ontology (GO) annotations extracted from the InterProScan results. In addition to the full set of GO terms, the annotations are also mapped to the metagenomics GO-slim subset (<a href="https://geneontology.org/docs/go-subset-guide/">see here</a>) to provide a more concise and domain-specific overview.</p>
+<ul>
+<li><strong>ERZ12345_go_summary.tsv.gz</strong>: This <code>tsv</code> file contains summary counts of the full set of GO terms assigned to proteins in the assembly.</li>
+<li><strong>ERZ12345_go_summary.tsv.gz.gzi</strong>: This file is an index for the GO summary count file.</li>
+<li><strong>ERZ12345_goslim_summary.tsv.gz</strong>: This <code>tsv</code> file contains summary counts of the GO-slim terms (a simplified subset of GO terms) assigned to proteins in the assembly.</li>
+<li><strong>ERZ12345_goslim_summary.tsv.gz.gzi</strong>: This file is an index for the GO-slim summary count file.</li>
+</ul>
+</section>
+<section id="output-files---eggnog-mapper" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---eggnog-mapper">Output files - eggnog-mapper</h5>
+<p>This subdirectory contains the output of running <a href="https://github.com/eggnogdb/eggnog-mapper">EggNOG-mapper</a> on the protein sequences from the assembly.</p>
+<ul>
+<li><strong>ERZ12345_emapper_seed_orthologs.tsv.gz</strong>: This <code>tsv</code> file lists the seed orthologs identified for each protein during the <a href="https://github.com/eggnogdb/eggnog-mapper">EggNOG-mapper</a> run.</li>
+<li><strong>ERZ12345_emapper_annotations.tsv.gz</strong>: This <code>tsv</code> file contains the functional annotations assigned to the proteins by <a href="https://github.com/eggnogdb/eggnog-mapper">EggNOG-mapper</a> using the seed orthologs.</li>
+</ul>
+</section>
+<section id="output-files---kegg" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---kegg">Output files - kegg</h5>
+<p>This subdirectory contains the results of identifying KEGG Orthologs (KOs) in the assembly’s proteins using <a href="https://github.com/EddyRivasLab/hmmer">hmmsearch</a>, with their occurrences summarised in a count table.</p>
+<ul>
+<li><strong>ERZ12345_ko_summary.tsv.gz</strong>: This <code>tsv</code> file listing the counts of each KO detected in the assembly.</li>
+<li><strong>ERZ12345_ko_summary.tsv.gz.gzi</strong>: This file is an index for the KO summary count file.</li>
+</ul>
+</section>
+<section id="output-files---rhea-reactions" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---rhea-reactions">Output files - rhea-reactions</h5>
+<p>This subdirectory contains results from running <a href="https://github.com/bbuchfink/diamond">DIAMOND</a> to match the assembly’s proteins against a UniRef90 database with Rhea reactions and corresponding ChEBI compounds assigned.</p>
+<ul>
+<li><strong>ERZ12345_proteins2rhea.tsv.gz</strong>: This <code>tsv</code> file listing the Rhea reaction IDs and corresponding ChEBI compounds assigned to the proteins in the assembly based on their matches to UniRef90 database.</li>
+<li><strong>ERZ12345_proteins2rhea.tsv.gz.gzi</strong>: This file is an index for the Proteins2Rhea output.</li>
+</ul>
+</section>
+<section id="output-files---dbcan" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---dbcan">Output files - dbcan</h5>
+<p>This subdirectory contains the output of running <a href="https://github.com/bcb-unl/run_dbcan">run_dbCAN</a> on the assembly proteins, generating annotations for CAZymes and CAZyme Gene Clusters (CGC).</p>
+<ul>
+<li><strong>ERZ12345_dbcan_cgc.gff.gz</strong>: This <code>gff</code> file is annotated with functional genes for CGCFinder and visualization tools.</li>
+<li><strong>ERZ12345_dbcan_standard_out.tsv.gz</strong>: This <code>tsv</code> file lists all identified CGCs and their components.</li>
+<li><strong>ERZ12345_dbcan_overview.tsv.gz</strong>: This <code>tsv</code> file contains a summary of identified CAZymes.</li>
+<li><strong>ERZ12345_dbcan_sub_hmm.tsv.gz</strong>: This <code>tsv</code> file contains the detailed sub-HMMER results.</li>
+<li><strong>ERZ12345_dbcan_substrates.tsv.gz</strong>: This <code>tsv</code> file contains the substrate prediction results for CGCs.</li>
+</ul>
+</section>
+</section>
+<section id="pathways-and-systems" class="level4">
+<h4 class="anchored" data-anchor-id="pathways-and-systems">pathways-and-systems</h4>
+<p>The <code>pathways-and-systems</code> directory contains five subdirectories of results, one for each pathway/system annotation tool used by the pipeline. The results range from KEGG pathways, to Biosynthetic Gene Clusters (BGCs) detected by <a href="https://github.com/antismash/antismash">antiSMASH</a> and <a href="https://github.com/Finn-Lab/SanntiS">SanntiS</a>. Just like the functional annotations, most of these annotations are on a per-protein basis.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> cds</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> taxonomy</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> rnas</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> functional-annotation</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> pathways-and-systems</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── antismash</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_antismash.gbk.gz</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_antismash.gff.gz</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_merged.json</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_antismash_summary.tsv.gz</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── ERZ12345_antismash_summary.tsv.gz.gzi</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── sanntis</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_sanntis.gff.gz</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_sanntis_summary.tsv.gz</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── ERZ12345_sanntis_summary.tsv.gz.gzi</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── genome-properties</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_gp.json.gz</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_gp.tsv.gz</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── ERZ12345_gp.txt.gz</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── kegg-modules</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_kegg_modules_per_contigs.tsv.gz</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_kegg_modules_per_contigs.tsv.gz.gzi</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ERZ12345_kegg_modules_summary.tsv.gz</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── ERZ12345_kegg_modules_summary.tsv.gz.gzi</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── dram-distill</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       ├── ERZ12345_dram.tsv.gz</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       ├── ERZ12345_dram.html.gz</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       ├── ERZ12345_genome_stats.tsv.gz</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └── ERZ12345_metabolism_summary.xlsx.gz</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> annotation-summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="output-files---antismash" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---antismash">Output files - antismash</h5>
+<p>This subdirectory contains the results of running <a href="https://github.com/antismash/antismash">antiSMASH</a> on the assembly’s proteins, including annotations for detected BGCs in various formats.</p>
+<ul>
+<li><strong>ERZ12345_antismash.gbk.gz</strong>: A GenBank format file containing antiSMASH annotations.</li>
+<li><strong>ERZ12345_antismash.gff.gz</strong>: A GFF3 format file containing antiSMASH annotations.</li>
+<li><strong>ERZ12345_merged.json</strong>: A JSON file containing antiSMASH annotations.</li>
+<li><strong>ERZ12345_antismash_summary.tsv.gz</strong>: This <code>tsv</code> file listing the counts of each antiSMASH entry detected in the assembly.</li>
+<li><strong>ERZ12345_antismash_summary.tsv.gz.gzi</strong>: This is the index of the antiSMASH summary <code>tsv</code></li>
+</ul>
+</section>
+<section id="output-files---sanntis" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---sanntis">Output files - sanntis</h5>
+<p>This subdirectory contains the outputs of running <a href="https://github.com/Finn-Lab/SanntiS">SanntiS</a> on the proteins of the assembly, also describing the detected BGCs using this new machine learning-based tool.</p>
+<ul>
+<li><strong>ERZ12345_sanntis.gff.gz</strong>: This <code>gff</code> file contains the different SanntiS annotations in the GFF3 format. The GFF3 specification can be found in the <a href="https://github.com/Finn-Lab/SanntiS?tab=readme-ov-file#ouput">tool repo</a></li>
+<li><strong>ERZ12345_sanntis_summary.tsv.gz</strong>: This <code>tsv</code> file listing the counts of each SanntiS entry detected in the assembly.</li>
+<li><strong>ERZ12345_sanntis_summary.tsv.gz.gzi</strong>: This is the index of the SanntiS summary <code>tsv</code></li>
+</ul>
+</section>
+<section id="output-files---genome-properties" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---genome-properties">Output files - genome-properties</h5>
+<p>This subdirectory contains the outputs of running <a href="https://github.com/EBI-Metagenomics/genome-properties">Genome Properties</a> on the proteins of the assembly. Genome properties is an annotation system whereby functional attributes can be assigned to an assembly, based on the presence of a defined set of protein signatures within that assembly. The results are available in three different formats.</p>
+<ul>
+<li><strong>ERZ12345_gp.json.gz</strong>: A JSON format file containing Genome Properties annotations</li>
+<li><strong>ERZ12345_gp.tsv.gz</strong>: A <code>tsv</code> file containing Genome Properties annotations in a tab-separated format.</li>
+<li><strong>ERZ12345_gp.txt.gz</strong>: A plain text file containing the Genome Properties annotations.</li>
+</ul>
+</section>
+<section id="output-files---kegg-modules" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---kegg-modules">Output files - kegg-modules</h5>
+<p>This subdirectory contains results from evaluating which KEGG modules and pathways are represented in the assembly based on the presence of KEGG Orthologs (KOs). For each module, a completeness score is calculated depending on how many required KOs are detected using the <a href="https://github.com/EBI-Metagenomics/kegg-pathways-completeness-tool">kegg-pathways-completeness-tool</a>.</p>
+<ul>
+<li><strong>ERZ12345_kegg_modules_per_contigs.tsv.gz</strong>: This <code>tsv</code> file contains the different KEGG modules and their completeness, including the contig they were found on.</li>
+<li><strong>ERZ12345_kegg_modules_per_contigs.tsv.gz.gzi</strong>: This file is an index for the per-contig KEGG modules file.</li>
+<li><strong>ERZ12345_kegg_modules_summary.tsv.gz</strong>: This <code>tsv</code> file contains a summary of the KEGG modules and their completeness for the whole assembly, not on a per-contig basis.</li>
+<li><strong>ERZ12345_kegg_modules_summary.tsv.gz.gzi</strong>: This file is an index for the summary KEGG modules file.</li>
+</ul>
+</section>
+<section id="output-files---dram-distill" class="level5">
+<h5 class="anchored" data-anchor-id="output-files---dram-distill">Output files - dram-distill</h5>
+<p>This subdirectory contains the outputs of running <a href="https://github.com/WrightonLabCSU/DRAM">DRAM-distill</a> on the KO hits per contig, the InterProScan and run_dbCan. DRAM generates summary reports and visualisations for the annotations on a per-assembly basis, and outputs four different files.</p>
+<ul>
+<li><strong>ERZ12345_dram.tsv.gz</strong>: This <code>tsv</code> file contains the product of https://github.com/WrightonLabCSU/DRAM for the assembly, including functions that were detected.</li>
+<li><strong>ERZ12345_dram.html.gz</strong>: This <code>html</code> file contains a heatmap visualisation of the detected functions by https://github.com/WrightonLabCSU/DRAM.</li>
+<li><strong>ERZ12345_genome_stats.tsv.gz</strong>: This <code>tsv</code> file contains the genome statistics summary generated by DRAM.</li>
+<li><strong>ERZ12345_metabolism_summary.xlsx.gz</strong>: This Excel file contains the metabolism summary generated by DRAM.</li>
+</ul>
+</section>
+</section>
+<section id="annotation-summary" class="level4">
+<h4 class="anchored" data-anchor-id="annotation-summary">annotation-summary</h4>
+<p>The <code>annotation-summary</code> directory contains a single GFF file that summarises the annotations generated by the pipeline, integrating functional annotation per protein and other genomic features. This file is compressed and indexed with both a bgzip index and a tabix index (<code>.gff.gz</code>, <code>.gff.gz.gzi</code>, <code>.gff.gz.csi</code> files respectively).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> qc</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> cds</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> taxonomy</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> rnas</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> functional-annotation</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> pathways-and-systems</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> annotation-summary</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERZ12345_annotation_summary.gff.gz</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> ERZ12345_annotation_summary.gff.gz.gzi</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> ERZ12345_annotation_summary.gff.gz.csi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="output-files-5" class="level5">
+<h5 class="anchored" data-anchor-id="output-files-5">Output files</h5>
+<ul>
+<li><strong>ERZ12345_annotation_summary.gff.gz</strong>: This <code>gff</code> file contains an expansive and large summary of most of the functional annotations each protein has into a single GFF3 format file.</li>
+<li><strong>ERZ12345_annotation_summary.gff.gz.gzi</strong>: This file is the bgzip index for the annotation summary GFF file.</li>
+<li><strong>ERZ12345_annotation_summary.gff.gz.csi</strong>: This file is the tabix (CSI) index for the annotation summary GFF file.</li>
+<li><strong>ERZ12345_gff_validation_errors.log</strong>: <strong>If</strong> <a href="https://genometools.org/tools/gt_gff3validator.html">the GFF file is not valid</a>, then a log file is created with the validation errors. This file is not created when the GFF file is valid.</li>
+</ul>
+<p>See the <a href="https://github.com/EBI-Metagenomics/assembly-analysis-pipeline">assembly analysis pipeline repository</a> for detailed pipeline documentation.</p>
+
+
+</section>
+</section>
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{2026,
+  author = {, MGnify},
+  title = {Assembly Annotation Pipeline},
+  date = {2026-10-15},
+  url = {https://docs.mgnify.org/src/docs/analysis/version6/assembly-annotation.html},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+MGnify. 2026. <span>“Assembly Annotation Pipeline.”</span> October 15.
+<a href="https://docs.mgnify.org/src/docs/analysis/version6/assembly-annotation.html">https://docs.mgnify.org/src/docs/analysis/version6/assembly-annotation.html</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/docs\.mgnify\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../../src/docs/analysis/version6/assembly.html" class="pagination-link" aria-label="Assembly analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Assembly analysis</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../../src/docs/analysis/version6/virify.html" class="pagination-link" aria-label="VIRify">
+        <span class="nav-page-text">VIRify</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ebi-metagenomics/notebooks/edit/main/src/docs/analysis/version6/assembly-annotation.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ebi-metagenomics/notebooks/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

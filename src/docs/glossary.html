@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="MGnify">
-<meta name="dcterms.date" content="2026-09-23">
-<meta name="description" content="Dictionary of terms used in MGnify and throughout this documentaiton">
+<meta name="dcterms.date" content="2026-10-15">
+<meta name="description" content="Dictionary of terms used in MGnify and throughout this documentation">
 
 <title>Glossary – MGnify Resources</title>
 <style>
@@ -196,7 +196,54 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../src/docs/analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../../src/docs/analysis/version6/analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis pipeline v6</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/analysis/version6/amplicon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Amplicon analysis pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/analysis/version6/raw-reads.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Raw reads analysis pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../src/docs/analysis/version6/assembly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assembly analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/analysis/version6/assembly-annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assembly annotation pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/analysis/version6/virify.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VIRify</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/analysis/version6/mobilome.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mobilome annotation pipeline (MAP)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/docs/analysis/version5/analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Analysis pipeline v5.0</span></a>
   </div>
 </li>
@@ -365,9 +412,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#s-rrna-genes" id="toc-s-rrna-genes" class="nav-link active" data-scroll-target="#s-rrna-genes">16S rRNA genes</a></li>
-  <li><a href="#s-rrna-genes-1" id="toc-s-rrna-genes-1" class="nav-link" data-scroll-target="#s-rrna-genes-1">18S rRNA genes</a></li>
+  <li><a href="#16s-rrna-genes" id="toc-16s-rrna-genes" class="nav-link active" data-scroll-target="#16s-rrna-genes">16S rRNA genes</a></li>
+  <li><a href="#18s-rrna-genes" id="toc-18s-rrna-genes" class="nav-link" data-scroll-target="#18s-rrna-genes">18S rRNA genes</a></li>
   <li><a href="#amplicon" id="toc-amplicon" class="nav-link" data-scroll-target="#amplicon">Amplicon</a></li>
+  <li><a href="#amplicon-sequence-variant-asv" id="toc-amplicon-sequence-variant-asv" class="nav-link" data-scroll-target="#amplicon-sequence-variant-asv">Amplicon Sequence Variant (ASV)</a></li>
   <li><a href="#analysis-result" id="toc-analysis-result" class="nav-link" data-scroll-target="#analysis-result">Analysis result</a></li>
   <li><a href="#assembly" id="toc-assembly" class="nav-link" data-scroll-target="#assembly">Assembly</a></li>
   <li><a href="#biome" id="toc-biome" class="nav-link" data-scroll-target="#biome">Biome</a></li>
@@ -384,6 +432,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#metabarcoding" id="toc-metabarcoding" class="nav-link" data-scroll-target="#metabarcoding">Metabarcoding</a></li>
   <li><a href="#metagenomic" id="toc-metagenomic" class="nav-link" data-scroll-target="#metagenomic">Metagenomic</a></li>
   <li><a href="#metatranscriptomic" id="toc-metatranscriptomic" class="nav-link" data-scroll-target="#metatranscriptomic">Metatranscriptomic</a></li>
+  <li><a href="#mge" id="toc-mge" class="nav-link" data-scroll-target="#mge">Mobile genetic element (MGE)</a></li>
   <li><a href="#otu" id="toc-otu" class="nav-link" data-scroll-target="#otu">OTU</a></li>
   <li><a href="#pan-genome" id="toc-pan-genome" class="nav-link" data-scroll-target="#pan-genome">Pan-genome</a></li>
   <li><a href="#pipeline" id="toc-pipeline" class="nav-link" data-scroll-target="#pipeline">Pipeline</a></li>
@@ -406,7 +455,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Dictionary of terms used in MGnify and throughout this documentaiton
+    Dictionary of terms used in MGnify and throughout this documentation
   </div>
 </div>
 
@@ -432,7 +481,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 23, 2026</p>
+      <p class="date">October 15, 2026</p>
     </div>
   </div>
   
@@ -444,17 +493,21 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="s-rrna-genes" class="level2">
-<h2 class="anchored" data-anchor-id="s-rrna-genes">16S rRNA genes</h2>
+<section id="16s-rrna-genes" class="level2">
+<h2 class="anchored" data-anchor-id="16s-rrna-genes">16S rRNA genes</h2>
 <p>Main prokaryotic ribosomal RNA genes used for taxonomic assignments.</p>
 </section>
-<section id="s-rrna-genes-1" class="level2">
-<h2 class="anchored" data-anchor-id="s-rrna-genes-1">18S rRNA genes</h2>
+<section id="18s-rrna-genes" class="level2">
+<h2 class="anchored" data-anchor-id="18s-rrna-genes">18S rRNA genes</h2>
 <p>Main eukaryotic ribosomal RNA genes used for taxonomic assignments.</p>
 </section>
 <section id="amplicon" class="level2">
 <h2 class="anchored" data-anchor-id="amplicon">Amplicon</h2>
-<p>Refers to environmental sample where a marker gene has been amplified and sequenced. On the EMG website, we use the term amplicon when the amplified marker gene is ribosomal RNA gene. Analysis will yield taxonomic information.</p>
+<p>Refers to a marker gene that has been amplified and sequenced. On the MGnify website, we use the term amplicon when the amplified marker gene is a ribosomal RNA gene. Analysis will yield taxonomic information.</p>
+</section>
+<section id="amplicon-sequence-variant-asv" class="level2">
+<h2 class="anchored" data-anchor-id="amplicon-sequence-variant-asv">Amplicon Sequence Variant (ASV)</h2>
+<p>An inferred unique DNA sequence recovered from high-throughput analysis of marker genes after removing errors introduced during PCR and sequencing. ASVs can distinguish sequence variation down to a single nucleotide and provide finer resolution than sequence clusters such as <a href="#otu">OTUs</a>.</p>
 </section>
 <section id="analysis-result" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-result">Analysis result</h2>
@@ -518,7 +571,11 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="metatranscriptomic" class="level2">
 <h2 class="anchored" data-anchor-id="metatranscriptomic">Metatranscriptomic</h2>
-<p>Refers to environmental sample where whole transcriptome sequencing method has been applied. Analysis will yield taxonomic and functional information.</p>
+<p>Refers to an environmental sample where whole transcriptome sequencing method has been applied. Analysis will yield taxonomic and functional information.</p>
+</section>
+<section id="mge" class="level2">
+<h2 class="anchored" data-anchor-id="mge">Mobile genetic element (MGE)</h2>
+<p>A DNA element that can move within or between genomes. Examples include plasmids, phages, insertion sequences, integrons, and integrative conjugative elements.</p>
 </section>
 <section id="otu" class="level2">
 <h2 class="anchored" data-anchor-id="otu">OTU</h2>
@@ -562,12 +619,12 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{2026,
   author = {, MGnify},
   title = {Glossary},
-  date = {2026-09-23},
+  date = {2026-10-15},
   url = {https://docs.mgnify.org/src/docs/glossary.html},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
-MGnify. 2026. <span>“Glossary.”</span> September 23. <a href="https://docs.mgnify.org/src/docs/glossary.html">https://docs.mgnify.org/src/docs/glossary.html</a>.
+MGnify. 2026. <span>“Glossary.”</span> October 15. <a href="https://docs.mgnify.org/src/docs/glossary.html">https://docs.mgnify.org/src/docs/glossary.html</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

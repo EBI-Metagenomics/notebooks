@@ -87,7 +87,8 @@ ul.task-list li input[type="checkbox"] {
 
     const options = {
       valueNames: ['listing-date','listing-title','listing-author','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
+      page: 25,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
       searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
     };
 
@@ -252,7 +253,54 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../src/docs/analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../src/docs/analysis/version6/analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysis pipeline v6</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/docs/analysis/version6/amplicon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Amplicon analysis pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/docs/analysis/version6/raw-reads.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Raw reads analysis pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../src/docs/analysis/version6/assembly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assembly analysis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/docs/analysis/version6/assembly-annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Assembly annotation pipeline</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/docs/analysis/version6/virify.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VIRify</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/docs/analysis/version6/mobilome.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mobilome annotation pipeline (MAP)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../src/docs/analysis/version5/analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Analysis pipeline v5.0</span></a>
   </div>
 </li>
@@ -459,7 +507,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="contents">Contents</h2>
 <div id="listing-docs" class="quarto-listing quarto-listing-container-default">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000436" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="523">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="523">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/about.html" class="no-external">About MGnify</a>
@@ -471,7 +519,7 @@ window.Quarto = {
 <div class="metadata">
 <a href="../src/docs/about.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify Team
@@ -479,7 +527,7 @@ MGnify Team
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000436" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="451">
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="451">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/dataflow.html" class="no-external">From submission to results</a>
@@ -491,7 +539,7 @@ MGnify Team
 <div class="metadata">
 <a href="../src/docs/dataflow.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify Team
@@ -499,7 +547,7 @@ MGnify Team
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="933">
+<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="933">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/multiomics_submission.html" class="no-external">Multi-omics dataset submission</a>
@@ -511,7 +559,7 @@ MGnify Team
 <div class="metadata">
 <a href="../src/docs/multiomics_submission.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -519,19 +567,159 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000436" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="23" data-listing-word-count-sort="4513">
+<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="504">
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="../src/docs/analysis.html" class="no-external">Analysis pipeline v5.0</a>
+<a href="../src/docs/analysis/version6/analysis.html" class="no-external">Analysis pipeline v6</a>
 </h3>
-<div class="delink listing-description"><a href="../src/docs/analysis.html" class="no-external">
+<div class="delink listing-description"><a href="../src/docs/analysis/version6/analysis.html" class="no-external">
+<p>Description of the latest MGnify analysis pipeline and the tools it uses.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../src/docs/analysis/version6/analysis.html" class="no-external">
+<div class="listing-date">
+Oct 15, 2026
+</div>
+<div class="listing-author">
+MGnify
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="24" data-listing-word-count-sort="4710">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../src/docs/analysis/version6/amplicon.html" class="no-external">Amplicon analysis pipeline</a>
+</h3>
+<div class="delink listing-description"><a href="../src/docs/analysis/version6/amplicon.html" class="no-external">
+<p>Description of the MGnify v6.2 amplicon analysis pipeline.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../src/docs/analysis/version6/amplicon.html" class="no-external">
+<div class="listing-date">
+Oct 15, 2026
+</div>
+<div class="listing-author">
+MGnify
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2696">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../src/docs/analysis/version6/raw-reads.html" class="no-external">Raw reads analysis pipeline</a>
+</h3>
+<div class="delink listing-description"><a href="../src/docs/analysis/version6/raw-reads.html" class="no-external">
+<p>Description of the MGnify v6.0 raw reads analysis pipeline.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../src/docs/analysis/version6/raw-reads.html" class="no-external">
+<div class="listing-date">
+Oct 15, 2026
+</div>
+<div class="listing-author">
+MGnify
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="181">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../src/docs/analysis/version6/assembly.html" class="no-external">Assembly analysis</a>
+</h3>
+<div class="delink listing-description"><a href="../src/docs/analysis/version6/assembly.html" class="no-external">
+<p>Overview of MGnify assembly analysis.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../src/docs/analysis/version6/assembly.html" class="no-external">
+<div class="listing-date">
+Oct 15, 2026
+</div>
+<div class="listing-author">
+MGnify
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="53" data-listing-word-count-sort="10412">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../src/docs/analysis/version6/assembly-annotation.html" class="no-external">Assembly annotation pipeline</a>
+</h3>
+<div class="delink listing-description"><a href="../src/docs/analysis/version6/assembly-annotation.html" class="no-external">
+<p>Description of the MGnify v6.0 assembly annotation pipeline.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../src/docs/analysis/version6/assembly-annotation.html" class="no-external">
+<div class="listing-date">
+Oct 15, 2026
+</div>
+<div class="listing-author">
+MGnify
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="166">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../src/docs/analysis/version6/virify.html" class="no-external">VIRify</a>
+</h3>
+<div class="delink listing-description"><a href="../src/docs/analysis/version6/virify.html" class="no-external">
+<p>Description of viral analysis with VIRify in the MGnify assembly analysis.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../src/docs/analysis/version6/virify.html" class="no-external">
+<div class="listing-date">
+Oct 15, 2026
+</div>
+<div class="listing-author">
+MGnify
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="259">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../src/docs/analysis/version6/mobilome.html" class="no-external">Mobilome annotation pipeline (MAP)</a>
+</h3>
+<div class="delink listing-description"><a href="../src/docs/analysis/version6/mobilome.html" class="no-external">
+<p>Description of mobilome annotation in the MGnify assembly analysis.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../src/docs/analysis/version6/mobilome.html" class="no-external">
+<div class="listing-date">
+Oct 15, 2026
+</div>
+<div class="listing-author">
+MGnify
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="23" data-listing-word-count-sort="4513">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../src/docs/analysis/version5/analysis.html" class="no-external">Analysis pipeline v5.0</a>
+</h3>
+<div class="delink listing-description"><a href="../src/docs/analysis/version5/analysis.html" class="no-external">
 <p>Description of the previous MGnify analysis pipeline and the tools it used.</p>
 </a></div>
 </div>
 <div class="metadata">
-<a href="../src/docs/analysis.html" class="no-external">
+<a href="../src/docs/analysis/version5/analysis.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -539,7 +727,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2478">
+<div class="quarto-post image-right" data-index="11" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2478">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/portal.html" class="no-external">Website and portal</a>
@@ -551,7 +739,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/portal.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -559,7 +747,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1795">
+<div class="quarto-post image-right" data-index="12" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1795">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/mgnify-genomes.html" class="no-external">MGnify Genomes</a>
@@ -571,7 +759,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/mgnify-genomes.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -579,7 +767,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000436" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="700">
+<div class="quarto-post image-right" data-index="13" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="700">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/api.html" class="no-external">RESTful API</a>
@@ -591,7 +779,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/api.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -599,7 +787,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="103">
+<div class="quarto-post image-right" data-index="14" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="103">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/notebooks.html" class="no-external">MGnify code examples</a>
@@ -611,7 +799,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/notebooks.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -619,7 +807,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000436" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="132">
+<div class="quarto-post image-right" data-index="15" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="132">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/ftp.html" class="no-external">Transfer Services (FTP) file server</a>
@@ -631,7 +819,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/ftp.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -639,7 +827,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000436" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="932">
+<div class="quarto-post image-right" data-index="16" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="932">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/faqs.html" class="no-external">FAQs</a>
@@ -651,7 +839,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/faqs.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -659,19 +847,19 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="10" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000436" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="674">
+<div class="quarto-post image-right" data-index="17" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575751" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="743">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/glossary.html" class="no-external">Glossary</a>
 </h3>
 <div class="delink listing-description"><a href="../src/docs/glossary.html" class="no-external">
-<p>Dictionary of terms used in MGnify and throughout this documentaiton</p>
+<p>Dictionary of terms used in MGnify and throughout this documentation</p>
 </a></div>
 </div>
 <div class="metadata">
 <a href="../src/docs/glossary.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -679,7 +867,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="11" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="69">
+<div class="quarto-post image-right" data-index="18" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="69">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/tutorials.html" class="no-external">Guides and tutorials</a>
@@ -691,7 +879,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/tutorials.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -699,7 +887,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="12" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="19" data-listing-word-count-sort="3609">
+<div class="quarto-post image-right" data-index="19" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="19" data-listing-word-count-sort="3609">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/mgnify-proteins-big-query.html" class="no-external">Big Query public dataset</a>
@@ -711,7 +899,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/mgnify-proteins-big-query.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -719,7 +907,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="272">
+<div class="quarto-post image-right" data-index="20" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="272">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/mgnify-proteins.html" class="no-external">MGnify Proteins Resource</a>
@@ -731,7 +919,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/mgnify-proteins.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -739,7 +927,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="14" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="415">
+<div class="quarto-post image-right" data-index="21" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="415">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/mgnify-proteins-web.html" class="no-external">Portal</a>
@@ -751,7 +939,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/mgnify-proteins-web.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -759,7 +947,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="15" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1599">
+<div class="quarto-post image-right" data-index="22" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1599">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/mgnify-proteins-api.html" class="no-external">Proteins API</a>
@@ -771,7 +959,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/mgnify-proteins-api.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -779,7 +967,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="16" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="28" data-listing-word-count-sort="5558">
+<div class="quarto-post image-right" data-index="23" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="28" data-listing-word-count-sort="5558">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/mgnify-proteins-parquet-queries.html" class="no-external">Remote querying of MGnify Proteins using Parquet and DuckDB</a>
@@ -791,7 +979,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/mgnify-proteins-parquet-queries.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -799,7 +987,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="17" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="817">
+<div class="quarto-post image-right" data-index="24" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="817">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/mgnify-proteins-contig-sequences.html" class="no-external">Retrieving contig sequences for MGnify proteins</a>
@@ -811,7 +999,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/mgnify-proteins-contig-sequences.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -819,7 +1007,7 @@ MGnify
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="18" data-listing-date-sort="1790173000000" data-listing-file-modified-sort="1790173000481" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="432">
+<div class="quarto-post image-right" data-index="25" data-listing-date-sort="1792072575000" data-listing-file-modified-sort="1792072575808" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="432">
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="../src/docs/mgnify-proteins-sequence-search.html" class="no-external">Sequence search</a>
@@ -831,7 +1019,7 @@ MGnify
 <div class="metadata">
 <a href="../src/docs/mgnify-proteins-sequence-search.html" class="no-external">
 <div class="listing-date">
-Sep 23, 2026
+Oct 15, 2026
 </div>
 <div class="listing-author">
 MGnify
@@ -841,6 +1029,9 @@ MGnify
 </div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
+<nav id="docs-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
 </div>
 
 
