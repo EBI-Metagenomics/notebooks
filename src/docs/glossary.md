@@ -11,10 +11,10 @@ description: Dictionary of terms used in MGnify and throughout this documentatio
 order: 11
 ---
 
-## 16S rRNA genes
+## 16S rRNA genes {#16s-rrna-genes}
 Main prokaryotic ribosomal RNA genes used for taxonomic assignments. 
 
-## 18S rRNA genes
+## 18S rRNA genes {#18s-rrna-genes}
 Main eukaryotic ribosomal RNA genes used for taxonomic assignments.
 
 ## Amplicon
@@ -72,7 +72,7 @@ Refers to environmental sample where Whole Genome Shotgun sequencing method has 
 ## Metatranscriptomic
 Refers to an environmental sample where whole transcriptome sequencing method has been applied. Analysis will yield taxonomic and functional information.
 
-## Mobile genetic element (MGE)
+## Mobile genetic element (MGE) {#mge}
 A DNA element that can move within or between genomes. Examples include plasmids, phages, insertion sequences, integrons, and integrative conjugative elements.
 
 ## OTU

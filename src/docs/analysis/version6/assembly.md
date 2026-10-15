@@ -8,7 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Overview of MGnify assembly analysis.
-order: 3
+order: 3.3
 ---
 
 MGnify assembly analysis consists of three pipelines: the assembly annotation pipeline, VIRify, and the mobilome annotation pipeline (MAP). Their results are presented together on MGnify, but each pipeline has its own purpose and version.
@@ -17,7 +17,7 @@ Assembly analysis accepts assembled [metagenomic](../../glossary.md#metagenomic)
 
 ## Analyses
 
-1. [Assembly annotation pipeline](assembly-annotation.md) provides quality-control, taxonomic, functional, pathways, and systems annotations for assembled reads into contigs.
+1. [Assembly annotation pipeline](assembly-annotation.md) provides quality-control, taxonomic, functional, pathway, and systems annotations for the assembled contigs.
 2. [VIRify](virify.md) detects, annotates, and classifies viral sequences in the metagenomic assembly.
 3. [Mobilome Annotation Pipeline (MAP)](mobilome.md) identifies mobile genetic elements and generates virulence-associated annotation at protein level. MAP incorporates results from VIRify.
 
@@ -25,6 +25,6 @@ These pipelines run as connected analyses, and their results are accessible from
 
 ## Submitting data to be assembled
 
-Users can request assembly of their own raw sequencing reads or publicly available datasets using the “Request analysis” section of the [MGnify home page](https://www.ebi.ac.uk/metagenomics/). User-owned raw reads, with host sequences removed, must be archived in ENA before an assembly request can be submitted. Alternatively, pre-assembled datasets, including those produced using other assembly algorithms, can be analysed.
+Users can request assembly of their own raw sequencing reads or publicly available datasets using the “Request analysis” section of the [MGnify home page](https://www.ebi.ac.uk/metagenomics/). User-owned raw reads, with host sequences removed, must be uploaded to ENA before an assembly request can be submitted. Alternatively, pre-assembled datasets, including those produced using other assembly algorithms, can be analysed.
 
 Each pipeline is versioned independently. See [Comparability between pipeline versions](analysis.md#comparability-between-pipeline-versions) for an explanation of MGnify pipeline versions.

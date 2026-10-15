@@ -4,14 +4,7 @@ project:
         - src/docs.qmd
         - src/docs/*.md
         - src/docs/*.qmd
-        - src/docs/analysis/version5/analysis.md
-        - src/docs/analysis/version6/analysis.md
-        - src/docs/analysis/version6/amplicon.md
-        - src/docs/analysis/version6/raw-reads.md
-        - src/docs/analysis/version6/assembly.md
-        - src/docs/analysis/version6/assembly-annotation.md
-        - src/docs/analysis/version6/virify.md
-        - src/docs/analysis/version6/mobilome.md
+        - src/docs/analysis/**/*.md
         - src/examples/*.qmd
 
 execute:

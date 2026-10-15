@@ -8,7 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Description of the MGnify v6.2 amplicon analysis pipeline.
-order: 1
+order: 3.1
 ---
 
 The MGnify amplicon analysis pipeline v6.2 ([GitHub repository](https://github.com/EBI-Metagenomics/amplicon-analysis-pipeline)) analyses [amplicon](../../glossary.md#amplicon) sequencing reads to provide taxonomic profiles from closed-reference databases. For supported [16S](../../glossary.md#16s-rrna-genes) and [18S](../../glossary.md#18s-rrna-genes) datasets, it also infers amplified regions, identifies and trims primers, calls [Amplicon Sequence Variants (ASVs)](../../glossary.md#amplicon-sequence-variant-asv), and assigns taxonomy to those ASVs.
@@ -92,7 +92,7 @@ This pipeline uses five different reference databases. The files the pipeline us
 | [ITSoneDB](https://itsonedb.cloud.ba.infn.it) | 1.141   | ITS database                          |
 | [Rfam](https://rfam.org/)                     | 14.10   | rRNA covariance models                |
 
- 
+
 The preprocessed databases are generated with the [Microbiome Informatics reference-databases-preprocessing-pipeline](https://github.com/EBI-Metagenomics/reference-databases-preprocessing-pipeline).
 
 
@@ -113,7 +113,7 @@ As these results are per-run, many of the outputs use a run ID as a prefix. For 
 
 #### qc
 
-The `qc` directory contains output files related to the quality control steps of the pipeline, from the sanity checking performed by `SeqFu`, to the quality filtering done by `fastp`. The structure of the `qc` directory contains five possible output files:
+The `qc` directory contains output files related to the quality control steps of the pipeline, from the sanity checking performed by `SeqFu`, to the quality filtering done by `fastp`. The `qc` directory can contain these output files:
 
 ```bash
 ├── qc
@@ -137,9 +137,9 @@ The `qc` directory contains output files related to the quality control steps of
 - **ERR4334351.merged.fastq.gz**: This compressed `fastq` file contains the cleaned and merged reads from the `fastp` run. _Note: if the run is single-end, this file won't exist._
 - **ERR1718805.fastp.fastq.gz**: This compressed `fastq` file contains the cleaned reads from the `fastp` run. This file can be seen as the equivalent of the previous merged file for single-end runs.
 - **ERR4334351_dada2_errors.txt**: This `txt` file contains the DADA2 error log, generated if the process fails. This can be used to help diagnose issues with your data (e.g. lack of valid ASV sequences) and causes of failure in the script. _Note: if the process succeeded, or if the run doesn't contain SSU sequences, this file won't exist._
-- **ERR4334351_dada2_stats.tsv**: This `tsv` file is used by `MultiQC` to generate its report files. As it comes from the ASV identification subworklow, it will only exist for SSU sequences where ASVs were detected. It provides multiple data points to help determine the reliability of the analysis (usually limited by the quality of input data), in particular:
+- **ERR4334351_dada2_stats.tsv**: This `tsv` file is used by `MultiQC` to generate its report files. As it comes from the ASV identification subworkflow, it will only exist for SSU sequences where ASVs were detected. It provides multiple data points to help determine the reliability of the analysis (usually limited by the quality of input data), in particular:
     - _read counts_ are reported at multiple stages, in particular after the filter, trim, de-replication, merge, and ASV computation steps. We recommend reconsidering the reliability of this analysis if less than 90% of the initial reads contain ASV sequences, as these spurious results may indicate low quality input raw reads.
-    - _truncation points_ for forward and reverse paired-ends (if appropriate). DADA2 truncates all reads to the same length to keep error modeling consistent across positions and ensure sequences are directly comparable during variant inference. This avoids biases from variable read quality and prevents shorter reads from being misinterpreted as biological variants rather than sequencing artifacts. A detected truncation point too far ahead in the read may explain a lack of ASVs in the analysis. 
+    - _truncation points_ for forward and reverse paired-ends (if appropriate). DADA2 truncates all reads to the same length to keep error modeling consistent across positions and ensure sequences are directly comparable during variant inference. This avoids biases from variable read quality and prevents shorter reads from being misinterpreted as biological variants rather than sequencing artifacts. A detected truncation point too far ahead in the read may explain a lack of ASVs in the analysis.
     - _chimeric reads_ are likely artifacts that do not mirror real biological sequences. We recommend reconsidering the reliability of this analysis if dada2_stats reports more than 25% of chimeric reads.
 - **ERR4334351_multiqc_report.html**: This `html` file contains the `MultiQC` report for that run. It will combine outputs from three different tools into the report; `fastp`, `cutadapt`, and `DADA2`.
 - **ERR4334351_seqfu.tsv**: This `tsv` file contains the output from the sanity checking performed by `SeqFu`. `SeqFu` makes a few checks of whether the given fastq files are correctly structured, and if this QC step fails, the contents of this file will indicate the reasons why. The contents of the tsv file are described in [seqfu's documentation](https://telatin.github.io/seqfu2/tools/check.html#output).
@@ -224,14 +224,14 @@ The `primer-identification` directory contains output files related to the autom
 
 ##### Output files
 
-- **fwd_primers.fasta**: This `fasta` file contains the sequences of any forward (5'-3')identified primers that were then trimmed off using `cutadapt`.
+- **fwd_primers.fasta**: This `fasta` file contains the sequences of any forward (5'-3') identified primers that were then trimmed off using `cutadapt`.
 - **rev_primers.fasta**: This `fasta` file contains the sequences of any reverse (3'-5') identified primers that were then trimmed off using `cutadapt`.
 - **ERR4334351.cutadapt.json**: This `json` file contains the summary output of the `cutadapt` run, including which primers were trimmed off, how many bases were trimmed off in the process, etc. This `json` file is also used later by `MultiQC` to generate its report files.
 - **ERR4334351_primer_validation.tsv**: This `tsv` file contains the summary output of the primer validation module. Any primers that were trimmed off will have successfully been validated as primers using `Infernal/cmsearch`, and this output file summarises these findings.
 
 #### asv
 
-The `asv` directory contains output files related to the calling of ASVs and their abundances, which is mainly performed by `DADA2`. The structure of the `asv` directory contains four different files and at least one subdirectory containing one extra file:
+The `asv` directory contains output files related to the calling of ASVs and their abundances, which is mainly performed by `DADA2`. The `asv` directory contains three files and at least one subdirectory with one extra file:
 
 ```bash
 ├── qc
@@ -333,7 +333,7 @@ All of the different possible subdirectories have the same four files. Taking PR
 The two different subdirectories have the same three categories of files, two of which are dynamic in naming. Using DADA2-PR2 as an example:
 
 - **ERR4334351_DADA2-PR2.mseq**: This contains the raw MAPseq output for every ASV, i.e. each ASV's taxonomic assignment. This file is not dynamic.
-- **ERR4334351_16S-V3-V4_DADA2-PR2_asv_krona_counts.txt**: This file contains the Krona text input that is used to generate the Krona HTML file for ASV results. This file is dynamic, as it will generate it on a per amplified region-basis. This means that in cases where there are two amplified regions, you will have three of these files - one for each reference database, and one for the concatenation of the two.
+- **ERR4334351_16S-V3-V4_DADA2-PR2_asv_krona_counts.txt**: This file contains the Krona text input that is used to generate the Krona HTML file for ASV results. This file is dynamic, as it will generate it on a per amplified region-basis. This means that in cases where there are two amplified regions, you will have three of these files - one for each amplified region, and one for the concatenation of the two.
 - **ERR4334351_16S-V3-V4.html**: This file contains the Krona HTML file that interactively displays the distribution of the different taxonomic assignments for ASV results. This file is dynamic in the exact same way as the Krona text input file, i.e. based on the inferred amplified region(s).
 
 #### Primer validation summary

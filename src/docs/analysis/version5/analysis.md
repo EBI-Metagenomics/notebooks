@@ -8,7 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Description of the previous MGnify analysis pipeline and the tools it used.
-order: 3
+order: 3.9
 ---
 ## Overview
 

@@ -8,14 +8,14 @@ author:
 date: last-modified
 citation: true
 description: Description of the MGnify v6.0 assembly annotation pipeline.
-order: 3
+order: 3.4
 ---
 
-The MGnify v6.0 [assembly](../../glossary.md#assembly) analysis pipeline ([GitHub repository](https://github.com/EBI-Metagenomics/assembly-analysis-pipeline)) analyses assembled [metagenomic](../../glossary.md#metagenomic) and [metatranscriptomic](../../glossary.md#metatranscriptomic) datasets, providing functional, taxonomic, pathway, and systems annotation for assembled contigs. Additional analyses, including [VIRify](virify.md) and the [Mobilome annotation pipeline](mobilome.md), are run as separate pipelines on assemblies and are presented in the same web view. 
+The MGnify v6.0 [assembly](../../glossary.md#assembly) annotation pipeline ([GitHub repository: assembly-analysis-pipeline](https://github.com/EBI-Metagenomics/assembly-analysis-pipeline)) analyses assembled [metagenomic](../../glossary.md#metagenomic) and [metatranscriptomic](../../glossary.md#metatranscriptomic) datasets, providing functional, taxonomic, pathway, and systems annotation for assembled contigs. It is one of the three pipelines of the [assembly analysis](assembly.md). The other two, [VIRify](virify.md) and the [Mobilome annotation pipeline](mobilome.md), are run as separate pipelines on assemblies and are presented in the same web view.
 
 Here, `v6.0` identifies the analysis version. See the [pipeline repositories](analysis.md#pipeline-repositories) for software releases and pipeline documentation.
 
-MGnify uses [miassembler](https://github.com/EBI-Metagenomics/miassembler) to assemble sequencing reads. Users can request assembly of their own raw sequencing reads or publicly available datasets using the “Request analysis” section of the [MGnify home page](https://www.ebi.ac.uk/metagenomics/). User-owned raw reads, with host sequences removed, must be archived in ENA before an assembly request can be submitted. Alternatively, pre-assembled datasets, including those produced using other assembly algorithms, can be analysed.
+MGnify uses [miassembler](https://github.com/EBI-Metagenomics/miassembler) to assemble sequencing reads. See [Submitting data to be assembled](assembly.md#submitting-data-to-be-assembled) for how to request an assembly.
 
 ## Results available on MGnify
 
@@ -55,11 +55,11 @@ The MGnify assembly analysis pipeline v6.0 provides the following key features:
 | [CAT_pack](https://github.com/MGXlab/CAT_pack)                                                    | 6.0                  | Taxonomic classification of the contigs in the assembly                                                                                           |
 | [cmsearchtbloutdeoverlap](https://github.com/nawrockie/cmsearch_tblout_deoverlap/)                | 0.09                 | Deoverlapping of cmsearch results                                                                                                                 |
 | [csvtk](http://bioinf.shenwei.me/csvtk)                                                           | 0.31.0               | A cross-platform, efficient, and practical CSV/TSV toolkit                                                                                        |
-| [Combined Gene Caller - Merge](https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit)      | 1.4.12               | Combined gene caller merge script used to combine predictions of Pyrodigal and FragGeneScanRS (this tool is part of the mgnify-pipelines-toolkit) |
+| [Combined Gene Caller - Merge](https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit)      | 1.4.17               | Combined gene caller merge script used to combine predictions of Pyrodigal and FragGeneScanRS (this tool is part of the mgnify-pipelines-toolkit) |
 | [Diamond](https://github.com/bbuchfink/diamond)                                                   | 2.1.11               | Used to match predicted CDS against the CAT reference database for the taxonomic classification of the contigs                                    |
-| [DRAM](https://github.com/WrightonLabCSU/DRAM)                                                    | 13.5                 | Summarizes annotations from multiple tools like KEGG, Pfam, and CAZy                                                                              |
+| [DRAM](https://github.com/WrightonLabCSU/DRAM)                                                    | 1.3.5                | Summarizes annotations from multiple tools like KEGG, Pfam, and CAZy                                                                              |
 | [easel](https://github.com/EddyRivasLab/easel)                                                    | 0.49                 | Extracts FASTA sequences by name from a cmsearch deoverlap result                                                                                 |
-| [extractcoords](https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit)                     | 1.2.0                | Processes output from easel-sfetch to extract SSU and LSU sequences (this tool is part of the mgnify-pipelines-toolkit).                          |
+| [extractcoords](https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit)                     | 1.2.11               | Processes output from easel-sfetch to extract SSU and LSU sequences (this tool is part of the mgnify-pipelines-toolkit).                          |
 | [FragGeneScanRs](https://github.com/unipept/FragGeneScanRs)                                       | 1.1.0                | CDS calling; this tool specializes in calling fragmented CDS                                                                                      |
 | [generategaf](https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit)                       | 1.2.0                | Script that generates a GO Annotation File (GAF) from an InterProScan result TSV file (this tool is part of the mgnify-pipelines-toolkit).        |
 | [Genome Properties](https://www.ebi.ac.uk/interpro/genomeproperties/)                             | 2.0                  | Uses protein signatures as evidence to determine the presence of each step within a property                                                      |
@@ -68,7 +68,7 @@ The MGnify assembly analysis pipeline v6.0 provides the following key features:
 | [HMMER](http://hmmer.org/)                                                                        | 3.4                  | Used to annotate CDS with KO                                                                                                                      |
 | [Krona](https://github.com/marbl/Krona/wiki/KronaTools)                                           | 2.8.1                | Krona chart visualisation                                                                                                                         |
 | [kegg-pathways-completeness](https://github.com/EBI-Metagenomics/kegg-pathways-completeness-tool) | 1.3.0                | Computes the completeness of each KEGG pathway module based on KEGG orthologue (KO) annotations.                                                  |
-| [MGnify pipelines toolkit](https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit)          | 1.2.0                | Collection of tools and scripts used in MGnify pipelines.                                                                                         |
+| [MGnify pipelines toolkit](https://github.com/EBI-Metagenomics/mgnify-pipelines-toolkit)          | 1.2.0 to 1.4.24      | Collection of tools and scripts used in MGnify pipelines. Each step uses a fixed release; the default release is 1.2.0.                          |
 | [minimap2](https://lh3.github.io/minimap2/)                                                       | 2.29-r1283           | A versatile pairwise aligner for genomic and spliced nucleotide sequences. Used in the assembly decontamination subworkflow                       |
 | [MultiQC](http://multiqc.info/)                                                                   | 1.29                 | Tool to aggregate bioinformatic analysis results.                                                                                                 |
 | [Owltools](https://github.com/owlcollab/owltools)                                                 | 2024-06-12T00:00:00Z | Tool utilized to map GO terms to GO-slims                                                                                                         |
@@ -90,12 +90,12 @@ This pipeline uses several reference databases, you can find the list of them in
 | ------------------------------------------------------------------------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Rfam covariance models](https://rfam.org/)                                                                  | 15         | rRNA covariance models                                                                           | [ftp://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.cm.gz ](https://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.cm.gz)                                                                                                    |
 | [Rfam clan info](https://rfam.org/)                                                                          | 15         | rRNA clan information                                                                            | [ftp://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.clanin](https://ftp.ebi.ac.uk/pub/databases/Rfam/15.0/Rfam.clanin)                                                                                                   |
-| [InterProScan](https://www.ebi.ac.uk/interpro/download/InterProScan/)                                        | 5.73-104.0 | InterProScan reference database                                                                  | [ftp://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.73-104.0/](http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.73-104.0/)                                                                                           |
+| [InterProScan](https://www.ebi.ac.uk/interpro/download/InterProScan/)                                        | 5.76-107.0 | InterProScan reference database                                                                  | [ftp://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.76-107.0/](https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.76-107.0/)                                                                                          |
 | [eggNOG-mapper](https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#requirements) | 5.0.2      | eggNOG-mapper annotation databases and Diamond                                                   | https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.5-to-v2.1.12#requirements                                                                                                                            |
-| [antiSMASH](https://rfam.org/)                                                                               | 8.0.1      | The antiSMASH reference database                                                                 | https://docs.antismash.secondarymetabolites.org/install/#antismash-standalone-lite                                                                                                                                     |
+| [antiSMASH](https://antismash.secondarymetabolites.org/)                                                     | 8.0.1      | The antiSMASH reference database                                                                 | https://docs.antismash.secondarymetabolites.org/install/#antismash-standalone-lite                                                                                                                                     |
 | [KOFAM](https://www.genome.jp/tools/kofamkoala/)<sup>\*</sup>                                                | 2025-04    | KOfam - HMM profiles for KEGG/KO. Our reference generation pipeline generates the required files | https://github.com/EBI-Metagenomics/reference-databases-preprocessing-pipeline                                                                                                                                         |
 | [GO Slims](https://geneontology.org/docs/go-subset-guide/)<sup>\*</sup>                                      | 20160705   | Metagenomics GO Slims                                                                            | [ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/pipelines/tool-dbs/goslim/20160705/goslim_20160705.tar.gz](https://ftp.ebi.ac.uk/pub/databases/metagenomics/pipelines/tool-dbs/goslim/20160705/goslim_20160705.tar.gz) |
-| [run_dbCAN](https://dbcan.readthedocs.io/en/latest/installation.html#build-database)                         | 4.1.4-V13  | Pre-built run_dbCAN reference database                                                           | [ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/pipelines/tool-dbs/dbcan/dbcan_4.1.3_V12.tar.gz](http://ftp.ebi.ac.uk/pub/databases/metagenomics/pipelines/tool-dbs/dbcan/dbcan_4.1.3_V12.tar.gz)                      |
+| [run_dbCAN](https://dbcan.readthedocs.io/en/latest/installation.html#build-database)                         | 4.1.4-V13  | Pre-built run_dbCAN reference database                                                           | [ftp://ftp.ebi.ac.uk/pub/databases/metagenomics/pipelines/tool-dbs/dbcan/dbcan_4.1.4_V13.tar.gz](http://ftp.ebi.ac.uk/pub/databases/metagenomics/pipelines/tool-dbs/dbcan/dbcan_4.1.4_V13.tar.gz)                      |
 | [CAT_Pack](https://github.com/MGXlab/CAT_pack)                                                               | 2025_01    | CAT/BAT/RAT NCBI taxonomy pre-made reference database                                            | https://github.com/MGXlab/CAT_pack?tab=readme-ov-file#downloading-preconstructed-database-files                                                                                                                        |
 | [DRAM](https://github.com/WrightonLabCSU/DRAM)                                                               | 1.3.0      | DRAM databases                                                                                   | https://github.com/WrightonLabCSU/DRAM/wiki#dram-setup                                                                                                                                                                 |
 
@@ -103,7 +103,7 @@ This pipeline uses several reference databases, you can find the list of them in
 
 #### qc
 
-The `qc` directory contains output files related to the quality control steps of the pipeline, from the contig length filtering by [seqkit](https://bioinf.shenwei.me/seqkit), to the quality assessment done by [QUAST](https://github.com/ablab/quast). The structure of the `qc` directory contains three output files and one output directory.
+The `qc` directory contains output files related to the quality control steps of the pipeline, from the contig length filtering by [seqkit](https://bioinf.shenwei.me/seqkit), to the quality assessment done by [QUAST](https://github.com/ablab/quast). The `qc` directory contains these files and directories:
 
 ```bash
 ├── qc
@@ -125,8 +125,8 @@ The `qc` directory contains output files related to the quality control steps of
 ##### Output files
 
 - **ERZ12345_filtered_contigs.fasta.gz**: This `FASTA` file contains the final processed contigs. Contigs shorter than 500 bases and those with a proportion of ambiguous bases higher than 10% are removed first. If decontamination is enabled, contigs aligning to the PhiX, human, or host reference genomes are also removed. It is bgzip-compressed to allow random access via the accompanying index files.
-- **ERZ12345_filtered_contigs.fasta.gz.gzi**: This file is a compression index for the blockzip compressed filtered_contigs fasta file.
-- **ERZ12345_filtered_contigs.fasta.gz.fai**: This file is a FASTA index for the blockzip compressed filtered_contigs fasta file.
+- **ERZ12345_filtered_contigs.fasta.gz.gzi**: This file is a compression index for the bgzip-compressed filtered contigs FASTA file.
+- **ERZ12345_filtered_contigs.fasta.gz.fai**: This file is a FASTA index for the bgzip-compressed filtered contigs FASTA file.
 - **ERZ12345_quast_stats.tsv.gz**: This compressed `tsv` file contains the QUAST summary output, giving an assessment of the quality of the contigs of this assembly.
 - **multiqc_report.html**: This `html` file contains the `MultiQC` report for that assembly. It combines outputs from multiple tools, including `QUAST` (run both before and after quality control during assembly preprocessing), decontamination summary tables (if contaminated contigs were detected), and records of the software versions used by the pipeline.
 - **multiqc_data/**: This `directory` contains the input files used by MultiQC to generate its report.
@@ -134,7 +134,7 @@ The `qc` directory contains output files related to the quality control steps of
 
 ##### Decontamination output files
 
-When the decontamination step is enabled and contaminated contigs are detected, TSV files are created in the `decontamination/` subdirectory. Each TSV file contains three columns: `sequence_id` (contig identifier), `query_coverage` (coverage of the alignment), and `identity` (percentage identity of the alignment). Contigs are classified as contaminated if they have query coverage ≥ min_qcov AND identity ≥ min_pid when aligned to the respective reference genome.
+When the decontamination step is enabled and contaminated contigs are detected, TSV files are created in the `decontamination/` subdirectory. Each TSV file contains three columns: `sequence_id` (contig identifier), `query_coverage` (coverage of the alignment), and `identity` (percentage identity of the alignment). Contigs are classified as contaminated if they have query coverage ≥ 0.3 (30%) and identity ≥ 0.4 (40%) when aligned to the respective reference genome. These are the default values of the `min_qcov` and `min_pid` parameters.
 
 The following files may be created:
 
@@ -146,7 +146,7 @@ These files are integrated into the MultiQC report as interactive tables under t
 
 #### cds
 
-The `cds` directory contains output files related to the combined gene caller subworkflow, which calls genes using both [Pyrodigal](https://github.com/althonos/pyrodigal/) and [FragGeneScanRs](https://github.com/unipept/FragGeneScanRs), which are Python interface to Prodigal and a Rust re-implementation of FragGeneScan, respectively. The identified genes are then merged, and the resulting outputs are saved in this directory in three different formats.
+The `cds` directory contains output files related to the combined gene caller subworkflow, which calls genes using both [Pyrodigal](https://github.com/althonos/pyrodigal/) and [FragGeneScanRs](https://github.com/unipept/FragGeneScanRs), which are a Python interface to Prodigal and a Rust re-implementation of FragGeneScan, respectively. The identified genes are then merged, and the resulting outputs are saved in this directory in three different formats.
 
 ```bash
 ├── qc
@@ -169,7 +169,7 @@ The `cds` directory contains output files related to the combined gene caller su
 
 #### taxonomy
 
-The `taxonomy` directory contains output files from taxonomic assignment tools such as [CAT_pack](https://github.com/MGXlab/CAT_pack) and [cmsearch](http://eddylab.org/infernal/), as well as visualisations generated with [Krona](https://github.com/marbl/Krona/wiki/KronaTools).
+The `taxonomy` directory contains the contig taxonomy assignments from [CAT_pack](https://github.com/MGXlab/CAT_pack), as well as visualisations generated with [Krona](https://github.com/marbl/Krona/wiki/KronaTools).
 
 ```bash
 ├── qc
@@ -177,7 +177,7 @@ The `taxonomy` directory contains output files from taxonomic assignment tools s
 ├── taxonomy
 │   ├── ERZ12345_contigs_taxonomy.tsv.gz
 │   ├── ERZ12345.krona.txt.gz
-│   ├── ERZ12345.html
+│   └── ERZ12345.html
 ├── rnas
 ├── functional-annotation
 ├── pathways-and-systems
@@ -356,7 +356,7 @@ The `pathways-and-systems` directory contains five subdirectories of results, on
 │   │   ├── ERZ12345_antismash.gbk.gz
 │   │   ├── ERZ12345_antismash.gff.gz
 │   │   ├── ERZ12345_merged.json
-│   │   └── ERZ12345_antismash_summary.tsv.gz
+│   │   ├── ERZ12345_antismash_summary.tsv.gz
 │   │   └── ERZ12345_antismash_summary.tsv.gz.gzi
 │   ├── sanntis
 │   │   ├── ERZ12345_sanntis.gff.gz
@@ -399,7 +399,7 @@ This subdirectory contains the outputs of running [SanntiS](https://github.com/F
 
 ##### Output files - genome-properties
 
-This subdirectory contains the outputs of running [Genome Properties](https://github.com/EBI-Metagenomics/genome-properties) on the proteins of the assembly. Genome properties is an annotation system whereby functional attributes can be assigned to a assembly, based on the presence of a defined set of protein signatures within that assembly. The results are available in three different formats.
+This subdirectory contains the outputs of running [Genome Properties](https://github.com/EBI-Metagenomics/genome-properties) on the proteins of the assembly. Genome properties is an annotation system whereby functional attributes can be assigned to an assembly, based on the presence of a defined set of protein signatures within that assembly. The results are available in three different formats.
 
 - **ERZ12345_gp.json.gz**: A JSON format file containing Genome Properties annotations
 - **ERZ12345_gp.tsv.gz**: A `tsv` file containing Genome Properties annotations in a tab-separated format.
@@ -444,7 +444,9 @@ This file is compressed and indexed with both a bgzip index and a tabix index (`
 ##### Output files
 
 - **ERZ12345_annotation_summary.gff.gz**: This `gff` file contains an expansive and large summary of most of the functional annotations each protein has into a single GFF3 format file.
-- **ERZ12345_gff_validation_errors.log**: **If** [the GFF file is not valid](https://genometools.org/tools/gt_gff3validator.html), then a log file is created with the validation errors.
+- **ERZ12345_annotation_summary.gff.gz.gzi**: This file is the bgzip index for the annotation summary GFF file.
+- **ERZ12345_annotation_summary.gff.gz.csi**: This file is the tabix (CSI) index for the annotation summary GFF file.
+- **ERZ12345_gff_validation_errors.log**: **If** [the GFF file is not valid](https://genometools.org/tools/gt_gff3validator.html), then a log file is created with the validation errors. This file is not created when the GFF file is valid.
 
 
 See the [assembly analysis pipeline repository](https://github.com/EBI-Metagenomics/assembly-analysis-pipeline) for detailed pipeline documentation.

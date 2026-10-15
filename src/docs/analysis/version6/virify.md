@@ -8,6 +8,7 @@ author:
 date: last-modified
 citation: true
 description: Description of viral analysis with VIRify in the MGnify assembly analysis.
+order: 3.5
 ---
 
 [VIRify](https://github.com/EBI-Metagenomics/emg-viral-pipeline) is a separate pipeline run on assembled contigs after the [assembly annotation pipeline](assembly-annotation.md) and accessible in the same web view. It detects, annotates, and taxonomically classifies viral sequences in [metagenomic](../../glossary.md#metagenomic) assemblies. Taxonomy assignment uses a curated collection of viral orthologous protein domains (ViPhOGs).

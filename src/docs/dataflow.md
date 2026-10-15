@@ -36,7 +36,7 @@ All queries concerning data submission should be directed to [ENA dedicated help
 After validation by ENA, if the above criteria are met we will be able to access the submitted data.
 
 To request private analysis with MGnify, navigate to the [home page](https://www.ebi.ac.uk/metagenomics/), click ‘Submit and/or Request’ and complete the form. You will need to login to request analysis of private data. To request analysis of a public dataset in ENA click ‘Request’ and complete the form.
-Once we have received the requests, they will be queued for analysis (more details about our [Analysis pipeline](analysis.md#analysis)).
+Once we have received the requests, they will be queued for analysis (more details about our [Analysis pipeline](analysis/version6/analysis.md)).
 
 The length of time required for analysis varies according to the number of projects in the queue and the nature and number of runs in the submission. However, we aim to have most analyses completed in less than a week once validated by ENA.
 
