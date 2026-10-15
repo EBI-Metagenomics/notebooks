@@ -33,7 +33,7 @@ Each of the pipelines that constitute the service is versioned independently. Th
 - [Raw reads analysis pipeline](https://github.com/EBI-Metagenomics/raw-reads-analysis-pipeline)
 - [Assembly analysis pipeline](https://github.com/EBI-Metagenomics/assembly-analysis-pipeline)
 - [VIRify](https://github.com/EBI-Metagenomics/emg-viral-pipeline)
-- [Mobilome annotation pipeline](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline)
+- [Mobilome Annotation Pipeline](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline)
 
 ### Comparability between pipeline versions
 
