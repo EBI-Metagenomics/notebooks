@@ -41,7 +41,7 @@ For each analysed [assembly](../../glossary.md#assembly), MGnify displays and pr
 ### Pipeline workflow
 
 1. Preprocessing: Contig filtering and protein-coding sequence prediction
-2. Prediction: Concurrent execution of geNomad, ICEfinder2, IntegronFinder2, and ISEScan, plus compositional outlier detection for contigs >100 kb
+2. Prediction: Concurrent execution of geNomad, ICEfinder2-lite, IntegronFinder2, and ISEScan, plus compositional outlier detection for contigs >100 kb
 3. Integration: Results parsing and incorporation of VIRify output; fragments <500 bp and elements lacking genes are filtered out
 4. Postprocessing: GFF validation and output compression
 
