@@ -21,7 +21,7 @@ Assembly analysis accepts assembled [metagenomic](../../glossary.md#metagenomic)
 2. [VIRify](virify.md) detects, annotates, and classifies viral sequences in the metagenomic assembly.
 3. [Mobilome Annotation Pipeline (MAP)](mobilome.md) identifies mobile genetic elements and generates virulence-associated annotation at protein level. MAP incorporates results from VIRify.
 
-These pipelines run as connected analyses, and their results are accessible from the same MGnify website and FTP server.
+These pipelines run as connected analyses, and their results are accessible from the corresponding MGnify website and FTP server.
 
 ## Submitting data to be assembled
 
