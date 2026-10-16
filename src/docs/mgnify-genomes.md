@@ -191,7 +191,7 @@ The FASTA sequence can be obtained from the GFF file, for example with common un
 
 ## Pathogenicity (PathoFact2) combined report
 
-`MGYGXXXXXXXXX_pathofact2_combined_report.tsv.gz` is produced by the integrator step of the [Mobilome Annotation Pipeline](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline/blob/dev/docs/outputs.md), which merges [PathFact2](https://gitlab.com/uniluxembourg/lcsb/systems-ecology/pathofact2), AMR, mobilome, biosynthetic gene cluster (BGC), and [InterProScan](https://github.com/ebi-pf-team/interproscan) annotations.
+`MGYGXXXXXXXXX_pathofact2_combined_report.tsv.gz` is produced by the integrator step of the [Mobilome Annotation Pipeline](https://github.com/EBI-Metagenomics/mobilome-annotation-pipeline/blob/dev/docs/outputs.md), which merges [PathoFact2](https://gitlab.com/uniluxembourg/lcsb/systems-ecology/pathofact2), AMR, mobilome, biosynthetic gene cluster (BGC), and [InterProScan](https://github.com/ebi-pf-team/interproscan) annotations.
 
 Proteins with pathogenicity-associated annotation (virulence factors, toxins or antimicrobial reistance) are included in the combined report. BGC and MGE annotations are only resolved for pathogenicity-associated proteins. MGE assignment requires ≥90% CDS overlap with a mobilome feature on the same contig. [SignalP](https://services.healthtech.dtu.dk/services/SignalP-6.0/) entries are extracted from the InterProScan annotation table. Missing values are reported as `-`.
 
