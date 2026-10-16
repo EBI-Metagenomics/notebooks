@@ -201,7 +201,7 @@ Each protein's `summary_string` observed in column 3 is also carried into the fi
 |---|---|
 | `protein_id` | Protein identifier from [Prokka](https://github.com/tseemann/prokka) |
 | `contig_id` | Contig the protein is located on |
-| `summary_string` | Condensed annotation tags for the gene, comma-joined in fixed order `vf,arg,mge,bgc`: `vf` (virulence — [VFDB](https://www.mgc.ac.cn/VFs/Down/VFDB_setB_pro.fas.gz) hit or PathoFact2 toxin/VF), `arg` (AMR), `mge` (within a mobile element), `bgc` (within a BGC). Every row carries at least `vf` or `arg` |
+| `summary_string` | Condensed annotation tags for the gene, comma-joined in fixed order `vf,arg,mge,bgc`: `vf` (virulence — [VFDB](https://www.mgc.ac.cn/VFs) hit or PathoFact2 toxin/VF), `arg` (AMR), `mge` (within a mobile element), `bgc` (within a BGC). Every row carries at least `vf` or `arg` |
 | `vfdb_hit` | Best VFDB hit accession ([DIAMOND blastp](https://github.com/bbuchfink/diamond)) |
 | `vfdb_blastp_eval` | E-value of the VFDB hit |
 | `pathofact2_tox_prob` | PathoFact2 toxin probability prediction (0–1) |
