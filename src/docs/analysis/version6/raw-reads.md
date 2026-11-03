@@ -135,4 +135,19 @@ taxonomy-summary
     └── ERR12345_silva-ssu.html
 ```
 
+#### `function-summary`
+
+The `function-summary` directory contains files related to functional profiling of the run. It contains one subdirectory, `pfam`, corresponding to the one functional profiling method implemented based on `hmmsearch` mapping to the `Pfam-A` reference database.
+
+Output files:
+*	**`ERR12345_pfam.txt.gz`**: This text file contains a tab-separated table of read counts for each detected Pfam-A profile (or “function”).
+*	**`ERR12345_pfam.stats.json`**: This `json` file summarises the number of reads mapped to Pfam, the number of Pfam models with hits, and the total number of hits across all Pfam models.
+
+```
+function-summary
+└── pfam
+    ├── ERR12345_pfam.txt.gz
+    └── ERR12345_pfam.stats.json
+```
+
 See the [raw-reads analysis pipeline repository](https://github.com/EBI-Metagenomics/raw-reads-analysis-pipeline) for detailed pipeline documentation.
