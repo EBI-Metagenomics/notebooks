@@ -137,7 +137,7 @@ taxonomy-summary
 
 #### `function-summary`
 
-The `function-summary` directory contains files related to functional profiling of the run. It contains one subdirectory, `pfam`, corresponding to the one functional profiling method implemented based on `hmmsearch` mapping to the `Pfam-A` reference database.
+When the functional annotation option is turned on, the `function-summary` directory contains files related to functional profiling of the run. It contains one subdirectory, `pfam`, corresponding to the one functional profiling method implemented based on `hmmsearch` mapping to the `Pfam-A` reference database.
 
 Output files:
 *	**`ERR12345_pfam.txt.gz`**: This text file contains a tab-separated table of read counts for each detected Pfam-A profile (or “function”).
@@ -149,5 +149,6 @@ function-summary
     ├── ERR12345_pfam.txt.gz
     └── ERR12345_pfam.stats.json
 ```
+
 
 See the [raw-reads analysis pipeline repository](https://github.com/EBI-Metagenomics/raw-reads-analysis-pipeline) for detailed pipeline documentation.
