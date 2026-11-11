@@ -25,7 +25,7 @@ service. Use `phmmer` to search a protein query sequence in the MGnify Proteins 
    below. The link above preselects **MGnify30-C2**.
 3. Optionally adjust the cut-offs and other advanced settings.
 4. Select **Submit** to start the search.
-5. 
+
 `phmmer` returns sequences with statistically significant similarity to the
 query. Results are ordered by significance and include the target protein
 accessions, alignments, scores and E-values.
@@ -66,6 +66,85 @@ needs to be reproduced or reported.
 
 HMMER's [results documentation](https://hmmer-web-docs.readthedocs.io/en/latest/results.html)
 explains the results table, domain graphics, alignments, scores and E-values.
+
+## Search programmatically {#programmatic-search}
+
+HMMER has a separate asynchronous API, described by its
+[OpenAPI schema](https://www.ebi.ac.uk/Tools/hmmer/api/v1/openapi.json) and
+[API documentation](https://hmmer-web-docs.readthedocs.io/en/latest/api.html).
+This sequence-similarity search is different from the synchronous Proteins API's
+Pfam/biome search. Run the following Python examples in your own environment
+with `requests` installed.
+
+First discover the available targets. Save the selected database's `id`,
+`version` and `release_date` with your query; a MGnify30 subset is not the entire
+MGnify90 database.
+
+```python
+import requests
+
+HMMER = "https://www.ebi.ac.uk/Tools/hmmer/api/v1"
+response = requests.get(f"{HMMER}/search/databases", timeout=30)
+response.raise_for_status()
+targets = [db for db in response.json() if (db.get("id") or "").startswith("mgnify")]
+for target in targets:
+    print(target["id"], target["version"], target["release_date"], target["status"])
+```
+
+Submit one protein FASTA from `query.fasta`. Check that your chosen target is
+enabled. The submission returns an ID; save it immediately and reuse it to
+retrieve the result rather than submitting the same search again.
+
+```python
+from pathlib import Path
+import json
+
+target = next(db for db in targets if db["id"] == "mgnify30_c2")
+if target["status"] != "enabled":
+    raise RuntimeError(f"Target is not enabled: {target}")
+response = requests.post(
+    f"{HMMER}/search/phmmer",
+    json={"database": target["id"], "input": Path("query.fasta").read_text()},
+    timeout=60,
+)
+response.raise_for_status()
+job_id = response.json()["id"]
+Path("hmmer-job.json").write_text(json.dumps({"id": job_id, "database": target}, indent=2))
+print(job_id)
+```
+
+Poll with a bounded wait and explicit failure handling. If the wait expires,
+keep the ID and retry result retrieval later. An HTTP timeout during submission
+does not establish whether a job was created; avoid blind automatic resubmission.
+
+```python
+import time
+
+job_id = json.loads(Path("hmmer-job.json").read_text())["id"]
+for attempt in range(30):
+    response = requests.get(
+        f"{HMMER}/result/{job_id}", params={"page": 1, "page_size": 100}, timeout=30
+    )
+    response.raise_for_status()
+    page = response.json()
+    if page["status"] == "SUCCESS":
+        break
+    if page["status"] in {"FAILURE", "REVOKED"}:
+        raise RuntimeError(f"HMMER job {job_id}: {page}")
+    time.sleep(5)
+else:
+    raise TimeoutError(f"Job {job_id} is still pending; resume using the saved ID")
+
+Path("hmmer-first-page.json").write_text(json.dumps(page, indent=2))
+print("Result pages:", page["page_count"])
+```
+
+This saves **only the first result page**. To retrieve all hits, request pages 2
+through `page_count` with the same `page_size` and job ID, checking each response.
+Keep the original sequence, target metadata, search parameters and retrieval date
+alongside the results. A returned MGYP may not be a current MGnify90
+representative; use the [bulk sequence files](mgnify-proteins-programmatic.md#bulk)
+if it has no detail record in the Proteins API.
 
 ## Downloading MGnify protein data
 

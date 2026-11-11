@@ -30,6 +30,10 @@ Note that detailed records exist only for **cluster representatives**, not for e
 
 The current API version is **v1**.
 
+This is separate from the [main MGnify API v2](api.md#finding-protein-data).
+For worked examples combining Pfam and biome filters, bulk sequences, identifiers
+and release tracking, see [Using MGnify Proteins programmatically](mgnify-proteins-programmatic.md).
+
 ### Base URL
 
 The base address for the API is:
@@ -50,6 +54,10 @@ The OpenAPI schema can be used to generate a client in your language of choice, 
 ### HTTP methods
 
 The API is read-only: only `GET` is supported.
+
+`HEAD` currently returns `405 Method Not Allowed`, including for existing
+proteins. Use `GET` for an existence check and handle its status; a failed `HEAD`
+does not establish that a protein is missing.
 
 ### Endpoints
 
@@ -100,7 +108,7 @@ The `{mgyp}` path parameter is an MGYP accession. It is tolerant of formatting: 
 
 * **`mgyp`**: the MGYP accession, e.g. `MGYP000261684433`.
 * **`sequence`**: the amino acid sequence of the cluster representative.
-* **`full_length`**: whether the sequence is a full-length ORF (`true`) or a fragment (`false`).
+* **`full_length`**: whether the sequence is a full-length ORF (`true`) or a fragment (`false`); it can also be `null` (unknown).
 * **`cluster_size`**: the number of protein sequences in this cluster.
 * **`biomes`**: the [biomes](glossary.md#biome) this protein was observed in, each with an `id`, a `name` (the full lineage) and a `count` of occurrences. The `id` is the value to pass to the search endpoint's `biome_id` parameter.
 * **`pfam_annotations`**: Pfam domains matched within the protein — `accession`, `name`, `clan`, `evalue`, `bit_score`, and the `hmm_start`/`hmm_end` and `env_start`/`env_end` coordinates.
@@ -169,12 +177,36 @@ Finds cluster representatives matching a single filter. Provide **exactly one** 
 
 Results are returned as a single page ordered by MGYP accession, capped at `limit`. There is no pagination or offset: the search is designed for exploration. Larger result sets are better served by [remote Parquet queries with DuckDB](mgnify-proteins-parquet-queries.qmd), or by a [bulk download](ftp.md) of the complete release.
 
+::: {.callout-warning}
+### A full page is potentially incomplete
+
+The response has no `count`, `next` link or `truncated` flag. If the number of
+returned records equals your requested `limit` (including a small limit such as
+10), treat the result as **potentially truncated**. Exactly `limit` matches and
+more than `limit` matches are indistinguishable. Do not report this list as all
+matches, or as a random sample: it is ordered by MGYP accession.
+
+`offset`, `page` and `cursor` are unsupported and currently silently ignored.
+Changing them can return the same records again. `full_length` is a response
+field, not a supported search parameter. Only one of the three documented
+filters is accepted; for combined filters use the
+[release query example](mgnify-proteins-programmatic.md#pfam-biome).
+:::
+
 Each result carries only `mgyp`, `full_length` and `cluster_size`. To obtain sequences and annotations, request each `mgyp` from the detail endpoint — see [Building a FASTA file for a biome](#uc-fasta).
 
 ::: {.callout-important}
 `biome_lineage` must be a **full lineage**, not a fragment. `root:Engineered` or `root:Engineered:Wastewater` works, but `Wastewater` on its own matches no biome and returns `422` with an explanatory message. A valid lineage that simply has no cluster representatives returns `200` with an empty list.
 
-The full list of biomes can be retrieved from the MGnify API's [biomes endpoint](https://www.ebi.ac.uk/metagenomics/api/v2/biomes/).
+The full list of biome **lineages** can be retrieved from the MGnify API's
+[paginated biomes endpoint](https://www.ebi.ac.uk/metagenomics/api/v2/biomes/).
+It returns `biome_name` and `lineage`, not numeric IDs. Use these lineages with
+`biome_lineage`; obtain numeric `biome_id` values from `biomes[].id` in a protein
+detail response, where an ID is present.
+
+An unknown, syntactically accepted `pfam_accession` or `biome_id` currently
+returns `200` with `[]`, whereas an unknown `biome_lineage` returns `422`.
+An empty list alone therefore does not validate a Pfam accession or biome ID.
 :::
 
 ### Example
@@ -206,7 +238,7 @@ curl -G "https://www.ebi.ac.uk/metagenomics/proteins/api/v1/protein/search" \
 ## Use cases
 
 The examples below use Python and the [`requests`](https://requests.readthedocs.io/) library. Each one
-reuses the `BASE` address defined in the first example.
+reuses the `BASE` address and `get_json` helper defined in the first example.
 
 ::: {.callout-tip}
 These examples can be edited and run in your browser, without installing anything, on the
@@ -220,7 +252,12 @@ import requests
 
 BASE = "https://www.ebi.ac.uk/metagenomics/proteins/api/v1"
 
-protein = requests.get(f"{BASE}/protein/MGYP000261684433").json()
+def get_json(path, **params):
+    response = requests.get(f"{BASE}/{path}", params=params, timeout=30)
+    response.raise_for_status()
+    return response.json()
+
+protein = get_json("protein/MGYP000261684433")
 
 print(protein["sequence"])
 ```
@@ -251,15 +288,15 @@ import requests
 BASE = "https://www.ebi.ac.uk/metagenomics/proteins/api/v1"
 
 # 1. Find cluster representatives from this biome and all of its sub-biomes.
-hits = requests.get(
-    f"{BASE}/protein/search",
-    params={"biome_lineage": "root:Engineered:Wastewater", "limit": 10},
-).json()
+limit = 10
+hits = get_json("protein/search", biome_lineage="root:Engineered:Wastewater", limit=limit)
+if len(hits) == limit:
+    print("Search reached its limit; these sequences may not include all matches.")
 
 # 2. Fetch each protein, and write it out as FASTA.
 with open("wastewater.fasta", "w") as fasta_file:
     for hit in hits:
-        protein = requests.get(f"{BASE}/protein/{hit['mgyp']}").json()
+        protein = get_json(f"protein/{hit['mgyp']}")
         fasta_file.write(f">{protein['mgyp']}\n{protein['sequence']}\n")
 
 print(f"Wrote {len(hits)} sequences to wastewater.fasta")
@@ -282,10 +319,9 @@ instead.
 Search by Pfam accession to get the matching accessions:
 
 ```python
-hits = requests.get(
-    f"{BASE}/protein/search",
-    params={"pfam_accession": "PF00005", "limit": 5},
-).json()
+hits = get_json("protein/search", pfam_accession="PF00005", limit=5)
+if len(hits) == 5:
+    print("Search reached its limit; this is not an exhaustive Pfam result set.")
 
 for hit in hits:
     print(hit["mgyp"])
@@ -303,9 +339,9 @@ Fetching each hit from the detail endpoint adds the sequence length and the doma
 
 ```python
 for hit in hits:
-    protein = requests.get(f"{BASE}/protein/{hit['mgyp']}").json()
+    protein = get_json(f"protein/{hit['mgyp']}")
     domains = ", ".join(p["accession"] for p in protein["pfam_annotations"])
-    length = "full-length" if protein["full_length"] else "fragment"
+    length = {True: "full-length", False: "fragment", None: "unknown"}[protein["full_length"]]
     print(f"{protein['mgyp']}\t{length}\t{len(protein['sequence'])} aa\t{domains}")
 ```
 
@@ -315,7 +351,7 @@ The biome ids in a detail response are the same ids the search endpoint accepts,
 protein of interest and find others sharing its biome:
 
 ```python
-protein = requests.get(f"{BASE}/protein/MGYP000261684433").json()
+protein = get_json("protein/MGYP000261684433")
 
 for biome in protein["biomes"]:
     print(biome["id"], biome["name"])
@@ -326,10 +362,9 @@ for biome in protein["biomes"]:
 ```
 
 ```python
-neighbours = requests.get(
-    f"{BASE}/protein/search",
-    params={"biome_id": protein["biomes"][0]["id"], "limit": 10},
-).json()
+neighbours = get_json("protein/search", biome_id=protein["biomes"][0]["id"], limit=10)
+if len(neighbours) == 10:
+    print("Search reached its limit; these neighbours may not include all matches.")
 
 for hit in neighbours:
     print(hit["mgyp"])

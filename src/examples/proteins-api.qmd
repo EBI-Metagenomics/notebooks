@@ -19,6 +19,8 @@ Copy any code you want to keep before leaving or reloading the page.
 
 The endpoints, parameters and response fields used here are described in the
 [Proteins API reference](../docs/mgnify-proteins-api.md).
+For exhaustive queries, combined filters and large sequence sets, use the
+[programmatic access guide](../docs/mgnify-proteins-programmatic.md).
 
 ## Set up
 
@@ -34,6 +36,26 @@ def get_json(path, **params):
     response.raise_for_status()
     return response.json()
 
+def search_proteins(*, limit=50, biome_id=None, biome_lineage=None, pfam_accession=None):
+    filters = {
+        key: value for key, value in {
+            "biome_id": biome_id,
+            "biome_lineage": biome_lineage,
+            "pfam_accession": pfam_accession,
+        }.items() if value is not None
+    }
+    if len(filters) != 1:
+        raise ValueError("Provide exactly one biome or Pfam filter")
+    if type(limit) is not int or not 1 <= limit <= 1000:
+        raise ValueError("limit must be an integer from 1 to 1000")
+    hits = get_json("protein/search", limit=limit, **filters)
+    if len(hits) == limit:
+        print(
+            f"Search reached limit={limit}; results may be incomplete. "
+            "Use release files for all matches. There is no next page."
+        )
+    return hits
+
 print(API)
 ```
 
@@ -47,7 +69,7 @@ protein = get_json("protein/MGYP000261684433")
 
 print(protein["mgyp"])
 print(f"{len(protein['sequence'])} aa")
-print("full-length" if protein["full_length"] else "fragment")
+print({True: "full-length", False: "fragment", None: "unknown"}[protein["full_length"]])
 ```
 
 The same record written out as FASTA:
@@ -62,7 +84,7 @@ The search endpoint takes **exactly one** filter. Searching by Pfam accession
 returns the matching cluster representatives:
 
 ```{pyodide}
-hits = get_json("protein/search", pfam_accession="PF00005", limit=5)
+hits = search_proteins(pfam_accession="PF00005", limit=5)
 
 for hit in hits:
     print(hit["mgyp"])
@@ -75,23 +97,28 @@ hit from the detail endpoint adds the sequence length and the domains it carries
 for hit in hits:
     protein = get_json(f"protein/{hit['mgyp']}")
     domains = ", ".join(p["accession"] for p in protein["pfam_annotations"])
-    length = "full-length" if protein["full_length"] else "fragment"
+    length = {True: "full-length", False: "fragment", None: "unknown"}[protein["full_length"]]
     print(f"{protein['mgyp']}\t{length}\t{len(protein['sequence'])} aa\t{domains}")
 ```
 
-## Build a FASTA file for a biome
+## Build a limited FASTA file for a biome
 
 A common workflow: find the cluster representatives observed in a biome, then
 retrieve each sequence. Searching by `biome_lineage` covers the biome **and all of
 its sub-biomes**. Edit the lineage or the limit, then run the cell again to rebuild
 the download.
 
+This is a limited selection ordered by MGYP, not all sequences in the biome or a
+random sample. Every run that reaches `LIMIT` prints a warning. `offset`, `page`
+and `cursor` are ignored by the service; they cannot retrieve the rest of the
+results.
+
 ```{pyodide}
 #| define: [fasta_text, fasta_filename]
 LINEAGE = "root:Engineered:Wastewater"
 LIMIT = 10
 
-hits = get_json("protein/search", biome_lineage=LINEAGE, limit=LIMIT)
+hits = search_proteins(biome_lineage=LINEAGE, limit=LIMIT)
 
 records = []
 for hit in hits:
@@ -99,7 +126,7 @@ for hit in hits:
     records.append(f">{protein['mgyp']}\n{protein['sequence']}")
 
 fasta_text = "\n".join(records) + "\n"
-fasta_filename = LINEAGE.replace(":", "-") + ".fasta"
+fasta_filename = LINEAGE.replace(":", "-") + f"-limit-{LIMIT}.fasta"
 
 print(f"Collected {len(records)} sequences")
 print(fasta_text[:240] + "...")
@@ -135,8 +162,7 @@ for biome in protein["biomes"]:
 ```
 
 ```{pyodide}
-neighbours = get_json(
-    "protein/search",
+neighbours = search_proteins(
     biome_id=protein["biomes"][0]["id"],
     limit=10,
 )

@@ -45,7 +45,11 @@ Also, while Parquet allows for significant optimisations in query speeds, certai
 
 ## Parquet files available
 
-As part of the 2026_07 release, we distribute eight Parquet files.
+The `2026_07` release, including its `2026_07.1` update, distributes nine Parquet
+files. The [release README and changelog](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/README.md)
+describe the published files. For task-based examples, see
+[programmatic access](mgnify-proteins-programmatic.md#bulk), including combined
+Pfam, biome and full-length filtering and sequence exports.
 
 ### mgy_proteins_metadata.parquet
 
@@ -78,6 +82,18 @@ All metadata related to proteins, assemblies, contigs, etc, for the entire prote
 | 6966728250    | 1775     | 59597       | 2860239544 | 9680590378 | ERP145406       | ERZ17082817        | ERZ17082817.233518-NODE-783534-length-1148-cov-5.0000 | 1148          | 5.0           | 3              | 1148         | -1     | root:Environmental:Aquatic:Marine | 5.0              | 11         | 1              | 9894367754  | false          |
 :::
 
+### mgy_clusters_metadata.parquet
+
+Occurrence metadata for **MGnify90 cluster representatives only**, added in the
+`2026_07.1` update. The release README describes this extract as sorted by
+`protein_id` and about 107 GB, approximately 20% of the all-protein metadata file.
+It still contains multiple rows for representatives with multiple occurrences.
+
+It has the occurrence fields described above, excluding `cluster_rep` and
+`is_cluster_rep`. Use it when you need representative occurrences; use
+`mgy_proteins_metadata.parquet` when you also need non-representative proteins.
+Neither documented occurrence schema includes an MGYA analysis accession.
+
 ### mgy_protein_sequences.parquet
 
 All non-redundant protein sequences in one Parquet file, including information about whether a sequence is full-length or not.
@@ -100,8 +116,8 @@ All non-redundant protein sequences in one Parquet file, including information a
 A list of cluster representatives with their cluster member sequences.
 
 #### Column descriptions:
-- cluster_rep_accession: The protein_id for the cluster representative
-- member_accessions: The protein_id of a cluster member
+- cluster_rep: The protein_id for the cluster representative
+- cluster_member: The protein_id of a cluster member
 
 
 | cluster_rep | cluster_member |
@@ -117,11 +133,11 @@ A list of cluster representatives with their cluster member sequences.
 Statistics and biome information for clusters.
 
 #### Column descriptions:
-- cluster_rep_accession: The protein_id of the cluster representative
+- cluster_rep: The protein_id of the cluster representative
 - cluster_size: The number of sequences in the cluster
-- assembly_count: The number of assemblies contributing to the cluster
+- cluster_assembly_count: The number of assemblies contributing to the cluster
 - cluster_rep_biomes: A non-redundant list of biomes for the cluster representative
-- cluster_biomes: A non-redundant list of biomes across the whole cluster
+- cluster_members_biomes: A non-redundant list of biomes across the whole cluster
 
 | cluster_rep | cluster_size | cluster_assembly_count | cluster_rep_biomes                                                | cluster_members_biomes                                                                          |
 | ----------: | -----------: | ---------------------: | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -218,6 +234,42 @@ When querying the MGnify Proteins Parquet files remotely, the speed will be heav
 ### Remote URL
 
 The examples use a common URL to access the EMBL-EBI FTP that hosts the MGnify Proteins parquet files. This URL is: `https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07`. 
+
+### Plan a remote query {#plan-remote-query}
+
+Inspect the schema and file metadata before reading data columns. These DuckDB
+queries use the representative metadata extract's footer, not a full row scan:
+
+```sql
+INSTALL httpfs;
+LOAD httpfs;
+
+DESCRIBE SELECT * FROM read_parquet('https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_clusters_metadata.parquet');
+
+SELECT num_rows, num_row_groups
+FROM parquet_file_metadata('https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_clusters_metadata.parquet');
+
+SELECT row_group_id, row_group_num_rows, stats_min_value, stats_max_value
+FROM parquet_metadata('https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_clusters_metadata.parquet')
+WHERE path_in_schema = 'protein_id'
+ORDER BY row_group_id
+LIMIT 5;
+```
+
+Footers can themselves be large. `LIMIT 5` above limits the metadata displayed,
+not how much footer metadata is retrieved. Row-group statistics indicate whether
+a filter can skip groups; a sorted `protein_id` does not imply that a Pfam filter
+can skip the same groups. Consult DuckDB's
+[Parquet metadata documentation](https://duckdb.org/docs/stable/data/parquet/metadata.html)
+for the returned fields.
+
+Select only the needed columns and use numeric predicates on stored IDs. Use
+explicit filenames from one release; do not assume an undocumented partition
+layout or a per-Pfam index exists. A `LIMIT` on a data query does not guarantee a
+small transfer, especially with joins, sorting or filters that match few rows.
+SQL results have no guaranteed order without `ORDER BY`, which can add work.
+See [DuckDB's Parquet tips](https://duckdb.org/docs/stable/data/parquet/tips.html)
+for how sorting and row-group sizes affect selective reads.
 
 ### Get MGYP sequences
 

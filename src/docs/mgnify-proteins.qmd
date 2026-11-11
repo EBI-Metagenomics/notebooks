@@ -18,7 +18,8 @@ The MGnify Protein Database comprises sequences predicted from [assemblies](glos
 
 The dataset is accessible via several platforms:
 
-- **FTP Server**: Available for download from our [FTP server](http://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/).
+- **Programmatic access**: Start with the [API and bulk access guide](mgnify-proteins-programmatic.md), or the [Proteins API reference](mgnify-proteins-api.md) for small requests.
+- **FTP Server**: Available for download from our [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/).
 - **HMMER Sequence Search Webservice**: Accessible through our [Sequence Search service](mgnify-proteins-sequence-search.md).
 - **MGnify Proteins Portal**: Explore the data on the [MGnify Proteins web portal](mgnify-proteins-web.md).
 - **Google Cloud Public Dataset**: Available as a [Big Query public dataset](mgnify-proteins-big-query.qmd) on [Google Cloud](https://cloud.google.com/).
