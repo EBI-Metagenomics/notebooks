@@ -134,7 +134,12 @@ print(fasta_text[:240] + "...")
 
 ```{ojs}
 //| echo: false
-DOM.download(new Blob([fasta_text], {type: "text/plain;charset=utf-8"}), fasta_filename, "Download FASTA")
+fasta_text = ""
+fasta_filename = ""
+
+fasta_text && fasta_filename
+  ? DOM.download(new Blob([fasta_text], {type: "text/plain;charset=utf-8"}), fasta_filename, "Download FASTA")
+  : html`<p>Run the cell above to prepare the FASTA download.</p>`
 ```
 
 ::: {.callout-note}

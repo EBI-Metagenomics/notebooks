@@ -10,10 +10,10 @@ citation: true
 description: Guide to searching the MGnify protein databases with HMMER
 ---
 
-MGnify protein sequence searches are provided by the EMBL-EBI HMMER web [HMMER web](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer){.vf-link .external target="_blank" rel="noopener noreferrer"}
+MGnify protein sequence searches are provided by the EMBL-EBI HMMER web [HMMER web](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer?database=mgnify30_c2){.vf-link .external target="_blank" rel="noopener noreferrer"}
 service. Use `phmmer` to search a protein query sequence in the MGnify Proteins Database.
 
-[Open HMMER](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer){.btn .btn-primary target="_blank" rel="noopener noreferrer"}
+[Open HMMER](https://www.ebi.ac.uk/Tools/hmmer/search/phmmer?database=mgnify30_c2){.btn .btn-primary target="_blank" rel="noopener noreferrer"}
 
 ![The HMMER phmmer search page for submitting a protein sequence.](images/sequence_search/hmmer-mgnify30-search.png){#fig-hmmer-mgnify30-search}
 
@@ -64,7 +64,7 @@ needs to be reproduced or reported.
 
 ![The Search Details panel records the phmmer command, MGnify30 database release and query sequence.](images/sequence_search/hmmer-mgnify30-search-details.png){#fig-hmmer-mgnify30-search-details}
 
-HMMER's [results documentation](https://hmmer-web-docs.readthedocs.io/en/latest/results.html)
+HMMER's [results documentation](https://hmmer-web-docs.readthedocs.io/en/latest/result.html)
 explains the results table, domain graphics, alignments, scores and E-values.
 
 ## Search programmatically {#programmatic-search}
