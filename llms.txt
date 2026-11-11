@@ -1,0 +1,29 @@
+# MGnify programmatic access
+
+> Public APIs, worked examples and release files for microbiome analyses and MGnify Proteins.
+
+Use the OpenAPI schemas to discover supported routes. Protein search is capped:
+reaching the requested limit does not establish completeness. Use release files
+for exhaustive or combined queries, and record the data release separately from
+the API version.
+
+## APIs
+
+- [Main API guide](https://docs.mgnify.org/src/docs/api.html): studies, samples, analyses, assemblies and biomes.
+- [Main v2 OpenAPI](https://www.ebi.ac.uk/metagenomics/api/v2/openapi.json): the supported main API routes and schemas.
+- [Proteins API reference](https://docs.mgnify.org/src/docs/mgnify-proteins-api.html): MGYP details, search filters, limits, response fields, HTTP methods and errors.
+- [Proteins OpenAPI](https://www.ebi.ac.uk/metagenomics/proteins/api/v1/openapi.json): the supported protein routes and schemas.
+
+## Protein workflows
+
+- [Programmatic access](https://docs.mgnify.org/src/docs/mgnify-proteins-programmatic.html): identifier formats, study and analysis links, biome discovery, combined filters and bulk sequences.
+- [Editable Python examples](https://docs.mgnify.org/src/examples/proteins-api.html): small interactive lookups and limited FASTA downloads.
+- [Parquet guide](https://docs.mgnify.org/src/docs/mgnify-proteins-parquet-queries.html): release-file schemas, DuckDB queries and remote query costs.
+- [Sequence search guide](https://docs.mgnify.org/src/docs/mgnify-proteins-sequence-search.html): HMMER searches against MGnify30 subsets, job submission and result retrieval.
+- [HMMER OpenAPI](https://www.ebi.ac.uk/Tools/hmmer/api/v1/openapi.json): available target databases, sequence-search operations and result pagination.
+
+## Release files
+
+- [Release index](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/): choose a dated release rather than current_release for reproducibility.
+- [2026_07 release README](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/README.md): authoritative file descriptions and release changelog.
+- [2026_07 checksums](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/md5sum.txt): published MD5 checksums for release files.

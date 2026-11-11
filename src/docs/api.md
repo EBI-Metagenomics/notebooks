@@ -42,12 +42,34 @@ curl -X GET "https://www.ebi.ac.uk/metagenomics/api/v2/openapi.json"
 ```
 
 There are several easy-to-use top-levels resources, such as
-[studies](glossary.md#study), [samples](glossary.md#sample), [runs](glossary.md#run), [biomes](glossary.md#biome), and [analyses](glossary.md#analysis+result). For example
+[studies](glossary.md#study), [samples](glossary.md#sample), [runs](glossary.md#run), [biomes](glossary.md#biome), and [analyses](glossary.md#analysis-result). For example
 [https://www.ebi.ac.uk/metagenomics/api/v2/studies](https://www.ebi.ac.uk/metagenomics/api/v2/studies) retrieves a list
 of all studies, while [https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397](https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397)
 retrieves a single study, with the accession `MGYS00010397`. The samples contained
 within this study can be retrieved using the relationship URL:
 [https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397/samples/](https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397/samples/).
+
+### Finding protein data
+
+MGnify Proteins currently has a **separate public API** at
+[`/metagenomics/proteins/api/v1`](https://www.ebi.ac.uk/metagenomics/proteins/api/v1/docs).
+Start with the [Proteins API reference](mgnify-proteins-api.md) or the
+[programmatic access guide](mgnify-proteins-programmatic.md) for MGYP lookups,
+Pfam and biome searches, bulk sequences and sequence similarity searches.
+Agents can start from [llms.txt](../../llms.txt).
+
+The [main v2 OpenAPI schema](https://www.ebi.ac.uk/metagenomics/api/v2/openapi.json)
+does not currently list protein routes (checked 10 November 2026). Its general
+description of endpoints for all data types should not be read as a promise that
+`/api/v2/proteins/` exists. Use the
+[Proteins OpenAPI schema](https://www.ebi.ac.uk/metagenomics/proteins/api/v1/openapi.json)
+for the supported protein operations.
+
+The `{count, items}` response and `page`/`page_size` pagination described below
+apply to the main API. Protein search currently returns a bare JSON list with a
+limit, no total count and no pagination. Do not apply the main API's pagination
+loop to protein search. API versions (`v2` and `v1`) also differ from the protein
+**data release**, such as `2026_07`.
 
 ### HTTP methods
 
