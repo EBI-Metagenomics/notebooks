@@ -11,9 +11,11 @@ Quarto Live.
 
 ## Develop and preview
 
-Install [Quarto](https://quarto.org/docs/get-started/) (CI uses 1.5.56).
+Install [Quarto](https://quarto.org/docs/get-started/) (CI uses 1.10.18).
 Python and R are **not** required to execute cells during rendering: the example
-pages disable build-time execution. Node 22+ runs the small static checks.
+pages disable build-time execution. Node 22+ checks study links and the `llms.txt`
+structure; Python 3 runs the offline protein-example regression checks using only
+its standard library.
 [Task](https://taskfile.dev/) is optional.
 
 ```bash
@@ -21,6 +23,7 @@ quarto render
 quarto preview --no-browser --port 9000 --host localhost
 # Or: task render-static / task preview-static
 node --test tests/static/*.test.mjs
+python3 -m unittest discover -s tests/static -p 'test_*.py'
 ```
 
 Serve `_site` over HTTP(S), not `file://`. `task serve-static` serves an existing
@@ -47,6 +50,12 @@ WASM runtime, execution backend, or API proxy is maintained here.
 - `src/examples/download-csv.qmd`: paginated study analyses and a browser CSV download.
 - `src/examples/pathways.qmd`: v5 KEGG module completeness, KO exploration and export to KEGG Mapper.
 - `src/examples/atlanteco.qmd`: study sample coordinates and an interactive Folium map.
+- `src/examples/proteins-api.qmd`: representative lookups, explicitly limited Pfam/biome searches and small FASTA downloads.
+
+Protein API discovery and bulk workflows are documented in
+[`src/docs/mgnify-proteins-programmatic.md`](src/docs/mgnify-proteins-programmatic.md).
+[`llms.txt`](llms.txt) is copied to the site root by Quarto as an agent entry point;
+keep it concise and link to the API reference for contract details.
 
 All examples query the live API. Test fixtures live under `tests/static/fixtures`
 and are not published. Large matrices, comparative metagenomics and MGnifyR are
@@ -147,8 +156,9 @@ hosting without configuring COOP/COEP headers for this site.
 
 ## Validation and publishing
 
-CI checks the URL contract, renders the site without
-executing notebooks or contacting the API, and uploads `_site` as an artifact.
+CI checks the URL contract, `llms.txt` structure and repeated protein-search
+output. It then renders the site without executing notebooks or contacting the
+API, and uploads `_site` as an artifact.
 The existing publish workflow still deploys only `main`/`docs-only` (or on manual
 invocation); a push to [`pyodide`](https://pyodide.org/) does not automatically publish this work.
 The Jupyter Docker build/test/push and release workflow has been retired.

@@ -17,7 +17,8 @@ tasks:
       - python3 -m http.server 9000 --bind localhost --directory _site
 
   test-static:
-    desc: Check study links, then render
+    desc: Check study links, llms.txt and protein examples, then render
     cmds:
       - node --test tests/static/*.test.mjs
+      - python3 -m unittest discover -s tests/static -p 'test_*.py'
       - quarto render

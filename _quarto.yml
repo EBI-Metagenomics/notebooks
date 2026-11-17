@@ -1,5 +1,7 @@
 project:
     type: website
+    resources:
+        - llms.txt
     render:
         - src/docs.qmd
         - src/docs/*.md
@@ -69,6 +71,7 @@ website:
               contents:
                 - src/docs/mgnify-proteins-web.md
                 - src/docs/mgnify-proteins-api.md
+                - src/docs/mgnify-proteins-programmatic.md
                 - src/docs/mgnify-proteins-sequence-search.md
                 - src/docs/mgnify-proteins-big-query.qmd
                 - src/docs/mgnify-proteins-parquet-queries.qmd

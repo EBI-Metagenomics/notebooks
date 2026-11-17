@@ -18,8 +18,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Check study links
+      - name: Check study links and llms.txt
         run: node --test tests/static/*.test.mjs
+      - name: Check protein example output
+        run: python3 -m unittest discover -s tests/static -p 'test_*.py'
       - name: Render documentation and browser examples
         run: quarto render
       - uses: actions/upload-artifact@v4
