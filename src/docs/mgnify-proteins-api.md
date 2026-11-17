@@ -74,7 +74,7 @@ Errors are returned with a conventional HTTP status code and a JSON body:
 
 | Status | Meaning |
 |---|---|
-| `302` | The requested MGYP is no longer a cluster representative and has been superseded by another; the `Location` header carries the replacement accession. Pass `curl -L` to follow it automatically. |
+| `302` | Redirect response listed in the OpenAPI schema. Pass `curl -L` to follow redirects automatically. |
 | `404` | The MGYP accession is malformed, or no such cluster representative exists |
 | `422` | The query parameters are invalid: no filter given, more than one filter given, `limit` out of range, or a `biome_lineage` that matches no biome |
 
@@ -308,8 +308,8 @@ print(f"Wrote {len(hits)} sequences to wastewater.fasta")
 :::
 
 ::: {.callout-tip}
-This makes one request per protein, so keep `limit` modest and be considerate of the service. This
-service is rate-limited, so queries are going to be throttled. For thousands of sequences, download the
+This makes one request per protein, so keep `limit` modest and make requests serially.
+For thousands of sequences, download the
 release from the [FTP server](https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/)
 instead.
 :::

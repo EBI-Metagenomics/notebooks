@@ -115,11 +115,11 @@ no-match and validation behaviour.
 
 ## Retrieve a small list of full protein records
 
-There is currently no batch lookup endpoint. For a short list, make serial detail
-requests. Keep the requested and returned identifiers because a superseded
-representative may redirect to a replacement. HTTP errors stop the example;
-missing records are not silently dropped. On `429`, respect `Retry-After` before
-retrying. For large lists, use the bulk sequence query below.
+There is currently no batch lookup endpoint. Keep requests serial. If you receive
+a `429` or a transient `5xx` error, back off before retrying and limit the number
+of attempts. Keep the requested and returned identifiers for traceability. The
+example below stops on HTTP errors without retrying; missing records are not
+silently dropped. For large lists, use the bulk sequence query below.
 
 ```python
 import requests

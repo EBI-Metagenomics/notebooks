@@ -148,8 +148,8 @@ example `root:Host-associated:Human:Digestive system` — need no special handli
 :::
 
 ::: {.callout-tip}
-This makes one request per protein, so keep `LIMIT` modest and be considerate of the
-service, which is rate-limited. For thousands of sequences, query the release
+This makes one request per protein, so keep `LIMIT` modest and make requests
+serially. For thousands of sequences, query the release
 remotely with [Parquet and DuckDB](../docs/mgnify-proteins-parquet-queries.qmd), or
 take a [bulk download](../docs/ftp.md) instead.
 :::
