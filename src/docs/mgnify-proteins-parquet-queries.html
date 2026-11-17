@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="MGnify">
-<meta name="dcterms.date" content="2026-11-04">
+<meta name="dcterms.date" content="2026-11-17">
 <meta name="description" content="Description of the MGnify Proteins and related services">
 
 <title>Remote querying of MGnify Proteins using Parquet and DuckDB – MGnify Resources</title>
@@ -86,7 +86,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3da984f748224b1e0cd87e13b5fdabc6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b9b84635d147532e87cf711ffd9f10aa.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-30ec0a16734feaac916c6d39f38dce14.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -409,6 +409,12 @@ table {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-programmatic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using MGnify Proteins programmatically</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence search</span></a>
   </div>
@@ -461,6 +467,7 @@ table {
   <li><a href="#parquet-files-available" id="toc-parquet-files-available" class="nav-link" data-scroll-target="#parquet-files-available">Parquet files available</a>
   <ul class="collapse">
   <li><a href="#mgy_proteins_metadata.parquet" id="toc-mgy_proteins_metadata.parquet" class="nav-link" data-scroll-target="#mgy_proteins_metadata.parquet">mgy_proteins_metadata.parquet</a></li>
+  <li><a href="#mgy_clusters_metadata.parquet" id="toc-mgy_clusters_metadata.parquet" class="nav-link" data-scroll-target="#mgy_clusters_metadata.parquet">mgy_clusters_metadata.parquet</a></li>
   <li><a href="#mgy_protein_sequences.parquet" id="toc-mgy_protein_sequences.parquet" class="nav-link" data-scroll-target="#mgy_protein_sequences.parquet">mgy_protein_sequences.parquet</a></li>
   <li><a href="#mgy_cluster_seqs.parquet" id="toc-mgy_cluster_seqs.parquet" class="nav-link" data-scroll-target="#mgy_cluster_seqs.parquet">mgy_cluster_seqs.parquet</a></li>
   <li><a href="#mgy_clusters.parquet" id="toc-mgy_clusters.parquet" class="nav-link" data-scroll-target="#mgy_clusters.parquet">mgy_clusters.parquet</a></li>
@@ -472,6 +479,7 @@ table {
   <li><a href="#example-duckdb-queries" id="toc-example-duckdb-queries" class="nav-link" data-scroll-target="#example-duckdb-queries">Example DuckDB queries</a>
   <ul class="collapse">
   <li><a href="#remote-url" id="toc-remote-url" class="nav-link" data-scroll-target="#remote-url">Remote URL</a></li>
+  <li><a href="#plan-remote-query" id="toc-plan-remote-query" class="nav-link" data-scroll-target="#plan-remote-query">Plan a remote query</a></li>
   <li><a href="#get-mgyp-sequences" id="toc-get-mgyp-sequences" class="nav-link" data-scroll-target="#get-mgyp-sequences">Get MGYP sequences</a></li>
   <li><a href="#get-an-assemblys-proteins" id="toc-get-an-assemblys-proteins" class="nav-link" data-scroll-target="#get-an-assemblys-proteins">Get an assembly’s proteins</a></li>
   <li><a href="#get-all-biomes-and-biome-counts-for-a-protein" id="toc-get-all-biomes-and-biome-counts-for-a-protein" class="nav-link" data-scroll-target="#get-all-biomes-and-biome-counts-for-a-protein">Get all biomes and biome counts for a protein</a></li>
@@ -517,7 +525,7 @@ table {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 4, 2026</p>
+      <p class="date">November 17, 2026</p>
     </div>
   </div>
   
@@ -552,7 +560,7 @@ table {
 </section>
 <section id="parquet-files-available" class="level2">
 <h2 class="anchored" data-anchor-id="parquet-files-available">Parquet files available</h2>
-<p>As part of the 2026_07 release, we distribute eight Parquet files.</p>
+<p>The <code>2026_07</code> release, including its <code>2026_07.1</code> update, distributes nine Parquet files. The <a href="https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/README.md">release README and changelog</a> describe the published files. For task-based examples, see <a href="../../src/docs/mgnify-proteins-programmatic.html#bulk">programmatic access</a>, including combined Pfam, biome and full-length filtering and sequence exports.</p>
 <section id="mgy_proteins_metadata.parquet" class="level3">
 <h3 class="anchored" data-anchor-id="mgy_proteins_metadata.parquet">mgy_proteins_metadata.parquet</h3>
 <p>All metadata related to proteins, assemblies, contigs, etc, for the entire protein database, in one Parquet file.</p>
@@ -652,6 +660,11 @@ table {
 </div>
 </section>
 </section>
+<section id="mgy_clusters_metadata.parquet" class="level3">
+<h3 class="anchored" data-anchor-id="mgy_clusters_metadata.parquet">mgy_clusters_metadata.parquet</h3>
+<p>Occurrence metadata for <strong>MGnify90 cluster representatives only</strong>, added in the <code>2026_07.1</code> update. The release README describes this extract as sorted by <code>protein_id</code> and about 107 GB, approximately 20% of the all-protein metadata file. It still contains multiple rows for representatives with multiple occurrences.</p>
+<p>It has the occurrence fields described above, excluding <code>cluster_rep</code> and <code>is_cluster_rep</code>. Use it when you need representative occurrences; use <code>mgy_proteins_metadata.parquet</code> when you also need non-representative proteins. Neither documented occurrence schema includes an MGYA analysis accession.</p>
+</section>
 <section id="mgy_protein_sequences.parquet" class="level3">
 <h3 class="anchored" data-anchor-id="mgy_protein_sequences.parquet">mgy_protein_sequences.parquet</h3>
 <p>All non-redundant protein sequences in one Parquet file, including information about whether a sequence is full-length or not.</p>
@@ -711,8 +724,8 @@ table {
 <section id="column-descriptions-2" class="level4">
 <h4 class="anchored" data-anchor-id="column-descriptions-2">Column descriptions:</h4>
 <ul>
-<li>cluster_rep_accession: The protein_id for the cluster representative</li>
-<li>member_accessions: The protein_id of a cluster member</li>
+<li>cluster_rep: The protein_id for the cluster representative</li>
+<li>cluster_member: The protein_id of a cluster member</li>
 </ul>
 <table class="caption-top table">
 <thead>
@@ -752,11 +765,11 @@ table {
 <section id="column-descriptions-3" class="level4">
 <h4 class="anchored" data-anchor-id="column-descriptions-3">Column descriptions:</h4>
 <ul>
-<li>cluster_rep_accession: The protein_id of the cluster representative</li>
+<li>cluster_rep: The protein_id of the cluster representative</li>
 <li>cluster_size: The number of sequences in the cluster</li>
-<li>assembly_count: The number of assemblies contributing to the cluster</li>
+<li>cluster_assembly_count: The number of assemblies contributing to the cluster</li>
 <li>cluster_rep_biomes: A non-redundant list of biomes for the cluster representative</li>
-<li>cluster_biomes: A non-redundant list of biomes across the whole cluster</li>
+<li>cluster_members_biomes: A non-redundant list of biomes across the whole cluster</li>
 </ul>
 <table class="caption-top table">
 <colgroup>
@@ -1010,14 +1023,14 @@ table {
 <section id="column-descriptions-7" class="level4">
 <h4 class="anchored" data-anchor-id="column-descriptions-7">Column descriptions:</h4>
 <ul>
-<li>mgyp: The MGYP accession for a non-redundant protein sequence</li>
-<li>mgyp_count: The number of observations for the protein</li>
+<li>protein_id: The numeric identifier for a non-redundant protein sequence</li>
+<li>protein_count: The number of observations for the protein</li>
 </ul>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">mgyp</th>
-<th style="text-align: right;">mgyp_count</th>
+<th style="text-align: right;">protein_id</th>
+<th style="text-align: right;">protein_count</th>
 </tr>
 </thead>
 <tbody>
@@ -1066,14 +1079,33 @@ Warning
 <h3 class="anchored" data-anchor-id="remote-url">Remote URL</h3>
 <p>The examples use a common URL to access the EMBL-EBI FTP that hosts the MGnify Proteins parquet files. This URL is: <code>https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07</code>.</p>
 </section>
+<section id="plan-remote-query" class="level3">
+<h3 class="anchored" data-anchor-id="plan-remote-query">Plan a remote query</h3>
+<p>Inspect the schema and file metadata before reading data columns. These DuckDB queries use the representative metadata extract’s footer, not a full row scan:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>INSTALL httpfs;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>LOAD httpfs;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>DESCRIBE <span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> read_parquet(<span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_clusters_metadata.parquet'</span>);</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> num_rows, num_row_groups</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> parquet_file_metadata(<span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_clusters_metadata.parquet'</span>);</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> row_group_id, row_group_num_rows, stats_min_value, stats_max_value</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> parquet_metadata(<span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_clusters_metadata.parquet'</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> path_in_schema <span class="op">=</span> <span class="st">'protein_id'</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> row_group_id</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">5</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Footers can themselves be large. <code>LIMIT 5</code> above limits the metadata displayed, not how much footer metadata is retrieved. Row-group statistics indicate whether a filter can skip groups; a sorted <code>protein_id</code> does not imply that a Pfam filter can skip the same groups. Consult DuckDB’s <a href="https://duckdb.org/docs/stable/data/parquet/metadata.html">Parquet metadata documentation</a> for the returned fields.</p>
+<p>Select only the needed columns and use numeric predicates on stored IDs. Use explicit filenames from one release; do not assume an undocumented partition layout or a per-Pfam index exists. A <code>LIMIT</code> on a data query does not guarantee a small transfer, especially with joins, sorting or filters that match few rows. SQL results have no guaranteed order without <code>ORDER BY</code>, which can add work. See <a href="https://duckdb.org/docs/stable/data/parquet/tips.html">DuckDB’s Parquet tips</a> for how sorting and row-group sizes affect selective reads.</p>
+</section>
 <section id="get-mgyp-sequences" class="level3">
 <h3 class="anchored" data-anchor-id="get-mgyp-sequences">Get MGYP sequences</h3>
 <section id="one-mgyp" class="level4">
 <h4 class="anchored" data-anchor-id="one-mgyp">One MGYP</h4>
 <p>If you have a particular MGYP accession, let’s say <code>MGYP000000000001</code>, and you want its amino acid sequence, you can do so with the following query:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_protein_sequences.parquet'</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> protein_id <span class="op">=</span> <span class="dv">1</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_protein_sequences.parquet'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> protein_id <span class="op">=</span> <span class="dv">1</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Output:</p>
 <table class="caption-top table">
 <colgroup>
@@ -1099,9 +1131,9 @@ Warning
 </section>
 <section id="multiple-mgyps" class="level4">
 <h4 class="anchored" data-anchor-id="multiple-mgyps">Multiple MGYPs</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_protein_sequences.parquet'</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> protein_id <span class="kw">IN</span> (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_protein_sequences.parquet'</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> protein_id <span class="kw">IN</span> (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Output:</p>
 <table class="caption-top table">
 <colgroup>
@@ -1138,11 +1170,11 @@ Warning
 </section>
 <section id="get-an-assemblys-proteins" class="level3">
 <h3 class="anchored" data-anchor-id="get-an-assemblys-proteins">Get an assembly’s proteins</h3>
-<p>If you have an ENA assembly accession, like <code>ERZ23872034</code>, you can find all of its MGYPs like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> protein_id</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_proteins_metadata.parquet'</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> assembly_accession <span class="op">=</span> <span class="st">'ERZ1022766'</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">500</span>; <span class="co">-- This will limit to 500 results, remove if you want all results</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you have an ENA assembly accession, like <code>ERZ1022766</code>, you can find all of its MGYPs like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> protein_id</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_proteins_metadata.parquet'</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> assembly_accession <span class="op">=</span> <span class="st">'ERZ1022766'</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">500</span>; <span class="co">-- This will limit to 500 results, remove if you want all results</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Output:</p>
 <table class="caption-top table">
 <thead>
@@ -1193,9 +1225,9 @@ Warning
 <section id="get-all-biomes-and-biome-counts-for-a-protein" class="level3">
 <h3 class="anchored" data-anchor-id="get-all-biomes-and-biome-counts-for-a-protein">Get all biomes and biome counts for a protein</h3>
 <p>If you want to get all the biomes <code>MGYP000000000001</code> is in, along with how often it appears in each biome, you can do so with the following query:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_biomes.parquet'</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> protein_id <span class="op">=</span> <span class="dv">1</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_biomes.parquet'</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> protein_id <span class="op">=</span> <span class="dv">1</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Output:</p>
 <table class="caption-top table">
 <colgroup>
@@ -1299,9 +1331,9 @@ Warning
 <section id="get-all-members-of-a-representative" class="level4">
 <h4 class="anchored" data-anchor-id="get-all-members-of-a-representative">Get all members of a representative</h4>
 <p>If you have a MGYP that you know is a cluster representative, and you want to fetch all of its members, you can do this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_cluster_seqs.parquet'</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> cluster_rep <span class="op">=</span> <span class="dv">21</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="st">'https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/2026_07/mgy_cluster_seqs.parquet'</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> cluster_rep <span class="op">=</span> <span class="dv">21</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Output:</p>
 <table class="caption-top table">
 <thead>
@@ -1416,13 +1448,13 @@ Warning
   author = {, MGnify},
   title = {Remote Querying of {MGnify} {Proteins} Using {Parquet} and
     {DuckDB}},
-  date = {2026-11-04},
+  date = {2026-11-17},
   url = {https://docs.mgnify.org/src/docs/mgnify-proteins-parquet-queries.html},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
 MGnify. 2026. <span>“Remote Querying of MGnify Proteins Using Parquet
-and DuckDB.”</span> November 4. <a href="https://docs.mgnify.org/src/docs/mgnify-proteins-parquet-queries.html">https://docs.mgnify.org/src/docs/mgnify-proteins-parquet-queries.html</a>.
+and DuckDB.”</span> November 17. <a href="https://docs.mgnify.org/src/docs/mgnify-proteins-parquet-queries.html">https://docs.mgnify.org/src/docs/mgnify-proteins-parquet-queries.html</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

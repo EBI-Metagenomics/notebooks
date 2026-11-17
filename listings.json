@@ -27,7 +27,8 @@
       "/src/docs/mgnify-proteins-api.html",
       "/src/docs/mgnify-proteins-parquet-queries.html",
       "/src/docs/mgnify-proteins-contig-sequences.html",
-      "/src/docs/mgnify-proteins-sequence-search.html"
+      "/src/docs/mgnify-proteins-sequence-search.html",
+      "/src/docs/mgnify-proteins-programmatic.html"
     ]
   }
 ]

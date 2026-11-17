@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="MGnify">
-<meta name="dcterms.date" content="2026-11-04">
+<meta name="dcterms.date" content="2026-11-17">
 <meta name="description" content="Programatically accessing MGnify data via the API (Application Programming Interface)">
 
 <title>RESTful API – MGnify Resources</title>
@@ -86,7 +86,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3da984f748224b1e0cd87e13b5fdabc6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b9b84635d147532e87cf711ffd9f10aa.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-30ec0a16734feaac916c6d39f38dce14.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -402,6 +402,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-programmatic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using MGnify Proteins programmatically</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence search</span></a>
   </div>
@@ -452,6 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#current-version" id="toc-current-version" class="nav-link" data-scroll-target="#current-version">Current version</a></li>
   <li><a href="#base-url" id="toc-base-url" class="nav-link" data-scroll-target="#base-url">Base URL</a></li>
+  <li><a href="#finding-protein-data" id="toc-finding-protein-data" class="nav-link" data-scroll-target="#finding-protein-data">Finding protein data</a></li>
   <li><a href="#http-methods" id="toc-http-methods" class="nav-link" data-scroll-target="#http-methods">HTTP methods</a></li>
   <li><a href="#responses" id="toc-responses" class="nav-link" data-scroll-target="#responses">Responses</a></li>
   <li><a href="#pagination" id="toc-pagination" class="nav-link" data-scroll-target="#pagination">Pagination</a></li>
@@ -504,7 +511,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 4, 2026</p>
+      <p class="date">November 17, 2026</p>
     </div>
   </div>
   
@@ -542,7 +549,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Browsing the API root (i.e.&nbsp;going to <a href="https://www.ebi.ac.uk/metagenomics/api/v2/"><code>/api/v2</code></a> in a web browser) shows a human-readable, browsable, interactive documentation page for the API. This is the easiest way to explore it.</p>
 <p>To programatically explore it, e.g.&nbsp;to help instruct a large-language model to use it, an OpenAPI JSON is provided:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> GET <span class="st">"https://www.ebi.ac.uk/metagenomics/api/v2/openapi.json"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>There are several easy-to-use top-levels resources, such as <a href="../../src/docs/glossary.html#study">studies</a>, <a href="../../src/docs/glossary.html#sample">samples</a>, <a href="../../src/docs/glossary.html#run">runs</a>, <a href="../../src/docs/glossary.html#biome">biomes</a>, and <a href="../../src/docs/glossary.html#analysis+result">analyses</a>. For example <a href="https://www.ebi.ac.uk/metagenomics/api/v2/studies">https://www.ebi.ac.uk/metagenomics/api/v2/studies</a> retrieves a list of all studies, while <a href="https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397">https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397</a> retrieves a single study, with the accession <code>MGYS00010397</code>. The samples contained within this study can be retrieved using the relationship URL: <a href="https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397/samples/">https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397/samples/</a>.</p>
+<p>There are several easy-to-use top-levels resources, such as <a href="../../src/docs/glossary.html#study">studies</a>, <a href="../../src/docs/glossary.html#sample">samples</a>, <a href="../../src/docs/glossary.html#run">runs</a>, <a href="../../src/docs/glossary.html#biome">biomes</a>, and <a href="../../src/docs/glossary.html#analysis-result">analyses</a>. For example <a href="https://www.ebi.ac.uk/metagenomics/api/v2/studies">https://www.ebi.ac.uk/metagenomics/api/v2/studies</a> retrieves a list of all studies, while <a href="https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397">https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397</a> retrieves a single study, with the accession <code>MGYS00010397</code>. The samples contained within this study can be retrieved using the relationship URL: <a href="https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397/samples/">https://www.ebi.ac.uk/metagenomics/api/v2/studies/MGYS00010397/samples/</a>.</p>
+</section>
+<section id="finding-protein-data" class="level3">
+<h3 class="anchored" data-anchor-id="finding-protein-data">Finding protein data</h3>
+<p>MGnify Proteins currently has a <strong>separate public API</strong> at <a href="https://www.ebi.ac.uk/metagenomics/proteins/api/v1/docs"><code>/metagenomics/proteins/api/v1</code></a>. Start with the <a href="../../src/docs/mgnify-proteins-api.html">Proteins API reference</a> or the <a href="../../src/docs/mgnify-proteins-programmatic.html">programmatic access guide</a> for MGYP lookups, Pfam and biome searches, bulk sequences and sequence similarity searches. Agents can start from <a href="../../llms.txt">llms.txt</a>.</p>
+<p>Protein routes are not part of the main v2 API. Use the <a href="https://www.ebi.ac.uk/metagenomics/proteins/api/v1/openapi.json">Proteins OpenAPI schema</a> for the supported protein operations.</p>
+<p>The <code>{count, items}</code> response and <code>page</code>/<code>page_size</code> pagination described below apply to the main API. Protein search currently returns a bare JSON list with a limit, no total count and no pagination. Do not apply the main API’s pagination loop to protein search. API versions (<code>v2</code> and <code>v1</code>) also differ from the protein <strong>data release</strong>, such as <code>2026_07</code>.</p>
 </section>
 <section id="http-methods" class="level3">
 <h3 class="anchored" data-anchor-id="http-methods">HTTP methods</h3>
@@ -624,12 +637,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{2026,
   author = {, MGnify},
   title = {RESTful {API}},
-  date = {2026-11-04},
+  date = {2026-11-17},
   url = {https://docs.mgnify.org/src/docs/api.html},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
-MGnify. 2026. <span>“RESTful API.”</span> November 4. <a href="https://docs.mgnify.org/src/docs/api.html">https://docs.mgnify.org/src/docs/api.html</a>.
+MGnify. 2026. <span>“RESTful API.”</span> November 17. <a href="https://docs.mgnify.org/src/docs/api.html">https://docs.mgnify.org/src/docs/api.html</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

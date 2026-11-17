@@ -84,7 +84,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3da984f748224b1e0cd87e13b5fdabc6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b9b84635d147532e87cf711ffd9f10aa.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-30ec0a16734feaac916c6d39f38dce14.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -404,6 +404,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-programmatic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using MGnify Proteins programmatically</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence search</span></a>
   </div>
@@ -453,7 +459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up">Set up</a></li>
   <li><a href="#look-up-a-protein" id="toc-look-up-a-protein" class="nav-link" data-scroll-target="#look-up-a-protein">Look up a protein</a></li>
   <li><a href="#find-proteins-carrying-a-pfam-domain" id="toc-find-proteins-carrying-a-pfam-domain" class="nav-link" data-scroll-target="#find-proteins-carrying-a-pfam-domain">Find proteins carrying a Pfam domain</a></li>
-  <li><a href="#build-a-fasta-file-for-a-biome" id="toc-build-a-fasta-file-for-a-biome" class="nav-link" data-scroll-target="#build-a-fasta-file-for-a-biome">Build a FASTA file for a biome</a></li>
+  <li><a href="#build-a-limited-fasta-file-for-a-biome" id="toc-build-a-limited-fasta-file-for-a-biome" class="nav-link" data-scroll-target="#build-a-limited-fasta-file-for-a-biome">Build a limited FASTA file for a biome</a></li>
   <li><a href="#explore-outwards-from-one-protein" id="toc-explore-outwards-from-one-protein" class="nav-link" data-scroll-target="#explore-outwards-from-one-protein">Explore outwards from one protein</a></li>
   <li><a href="#running-this-code-in-your-own-environment" id="toc-running-this-code-in-your-own-environment" class="nav-link" data-scroll-target="#running-this-code-in-your-own-environment">Running this code in your own environment</a></li>
   </ul>
@@ -487,7 +493,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Edit and run the cells below, in order. The first visit may take a minute to load. Copy any code you want to keep before leaving or reloading the page.</p>
-<p>The endpoints, parameters and response fields used here are described in the <a href="../../src/docs/mgnify-proteins-api.html">Proteins API reference</a>.</p>
+<p>The endpoints, parameters and response fields used here are described in the <a href="../../src/docs/mgnify-proteins-api.html">Proteins API reference</a>. For exhaustive queries, combined filters and large sequence sets, use the <a href="../../src/docs/mgnify-proteins-programmatic.html">programmatic access guide</a>.</p>
 <section id="set-up" class="level2">
 <h2 class="anchored" data-anchor-id="set-up">Set up</h2>
 <p>Every example reuses this base address and helper.</p>
@@ -496,7 +502,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 <script type="pyodide-1-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6ImltcG9ydCByZXF1ZXN0c1xuXG5BUEkgPSBcImh0dHBzOi8vd3d3LmViaS5hYy51ay9tZXRhZ2Vub21pY3MvcHJvdGVpbnMvYXBpL3YxXCJcblxuZGVmIGdldF9qc29uKHBhdGgsICoqcGFyYW1zKTpcbiAgICByZXNwb25zZSA9IHJlcXVlc3RzLmdldChmXCJ7QVBJfS97cGF0aH1cIiwgcGFyYW1zPXBhcmFtcywgdGltZW91dD0zMClcbiAgICByZXNwb25zZS5yYWlzZV9mb3Jfc3RhdHVzKClcbiAgICByZXR1cm4gcmVzcG9uc2UuanNvbigpXG5cbnByaW50KEFQSSkifQ==
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6ImltcG9ydCByZXF1ZXN0c1xuXG5BUEkgPSBcImh0dHBzOi8vd3d3LmViaS5hYy51ay9tZXRhZ2Vub21pY3MvcHJvdGVpbnMvYXBpL3YxXCJcblxuZGVmIGdldF9qc29uKHBhdGgsICoqcGFyYW1zKTpcbiAgICByZXNwb25zZSA9IHJlcXVlc3RzLmdldChmXCJ7QVBJfS97cGF0aH1cIiwgcGFyYW1zPXBhcmFtcywgdGltZW91dD0zMClcbiAgICByZXNwb25zZS5yYWlzZV9mb3Jfc3RhdHVzKClcbiAgICByZXR1cm4gcmVzcG9uc2UuanNvbigpXG5cbmRlZiBzZWFyY2hfcHJvdGVpbnMoKiwgbGltaXQ9NTAsIGJpb21lX2lkPU5vbmUsIGJpb21lX2xpbmVhZ2U9Tm9uZSwgcGZhbV9hY2Nlc3Npb249Tm9uZSk6XG4gICAgZmlsdGVycyA9IHtcbiAgICAgICAga2V5OiB2YWx1ZSBmb3Iga2V5LCB2YWx1ZSBpbiB7XG4gICAgICAgICAgICBcImJpb21lX2lkXCI6IGJpb21lX2lkLFxuICAgICAgICAgICAgXCJiaW9tZV9saW5lYWdlXCI6IGJpb21lX2xpbmVhZ2UsXG4gICAgICAgICAgICBcInBmYW1fYWNjZXNzaW9uXCI6IHBmYW1fYWNjZXNzaW9uLFxuICAgICAgICB9Lml0ZW1zKCkgaWYgdmFsdWUgaXMgbm90IE5vbmVcbiAgICB9XG4gICAgaWYgbGVuKGZpbHRlcnMpICE9IDE6XG4gICAgICAgIHJhaXNlIFZhbHVlRXJyb3IoXCJQcm92aWRlIGV4YWN0bHkgb25lIGJpb21lIG9yIFBmYW0gZmlsdGVyXCIpXG4gICAgaWYgdHlwZShsaW1pdCkgaXMgbm90IGludCBvciBub3QgMSA8PSBsaW1pdCA8PSAxMDAwOlxuICAgICAgICByYWlzZSBWYWx1ZUVycm9yKFwibGltaXQgbXVzdCBiZSBhbiBpbnRlZ2VyIGZyb20gMSB0byAxMDAwXCIpXG4gICAgaGl0cyA9IGdldF9qc29uKFwicHJvdGVpbi9zZWFyY2hcIiwgbGltaXQ9bGltaXQsICoqZmlsdGVycylcbiAgICBpZiBsZW4oaGl0cykgPT0gbGltaXQ6XG4gICAgICAgIHByaW50KFxuICAgICAgICAgICAgZlwiU2VhcmNoIHJlYWNoZWQgbGltaXQ9e2xpbWl0fTsgcmVzdWx0cyBtYXkgYmUgaW5jb21wbGV0ZS4gXCJcbiAgICAgICAgICAgIFwiVXNlIHJlbGVhc2UgZmlsZXMgZm9yIGFsbCBtYXRjaGVzLiBUaGVyZSBpcyBubyBuZXh0IHBhZ2UuXCJcbiAgICAgICAgKVxuICAgIHJldHVybiBoaXRzXG5cbnByaW50KEFQSSkifQ==
 </script>
 </div>
 </section>
@@ -508,7 +514,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Imlt
 
 </div>
 <script type="pyodide-2-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6InByb3RlaW4gPSBnZXRfanNvbihcInByb3RlaW4vTUdZUDAwMDI2MTY4NDQzM1wiKVxuXG5wcmludChwcm90ZWluW1wibWd5cFwiXSlcbnByaW50KGZcIntsZW4ocHJvdGVpblsnc2VxdWVuY2UnXSl9IGFhXCIpXG5wcmludChcImZ1bGwtbGVuZ3RoXCIgaWYgcHJvdGVpbltcImZ1bGxfbGVuZ3RoXCJdIGVsc2UgXCJmcmFnbWVudFwiKSJ9
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6InByb3RlaW4gPSBnZXRfanNvbihcInByb3RlaW4vTUdZUDAwMDI2MTY4NDQzM1wiKVxuXG5wcmludChwcm90ZWluW1wibWd5cFwiXSlcbnByaW50KGZcIntsZW4ocHJvdGVpblsnc2VxdWVuY2UnXSl9IGFhXCIpXG5wcmludCh7VHJ1ZTogXCJmdWxsLWxlbmd0aFwiLCBGYWxzZTogXCJmcmFnbWVudFwiLCBOb25lOiBcInVua25vd25cIn1bcHJvdGVpbltcImZ1bGxfbGVuZ3RoXCJdXSkifQ==
 </script>
 </div>
 <p>The same record written out as FASTA:</p>
@@ -529,7 +535,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6InBy
 
 </div>
 <script type="pyodide-4-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6ImhpdHMgPSBnZXRfanNvbihcInByb3RlaW4vc2VhcmNoXCIsIHBmYW1fYWNjZXNzaW9uPVwiUEYwMDAwNVwiLCBsaW1pdD01KVxuXG5mb3IgaGl0IGluIGhpdHM6XG4gICAgcHJpbnQoaGl0W1wibWd5cFwiXSkifQ==
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6ImhpdHMgPSBzZWFyY2hfcHJvdGVpbnMocGZhbV9hY2Nlc3Npb249XCJQRjAwMDA1XCIsIGxpbWl0PTUpXG5cbmZvciBoaXQgaW4gaGl0czpcbiAgICBwcmludChoaXRbXCJtZ3lwXCJdKSJ9
 </script>
 </div>
 <p>Search results carry only <code>mgyp</code>, <code>full_length</code> and <code>cluster_size</code>. Fetching each hit from the detail endpoint adds the sequence length and the domains it carries:</p>
@@ -538,26 +544,48 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Imhp
 
 </div>
 <script type="pyodide-5-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6ImZvciBoaXQgaW4gaGl0czpcbiAgICBwcm90ZWluID0gZ2V0X2pzb24oZlwicHJvdGVpbi97aGl0WydtZ3lwJ119XCIpXG4gICAgZG9tYWlucyA9IFwiLCBcIi5qb2luKHBbXCJhY2Nlc3Npb25cIl0gZm9yIHAgaW4gcHJvdGVpbltcInBmYW1fYW5ub3RhdGlvbnNcIl0pXG4gICAgbGVuZ3RoID0gXCJmdWxsLWxlbmd0aFwiIGlmIHByb3RlaW5bXCJmdWxsX2xlbmd0aFwiXSBlbHNlIFwiZnJhZ21lbnRcIlxuICAgIHByaW50KGZcIntwcm90ZWluWydtZ3lwJ119XFx0e2xlbmd0aH1cXHR7bGVuKHByb3RlaW5bJ3NlcXVlbmNlJ10pfSBhYVxcdHtkb21haW5zfVwiKSJ9
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6ImZvciBoaXQgaW4gaGl0czpcbiAgICBwcm90ZWluID0gZ2V0X2pzb24oZlwicHJvdGVpbi97aGl0WydtZ3lwJ119XCIpXG4gICAgZG9tYWlucyA9IFwiLCBcIi5qb2luKHBbXCJhY2Nlc3Npb25cIl0gZm9yIHAgaW4gcHJvdGVpbltcInBmYW1fYW5ub3RhdGlvbnNcIl0pXG4gICAgbGVuZ3RoID0ge1RydWU6IFwiZnVsbC1sZW5ndGhcIiwgRmFsc2U6IFwiZnJhZ21lbnRcIiwgTm9uZTogXCJ1bmtub3duXCJ9W3Byb3RlaW5bXCJmdWxsX2xlbmd0aFwiXV1cbiAgICBwcmludChmXCJ7cHJvdGVpblsnbWd5cCddfVxcdHtsZW5ndGh9XFx0e2xlbihwcm90ZWluWydzZXF1ZW5jZSddKX0gYWFcXHR7ZG9tYWluc31cIikifQ==
 </script>
 </div>
 </section>
-<section id="build-a-fasta-file-for-a-biome" class="level2">
-<h2 class="anchored" data-anchor-id="build-a-fasta-file-for-a-biome">Build a FASTA file for a biome</h2>
+<section id="build-a-limited-fasta-file-for-a-biome" class="level2">
+<h2 class="anchored" data-anchor-id="build-a-limited-fasta-file-for-a-biome">Build a limited FASTA file for a biome</h2>
 <p>A common workflow: find the cluster representatives observed in a biome, then retrieve each sequence. Searching by <code>biome_lineage</code> covers the biome <strong>and all of its sub-biomes</strong>. Edit the lineage or the limit, then run the cell again to rebuild the download.</p>
+<p>This is a limited selection ordered by MGYP, not all sequences in the biome or a random sample. Every run that reaches <code>LIMIT</code> prints a warning. <code>offset</code>, <code>page</code> and <code>cursor</code> are ignored by the service; they cannot retrieve the rest of the results.</p>
 <div>
 <div id="pyodide-6" class="exercise-cell">
 
 </div>
 <script type="pyodide-6-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJkZWZpbmUiOlsiZmFzdGFfdGV4dCIsImZhc3RhX2ZpbGVuYW1lIl0sImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiTElORUFHRSA9IFwicm9vdDpFbmdpbmVlcmVkOldhc3Rld2F0ZXJcIlxuTElNSVQgPSAxMFxuXG5oaXRzID0gZ2V0X2pzb24oXCJwcm90ZWluL3NlYXJjaFwiLCBiaW9tZV9saW5lYWdlPUxJTkVBR0UsIGxpbWl0PUxJTUlUKVxuXG5yZWNvcmRzID0gW11cbmZvciBoaXQgaW4gaGl0czpcbiAgICBwcm90ZWluID0gZ2V0X2pzb24oZlwicHJvdGVpbi97aGl0WydtZ3lwJ119XCIpXG4gICAgcmVjb3Jkcy5hcHBlbmQoZlwiPntwcm90ZWluWydtZ3lwJ119XFxue3Byb3RlaW5bJ3NlcXVlbmNlJ119XCIpXG5cbmZhc3RhX3RleHQgPSBcIlxcblwiLmpvaW4ocmVjb3JkcykgKyBcIlxcblwiXG5mYXN0YV9maWxlbmFtZSA9IExJTkVBR0UucmVwbGFjZShcIjpcIiwgXCItXCIpICsgXCIuZmFzdGFcIlxuXG5wcmludChmXCJDb2xsZWN0ZWQge2xlbihyZWNvcmRzKX0gc2VxdWVuY2VzXCIpXG5wcmludChmYXN0YV90ZXh0WzoyNDBdICsgXCIuLi5cIikifQ==
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJkZWZpbmUiOlsiZmFzdGFfdGV4dCIsImZhc3RhX2ZpbGVuYW1lIl0sImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiTElORUFHRSA9IFwicm9vdDpFbmdpbmVlcmVkOldhc3Rld2F0ZXJcIlxuTElNSVQgPSAxMFxuXG5oaXRzID0gc2VhcmNoX3Byb3RlaW5zKGJpb21lX2xpbmVhZ2U9TElORUFHRSwgbGltaXQ9TElNSVQpXG5cbnJlY29yZHMgPSBbXVxuZm9yIGhpdCBpbiBoaXRzOlxuICAgIHByb3RlaW4gPSBnZXRfanNvbihmXCJwcm90ZWluL3toaXRbJ21neXAnXX1cIilcbiAgICByZWNvcmRzLmFwcGVuZChmXCI+e3Byb3RlaW5bJ21neXAnXX1cXG57cHJvdGVpblsnc2VxdWVuY2UnXX1cIilcblxuZmFzdGFfdGV4dCA9IFwiXFxuXCIuam9pbihyZWNvcmRzKSArIFwiXFxuXCJcbmZhc3RhX2ZpbGVuYW1lID0gTElORUFHRS5yZXBsYWNlKFwiOlwiLCBcIi1cIikgKyBmXCItbGltaXQte0xJTUlUfS5mYXN0YVwiXG5cbnByaW50KGZcIkNvbGxlY3RlZCB7bGVuKHJlY29yZHMpfSBzZXF1ZW5jZXNcIilcbnByaW50KGZhc3RhX3RleHRbOjI0MF0gKyBcIi4uLlwiKSJ9
 </script>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="109" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 108;"><span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>DOM<span class="op">.</span><span class="fu">download</span>(<span class="kw">new</span> <span class="bu">Blob</span>([fasta_text]<span class="op">,</span> {<span class="dt">type</span><span class="op">:</span> <span class="st">"text/plain;charset=utf-8"</span>})<span class="op">,</span> fasta_filename<span class="op">,</span> <span class="st">"Download FASTA"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="137" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 136;"><span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>fasta_text <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>fasta_filename <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>fasta_text <span class="op">&amp;&amp;</span> fasta_filename</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>  <span class="op">?</span> DOM<span class="op">.</span><span class="fu">download</span>(<span class="kw">new</span> <span class="bu">Blob</span>([fasta_text]<span class="op">,</span> {<span class="dt">type</span><span class="op">:</span> <span class="st">"text/plain;charset=utf-8"</span>})<span class="op">,</span> fasta_filename<span class="op">,</span> <span class="st">"Download FASTA"</span>)</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>  <span class="op">:</span> <span class="fu">html</span><span class="vs">`&lt;p&gt;Run the cell above to prepare the FASTA download.&lt;/p&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<div id="ojs-cell-1" data-nodetype="expression">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
 
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="expression">
+
+</div>
 </div>
 </div>
 </div>
@@ -584,7 +612,7 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This makes one request per protein, so keep <code>LIMIT</code> modest and be considerate of the service, which is rate-limited. For thousands of sequences, query the release remotely with <a href="../../src/docs/mgnify-proteins-parquet-queries.html">Parquet and DuckDB</a>, or take a <a href="../../src/docs/ftp.html">bulk download</a> instead.</p>
+<p>This makes one request per protein, so keep <code>LIMIT</code> modest and make requests serially. For thousands of sequences, query the release remotely with <a href="../../src/docs/mgnify-proteins-parquet-queries.html">Parquet and DuckDB</a>, or take a <a href="../../src/docs/ftp.html">bulk download</a> instead.</p>
 </div>
 </div>
 </section>
@@ -604,7 +632,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6InBy
 
 </div>
 <script type="pyodide-8-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Im5laWdoYm91cnMgPSBnZXRfanNvbihcbiAgICBcInByb3RlaW4vc2VhcmNoXCIsXG4gICAgYmlvbWVfaWQ9cHJvdGVpbltcImJpb21lc1wiXVswXVtcImlkXCJdLFxuICAgIGxpbWl0PTEwLFxuKVxuXG5mb3IgaGl0IGluIG5laWdoYm91cnM6XG4gICAgcHJpbnQoaGl0W1wibWd5cFwiXSkifQ==
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Im5laWdoYm91cnMgPSBzZWFyY2hfcHJvdGVpbnMoXG4gICAgYmlvbWVfaWQ9cHJvdGVpbltcImJpb21lc1wiXVswXVtcImlkXCJdLFxuICAgIGxpbWl0PTEwLFxuKVxuXG5mb3IgaGl0IGluIG5laWdoYm91cnM6XG4gICAgcHJpbnQoaGl0W1wibWd5cFwiXSkifQ==
 </script>
 </div>
 </section>
@@ -638,7 +666,7 @@ WyJzdHVkeS1saW5rLmpzIl0=
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IkRPTS5kb3dubG9hZChuZXcgQmxvYihbZmFzdGFfdGV4dF0sIHt0eXBlOiBcInRleHQvcGxhaW47Y2hhcnNldD11dGYtOFwifSksIGZhc3RhX2ZpbGVuYW1lLCBcIkRvd25sb2FkIEZBU1RBXCIpXG4ifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZhc3RhX3RleHQgPSBcIlwiXG5mYXN0YV9maWxlbmFtZSA9IFwiXCJcblxuZmFzdGFfdGV4dCAmJiBmYXN0YV9maWxlbmFtZVxuICA/IERPTS5kb3dubG9hZChuZXcgQmxvYihbZmFzdGFfdGV4dF0sIHt0eXBlOiBcInRleHQvcGxhaW47Y2hhcnNldD11dGYtOFwifSksIGZhc3RhX2ZpbGVuYW1lLCBcIkRvd25sb2FkIEZBU1RBXCIpXG4gIDogaHRtbGA8cD5SdW4gdGhlIGNlbGwgYWJvdmUgdG8gcHJlcGFyZSB0aGUgRkFTVEEgZG93bmxvYWQuPC9wPmBcbiJ9XX0=
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }

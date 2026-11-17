@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="MGnify">
-<meta name="dcterms.date" content="2026-11-04">
+<meta name="dcterms.date" content="2026-11-17">
 <meta name="description" content="Programmatically accessing MGnify Proteins data via the Proteins Web API">
 
 <title>Proteins API – MGnify Resources</title>
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../src/docs/mgnify-proteins-sequence-search.html" rel="next">
+<link href="../../src/docs/mgnify-proteins-programmatic.html" rel="next">
 <link href="../../src/docs/mgnify-proteins-web.html" rel="prev">
 <link href="../../src/static-resources/mgnify_logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -86,7 +86,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3da984f748224b1e0cd87e13b5fdabc6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b9b84635d147532e87cf711ffd9f10aa.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-30ec0a16734feaac916c6d39f38dce14.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -402,6 +402,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../src/docs/mgnify-proteins-programmatic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using MGnify Proteins programmatically</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../src/docs/mgnify-proteins-sequence-search.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence search</span></a>
   </div>
@@ -519,7 +525,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 4, 2026</p>
+      <p class="date">November 17, 2026</p>
     </div>
   </div>
   
@@ -557,6 +563,7 @@ Note
 <section id="current-version" class="level3">
 <h3 class="anchored" data-anchor-id="current-version">Current version</h3>
 <p>The current API version is <strong>v1</strong>.</p>
+<p>This is separate from the <a href="../../src/docs/api.html#finding-protein-data">main MGnify API v2</a>. For worked examples combining Pfam and biome filters, bulk sequences, identifiers and release tracking, see <a href="../../src/docs/mgnify-proteins-programmatic.html">Using MGnify Proteins programmatically</a>.</p>
 </section>
 <section id="base-url" class="level3">
 <h3 class="anchored" data-anchor-id="base-url">Base URL</h3>
@@ -575,6 +582,7 @@ Note
 <section id="http-methods" class="level3">
 <h3 class="anchored" data-anchor-id="http-methods">HTTP methods</h3>
 <p>The API is read-only: only <code>GET</code> is supported.</p>
+<p><code>HEAD</code> returns <code>405 Method Not Allowed</code>, including for existing proteins. Use <code>GET</code> for an existence check and handle its status; a failed <code>HEAD</code> does not establish that a protein is missing.</p>
 </section>
 <section id="endpoints" class="level3">
 <h3 class="anchored" data-anchor-id="endpoints">Endpoints</h3>
@@ -615,7 +623,7 @@ Note
 <tbody>
 <tr class="odd">
 <td><code>302</code></td>
-<td>The requested MGYP is no longer a cluster representative and has been superseded by another; the <code>Location</code> header carries the replacement accession. Pass <code>curl -L</code> to follow it automatically.</td>
+<td>Redirect response listed in the OpenAPI schema. Pass <code>curl -L</code> to follow redirects automatically.</td>
 </tr>
 <tr class="even">
 <td><code>404</code></td>
@@ -656,7 +664,7 @@ Warning
 <ul>
 <li><strong><code>mgyp</code></strong>: the MGYP accession, e.g.&nbsp;<code>MGYP000261684433</code>.</li>
 <li><strong><code>sequence</code></strong>: the amino acid sequence of the cluster representative.</li>
-<li><strong><code>full_length</code></strong>: whether the sequence is a full-length ORF (<code>true</code>) or a fragment (<code>false</code>).</li>
+<li><strong><code>full_length</code></strong>: whether the sequence is a full-length ORF (<code>true</code>) or a fragment (<code>false</code>); it can also be <code>null</code> (unknown).</li>
 <li><strong><code>cluster_size</code></strong>: the number of protein sequences in this cluster.</li>
 <li><strong><code>biomes</code></strong>: the <a href="../../src/docs/glossary.html#biome">biomes</a> this protein was observed in, each with an <code>id</code>, a <code>name</code> (the full lineage) and a <code>count</code> of occurrences. The <code>id</code> is the value to pass to the search endpoint’s <code>biome_id</code> parameter.</li>
 <li><strong><code>pfam_annotations</code></strong>: Pfam domains matched within the protein — <code>accession</code>, <code>name</code>, <code>clan</code>, <code>evalue</code>, <code>bit_score</code>, and the <code>hmm_start</code>/<code>hmm_end</code> and <code>env_start</code>/<code>env_end</code> coordinates.</li>
@@ -745,6 +753,20 @@ Warning
 </tbody>
 </table>
 <p>Results are returned as a single page ordered by MGYP accession, capped at <code>limit</code>. There is no pagination or offset: the search is designed for exploration. Larger result sets are better served by <a href="../../src/docs/mgnify-proteins-parquet-queries.html">remote Parquet queries with DuckDB</a>, or by a <a href="../../src/docs/ftp.html">bulk download</a> of the complete release.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>A full page is potentially incomplete
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The response has no <code>count</code>, <code>next</code> link or <code>truncated</code> flag. If the number of returned records equals your requested <code>limit</code> (including a small limit such as 10), treat the result as <strong>potentially truncated</strong>. Exactly <code>limit</code> matches and more than <code>limit</code> matches are indistinguishable. Do not report this list as all matches, or as a random sample: it is ordered by MGYP accession.</p>
+<p><code>offset</code>, <code>page</code> and <code>cursor</code> are unsupported and currently silently ignored. Changing them can return the same records again. <code>full_length</code> is a response field, not a supported search parameter. Only one of the three documented filters is accepted; for combined filters use the <a href="../../src/docs/mgnify-proteins-programmatic.html#pfam-biome">release query example</a>.</p>
+</div>
+</div>
 <p>Each result carries only <code>mgyp</code>, <code>full_length</code> and <code>cluster_size</code>. To obtain sequences and annotations, request each <code>mgyp</code> from the detail endpoint — see <a href="#uc-fasta">Building a FASTA file for a biome</a>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -757,7 +779,8 @@ Important
 </div>
 <div class="callout-body-container callout-body">
 <p><code>biome_lineage</code> must be a <strong>full lineage</strong>, not a fragment. <code>root:Engineered</code> or <code>root:Engineered:Wastewater</code> works, but <code>Wastewater</code> on its own matches no biome and returns <code>422</code> with an explanatory message. A valid lineage that simply has no cluster representatives returns <code>200</code> with an empty list.</p>
-<p>The full list of biomes can be retrieved from the MGnify API’s <a href="https://www.ebi.ac.uk/metagenomics/api/v2/biomes/">biomes endpoint</a>.</p>
+<p>The full list of biome <strong>lineages</strong> can be retrieved from the MGnify API’s <a href="https://www.ebi.ac.uk/metagenomics/api/v2/biomes/">paginated biomes endpoint</a>. It returns <code>biome_name</code> and <code>lineage</code>, not numeric IDs. Use these lineages with <code>biome_lineage</code>; obtain numeric <code>biome_id</code> values from <code>biomes[].id</code> in a protein detail response.</p>
+<p>An unknown, syntactically accepted <code>pfam_accession</code> or <code>biome_id</code> currently returns <code>200</code> with <code>[]</code>, whereas an unknown <code>biome_lineage</code> returns <code>422</code>. An empty list alone therefore does not validate a Pfam accession or biome ID.</p>
 </div>
 </div>
 </section>
@@ -790,7 +813,7 @@ Note
 </section>
 <section id="use-cases" class="level2">
 <h2 class="anchored" data-anchor-id="use-cases">Use cases</h2>
-<p>The examples below use Python and the <a href="https://requests.readthedocs.io/"><code>requests</code></a> library. Each one reuses the <code>BASE</code> address defined in the first example.</p>
+<p>The examples below use Python and the <a href="https://requests.readthedocs.io/"><code>requests</code></a> library. Each one reuses the <code>BASE</code> address and <code>get_json</code> helper defined in the first example.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -810,9 +833,14 @@ Tip
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>BASE <span class="op">=</span> <span class="st">"https://www.ebi.ac.uk/metagenomics/proteins/api/v1"</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>protein <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>BASE<span class="sc">}</span><span class="ss">/protein/MGYP000261684433"</span>).json()</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(protein[<span class="st">"sequence"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_json(path, <span class="op">**</span>params):</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>BASE<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">"</span>, params<span class="op">=</span>params, timeout<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    response.raise_for_status()</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response.json()</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>protein <span class="op">=</span> get_json(<span class="st">"protein/MGYP000261684433"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(protein[<span class="st">"sequence"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>EESGVTRAVQGAGDEVPGEVFFEKGVVEETLRGGPAGEAAAGDTEAATAETDDGHLGSVGRNEKTSFAELKAEYESGDLEWVDDEDRETGPDTGESEHSKTSFADLKAEYESGDLEWVDDEGPDEAAARTTGSGDERTAASVETATTEVVPGEEERTAGEADEGEWDEGEWDGGEGDEETGDLADELDELELFEDEIEWDGDDNTPEESLARAGEEAGEREAERAAEDERTVEDERAAEDERGVSRDATGADTATAEEDSSADAPTADQRPDDAAGSRGQEGEAPSPEAASTSAGESPSADREGVEPEAASGGATKRRPPGESGEGKPYLETLPQGHWADLLVMEWLEFLVEEGGTQAATRALEYYERIGWIDGGVTEELERYLAGFEGDGDGALSIDHHRRSLSYVDQLGDGDVSVERLL</code></pre>
 <p>The same record written out as FASTA:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"&gt;</span><span class="sc">{</span>protein[<span class="st">'mgyp'</span>]<span class="sc">}</span><span class="ch">\n</span><span class="sc">{</span>protein[<span class="st">'sequence'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -827,15 +855,15 @@ EESGVTRAVQGAGDEVPGEVFFEKGVVEETLRGGPAGEAAAGDTEAATAETDDGHLGSVGRNEKTSFAELKAEYESGDLE
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>BASE <span class="op">=</span> <span class="st">"https://www.ebi.ac.uk/metagenomics/proteins/api/v1"</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Find cluster representatives from this biome and all of its sub-biomes.</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>hits <span class="op">=</span> requests.get(</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>BASE<span class="sc">}</span><span class="ss">/protein/search"</span>,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{<span class="st">"biome_lineage"</span>: <span class="st">"root:Engineered:Wastewater"</span>, <span class="st">"limit"</span>: <span class="dv">10</span>},</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>limit <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>hits <span class="op">=</span> get_json(<span class="st">"protein/search"</span>, biome_lineage<span class="op">=</span><span class="st">"root:Engineered:Wastewater"</span>, limit<span class="op">=</span>limit)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(hits) <span class="op">==</span> limit:</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Search reached its limit; these sequences may not include all matches."</span>)</span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Fetch each protein, and write it out as FASTA.</span></span>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"wastewater.fasta"</span>, <span class="st">"w"</span>) <span class="im">as</span> fasta_file:</span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> hit <span class="kw">in</span> hits:</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        protein <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>BASE<span class="sc">}</span><span class="ss">/protein/</span><span class="sc">{</span>hit[<span class="st">'mgyp'</span>]<span class="sc">}</span><span class="ss">"</span>).json()</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        protein <span class="op">=</span> get_json(<span class="ss">f"protein/</span><span class="sc">{</span>hit[<span class="st">'mgyp'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        fasta_file.write(<span class="ss">f"&gt;</span><span class="sc">{</span>protein[<span class="st">'mgyp'</span>]<span class="sc">}</span><span class="ch">\n</span><span class="sc">{</span>protein[<span class="st">'sequence'</span>]<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Wrote </span><span class="sc">{</span><span class="bu">len</span>(hits)<span class="sc">}</span><span class="ss"> sequences to wastewater.fasta"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -862,20 +890,19 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This makes one request per protein, so keep <code>limit</code> modest and be considerate of the service. This service is rate-limited, so queries are going to be throttled. For thousands of sequences, download the release from the <a href="https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/">FTP server</a> instead.</p>
+<p>This makes one request per protein, so keep <code>limit</code> modest and make requests serially. For thousands of sequences, download the release from the <a href="https://ftp.ebi.ac.uk/pub/databases/metagenomics/peptide_database/current_release/">FTP server</a> instead.</p>
 </div>
 </div>
 </section>
 <section id="finding-proteins-that-carry-a-pfam-domain" class="level3">
 <h3 class="anchored" data-anchor-id="finding-proteins-that-carry-a-pfam-domain">Finding proteins that carry a Pfam domain</h3>
 <p>Search by Pfam accession to get the matching accessions:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>hits <span class="op">=</span> requests.get(</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>BASE<span class="sc">}</span><span class="ss">/protein/search"</span>,</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{<span class="st">"pfam_accession"</span>: <span class="st">"PF00005"</span>, <span class="st">"limit"</span>: <span class="dv">5</span>},</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> hit <span class="kw">in</span> hits:</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(hit[<span class="st">"mgyp"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>hits <span class="op">=</span> get_json(<span class="st">"protein/search"</span>, pfam_accession<span class="op">=</span><span class="st">"PF00005"</span>, limit<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(hits) <span class="op">==</span> <span class="dv">5</span>:</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Search reached its limit; this is not an exhaustive Pfam result set."</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> hit <span class="kw">in</span> hits:</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(hit[<span class="st">"mgyp"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>MGYP000000000166
 MGYP000000000617
 MGYP000000002016
@@ -883,26 +910,25 @@ MGYP000000005958
 MGYP000000006630</code></pre>
 <p>Fetching each hit from the detail endpoint adds the sequence length and the domains it carries:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> hit <span class="kw">in</span> hits:</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    protein <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>BASE<span class="sc">}</span><span class="ss">/protein/</span><span class="sc">{</span>hit[<span class="st">'mgyp'</span>]<span class="sc">}</span><span class="ss">"</span>).json()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    protein <span class="op">=</span> get_json(<span class="ss">f"protein/</span><span class="sc">{</span>hit[<span class="st">'mgyp'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    domains <span class="op">=</span> <span class="st">", "</span>.join(p[<span class="st">"accession"</span>] <span class="cf">for</span> p <span class="kw">in</span> protein[<span class="st">"pfam_annotations"</span>])</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    length <span class="op">=</span> <span class="st">"full-length"</span> <span class="cf">if</span> protein[<span class="st">"full_length"</span>] <span class="cf">else</span> <span class="st">"fragment"</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    length <span class="op">=</span> {<span class="va">True</span>: <span class="st">"full-length"</span>, <span class="va">False</span>: <span class="st">"fragment"</span>, <span class="va">None</span>: <span class="st">"unknown"</span>}[protein[<span class="st">"full_length"</span>]]</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>protein[<span class="st">'mgyp'</span>]<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>length<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="bu">len</span>(protein[<span class="st">'sequence'</span>])<span class="sc">}</span><span class="ss"> aa</span><span class="ch">\t</span><span class="sc">{</span>domains<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="exploring-outwards-from-one-protein" class="level3">
 <h3 class="anchored" data-anchor-id="exploring-outwards-from-one-protein">Exploring outwards from one protein</h3>
 <p>The biome ids in a detail response are the same ids the search endpoint accepts, so you can start from a protein of interest and find others sharing its biome:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>protein <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>BASE<span class="sc">}</span><span class="ss">/protein/MGYP000261684433"</span>).json()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>protein <span class="op">=</span> get_json(<span class="st">"protein/MGYP000261684433"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> biome <span class="kw">in</span> protein[<span class="st">"biomes"</span>]:</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(biome[<span class="st">"id"</span>], biome[<span class="st">"name"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>132 root:Environmental:Aquatic:Marine</code></pre>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>neighbours <span class="op">=</span> requests.get(</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>BASE<span class="sc">}</span><span class="ss">/protein/search"</span>,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{<span class="st">"biome_id"</span>: protein[<span class="st">"biomes"</span>][<span class="dv">0</span>][<span class="st">"id"</span>], <span class="st">"limit"</span>: <span class="dv">10</span>},</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> hit <span class="kw">in</span> neighbours:</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(hit[<span class="st">"mgyp"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>neighbours <span class="op">=</span> get_json(<span class="st">"protein/search"</span>, biome_id<span class="op">=</span>protein[<span class="st">"biomes"</span>][<span class="dv">0</span>][<span class="st">"id"</span>], limit<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(neighbours) <span class="op">==</span> <span class="dv">10</span>:</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Search reached its limit; these neighbours may not include all matches."</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> hit <span class="kw">in</span> neighbours:</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(hit[<span class="st">"mgyp"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>MGYP000000000012
 MGYP000000000101
 MGYP000000000348
@@ -941,12 +967,12 @@ MGYP000000001467</code></pre>
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{2026,
   author = {, MGnify},
   title = {Proteins {API}},
-  date = {2026-11-04},
+  date = {2026-11-17},
   url = {https://docs.mgnify.org/src/docs/mgnify-proteins-api.html},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-2026" class="csl-entry quarto-appendix-citeas" role="listitem">
-MGnify. 2026. <span>“Proteins API.”</span> November 4. <a href="https://docs.mgnify.org/src/docs/mgnify-proteins-api.html">https://docs.mgnify.org/src/docs/mgnify-proteins-api.html</a>.
+MGnify. 2026. <span>“Proteins API.”</span> November 17. <a href="https://docs.mgnify.org/src/docs/mgnify-proteins-api.html">https://docs.mgnify.org/src/docs/mgnify-proteins-api.html</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1355,8 +1381,8 @@ MGnify. 2026. <span>“Proteins API.”</span> November 4. <a href="https://docs
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../src/docs/mgnify-proteins-sequence-search.html" class="pagination-link" aria-label="Sequence search">
-        <span class="nav-page-text">Sequence search</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../src/docs/mgnify-proteins-programmatic.html" class="pagination-link" aria-label="Using MGnify Proteins programmatically">
+        <span class="nav-page-text">Using MGnify Proteins programmatically</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
