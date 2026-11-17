@@ -108,7 +108,7 @@ print([b["lineage"] for b in biomes if "Wastewater" in b["lineage"]])
 ```
 
 Use the returned full lineage as `biome_lineage`. This endpoint does not return
-numeric biome IDs; use a protein detail's `biomes[].id` where non-null if you need
+numeric biome IDs; use a protein detail's `biomes[].id` if you need
 `biome_id`. An empty protein search result does not by itself validate an
 identifier; see the [search reference](mgnify-proteins-api.md#protein-search) for
 no-match and validation behaviour.

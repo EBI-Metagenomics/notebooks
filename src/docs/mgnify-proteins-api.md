@@ -202,7 +202,7 @@ The full list of biome **lineages** can be retrieved from the MGnify API's
 [paginated biomes endpoint](https://www.ebi.ac.uk/metagenomics/api/v2/biomes/).
 It returns `biome_name` and `lineage`, not numeric IDs. Use these lineages with
 `biome_lineage`; obtain numeric `biome_id` values from `biomes[].id` in a protein
-detail response, where an ID is present.
+detail response.
 
 An unknown, syntactically accepted `pfam_accession` or `biome_id` currently
 returns `200` with `[]`, whereas an unknown `biome_lineage` returns `422`.
