@@ -55,7 +55,7 @@ The OpenAPI schema can be used to generate a client in your language of choice, 
 
 The API is read-only: only `GET` is supported.
 
-`HEAD` currently returns `405 Method Not Allowed`, including for existing
+`HEAD` returns `405 Method Not Allowed`, including for existing
 proteins. Use `GET` for an existence check and handle its status; a failed `HEAD`
 does not establish that a protein is missing.
 
