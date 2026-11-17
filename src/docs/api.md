@@ -58,10 +58,7 @@ Start with the [Proteins API reference](mgnify-proteins-api.md) or the
 Pfam and biome searches, bulk sequences and sequence similarity searches.
 Agents can start from [llms.txt](../../llms.txt).
 
-The [main v2 OpenAPI schema](https://www.ebi.ac.uk/metagenomics/api/v2/openapi.json)
-does not currently list protein routes (checked 10 November 2026). Its general
-description of endpoints for all data types should not be read as a promise that
-`/api/v2/proteins/` exists. Use the
+Protein routes are not part of the main v2 API. Use the
 [Proteins OpenAPI schema](https://www.ebi.ac.uk/metagenomics/proteins/api/v1/openapi.json)
 for the supported protein operations.
 
