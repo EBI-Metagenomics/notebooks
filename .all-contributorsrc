@@ -126,6 +126,15 @@
         "content",
         "userTesting"
       ]
+    },
+    {
+      "login": "MGS-sails",
+      "name": "Mahfouz Shehu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/28231792?v=4",
+      "profile": "https://github.com/MGS-sails",
+      "contributions": [
+        "content"
+      ]
     }
   ],
   "contributorsPerLine": 7,
