@@ -135,6 +135,16 @@
       "contributions": [
         "content"
       ]
+    },
+    {
+      "login": "Ge94",
+      "name": "Germana Baldi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9315585?v=4",
+      "profile": "https://github.com/Ge94",
+      "contributions": [
+        "content",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
