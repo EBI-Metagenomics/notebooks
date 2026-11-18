@@ -1,7 +1,7 @@
 # EMBL-EBI MGnify user guides and API examples
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This repository builds the static site at https://docs.mgnify.org using [Quarto](https://quarto.org/).
@@ -243,6 +243,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/soo-jeongkim"><img src="https://avatars.githubusercontent.com/u/73852912?v=4&size=100" width="100px" height="100px" alt="Soo-Jeong Kim"/><br /><sub><b>Soo-Jeong Kim</b></sub></a><br /><a href="#ideas-soo-jeongkim" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=soo-jeongkim" title="Code">💻</a> <a href="#content-soo-jeongkim" title="Content">🖋</a> <a href="#userTesting-soo-jeongkim" title="User Testing">📓</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/MGS-sails"><img src="https://avatars.githubusercontent.com/u/28231792?v=4&size=100" width="100px" height="100px" alt="Mahfouz Shehu"/><br /><sub><b>Mahfouz Shehu</b></sub></a><br /><a href="#content-MGS-sails" title="Content">🖋</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Ge94"><img src="https://avatars.githubusercontent.com/u/9315585?v=4&size=100" width="100px" height="100px" alt="Germana Baldi"/><br /><sub><b>Germana Baldi</b></sub></a><br /><a href="#content-Ge94" title="Content">🖋</a> <a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=Ge94" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/chrisAta"><img src="https://avatars.githubusercontent.com/u/34323164?v=4&size=100" width="100px" height="100px" alt="Christian Atallah"/><br /><sub><b>Christian Atallah</b></sub></a><br /><a href="#ideas-chrisAta" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=chrisAta" title="Code">💻</a> <a href="#content-chrisAta" title="Content">🖋</a> <a href="https://github.com/EBI-Metagenomics/notebooks/commits?author=chrisAta" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
