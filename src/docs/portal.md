@@ -25,11 +25,29 @@ If you submit private data, once it is analysed you’ll find it by logging into
 For more information, see [the dataflow section](dataflow.md).
 
 
-### [Text Search](https://www.ebi.ac.uk/metagenomics/search)
+### Search
+
+The **Search** menu includes text search and molecular search.
+
+#### [Text search](https://www.ebi.ac.uk/metagenomics/search)
 
 MGnify’s [Studies](glossary.md#study), [Samples](glossary.md#sample), and [Analyses](glossary.md#analysis-result)
 are indexed so that they can be searched for by name, description, accession, [biome](glossary.md#biome) and more.
 This is the quickest way to get started finding [metagenomics](glossary.md#metagenomic)-derived data.
+
+#### [Search by molecule](https://www.ebi.ac.uk/metagenomics/molecule-search)
+
+Molecular search finds [assembly](glossary.md#assembly) [analyses](glossary.md#analysis-result) with predicted [Rhea](glossary.md#rhea) reactions involving a molecule or similar molecules.
+It searches the indexed Rhea results from the [version 6 assembly analysis pipeline](analysis/version6/assembly-annotation.md).
+
+Start with a chemical name or ChEBI identifier to find a structure in [ChEBI](glossary.md#chebi).
+Alternatively, enter a [SMILES string](https://en.wikipedia.org/wiki/Simplified_Molecular_Input_Line_Entry_System).
+You can also draw a structure with the Ketcher editor to generate a SMILES string.
+
+[IDSM](https://idsm.elixir-czech.cz/chemweb/) finds similar molecules for the selected structure.
+MGnify then searches the ChEBI identifiers in its Rhea index.
+Results link to the assembly analyses and their Rhea tables.
+These are predicted reaction participants, not measurements of molecules in a sample.
 
 ### [Browse Data](https://www.ebi.ac.uk/metagenomics/browse)
 

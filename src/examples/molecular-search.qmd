@@ -1,0 +1,170 @@
+---
+title: "Molecular search in Python"
+description: "Find assembly analyses by molecule, then inspect a predicted protein's annotations."
+format:
+  live-html:
+    theme: [cosmo, ../static-resources/styles.scss]
+    toc: true
+    code-copy: true
+    code-overflow: wrap
+pyodide:
+  packages: [requests, pandas]
+  cell-options:
+    autorun: false
+    edit: true
+---
+
+Start with a ChEBI identifier, find matching assembly analyses, and inspect a protein with a predicted Rhea reaction.
+Run the editable cells in order. The first visit may take a minute to load Python.
+
+This example uses [CHEBI:132137, (R)-demethyl-4-deoxygadusol](https://www.ebi.ac.uk/chebi/CHEBI:132137).
+This molecule is an intermediate in [microbial sunscreen biosynthesis involving MysA and MysB](https://pmc.ncbi.nlm.nih.gov/articles/PMC10510106/).
+A molecule match alone does not identify a protein as MysA.
+The final cell shows the protein's other annotations for further inspection.
+
+The [portal guide](../docs/portal.md#search-by-molecule) explains the website search.
+These results represent predicted reactions, not measured metabolites or confirmed enzyme activities.
+
+## Find the molecule's structure
+
+The API's compound lookup queries ChEBI for a name, identifier, and SMILES structure.
+Change `CHEBI_ID` to explore another molecule.
+
+```{pyodide}
+from io import BytesIO
+import re
+from urllib.parse import unquote
+
+import pandas as pd
+import requests
+
+API = "https://www.ebi.ac.uk/metagenomics/api/v2"
+CHEBI_ID = "CHEBI:132137"
+
+def get_json(path, **params):
+    response = requests.get(f"{API}/{path}", params=params, timeout=60)
+    response.raise_for_status()
+    return response.json()
+
+candidates = get_json("molecule-search/compounds", term=CHEBI_ID)
+compound = next(c for c in candidates if c["chebi_id"] == CHEBI_ID)
+print(compound["name"])
+print(compound["smiles"])
+```
+
+## Find assembly analyses
+
+The search expands the SMILES structure through IDSM, then searches the indexed ChEBI reaction participants.
+Related charged forms can also appear among the matched molecules.
+The loop retrieves every result page.
+
+```{pyodide}
+hits = []
+after = 0
+while True:
+    response = requests.post(
+        f"{API}/molecule-search/",
+        json={"smiles": compound["smiles"], "after": after},
+        timeout=90,
+    )
+    response.raise_for_status()
+    batch = response.json()
+    hits.extend(batch["items"])
+    after = batch["next_cursor"]
+    if after is None:
+        break
+
+if not hits:
+    raise ValueError("No indexed assembly analyses match this molecule.")
+
+print(f"Found {len(hits)} assembly analyses")
+pd.DataFrame(hits)[["analysis", "assembly"]].sort_values("analysis", ascending=False)
+```
+
+## Choose the highest MGYA accession
+
+Select the highest accession across all result pages.
+This selects by accession number, not by a measured sample date.
+Its detail record supplies the result download URLs.
+
+```{pyodide}
+selected = max(hits, key=lambda hit: hit["analysis"])
+ANALYSIS = selected["analysis"]
+analysis = get_json(f"analyses/{ANALYSIS}")
+print(ANALYSIS, selected["assembly"])
+print(f"https://www.ebi.ac.uk/metagenomics/analyses/{ANALYSIS}/functional?type=rhea")
+
+downloads = analysis["downloads"]
+pd.DataFrame(downloads)[["download_group", "short_description", "alias"]]
+```
+
+## Find a protein in the Rhea table
+
+Load the seven-column Rhea TSV into pandas.
+Use the matched ChEBI identifiers from the selected analysis, including any related forms.
+The `protein_id` column identifies a protein with a predicted reaction involving those molecules.
+
+```{pyodide}
+def read_result(download, **options):
+    response = requests.get(download["url"], timeout=120)
+    response.raise_for_status()
+    return pd.read_csv(
+        BytesIO(response.content), sep="\t", compression="gzip", **options
+    )
+
+rhea_download = next(d for d in downloads
+                     if d["download_group"] == "functional_annotation.rhea_reactions")
+rhea = read_result(rhea_download, names=[
+    "contig_id", "protein_id", "protein_hash", "rhea_id",
+    "chebi_reaction", "reaction", "top_hit",
+], comment="#", dtype=str)
+# Support tables with or without a header row.
+rhea = rhea[rhea["rhea_id"].str.startswith("RHEA:", na=False)]
+
+matched_ids = [m["chebi_id"] for m in selected["molecules"]]
+pattern = r"\b(?:" + "|".join(re.escape(c) for c in matched_ids) + r")\b"
+reactions = rhea[rhea["chebi_reaction"].str.contains(pattern, na=False)]
+if reactions.empty:
+    raise ValueError("No matching Rhea rows in this download.")
+
+PROTEIN = reactions.iloc[0]["protein_id"]
+print(PROTEIN)
+reactions[reactions["protein_id"] == PROTEIN]
+```
+
+## Read the protein's other annotations
+
+Use the merged annotation-summary GFF, rather than a tool-specific GFF.
+Its attributes contain the other annotations for each CDS.
+The coordinates identify the protein's location on its contig.
+ChEBI identifiers need not appear in this GFF; the protein ID connects the two files.
+Read the GFF in chunks to limit memory use.
+
+```{pyodide}
+gff_download = next(d for d in downloads
+                    if d["download_group"] == "annotation_summary"
+                    and d["file_type"] == "gff")
+gff_chunks = read_result(gff_download, comment="#", chunksize=10000, names=[
+    "contig", "source", "type", "start", "end", "score", "strand", "phase", "attributes",
+])
+
+protein_pattern = rf"(?:^|;)(?:ID|protein_id)={re.escape(PROTEIN)}(?:;|$)"
+features = pd.DataFrame()
+for chunk in gff_chunks:
+    features = chunk[chunk["attributes"].str.contains(protein_pattern, na=False)]
+    if not features.empty:
+        break
+gff_chunks.close()
+if features.empty:
+    raise ValueError("Protein ID not found in the annotation-summary GFF.")
+
+feature = features.iloc[0]
+print(feature[["contig", "start", "end", "strand"]].to_string())
+attributes = dict(item.split("=", 1) for item in feature["attributes"].split(";")
+                  if "=" in item)
+pd.Series({key: unquote(value) for key, value in attributes.items()}, name=PROTEIN)
+```
+
+The GFF coordinates are one-based and include both ends.
+Large result files can take time to download in a browser.
+For larger analyses, run these cells in a local Python notebook with `requests` and `pandas` installed.

@@ -58,6 +58,7 @@ website:
               href: src/examples/index.qmd
               contents:
               - src/examples/python.qmd
+              - src/examples/molecular-search.qmd
               - src/examples/mgnipy.qmd
               - src/examples/proteins-api.qmd
               - src/examples/r.qmd

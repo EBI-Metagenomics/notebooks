@@ -33,6 +33,11 @@ Refers to environmental sample where Whole Genome Shotgun sequencing reads have 
 ## Biome
 An ecological community type. In MGnify, [biomes](#biome) are organised hierarchically going from large types (such as soil, host-associated or aquatic) to more precise types (such as forest soil, skin or coastal) based on the [GOLD classification](https://gold.jgi.doe.gov/distribution#Classification)
 
+## ChEBI {#chebi}
+[ChEBI](https://www.ebi.ac.uk/chebi/) (Chemical Entities of Biological Interest) is a curated database and ontology of chemical entities.
+Its entries describe molecules, ions, and chemical classes with identifiers such as `CHEBI:132137`.
+[Rhea](#rhea) uses ChEBI identifiers for reaction participants.
+
 ## COG
 Cluster of Orthologous Groups of proteins - a database of groups of proteins inferred by orthology.
 
@@ -89,6 +94,11 @@ A software or script used during the individual step of an analysis pipeline.
 
 ## Predicted coding sequence (pCDS)
 Partial or complete gene sequence as predicted by the gene caller (FragGenScan for read submissions, Prodigal and FragGenScan for assembly submissions).
+
+## Rhea {#rhea}
+[Rhea](https://www.rhea-db.org/) is a curated database of chemical and transport reactions.
+It describes reaction participants with [ChEBI](#chebi) identifiers.
+MGnify's assembly analysis pipeline predicts Rhea reactions associated with proteins.
 
 ## RO-Crate (Research Object Crate)
 A method and standard for describing the metadata associated with a set of research data. [RO-Crates](https://www.researchobject.org/ro-crate/) are implemented as a JSON-LD schema file, which can be packaged as a ZIP file optionally containing some or all of the data it describes, and optionally an HTML file to provide a human-readable view of the crate.

@@ -7,6 +7,7 @@ Find a study, list its analyses, and load a Pfam result into a data frame.
 Choose an example to get started:
 
 - [Python with requests and pandas](python.qmd) — edit and run in your browser.
+- [Molecular search in Python](molecular-search.qmd) — find reaction predictions and inspect a protein's annotations.
 - [R with jsonlite](r.qmd) — edit and run in your browser.
 - [Observable JS with D3](observable-js.qmd) — plot Antismash cluster counts for an analysis.
 - [Python with MGnipy](mgnipy.qmd) — a quick introduction and an interactive demo.
